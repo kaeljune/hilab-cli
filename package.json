@@ -1,6 +1,6 @@
 {
 	"name": "hilab-cli",
-	"version": "4.0.0",
+	"version": "0.1.0",
 	"description": "CLI tool for bootstrapping and updating HiLab projects",
 	"type": "module",
 	"repository": {

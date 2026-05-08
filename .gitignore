@@ -153,3 +153,5 @@ src/ui/tsconfig.tsbuildinfo
 test-results/
 playwright-report/
 tests/e2e/.auth/
+README1.md
+
