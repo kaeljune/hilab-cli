@@ -288,7 +288,7 @@ export const translations = {
 		// Onboarding.tsx - Kit comparison
 		onboardingTitle: "Welcome to HiLab",
 		onboardingSubtitle: "Choose your kit and get started in minutes",
-		kitEngineerName: "HiLab Engineer",
+		kitEngineerName: "HiLab Coding",
 		kitEngineerTagline: "AI-powered coding with skills, hooks, and multi-agent workflows",
 		kitMarketingName: "HiLab Marketing",
 		kitMarketingTagline: "Content automation: campaigns, social media, analytics",
@@ -1386,7 +1386,7 @@ export const translations = {
 		// Onboarding.tsx - Kit comparison
 		onboardingTitle: "Chào mừng đến HiLab",
 		onboardingSubtitle: "Chọn kit của bạn và bắt đầu trong vài phút",
-		kitEngineerName: "HiLab Engineer",
+		kitEngineerName: "HiLab Coding",
 		kitEngineerTagline: "Lập trình AI với skills, hooks và multi-agent",
 		kitMarketingName: "HiLab Marketing",
 		kitMarketingTagline: "Tự động hóa nội dung: chiến dịch, mạng xã hội, phân tích",

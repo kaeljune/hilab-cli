@@ -82,7 +82,12 @@ const Sidebar: React.FC<SidebarProps> = ({
 		>
 			{/* Branding */}
 			<div className={`flex items-center ${showText ? "p-6 gap-3" : "p-2 justify-center"}`}>
-				<img src="/images/logo-transparent-32.png" alt="HiLab" className="w-8 h-8 shrink-0" />
+				<div
+					aria-label="HiLab"
+					className="w-8 h-8 shrink-0 rounded-lg bg-dash-accent text-dash-surface flex items-center justify-center text-sm font-extrabold tracking-tight"
+				>
+					Hi
+				</div>
 				{showText && (
 					<div className="overflow-hidden">
 						<h1 className="text-sm font-bold truncate tracking-tight text-dash-text">HiLab</h1>

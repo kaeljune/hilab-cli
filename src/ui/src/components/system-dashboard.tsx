@@ -5,6 +5,20 @@
  */
 import type React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
+/**
+ * Remap pre-rebrand kit names from legacy metadata.name to HiLab brand for display.
+ * The user's on-disk metadata.json (written by old `ck init`) may contain
+ * "ClaudeKit Engineer" / "ClaudeKit Marketing" / "ClaudeKit". Re-running `hi init`
+ * rewrites the file, but until then we present the HiLab equivalent in the UI.
+ */
+function remapLegacyKitName(name: string | undefined): string | undefined {
+	if (!name) return name;
+	if (/claudekit\s+engineer/i.test(name)) return "HiLab Coding";
+	if (/claudekit\s+marketing/i.test(name)) return "HiLab Marketing";
+	if (/^claudekit$/i.test(name.trim())) return "HiLab";
+	return name;
+}
 import { useI18n } from "../i18n";
 import { getSystemInfo } from "../services/api";
 import SystemBatchControls, { type ComponentUpdateState } from "./system-batch-controls";
@@ -92,7 +106,10 @@ const SystemDashboard: React.FC<SystemDashboardProps> = ({ metadata }) => {
 		return Object.entries(metadata.kits as Record<string, unknown>);
 	}, [metadata.kits]);
 	const hasKits = kitEntries.length > 0;
-	const legacyName = metadata.name as string | undefined;
+	const rawLegacyName = metadata.name as string | undefined;
+	// Remap pre-rebrand metadata.name (written by old `ck init`) to HiLab brand for display.
+	// User's metadata.json on disk still has "ClaudeKit Engineer" — re-running `hi init` will overwrite it.
+	const legacyName = remapLegacyKitName(rawLegacyName);
 	const legacyVersion = metadata.version as string | undefined;
 	const legacyInstalledAt = metadata.installedAt as string | undefined;
 	const hasAnyKit = kitEntries.length > 0 || legacyName;
