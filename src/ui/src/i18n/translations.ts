@@ -1026,7 +1026,6 @@ export const translations = {
 		// Workflows Visualization Page
 		workflowsTitle: "Workflows",
 		workflowsSubtitle: "Learn HiLab through interactive workflow visualization.",
-		workflowsCredit: "Workflows data and visualization layout inspired by",
 		workflowImplementationRecipe: "Implementation Recipe",
 		workflowSearchPlaceholder: "Search workflows...",
 		workflowNoResults: "No workflows found",
@@ -2122,7 +2121,6 @@ export const translations = {
 		// Workflows Visualization Page
 		workflowsTitle: "Quy trình",
 		workflowsSubtitle: "Tìm hiểu HiLab thông qua hình ảnh hóa quy trình tương tác.",
-		workflowsCredit: "Dữ liệu quy trình và giao diện được lấy cảm hứng từ",
 		workflowImplementationRecipe: "Công thức triển khai",
 		workflowSearchPlaceholder: "Tìm quy trình...",
 		workflowNoResults: "Không tìm thấy quy trình",

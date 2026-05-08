@@ -51,25 +51,6 @@ export default function WorkflowsPage() {
 
 					{/* Header Controls */}
 					<div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
-						{/* VividKit Credit Chip */}
-						<a
-							href="https://vividkit.dev/guides/workflows"
-							target="_blank"
-							rel="noreferrer"
-							className="group hidden md:flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-500/10 dark:to-purple-500/10 border border-indigo-100 dark:border-indigo-500/20 rounded-lg hover:shadow-sm transition-all text-indigo-700 dark:text-indigo-400 hover:border-indigo-300 dark:hover:border-indigo-500/40"
-						>
-							<svg
-								className="w-3.5 h-3.5"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-							>
-								<path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-							</svg>
-							<span className="text-xs font-semibold whitespace-nowrap">Inspired by VividKit</span>
-						</a>
-
 						{/* Search bar */}
 						<div className="relative w-full sm:w-64">
 							<svg
