@@ -134,12 +134,13 @@ reports/
 logs.txt
 repomix-output.xml
 
-# Compiled binaries (keep wrapper script)
+# Compiled binaries (keep wrapper script bin/hi.js)
 ck
 bin/ck-*
 bin/ck
 bin/*.exe
-bin/
+bin/hi-*
+!bin/hi.js
 
 # Test integration
 test-integration/
