@@ -47,11 +47,11 @@ describe("merge-engine deprecation removal", () => {
 
 		it("should preserve user-added hook not in installed", () => {
 			const sourceHooks: Record<string, HookEntry[]> = {
-				SessionStart: [{ type: "command", command: "node ck-hook.js" }],
+				SessionStart: [{ type: "command", command: "node hi-hook.js" }],
 			};
 			const destHooks: Record<string, HookEntry[]> = {
 				SessionStart: [
-					{ type: "command", command: "node ck-hook.js" },
+					{ type: "command", command: "node hi-hook.js" },
 					{ type: "command", command: "node user-hook.js" },
 				],
 			};
@@ -59,7 +59,7 @@ describe("merge-engine deprecation removal", () => {
 
 			const merged = mergeHooks(sourceHooks, destHooks, result, {
 				installedSettings: {
-					hooks: ["node ck-hook.js"], // user-hook.js not in installed = user added it
+					hooks: ["node hi-hook.js"], // user-hook.js not in installed = user added it
 				},
 			});
 

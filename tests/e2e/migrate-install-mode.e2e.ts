@@ -46,10 +46,10 @@ const MOHI_PROVIDERS = [
 ];
 
 const MOHI_DISCOVERY = {
-	cwd: "/tmp/ck-e2e-test",
+	cwd: "/tmp/hi-e2e-test",
 	targetPaths: {
-		project: "/tmp/ck-e2e-test/.claude",
-		global: "/tmp/ck-e2e-test/.claude",
+		project: "/tmp/hi-e2e-test/.claude",
+		global: "/tmp/hi-e2e-test/.claude",
 	},
 	sourcePaths: {
 		agents: "/opt/hilab/.claude/agents",
@@ -153,7 +153,7 @@ const MOHI_EXECUTE_2_ITEMS = {
 			provider: "claude",
 			success: true,
 			skipped: false,
-			path: "/tmp/ck-e2e-test/.claude/commands/build.md",
+			path: "/tmp/hi-e2e-test/.claude/commands/build.md",
 		},
 		{
 			item: "deploy",
@@ -161,7 +161,7 @@ const MOHI_EXECUTE_2_ITEMS = {
 			provider: "claude",
 			success: true,
 			skipped: false,
-			path: "/tmp/ck-e2e-test/.claude/commands/deploy.md",
+			path: "/tmp/hi-e2e-test/.claude/commands/deploy.md",
 		},
 	],
 	counts: { installed: 2, updated: 0, skipped: 0, failed: 0, deleted: 0 },

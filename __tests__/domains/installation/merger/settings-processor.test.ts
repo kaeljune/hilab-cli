@@ -451,7 +451,7 @@ describe("SettingsProcessor", () => {
 			processor.setDeletions([
 				"hooks/session-end.cjs",
 				"hooks/write-compact-marker.cjs",
-				"hooks/lib/ck-paths.cjs",
+				"hooks/lib/hi-paths.cjs",
 				"commands/old-command.md",
 			]);
 			await processor.processSettingsJson(sourceFile, destFile);

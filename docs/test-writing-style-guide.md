@@ -235,7 +235,7 @@ describe("file operations", () => {
 	let tempDir: string;
 
 	beforeEach(async () => {
-		tempDir = join(tmpdir(), `ck-test-${Date.now()}`);
+		tempDir = join(tmpdir(), `hi-test-${Date.now()}`);
 		await mkdir(tempDir, { recursive: true });
 	});
 

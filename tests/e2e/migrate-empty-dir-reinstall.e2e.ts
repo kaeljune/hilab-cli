@@ -51,7 +51,7 @@ function buildHookInstallAction(item: string): ReconcileAction {
 		type: "hooks",
 		provider: "codex",
 		global: false,
-		targetPath: `/tmp/ck-e2e-test/.codex/hooks/${item}`,
+		targetPath: `/tmp/hi-e2e-test/.codex/hooks/${item}`,
 		reason: "Provider directory is empty — reinstalling",
 		reasonCode: "target-dir-empty-reinstall",
 		reasonCopy: "Provider directory is empty — reinstalling",
@@ -73,7 +73,7 @@ const MOHI_RECONCILE_PLAN: ReconcilePlan = {
 			provider: "codex",
 			type: "hooks",
 			global: false,
-			path: "/tmp/ck-e2e-test/.codex/hooks",
+			path: "/tmp/hi-e2e-test/.codex/hooks",
 			itemCount: 3,
 			// This message is rendered inside <strong> in MigratePageContent banner block.
 			// The EmptyDirBanner component (in ReconcilePlanView) renders
@@ -85,10 +85,10 @@ const MOHI_RECONCILE_PLAN: ReconcilePlan = {
 };
 
 const MOHI_DISCOVERY = {
-	cwd: "/tmp/ck-e2e-test",
+	cwd: "/tmp/hi-e2e-test",
 	targetPaths: {
-		project: "/tmp/ck-e2e-test/.claude",
-		global: "/tmp/ck-e2e-test/.claude",
+		project: "/tmp/hi-e2e-test/.claude",
+		global: "/tmp/hi-e2e-test/.claude",
 	},
 	sourcePaths: {
 		agents: null,
@@ -119,7 +119,7 @@ const MOHI_EXECUTE_RESULT = {
 		provider: "codex",
 		success: true,
 		skipped: false,
-		path: `/tmp/ck-e2e-test/.codex/hooks/${item}`,
+		path: `/tmp/hi-e2e-test/.codex/hooks/${item}`,
 	})),
 	counts: { installed: 3, updated: 0, skipped: 0, failed: 0, deleted: 0 },
 	summary: { installed: 3, updated: 0, skipped: 0, failed: 0, deleted: 0 },

@@ -58,10 +58,10 @@ const MOHI_PROVIDERS = [
 ];
 
 const MOHI_DISCOVERY = {
-	cwd: "/tmp/ck-e2e-test",
+	cwd: "/tmp/hi-e2e-test",
 	targetPaths: {
-		project: "/tmp/ck-e2e-test/.claude",
-		global: "/tmp/ck-e2e-test/.claude",
+		project: "/tmp/hi-e2e-test/.claude",
+		global: "/tmp/hi-e2e-test/.claude",
 	},
 	sourcePaths: {
 		agents: "/opt/hilab/.claude/agents",
@@ -92,7 +92,7 @@ const UPDATE_ACTION: ReconcileAction = {
 	type: "command",
 	provider: "claude",
 	global: false,
-	targetPath: "/tmp/ck-e2e-test/.claude/commands/build.md",
+	targetPath: "/tmp/hi-e2e-test/.claude/commands/build.md",
 	reason: "CK updated, you didn't edit — safe to overwrite",
 	reasonCode: "source-changed",
 	reasonCopy: "CK updated, you didn't edit — safe to overwrite",
@@ -110,7 +110,7 @@ const DELETE_ACTION: ReconcileAction = {
 	type: "agent",
 	provider: "claude",
 	global: false,
-	targetPath: "/tmp/ck-e2e-test/.claude/agents/deprecated-agent.md",
+	targetPath: "/tmp/hi-e2e-test/.claude/agents/deprecated-agent.md",
 	reason: "Source removed — cleaning up orphan",
 	reasonCode: "source-removed-orphan",
 	reasonCopy: "Source removed — cleaning up orphan",
@@ -128,7 +128,7 @@ const SKIP_ACTION: ReconcileAction = {
 	type: "hooks",
 	provider: "codex",
 	global: false,
-	targetPath: "/tmp/ck-e2e-test/.codex/hooks/pre-commit",
+	targetPath: "/tmp/hi-e2e-test/.codex/hooks/pre-commit",
 	reason: "User edits preserved",
 	reasonCode: "user-edits-preserved",
 	reasonCopy: "User edits preserved",
@@ -147,7 +147,7 @@ const INSTALL_ACTION: ReconcileAction = {
 	type: "hooks",
 	provider: "codex",
 	global: false,
-	targetPath: "/tmp/ck-e2e-test/.codex/hooks/post-commit",
+	targetPath: "/tmp/hi-e2e-test/.codex/hooks/post-commit",
 	reason: "New — not previously installed",
 	reasonCode: "new-item",
 	reasonCopy: "New — not previously installed",
@@ -173,7 +173,7 @@ const MOHI_EXECUTE_RESULT = {
 			provider: "codex",
 			success: true,
 			skipped: false,
-			path: "/tmp/ck-e2e-test/.codex/hooks/post-commit",
+			path: "/tmp/hi-e2e-test/.codex/hooks/post-commit",
 		},
 		{
 			item: "build",
@@ -181,7 +181,7 @@ const MOHI_EXECUTE_RESULT = {
 			provider: "claude",
 			success: true,
 			skipped: false,
-			path: "/tmp/ck-e2e-test/.claude/commands/build.md",
+			path: "/tmp/hi-e2e-test/.claude/commands/build.md",
 		},
 		{
 			item: "deprecated-agent",

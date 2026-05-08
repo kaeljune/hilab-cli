@@ -7,14 +7,14 @@ describe("expandDeletionPatterns", () => {
 		expect(expandDeletionPatterns(patterns)).toEqual(patterns);
 	});
 
-	it("expands engineer command deletions to legacy ck-prefixed paths", () => {
+	it("expands engineer command deletions to legacy hi-prefixed paths", () => {
 		expect(expandDeletionPatterns(["commands/ask.md"], "engineer")).toEqual([
 			"commands/ask.md",
 			"commands/hi/ask.md",
 		]);
 	});
 
-	it("expands engineer command glob deletions to legacy ck-prefixed paths", () => {
+	it("expands engineer command glob deletions to legacy hi-prefixed paths", () => {
 		expect(expandDeletionPatterns(["commands/plan/**"], "engineer")).toEqual([
 			"commands/plan/**",
 			"commands/hi/plan/**",

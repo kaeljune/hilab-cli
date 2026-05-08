@@ -5,7 +5,7 @@
  *   A. metadata.json self-tracked in kits.*.files[] → must NOT throw
  *   B. metadata.json missing mid-cleanup (race) → must NOT throw
  *   C. Happy path — metadata.json not self-tracked
- *   D. Mixed ownership — ck, ck-modified, user; metadata.json self-tracked
+ *   D. Mixed ownership — ck, hi-modified, user; metadata.json self-tracked
  *   E. Legacy format (no kits) — metadata.json self-tracked
  *
  * NOTE: mock.module calls must appear before the static import of the module
@@ -142,7 +142,7 @@ describe("Fixture A — metadata.json self-tracked in kits.engineer.files", () =
 			claudeDir,
 			makeMultiKitMetadata(
 				[makeTrackedFile("commands/test.md", "hi")],
-				true, // metadata.json listed as ck-owned tracked file
+				true, // metadata.json listed as hi-owned tracked file
 			),
 		);
 		writeTrackedFile(claudeDir, "commands/test.md");
@@ -168,13 +168,13 @@ describe("Fixture A — metadata.json self-tracked in kits.engineer.files", () =
 	test("CK-owned tracked files are removed", async () => {
 		writeMetadata(
 			claudeDir,
-			makeMultiKitMetadata([makeTrackedFile("commands/ck-file.md", "hi")], true),
+			makeMultiKitMetadata([makeTrackedFile("commands/hi-file.md", "hi")], true),
 		);
-		writeTrackedFile(claudeDir, "commands/ck-file.md");
+		writeTrackedFile(claudeDir, "commands/hi-file.md");
 
 		await runFreshInstall(claudeDir);
 
-		expect(existsSync(join(claudeDir, "commands/ck-file.md"))).toBe(false);
+		expect(existsSync(join(claudeDir, "commands/hi-file.md"))).toBe(false);
 	});
 });
 
@@ -259,7 +259,7 @@ describe("Fixture C — happy path (metadata.json NOT self-tracked)", () => {
 // ─── Fixture D: Mixed ownership, metadata.json self-tracked ──────────────────
 
 describe("Fixture D — mixed ownership, metadata.json self-tracked", () => {
-	test("hi and ck-modified removed, user preserved, no throw", async () => {
+	test("hi and hi-modified removed, user preserved, no throw", async () => {
 		writeMetadata(
 			claudeDir,
 			makeMultiKitMetadata(
@@ -268,7 +268,7 @@ describe("Fixture D — mixed ownership, metadata.json self-tracked", () => {
 					makeTrackedFile("commands/modified.md", "hi-modified"),
 					makeTrackedFile("commands/user.md", "user"),
 				],
-				true, // metadata.json self-tracked as ck-owned
+				true, // metadata.json self-tracked as hi-owned
 			),
 		);
 		writeTrackedFile(claudeDir, "commands/ck.md");
@@ -279,7 +279,7 @@ describe("Fixture D — mixed ownership, metadata.json self-tracked", () => {
 
 		expect(result.success).toBe(true);
 		expect(result.error).toBeUndefined();
-		// hi + ck-modified removed (handleFreshInstallation passes includeModified=true)
+		// hi + hi-modified removed (handleFreshInstallation passes includeModified=true)
 		expect(existsSync(join(claudeDir, "commands/ck.md"))).toBe(false);
 		expect(existsSync(join(claudeDir, "commands/modified.md"))).toBe(false);
 		// user-owned preserved

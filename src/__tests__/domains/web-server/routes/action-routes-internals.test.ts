@@ -43,7 +43,7 @@ describe("action routes internals", () => {
 	});
 
 	test("buildLaunchCommand avoids shell-based Linux launch", () => {
-		const dirPath = "/tmp/ck-project";
+		const dirPath = "/tmp/hi-project";
 		const command = buildLaunchCommand(dirPath);
 
 		if (process.platform === "linux") {

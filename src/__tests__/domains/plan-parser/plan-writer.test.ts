@@ -134,7 +134,7 @@ describe("generatePlanMd", () => {
 		expect(created).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
 	});
 
-	test("includes createdBy=ck-cli by default", () => {
+	test("includes createdBy=hi-cli by default", () => {
 		const output = generatePlanMd(baseOptions);
 		const { data } = matter(output);
 		expect(data.createdBy).toBe("hi-cli");

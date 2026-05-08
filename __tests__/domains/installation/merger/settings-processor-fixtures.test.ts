@@ -205,7 +205,7 @@ describe("Fixture: legacy deprecated matchers (#430)", () => {
 				PostToolUse: [
 					{
 						matcher: "Bash|Edit",
-						hooks: [{ type: "command", command: 'node "$HOME/.claude/hooks/ck-hook.cjs"' }],
+						hooks: [{ type: "command", command: 'node "$HOME/.claude/hooks/hi-hook.cjs"' }],
 					},
 				],
 			},

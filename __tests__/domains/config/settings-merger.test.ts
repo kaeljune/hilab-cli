@@ -9,7 +9,7 @@ describe("SettingsMerger", () => {
 		it("should preserve user hooks while adding CK hooks", () => {
 			const source: SettingsJson = {
 				hooks: {
-					SessionStart: [{ type: "command", command: "node .claude/hooks/ck-session-start.cjs" }],
+					SessionStart: [{ type: "command", command: "node .claude/hooks/hi-session-start.cjs" }],
 				},
 			};
 
@@ -721,7 +721,7 @@ describe("SettingsMerger", () => {
 				},
 			};
 
-			// User removed ck-server
+			// User removed hi-server
 			const destination: SettingsJson = {
 				mcp: {
 					servers: {},
@@ -730,11 +730,11 @@ describe("SettingsMerger", () => {
 
 			const result = SettingsMerger.merge(source, destination, {
 				installedSettings: {
-					mcpServers: ["hi-server"], // ck-server was installed before
+					mcpServers: ["hi-server"], // hi-server was installed before
 				},
 			});
 
-			// Should NOT re-add ck-server, but should add new-server
+			// Should NOT re-add hi-server, but should add new-server
 			expect(result.merged.mcp?.servers?.["hi-server"]).toBeUndefined();
 			expect(result.merged.mcp?.servers?.["new-server"]).toBeDefined();
 			expect(result.mcpServersSkipped).toBe(1);

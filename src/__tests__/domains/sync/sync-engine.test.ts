@@ -111,7 +111,7 @@ describe("SyncEngine", () => {
 			expect(plan.needsReview).toHaveLength(0);
 		});
 
-		it("auto-updates ck-owned files", async () => {
+		it("auto-updates hi-owned files", async () => {
 			await writeFile(join(upstreamDir, "kit.md"), "upstream");
 			await writeFile(join(claudeDir, "kit.md"), "local");
 

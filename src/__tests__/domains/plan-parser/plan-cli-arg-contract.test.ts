@@ -112,7 +112,7 @@ const NAMED_FILE_CANDIDATES = [
 	["hooks/subagent-init.cjs"],
 	["hooks/plan-format-kanban.cjs"],
 	["skills/cook/references/workflow-steps.md"],
-	["skills/ck-plan/references/plan-organization.md", "skills/plan/references/plan-organization.md"],
+	["skills/hi-plan/references/plan-organization.md", "skills/plan/references/plan-organization.md"],
 	["skills/project-management/references/progress-tracking.md"],
 ];
 
