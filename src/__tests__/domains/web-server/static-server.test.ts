@@ -35,7 +35,7 @@ describe("resolveUiDistPath", () => {
 
 	test("resolves dist/ui relative to the bin/ wrapper path", () => {
 		const packageRoot = createPackagedUiLayout();
-		process.argv[1] = join(packageRoot, "bin", "ck.js");
+		process.argv[1] = join(packageRoot, "bin", "hi.js");
 
 		expect(resolveUiDistPath()).toBe(join(packageRoot, "dist", "ui"));
 	});
