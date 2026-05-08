@@ -57,9 +57,9 @@ describe("PromptsManager", () => {
 
 	describe("kit configuration", () => {
 		test("AVAILABLE_KITS should be properly structured", () => {
-			expect(AVAILABLE_KITS.engineer).toBeDefined();
+			expect(AVAILABLE_KITS.coding).toBeDefined();
 			expect(AVAILABLE_KITS.marketing).toBeDefined();
-			expect(AVAILABLE_KITS.engineer.name).toBe("HiLab Coding");
+			expect(AVAILABLE_KITS.coding.name).toBe("HiLab Coding");
 			expect(AVAILABLE_KITS.marketing.name).toBe("HiLab Marketing");
 		});
 	});

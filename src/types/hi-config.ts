@@ -422,7 +422,7 @@ export const HiAssertionSchema = z.object({
 });
 export type HiAssertion = z.infer<typeof HiAssertionSchema>;
 
-// SYNC POINT: When adding/removing hooks in hilab-engineer settings.json,
+// SYNC POINT: When adding/removing hooks in hilab-coding settings.json,
 // update ALL of: HiHooksConfigSchema, DEFAULT_HI_CONFIG.hooks, HI_HOOK_NAMES,
 // src/schemas/hi-config.schema.json, GlobalConfigPage.tsx sections,
 // src/ui/src/services/configFieldDocs.ts, and src/ui/src/i18n/translations.ts (EN + VI)
@@ -446,7 +446,7 @@ export const HiHooksConfigSchema = z
 	.passthrough();
 export type HiHooksConfig = z.infer<typeof HiHooksConfigSchema>;
 
-// SYNC POINT: Simplify config block (mirrors hilab-engineer simplify-gate hook).
+// SYNC POINT: Simplify config block (mirrors hilab-coding simplify-gate hook).
 // Root .strict() to lock keys; nested blocks .passthrough() for forward-compat.
 // threshold and gate use .default({}) so Zod applies field-level defaults when the
 // sub-object is absent or empty — e.g. `simplify: {}` still yields full defaults.

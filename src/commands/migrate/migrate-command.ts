@@ -458,7 +458,7 @@ function inferKitTypeFromSourceMetadata(sourceMetadata: HiLabMetadata): KitType 
 	// NOTE: This relies on the source metadata name following the current
 	// hilab-{kitType} naming convention used by published kits.
 	if (sourceMetadata.name?.includes("marketing")) return "marketing";
-	if (sourceMetadata.name?.includes("engineer")) return "engineer";
+	if (sourceMetadata.name?.includes("coding")) return "coding";
 	return undefined;
 }
 
@@ -1088,7 +1088,7 @@ export async function migrateCommand(options: MigrateOptions): Promise<void> {
 			}
 		}
 
-		// Copy hook companion directories (lib/, scout-block/, etc.) and .ckignore to each
+		// Copy hook companion directories (lib/, scout-block/, etc.) and .hiignore to each
 		// provider's hooks directory so that `require('./lib/*.cjs')` calls inside hooks
 		// resolve correctly. This runs after per-file hook installs and before settings merger.
 		if (hooksSource && successfulHookFiles.size > 0) {

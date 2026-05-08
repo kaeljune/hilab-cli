@@ -45,7 +45,7 @@ const TRANSFORMABLE_EXTENSIONS = new Set([
  *
  * Skills excluded: cook, fix, brainstorm, scout, debug (migrated from commands)
  * Removed: code, integrate (no longer exist), kanban (slash-command retired
- *          in hilab-engineer#711 — `kanban` still exists as a UI view
+ *          in hilab-coding#711 — `kanban` still exists as a UI view
  *          mode and `hi plan kanban` subcommand, but is no longer a
  *          slash-command alias of `/hi:plans-kanban`)
  */

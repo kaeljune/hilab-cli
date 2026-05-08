@@ -778,7 +778,7 @@ describe("SelectiveMerger - Multi-Kit", () => {
 		const checksum = "a".repeat(64);
 		const metadata = {
 			kits: {
-				engineer: {
+				coding: {
 					version: "1.0.0",
 					installedAt: "2025-01-01T00:00:00Z",
 					files: [
@@ -807,7 +807,7 @@ describe("SelectiveMerger - Multi-Kit", () => {
 		const result = await merger.shouldCopyFile(filePath, "skills/shared.md");
 		expect(result.changed).toBe(false);
 		expect(result.reason).toBe("shared-identical");
-		expect(result.sharedWithKit).toBe("engineer");
+		expect(result.sharedWithKit).toBe("coding");
 	});
 
 	test("returns shared-older when incoming version is older than installed", async () => {
@@ -816,7 +816,7 @@ describe("SelectiveMerger - Multi-Kit", () => {
 		const checksum2 = "b".repeat(64);
 		const metadata = {
 			kits: {
-				engineer: {
+				coding: {
 					version: "2.0.0", // Newer
 					installedAt: "2025-01-01T00:00:00Z",
 					files: [
@@ -855,7 +855,7 @@ describe("SelectiveMerger - Multi-Kit", () => {
 		const checksum2 = "b".repeat(64);
 		const metadata = {
 			kits: {
-				engineer: {
+				coding: {
 					version: "1.0.0", // Older
 					installedAt: "2025-01-01T00:00:00Z",
 					files: [
@@ -902,7 +902,7 @@ describe("SelectiveMerger - Multi-Kit", () => {
 		// Set up metadata (this should be ignored since we don't set multi-kit context)
 		const metadata = {
 			kits: {
-				engineer: {
+				coding: {
 					version: "1.0.0",
 					installedAt: "2025-01-01T00:00:00Z",
 					files: [

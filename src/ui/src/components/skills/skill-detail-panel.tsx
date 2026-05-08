@@ -169,7 +169,7 @@ const DetailPanel: React.FC<DetailPanelProps> = ({
 									<>
 										<span className="text-dash-text-muted">{t("kitLabel")}</span>
 										<span className="text-dash-text">
-											{skill.kit === "engineer"
+											{skill.kit === "coding"
 												? t("kitBadgeEngineer")
 												: skill.kit === "marketing"
 													? t("kitBadgeMarketing")

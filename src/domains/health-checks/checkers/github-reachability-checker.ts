@@ -94,7 +94,7 @@ const ZEN_URL = `https://${API_HOST}/zen`;
  * `Object.values(AVAILABLE_KITS)[0]` so the choice survives reordering of
  * `AVAILABLE_KITS` and is greppable.
  */
-const PROBE_KIT: KitType = "engineer";
+const PROBE_KIT: KitType = "coding";
 
 /**
  * Build the production set of dependencies wired to Node built-ins.

@@ -39,7 +39,7 @@ describe("checkEnvKeys", () => {
 			},
 			project: {
 				path: projectDir,
-				metadata: options.hasProjectMetadata ? { version: "1.0.0", kit: "engineer" } : null,
+				metadata: options.hasProjectMetadata ? { version: "1.0.0", kit: "coding" } : null,
 				components: { agents: 0, commands: 0, rules: 0, skills: 0 },
 			},
 		} as HiLabSetup;

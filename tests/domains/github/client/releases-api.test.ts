@@ -13,7 +13,7 @@ import type { GitHubRelease, KitConfig } from "@/types";
 
 describe("ReleasesApi.listReleasesWithCache cache poisoning", () => {
 	const kit: KitConfig = {
-		name: "engineer",
+		name: "coding",
 		owner: "kaeljune",
 		repo: "engineer-kit",
 		// Other fields aren't read by the cache path under test.

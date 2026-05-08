@@ -89,7 +89,7 @@ describe("GitHubClient - Asset Download Priority", () => {
 				assets: [
 					{
 						id: 1,
-						name: "hilab-engineer-package.zip",
+						name: "hilab-coding-package.zip",
 						url: "https://api.github.com/repos/test/repo/releases/assets/1",
 						browser_download_url: "https://github.com/test/package.zip",
 						size: 2048,
@@ -101,7 +101,7 @@ describe("GitHubClient - Asset Download Priority", () => {
 			const result = GitHubClient.getDownloadableAsset(release);
 
 			expect(result.type).toBe("asset");
-			expect(result.name).toBe("hilab-engineer-package.zip");
+			expect(result.name).toBe("hilab-coding-package.zip");
 		});
 
 		test("should fallback to other zip files if no HiLab package found", () => {

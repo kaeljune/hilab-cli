@@ -35,7 +35,7 @@ function makeDeps(): PromptMigrateUpdateDeps {
 			},
 			project: {
 				path: "/tmp/project",
-				metadata: { kits: { engineer: { version: "1.0.0" } } },
+				metadata: { kits: { coding: { version: "1.0.0" } } },
 				components: { commands: 0, hooks: 0, skills: 0, workflows: 0, settings: 0 },
 			},
 		}),
@@ -131,7 +131,7 @@ describe("promptMigrateUpdate (step 3 of update pipeline)", () => {
 		deps.getSetupFn = async () => ({
 			global: {
 				path: "/global",
-				metadata: { kits: { engineer: { version: "1.0.0" } } },
+				metadata: { kits: { coding: { version: "1.0.0" } } },
 				components: { commands: 0, hooks: 0, skills: 0, workflows: 0, settings: 0 },
 			},
 			project: {

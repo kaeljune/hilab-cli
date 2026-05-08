@@ -69,7 +69,7 @@ function makeMultiKitMetadata(
 	const fileList = selfTrackMetadata ? [makeTrackedFile("metadata.json", "hi"), ...files] : files;
 	return {
 		kits: {
-			engineer: { version: FAKE_VERSION, installedAt: FAKE_DATE, files: fileList },
+			coding: { version: FAKE_VERSION, installedAt: FAKE_DATE, files: fileList },
 		},
 	};
 }
@@ -80,7 +80,7 @@ function makeLegacyMetadata(
 ) {
 	const fileList = selfTrackMetadata ? [makeTrackedFile("metadata.json", "hi"), ...files] : files;
 	return {
-		name: "hilab-engineer",
+		name: "hilab-coding",
 		version: FAKE_VERSION,
 		installedAt: FAKE_DATE,
 		files: fileList,
@@ -136,7 +136,7 @@ afterAll(() => {
 
 // ─── Fixture A: metadata.json self-tracked ────────────────────────────────────
 
-describe("Fixture A — metadata.json self-tracked in kits.engineer.files", () => {
+describe("Fixture A — metadata.json self-tracked in kits.coding.files", () => {
 	test("handleFreshInstallation returns true without throwing", async () => {
 		writeMetadata(
 			claudeDir,
@@ -227,7 +227,7 @@ describe("Fixture C — happy path (metadata.json NOT self-tracked)", () => {
 		expect(result.error).toBeUndefined();
 		expect(existsSync(join(claudeDir, "metadata.json"))).toBe(true);
 		const meta = JSON.parse(readFileSync(join(claudeDir, "metadata.json"), "utf-8"));
-		expect(meta.kits?.engineer?.files).toEqual([]);
+		expect(meta.kits?.coding?.files).toEqual([]);
 	});
 
 	test("tracked CK files are removed", async () => {

@@ -34,7 +34,7 @@ export class ReleaseCache {
 	 * @example
 	 * ```typescript
 	 * const cache = new ReleaseCache();
-	 * const releases = await cache.get('hilab-engineer-latest-false');
+	 * const releases = await cache.get('hilab-coding-latest-false');
 	 * if (releases) {
 	 *   console.log(`Found ${releases.length} cached releases`);
 	 * }
@@ -84,7 +84,7 @@ export class ReleaseCache {
 	 * @example
 	 * ```typescript
 	 * const cache = new ReleaseCache();
-	 * await cache.set('hilab-engineer-latest-false', releases);
+	 * await cache.set('hilab-coding-latest-false', releases);
 	 * console.log('Releases cached successfully');
 	 * ```
 	 */
@@ -118,7 +118,7 @@ export class ReleaseCache {
 	 * ```typescript
 	 * const cache = new ReleaseCache();
 	 * // Clear specific kit cache
-	 * await cache.clear('hilab-engineer-latest-false');
+	 * await cache.clear('hilab-coding-latest-false');
 	 * // Clear all caches
 	 * await cache.clear();
 	 * ```

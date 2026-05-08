@@ -15,10 +15,10 @@ function createLegacyMetadata() {
 	return JSON.stringify(
 		{
 			version: "2.10.1",
-			name: "hilab-engineer",
+			name: "hilab-coding",
 			description: "legacy prefixed install",
 			kits: {
-				engineer: {
+				coding: {
 					version: "2.10.1",
 					installedAt: "2026-04-06T15:07:00.000Z",
 					files: [
@@ -47,7 +47,7 @@ function createUpgradeKitMetadata() {
 	return JSON.stringify(
 		{
 			version: "2.16.0",
-			name: "hilab-engineer",
+			name: "hilab-coding",
 			description: "reproduction fixture",
 			deletions: ["commands/ask.md", "commands/coding-level.md"],
 		},
@@ -123,7 +123,7 @@ integrationDescribe("global prefixed upgrade cleanup", () => {
 		expect(beforeVersion).toContain("CLI Version:");
 		expect(beforeVersion).toContain("Global Kit Version: engineer@2.10.1");
 
-		runCli(`init -g --kit engineer --kit-path ${kitDir} --yes --install-skills`);
+		runCli(`init -g --kit coding --kit-path ${kitDir} --yes --install-skills`);
 
 		expect(existsSync(join(homeDir, ".claude", "commands", "hi", "ask.md"))).toBe(false);
 		expect(existsSync(join(homeDir, ".claude", "commands", "hi", "coding-level.md"))).toBe(false);

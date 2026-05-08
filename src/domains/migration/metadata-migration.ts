@@ -59,16 +59,17 @@ export async function detectMetadataFormat(claudeDir: string): Promise<MetadataF
 
 		// Legacy format - has name/version at root level
 		if (parsed.name || parsed.version || parsed.files) {
-			// Detect kit type from name using word boundaries to avoid false matches
+			// Detect kit type from name using word boundaries to avoid false matches.
+			// Legacy "engineer" name is auto-remapped to current "coding" kit.
 			let detectedKit: KitType | null = null;
 			const nameToCheck = parsed.name || "";
-			if (/\bengineer\b/i.test(nameToCheck)) {
-				detectedKit = "engineer";
+			if (/\b(engineer|coding)\b/i.test(nameToCheck)) {
+				detectedKit = "coding";
 			} else if (/\bmarketing\b/i.test(nameToCheck)) {
 				detectedKit = "marketing";
 			} else {
-				// Default to engineer for unnamed legacy installs
-				detectedKit = "engineer";
+				// Default to coding for unnamed legacy installs
+				detectedKit = "coding";
 			}
 
 			return { format: "legacy", metadata: parsed, detectedKit };
@@ -134,7 +135,7 @@ export async function migrateToMultiKit(claudeDir: string): Promise<MetadataMigr
 			error: "Metadata exists but could not be read",
 		};
 	}
-	const legacyKit = detection.detectedKit || "engineer";
+	const legacyKit = detection.detectedKit || "coding";
 
 	try {
 		// Build kit metadata from legacy fields
@@ -258,7 +259,7 @@ export function getInstalledKits(metadata: Metadata): KitType[] {
 	const kits: KitType[] = [];
 
 	if (/\b(engineer|coding)\b/i.test(nameToCheck)) {
-		kits.push("engineer");
+		kits.push("coding");
 	}
 	if (/\bmarketing\b/i.test(nameToCheck)) {
 		kits.push("marketing");
@@ -269,9 +270,9 @@ export function getInstalledKits(metadata: Metadata): KitType[] {
 		return kits;
 	}
 
-	// Default to engineer for legacy installs with version but no identifiable name
+	// Default to coding for legacy installs with version but no identifiable name
 	if (metadata.version) {
-		return ["engineer"];
+		return ["coding"];
 	}
 
 	return [];

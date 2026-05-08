@@ -73,7 +73,7 @@ export function checkComponentCounts(setup: HiLabSetup): CheckResult {
 			totalComponents > 0
 				? `${totalAgents} agents, ${totalCommands} commands, ${totalRules} rules, ${totalSkills} skills`
 				: "No components found",
-		suggestion: totalComponents === 0 ? "Install HiLab: hi new --kit engineer" : undefined,
+		suggestion: totalComponents === 0 ? "Install HiLab: hi new --kit coding" : undefined,
 		autoFixable: false,
 	};
 }

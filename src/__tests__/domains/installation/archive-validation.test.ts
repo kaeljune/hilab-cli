@@ -6,7 +6,7 @@ import { downloadAndExtract } from "@/domains/installation/download-extractor";
 import { AVAILABLE_KITS } from "@/types";
 
 const TEST_DIR = path.join(os.tmpdir(), "hi-test-archive");
-const mockKit = AVAILABLE_KITS.engineer;
+const mockKit = AVAILABLE_KITS.coding;
 
 describe("archive format validation", () => {
 	beforeEach(async () => {

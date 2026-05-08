@@ -113,7 +113,7 @@ const destructiveOperationBackupManifestSchema = z.object({
 	createdAt: z.string().datetime(),
 	sourceRoot: z.string().min(1),
 	scope: z.string().optional(),
-	kit: z.enum(["engineer", "marketing"]).optional(),
+	kit: z.enum(["coding", "marketing"]).optional(),
 	items: z.array(destructiveOperationBackupItemSchema),
 	restoreNotes: z.array(z.string()),
 });

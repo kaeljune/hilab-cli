@@ -81,7 +81,7 @@ describe("Fresh Installer", () => {
 			// Create metadata with tracked files
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -128,7 +128,7 @@ describe("Fresh Installer", () => {
 		test("should handle empty files array in metadata", async () => {
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [],
@@ -196,7 +196,7 @@ describe("Fresh Installer", () => {
 			// Create metadata with mixed ownership
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -260,7 +260,7 @@ describe("Fresh Installer", () => {
 			// Create metadata tracking both CK and user files
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -303,7 +303,7 @@ describe("Fresh Installer", () => {
 		test("should not fall back to directory deletion when metadata tracks only user files", async () => {
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -339,7 +339,7 @@ describe("Fresh Installer", () => {
 			// Create metadata tracking only HiLab-owned files
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -384,7 +384,7 @@ describe("Fresh Installer", () => {
 			// Create metadata with tracked files
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -417,7 +417,7 @@ describe("Fresh Installer", () => {
 			const updatedMetadata = JSON.parse(await Bun.file(join(claudeDir, "metadata.json")).text());
 
 			// CK file entry should be removed from metadata
-			const files = updatedMetadata.kits.engineer.files;
+			const files = updatedMetadata.kits.coding.files;
 			expect(files.length).toBe(1);
 			expect(files[0].path).toBe("skills/user-skill.md");
 		});
@@ -443,7 +443,7 @@ describe("Fresh Installer", () => {
 		test("should create a recovery backup that includes metadata mutations", async () => {
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -492,7 +492,7 @@ describe("Fresh Installer", () => {
 		test("should restore deleted files if removal fails after backup creation", async () => {
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -532,7 +532,7 @@ describe("Fresh Installer", () => {
 		test("waits for the shared installation lock before starting a fresh install", async () => {
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -571,7 +571,7 @@ describe("Fresh Installer", () => {
 			// Create metadata with files from two kits
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -604,7 +604,7 @@ describe("Fresh Installer", () => {
 				},
 			};
 			await writeFile(join(claudeDir, "metadata.json"), JSON.stringify(metadata));
-			await writeFile(join(claudeDir, "commands", "engineer-cmd.md"), "engineer");
+			await writeFile(join(claudeDir, "commands", "engineer-cmd.md"), "coding");
 			await writeFile(join(claudeDir, "commands", "marketing-cmd.md"), "marketing");
 			await writeFile(join(claudeDir, "skills", "custom.md"), "custom");
 
@@ -630,7 +630,7 @@ describe("Fresh Installer", () => {
 			// Create metadata referencing files that don't exist
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [

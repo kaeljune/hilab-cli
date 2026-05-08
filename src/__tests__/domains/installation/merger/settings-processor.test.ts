@@ -50,7 +50,7 @@ describe("SettingsProcessor custom global dir support", () => {
 		const processor = new SettingsProcessor();
 		processor.setGlobalFlag(true);
 		processor.setProjectDir(customClaudeDir);
-		processor.setKitName("engineer");
+		processor.setKitName("coding");
 		return processor;
 	}
 

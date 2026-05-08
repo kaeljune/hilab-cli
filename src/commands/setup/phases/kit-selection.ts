@@ -17,13 +17,13 @@ export async function handleKitSelection(ctx: SetupContext): Promise<SetupContex
 
 	// Prompt for kit selection
 	const kit = await clack.select<
-		{ value: "engineer" | "marketing"; label: string }[],
-		"engineer" | "marketing"
+		{ value: "coding" | "marketing"; label: string }[],
+		"coding" | "marketing"
 	>({
 		message: "Which HiLab starter kit do you want to install?",
 		options: [
 			{
-				value: "engineer",
+				value: "coding",
 				label: "HiLab Engineer - AI-powered coding toolkit",
 			},
 			{
@@ -38,7 +38,7 @@ export async function handleKitSelection(ctx: SetupContext): Promise<SetupContex
 	}
 
 	// Run init command with selected kit and --yes flag
-	clack.log.info(`Installing ${kit === "engineer" ? "HiLab Engineer" : "HiLab Marketing"}...`);
+	clack.log.info(`Installing ${kit === "coding" ? "HiLab Engineer" : "HiLab Marketing"}...`);
 
 	try {
 		await initCommand({

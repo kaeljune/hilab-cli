@@ -35,7 +35,7 @@ describe("GitHubClient", () => {
 
 	describe("integration scenarios", () => {
 		test("should handle kit configuration correctly", () => {
-			const engineerKit = AVAILABLE_KITS.engineer;
+			const engineerKit = AVAILABLE_KITS.coding;
 			expect(engineerKit.owner).toBe("kaeljune");
 			expect(engineerKit.repo).toBe("hilab-coding");
 		});
@@ -59,8 +59,8 @@ describe("GitHubClient", () => {
 					prerelease: true,
 					assets: [],
 					published_at: "2024-01-02T00:00:00Z",
-					tarball_url: "https://api.github.com/repos/hilab/hilab-engineer/tarball/v1.1.0-beta.1",
-					zipball_url: "https://api.github.com/repos/hilab/hilab-engineer/zipball/v1.1.0-beta.1",
+					tarball_url: "https://api.github.com/repos/hilab/hilab-coding/tarball/v1.1.0-beta.1",
+					zipball_url: "https://api.github.com/repos/hilab/hilab-coding/zipball/v1.1.0-beta.1",
 				},
 				{
 					id: 1,
@@ -70,8 +70,8 @@ describe("GitHubClient", () => {
 					prerelease: false,
 					assets: [],
 					published_at: "2024-01-01T00:00:00Z",
-					tarball_url: "https://api.github.com/repos/hilab/hilab-engineer/tarball/v1.0.0",
-					zipball_url: "https://api.github.com/repos/hilab/hilab-engineer/zipball/v1.0.0",
+					tarball_url: "https://api.github.com/repos/hilab/hilab-coding/tarball/v1.0.0",
+					zipball_url: "https://api.github.com/repos/hilab/hilab-coding/zipball/v1.0.0",
 				},
 			];
 
@@ -97,8 +97,8 @@ describe("GitHubClient", () => {
 					prerelease: true,
 					assets: [],
 					published_at: "2024-01-03T00:00:00Z",
-					tarball_url: "https://api.github.com/repos/hilab/hilab-engineer/tarball/v1.2.0-beta.2",
-					zipball_url: "https://api.github.com/repos/hilab/hilab-engineer/zipball/v1.2.0-beta.2",
+					tarball_url: "https://api.github.com/repos/hilab/hilab-coding/tarball/v1.2.0-beta.2",
+					zipball_url: "https://api.github.com/repos/hilab/hilab-coding/zipball/v1.2.0-beta.2",
 				},
 				{
 					id: 2,
@@ -108,8 +108,8 @@ describe("GitHubClient", () => {
 					prerelease: true,
 					assets: [],
 					published_at: "2024-01-02T00:00:00Z",
-					tarball_url: "https://api.github.com/repos/hilab/hilab-engineer/tarball/v1.1.0-beta.1",
-					zipball_url: "https://api.github.com/repos/hilab/hilab-engineer/zipball/v1.1.0-beta.1",
+					tarball_url: "https://api.github.com/repos/hilab/hilab-coding/tarball/v1.1.0-beta.1",
+					zipball_url: "https://api.github.com/repos/hilab/hilab-coding/zipball/v1.1.0-beta.1",
 				},
 			];
 
@@ -135,8 +135,8 @@ describe("GitHubClient", () => {
 					prerelease: false,
 					assets: [],
 					published_at: "2024-01-01T00:00:00Z",
-					tarball_url: "https://api.github.com/repos/hilab/hilab-engineer/tarball/v1.0.0",
-					zipball_url: "https://api.github.com/repos/hilab/hilab-engineer/zipball/v1.0.0",
+					tarball_url: "https://api.github.com/repos/hilab/hilab-coding/tarball/v1.0.0",
+					zipball_url: "https://api.github.com/repos/hilab/hilab-coding/zipball/v1.0.0",
 				},
 			];
 

@@ -10,7 +10,7 @@ import type { KitType, Metadata } from "@/types";
 // Create mock prompts manager
 function createMockPrompts(confirmResult: boolean | Error = true) {
 	return {
-		selectKit: mock(async () => "engineer" as const),
+		selectKit: mock(async () => "coding" as const),
 		getDirectory: mock(async () => "."),
 		selectVersionEnhanced: mock(async () => "v1.0.0"),
 		confirm: mock(async () => {
@@ -57,7 +57,7 @@ function createTestContext(overrides: {
 	return {
 		rawOptions: {},
 		options: {
-			kit: "engineer",
+			kit: "coding",
 			dir: ".",
 			beta: false,
 			global: false,
@@ -109,7 +109,7 @@ describe("selection-handler multi-kit flow", () => {
 			// Setup: existing engineer kit metadata
 			const existingMetadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v2.2.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -123,13 +123,13 @@ describe("selection-handler multi-kit flow", () => {
 			);
 
 			expect(otherKits.length).toBeGreaterThan(0);
-			expect(otherKits).toContain("engineer");
+			expect(otherKits).toContain("coding");
 		});
 
 		it("skips confirmation when installing same kit (update scenario)", async () => {
 			const existingMetadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v2.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -137,7 +137,7 @@ describe("selection-handler multi-kit flow", () => {
 			};
 
 			// Installing same kit (engineer)
-			const otherKits = Object.keys(existingMetadata.kits ?? {}).filter((k) => k !== "engineer");
+			const otherKits = Object.keys(existingMetadata.kits ?? {}).filter((k) => k !== "coding");
 
 			expect(otherKits.length).toBe(0);
 		});
@@ -147,7 +147,7 @@ describe("selection-handler multi-kit flow", () => {
 				kits: {},
 			};
 
-			const otherKits = Object.keys(existingMetadata.kits ?? {}).filter((k) => k !== "engineer");
+			const otherKits = Object.keys(existingMetadata.kits ?? {}).filter((k) => k !== "coding");
 
 			expect(otherKits.length).toBe(0);
 		});
@@ -165,7 +165,7 @@ describe("selection-handler multi-kit flow", () => {
 		it("formats existing kits display correctly", async () => {
 			const existingMetadata: Metadata = {
 				kits: {
-					engineer: { version: "v2.2.0", installedAt: "2024-01-01T00:00:00.000Z" },
+					coding: { version: "v2.2.0", installedAt: "2024-01-01T00:00:00.000Z" },
 					marketing: { version: "v1.0.0", installedAt: "2024-01-01T00:00:00.000Z" },
 				},
 			};
@@ -179,13 +179,13 @@ describe("selection-handler multi-kit flow", () => {
 				.map((k) => `${k}@${existingMetadata.kits?.[k]?.version || "unknown"}`)
 				.join(", ");
 
-			expect(existingKitsDisplay).toBe("engineer@v2.2.0");
+			expect(existingKitsDisplay).toBe("coding@v2.2.0");
 		});
 
 		it("handles kit with undefined version using 'unknown' fallback", async () => {
 			const existingMetadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: undefined as unknown as string,
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -200,7 +200,7 @@ describe("selection-handler multi-kit flow", () => {
 				.map((k) => `${k}@${existingMetadata.kits?.[k]?.version || "unknown"}`)
 				.join(", ");
 
-			expect(existingKitsDisplay).toBe("engineer@unknown");
+			expect(existingKitsDisplay).toBe("coding@unknown");
 		});
 	});
 
@@ -307,44 +307,44 @@ describe("selection-handler multi-kit flow", () => {
 	});
 
 	describe("--kit option parsing", () => {
-		const allKitTypes: KitType[] = ["engineer", "marketing"];
+		const allKitTypes: KitType[] = ["coding", "marketing"];
 
 		describe("--kit all", () => {
 			it("expands 'all' to all kit types", () => {
 				const kitOption = "all";
-				const accessibleKits: KitType[] = ["engineer", "marketing"];
+				const accessibleKits: KitType[] = ["coding", "marketing"];
 
 				const kitsToInstall = kitOption === "all" ? accessibleKits : [kitOption as KitType];
 
-				expect(kitsToInstall).toEqual(["engineer", "marketing"]);
-				expect(kitsToInstall[0]).toBe("engineer");
+				expect(kitsToInstall).toEqual(["coding", "marketing"]);
+				expect(kitsToInstall[0]).toBe("coding");
 				expect(kitsToInstall.slice(1)).toEqual(["marketing"]);
 			});
 
 			it("respects accessible kits when using 'all'", () => {
 				const kitOption = "all";
-				const accessibleKits: KitType[] = ["engineer"]; // Only has access to engineer
+				const accessibleKits: KitType[] = ["coding"]; // Only has access to engineer
 
 				const kitsToInstall = kitOption === "all" ? accessibleKits : [kitOption as KitType];
 
-				expect(kitsToInstall).toEqual(["engineer"]);
+				expect(kitsToInstall).toEqual(["coding"]);
 				expect(kitsToInstall.length).toBe(1);
 			});
 		});
 
 		describe("comma-separated kits", () => {
 			it("parses comma-separated kit names", () => {
-				const kitOption = "engineer,marketing";
+				const kitOption = "coding,marketing";
 				const requestedKits = kitOption.split(",").map((k) => k.trim()) as KitType[];
 
-				expect(requestedKits).toEqual(["engineer", "marketing"]);
+				expect(requestedKits).toEqual(["coding", "marketing"]);
 			});
 
 			it("handles whitespace around commas", () => {
-				const kitOption = "engineer , marketing";
+				const kitOption = "coding , marketing";
 				const requestedKits = kitOption.split(",").map((k) => k.trim()) as KitType[];
 
-				expect(requestedKits).toEqual(["engineer", "marketing"]);
+				expect(requestedKits).toEqual(["coding", "marketing"]);
 			});
 
 			it("detects invalid kit names", () => {
@@ -352,13 +352,13 @@ describe("selection-handler multi-kit flow", () => {
 				const requestedKits = kitOption.split(",").map((k) => k.trim());
 				const invalidKits = requestedKits.filter((k) => !allKitTypes.includes(k as KitType));
 
-				expect(invalidKits).toEqual(["invalid"]);
+				expect(invalidKits).toEqual(["engineer", "invalid"]);
 			});
 
 			it("validates access for all requested kits", () => {
-				const kitOption = "engineer,marketing";
+				const kitOption = "coding,marketing";
 				const requestedKits = kitOption.split(",").map((k) => k.trim()) as KitType[];
-				const accessibleKits: KitType[] = ["engineer"]; // Only has access to engineer
+				const accessibleKits: KitType[] = ["coding"]; // Only has access to engineer
 
 				const noAccessKits = requestedKits.filter((k) => !accessibleKits.includes(k));
 
@@ -366,18 +366,18 @@ describe("selection-handler multi-kit flow", () => {
 			});
 
 			it("sets first kit as primary and rest as pending", () => {
-				const kitOption = "engineer,marketing";
+				const kitOption = "coding,marketing";
 				const requestedKits = kitOption.split(",").map((k) => k.trim()) as KitType[];
 
 				const kitType = requestedKits[0];
 				const pendingKits = requestedKits.length > 1 ? requestedKits.slice(1) : undefined;
 
-				expect(kitType).toBe("engineer");
+				expect(kitType).toBe("coding");
 				expect(pendingKits).toEqual(["marketing"]);
 			});
 
 			it("handles single kit without comma", () => {
-				const kitOption = "engineer";
+				const kitOption = "coding";
 				const hasComma = kitOption.includes(",");
 
 				expect(hasComma).toBe(false);

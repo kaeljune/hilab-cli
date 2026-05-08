@@ -14,7 +14,7 @@ import { type VersionCheckResult, isNewerVersion, isUpdateCheckDisabled } from "
 async function fetchLatestRelease(currentVersion: string): Promise<VersionCheckResult | null> {
 	try {
 		const githubClient = new GitHubClient();
-		const kit = AVAILABLE_KITS.engineer; // Always check engineer kit
+		const kit = AVAILABLE_KITS.coding; // Always check engineer kit
 
 		// Fetch with 5s timeout
 		const timeoutPromise = new Promise<never>((_, reject) =>

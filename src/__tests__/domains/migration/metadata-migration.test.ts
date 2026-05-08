@@ -51,7 +51,7 @@ describe("metadata-migration", () => {
 
 			const result = await detectMetadataFormat(testDir);
 			expect(result.format).toBe("legacy");
-			expect(result.detectedKit).toBe("engineer");
+			expect(result.detectedKit).toBe("coding");
 		});
 
 		it("detects legacy format with marketing kit", async () => {
@@ -79,13 +79,13 @@ describe("metadata-migration", () => {
 
 			const result = await detectMetadataFormat(testDir);
 			expect(result.format).toBe("legacy");
-			expect(result.detectedKit).toBe("engineer");
+			expect(result.detectedKit).toBe("coding");
 		});
 
 		it("detects multi-kit format", async () => {
 			const multiKit: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.2.3",
 						installedAt: "2024-01-01T00:00:00.000Z",
 						files: [],
@@ -97,13 +97,13 @@ describe("metadata-migration", () => {
 
 			const result = await detectMetadataFormat(testDir);
 			expect(result.format).toBe("multi-kit");
-			expect(result.detectedKit).toBe("engineer");
+			expect(result.detectedKit).toBe("coding");
 		});
 
 		it("detects multi-kit format with multiple kits", async () => {
 			const multiKit: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.2.3",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -140,7 +140,7 @@ describe("metadata-migration", () => {
 			const detection = {
 				format: "legacy" as const,
 				metadata: {} as Metadata,
-				detectedKit: "engineer" as const,
+				detectedKit: "coding" as const,
 			};
 			expect(needsMigration(detection)).toBe(true);
 		});
@@ -149,7 +149,7 @@ describe("metadata-migration", () => {
 			const detection = {
 				format: "multi-kit" as const,
 				metadata: {} as Metadata,
-				detectedKit: "engineer" as const,
+				detectedKit: "coding" as const,
 			};
 			expect(needsMigration(detection)).toBe(false);
 		});
@@ -188,14 +188,14 @@ describe("metadata-migration", () => {
 			// Verify migrated structure
 			const detection = await detectMetadataFormat(testDir);
 			expect(detection.format).toBe("multi-kit");
-			expect(detection.metadata?.kits?.engineer?.version).toBe("v1.2.3");
-			expect(detection.metadata?.kits?.engineer?.files?.length).toBe(1);
+			expect(detection.metadata?.kits?.coding?.version).toBe("v1.2.3");
+			expect(detection.metadata?.kits?.coding?.files?.length).toBe(1);
 		});
 
 		it("returns success without migration for multi-kit format", async () => {
 			const multiKit: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.2.3",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -258,7 +258,7 @@ describe("metadata-migration", () => {
 		it("returns kit metadata from multi-kit structure", () => {
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.2.3",
 						installedAt: "2024-01-01T00:00:00.000Z",
 						files: [],
@@ -266,14 +266,14 @@ describe("metadata-migration", () => {
 				},
 			};
 
-			const result = getKitMetadata(metadata, "engineer");
+			const result = getKitMetadata(metadata, "coding");
 			expect(result?.version).toBe("v1.2.3");
 		});
 
 		it("returns null for non-existent kit", () => {
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.2.3",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -291,7 +291,7 @@ describe("metadata-migration", () => {
 				files: [],
 			};
 
-			const result = getKitMetadata(metadata, "engineer");
+			const result = getKitMetadata(metadata, "coding");
 			expect(result?.version).toBe("v1.0.0");
 		});
 	});
@@ -313,7 +313,7 @@ describe("metadata-migration", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.2.3",
 						installedAt: "2024-01-01T00:00:00.000Z",
 						files: [file1],
@@ -353,7 +353,7 @@ describe("metadata-migration", () => {
 		it("returns empty array when no files", () => {
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -369,7 +369,7 @@ describe("metadata-migration", () => {
 		it("returns kits from multi-kit structure", () => {
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -381,7 +381,7 @@ describe("metadata-migration", () => {
 			};
 
 			const result = getInstalledKits(metadata);
-			expect(result).toContain("engineer");
+			expect(result).toContain("coding");
 			expect(result).toContain("marketing");
 		});
 
@@ -392,7 +392,7 @@ describe("metadata-migration", () => {
 			};
 
 			const result = getInstalledKits(metadata);
-			expect(result).toEqual(["engineer"]);
+			expect(result).toEqual(["coding"]);
 		});
 
 		it("detects marketing from legacy name", () => {
@@ -412,7 +412,7 @@ describe("metadata-migration", () => {
 			};
 
 			const result = getInstalledKits(metadata);
-			expect(result).toContain("engineer");
+			expect(result).toContain("coding");
 			expect(result).toContain("marketing");
 			expect(result.length).toBe(2);
 		});
@@ -423,7 +423,7 @@ describe("metadata-migration", () => {
 			};
 
 			const result = getInstalledKits(metadata);
-			expect(result).toEqual(["engineer"]);
+			expect(result).toEqual(["coding"]);
 		});
 
 		it("returns empty array for empty metadata", () => {

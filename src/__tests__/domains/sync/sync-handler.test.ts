@@ -99,7 +99,7 @@ describe("sync-handler integration", () => {
 			// Create metadata
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [],
@@ -115,7 +115,7 @@ describe("sync-handler integration", () => {
 		it("reads kit version from metadata", async () => {
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.5.0",
 						installedAt: new Date().toISOString(),
 						files: [{ path: "commands.md", checksum: "abc", ownership: "hi" }],
@@ -127,8 +127,8 @@ describe("sync-handler integration", () => {
 			const content = await readFile(join(claudeDir, "metadata.json"), "utf8");
 			const parsed = JSON.parse(content);
 
-			expect(parsed.kits.engineer.version).toBe("1.5.0");
-			expect(parsed.kits.engineer.files).toHaveLength(1);
+			expect(parsed.kits.coding.version).toBe("1.5.0");
+			expect(parsed.kits.coding.files).toHaveLength(1);
 		});
 	});
 
@@ -237,28 +237,28 @@ describe("sync-handler integration", () => {
 
 	describe("manifest validation", () => {
 		it("rejects metadata without version field", async () => {
-			const invalidMeta = { kits: { engineer: { files: [] } } };
-			expect(invalidMeta.kits.engineer).not.toHaveProperty("version");
+			const invalidMeta = { kits: { coding: { files: [] } } };
+			expect(invalidMeta.kits.coding).not.toHaveProperty("version");
 		});
 
 		it("rejects metadata without files array", async () => {
-			const invalidMeta = { kits: { engineer: { version: "1.0.0" } } };
-			expect(invalidMeta.kits.engineer).not.toHaveProperty("files");
+			const invalidMeta = { kits: { coding: { version: "1.0.0" } } };
+			expect(invalidMeta.kits.coding).not.toHaveProperty("files");
 		});
 
 		it("validates complete kit metadata structure", async () => {
 			const validMeta = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						files: [{ path: "test.md", checksum: "abc", ownership: "hi" }],
 						installedAt: new Date().toISOString(),
 					},
 				},
 			};
-			expect(validMeta.kits.engineer).toHaveProperty("version");
-			expect(validMeta.kits.engineer).toHaveProperty("files");
-			expect(validMeta.kits.engineer).toHaveProperty("installedAt");
+			expect(validMeta.kits.coding).toHaveProperty("version");
+			expect(validMeta.kits.coding).toHaveProperty("files");
+			expect(validMeta.kits.coding).toHaveProperty("installedAt");
 		});
 
 		it("rejects metadata with empty kits object", async () => {
@@ -280,13 +280,13 @@ describe("sync-handler integration", () => {
 		});
 
 		it("detects null values in metadata", () => {
-			const invalidMeta = { kits: { engineer: null } };
-			expect(invalidMeta.kits.engineer).toBe(null);
+			const invalidMeta = { kits: { coding: null } };
+			expect(invalidMeta.kits.coding).toBe(null);
 		});
 
 		it("detects undefined values in metadata", () => {
-			const invalidMeta = { kits: { engineer: undefined } };
-			expect(invalidMeta.kits.engineer).toBeUndefined();
+			const invalidMeta = { kits: { coding: undefined } };
+			expect(invalidMeta.kits.coding).toBeUndefined();
 		});
 	});
 

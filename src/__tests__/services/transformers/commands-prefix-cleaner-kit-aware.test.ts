@@ -50,7 +50,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 			// Create metadata with both kits
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -81,7 +81,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 
 			// Cleanup engineer kit only
 			const result = await cleanupCommandsDirectory(tempDir, false, {
-				kitType: "engineer",
+				kitType: "coding",
 			});
 
 			// Engineer file should be deleted
@@ -116,7 +116,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -189,7 +189,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -251,7 +251,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 
 			// Cleanup with kitType on legacy format
 			const result = await cleanupCommandsDirectory(tempDir, false, {
-				kitType: "engineer",
+				kitType: "coding",
 			});
 
 			// File should be deleted
@@ -265,7 +265,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 			await writeFile(join(commandsDir, "plan.md"), "# Plan");
 
 			const result = await cleanupCommandsDirectory(tempDir, false, {
-				kitType: "engineer",
+				kitType: "coding",
 			});
 
 			// No cleanup should happen
@@ -276,7 +276,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 		it("handles empty kit metadata", async () => {
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [],
@@ -288,7 +288,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 			await writeFile(join(commandsDir, "plan.md"), "# Plan");
 
 			const result = await cleanupCommandsDirectory(tempDir, false, {
-				kitType: "engineer",
+				kitType: "coding",
 			});
 
 			// No files tracked = no cleanup
@@ -301,7 +301,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -319,7 +319,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 			await writeFile(join(claudeDir, "metadata.json"), JSON.stringify(metadata, null, 2));
 
 			const result = await cleanupCommandsDirectory(tempDir, false, {
-				kitType: "engineer",
+				kitType: "coding",
 			});
 
 			// Modified file preserved
@@ -336,7 +336,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -354,7 +354,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 			await writeFile(join(claudeDir, "metadata.json"), JSON.stringify(metadata, null, 2));
 
 			const result = await cleanupCommandsDirectory(tempDir, false, {
-				kitType: "engineer",
+				kitType: "coding",
 				dryRun: true,
 			});
 

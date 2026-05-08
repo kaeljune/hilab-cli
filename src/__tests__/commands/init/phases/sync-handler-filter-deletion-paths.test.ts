@@ -79,7 +79,7 @@ describe("filterDeletionPaths", () => {
 			];
 			const deletions = ["commands/ask.md"];
 
-			const result = filterDeletionPaths(files, deletions, "engineer");
+			const result = filterDeletionPaths(files, deletions, "coding");
 			expect(result).toHaveLength(2);
 			expect(result.map((f) => f.path)).toEqual([
 				"commands/hi/bootstrap.md",
@@ -152,7 +152,7 @@ describe("filterDeletionPaths", () => {
 			];
 			const deletions = ["commands/plan/**"];
 
-			const result = filterDeletionPaths(files, deletions, "engineer");
+			const result = filterDeletionPaths(files, deletions, "coding");
 			expect(result).toHaveLength(1);
 			expect(result[0].path).toBe("commands/hi/review/codebase.md");
 		});

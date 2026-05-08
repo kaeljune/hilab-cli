@@ -7,7 +7,7 @@ export enum HealthStatus {
 }
 
 export enum KitType {
-	ENGINEER = "engineer",
+	ENGINEER = "coding",
 	MARKETING = "marketing",
 	ARCHITECT = "architect",
 	RESEARCHER = "researcher",

@@ -12,7 +12,7 @@ export const versionsCommandHelp: CommandHelp = {
 	usage: "hi versions [options]",
 	examples: [
 		{
-			command: "hi versions --kit engineer --limit 10",
+			command: "hi versions --kit coding --limit 10",
 			description: "Show latest 10 versions of engineer kit",
 		},
 		{
@@ -26,7 +26,7 @@ export const versionsCommandHelp: CommandHelp = {
 			options: [
 				{
 					flags: "--kit <kit>",
-					description: "Filter by specific kit (engineer, marketing)",
+					description: "Filter by specific kit (coding, marketing)",
 				},
 				{
 					flags: "--limit <number>",

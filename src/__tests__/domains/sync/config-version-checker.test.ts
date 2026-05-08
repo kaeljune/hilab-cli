@@ -43,9 +43,9 @@ describe("ConfigVersionChecker", () => {
 				latestVersion: "2.0.0",
 				etag: "test-etag",
 			};
-			await writeFile(join(testDir, "engineer-config-update-cache.json"), JSON.stringify(cache));
+			await writeFile(join(testDir, "coding-config-update-cache.json"), JSON.stringify(cache));
 
-			const result = await ConfigVersionChecker.checkForUpdates("engineer", "1.0.0", false);
+			const result = await ConfigVersionChecker.checkForUpdates("coding", "1.0.0", false);
 
 			expect(result.hasUpdates).toBe(true);
 			expect(result.currentVersion).toBe("1.0.0");
@@ -58,9 +58,9 @@ describe("ConfigVersionChecker", () => {
 				lastCheck: Date.now(),
 				latestVersion: "1.5.0",
 			};
-			await writeFile(join(testDir, "engineer-config-update-cache.json"), JSON.stringify(cache));
+			await writeFile(join(testDir, "coding-config-update-cache.json"), JSON.stringify(cache));
 
-			const result = await ConfigVersionChecker.checkForUpdates("engineer", "v1.5.0", false);
+			const result = await ConfigVersionChecker.checkForUpdates("coding", "v1.5.0", false);
 
 			expect(result.currentVersion).toBe("1.5.0");
 			expect(result.hasUpdates).toBe(false);
@@ -71,9 +71,9 @@ describe("ConfigVersionChecker", () => {
 				lastCheck: Date.now(),
 				latestVersion: "1.0.0",
 			};
-			await writeFile(join(testDir, "engineer-config-update-cache.json"), JSON.stringify(cache));
+			await writeFile(join(testDir, "coding-config-update-cache.json"), JSON.stringify(cache));
 
-			const result = await ConfigVersionChecker.checkForUpdates("engineer", "1.0.0", false);
+			const result = await ConfigVersionChecker.checkForUpdates("coding", "1.0.0", false);
 
 			expect(result.hasUpdates).toBe(false);
 		});
@@ -83,9 +83,9 @@ describe("ConfigVersionChecker", () => {
 				lastCheck: Date.now(),
 				latestVersion: "1.0.0",
 			};
-			await writeFile(join(testDir, "engineer-config-update-cache.json"), JSON.stringify(cache));
+			await writeFile(join(testDir, "coding-config-update-cache.json"), JSON.stringify(cache));
 
-			const result = await ConfigVersionChecker.checkForUpdates("engineer", "2.0.0", false);
+			const result = await ConfigVersionChecker.checkForUpdates("coding", "2.0.0", false);
 
 			expect(result.hasUpdates).toBe(false);
 		});
@@ -96,7 +96,7 @@ describe("ConfigVersionChecker", () => {
 				lastCheck: Date.now() - 48 * 60 * 60 * 1000, // 48 hours ago
 				latestVersion: "1.5.0",
 			};
-			await writeFile(join(testDir, "engineer-config-update-cache.json"), JSON.stringify(cache));
+			await writeFile(join(testDir, "coding-config-update-cache.json"), JSON.stringify(cache));
 
 			// Mock fetch to fail
 			const originalFetch = globalThis.fetch;
@@ -108,7 +108,7 @@ describe("ConfigVersionChecker", () => {
 			) as typeof fetch;
 
 			try {
-				const result = await ConfigVersionChecker.checkForUpdates("engineer", "1.0.0", false);
+				const result = await ConfigVersionChecker.checkForUpdates("coding", "1.0.0", false);
 
 				expect(result.hasUpdates).toBe(true);
 				expect(result.latestVersion).toBe("1.5.0");
@@ -129,7 +129,7 @@ describe("ConfigVersionChecker", () => {
 			) as typeof fetch;
 
 			try {
-				const result = await ConfigVersionChecker.checkForUpdates("engineer", "1.0.0", false);
+				const result = await ConfigVersionChecker.checkForUpdates("coding", "1.0.0", false);
 
 				expect(result.hasUpdates).toBe(false);
 				expect(result.currentVersion).toBe("1.0.0");
@@ -143,17 +143,17 @@ describe("ConfigVersionChecker", () => {
 
 	describe("clearCache", () => {
 		it("removes cache file when exists", async () => {
-			const cachePath = join(testDir, "engineer-config-update-cache.json");
+			const cachePath = join(testDir, "coding-config-update-cache.json");
 			await writeFile(cachePath, JSON.stringify({ lastCheck: Date.now() }));
 
-			await ConfigVersionChecker.clearCache("engineer", false);
+			await ConfigVersionChecker.clearCache("coding", false);
 
 			await expect(readFile(cachePath)).rejects.toThrow();
 		});
 
 		it("does not throw when cache file does not exist", async () => {
 			// Should not throw
-			await expect(ConfigVersionChecker.clearCache("engineer", false)).resolves.toBeUndefined();
+			await expect(ConfigVersionChecker.clearCache("coding", false)).resolves.toBeUndefined();
 		});
 	});
 
@@ -173,9 +173,9 @@ describe("ConfigVersionChecker", () => {
 					lastCheck: Date.now(),
 					latestVersion: latest,
 				};
-				await writeFile(join(testDir, "engineer-config-update-cache.json"), JSON.stringify(cache));
+				await writeFile(join(testDir, "coding-config-update-cache.json"), JSON.stringify(cache));
 
-				const result = await ConfigVersionChecker.checkForUpdates("engineer", current, false);
+				const result = await ConfigVersionChecker.checkForUpdates("coding", current, false);
 				expect(result.hasUpdates).toBe(hasUpdates);
 			}
 		});
@@ -183,7 +183,7 @@ describe("ConfigVersionChecker", () => {
 
 	describe("cache file handling", () => {
 		it("handles corrupted cache file gracefully", async () => {
-			await writeFile(join(testDir, "engineer-config-update-cache.json"), "not valid json{{{");
+			await writeFile(join(testDir, "coding-config-update-cache.json"), "not valid json{{{");
 
 			// Mock fetch to return a result
 			const originalFetch = globalThis.fetch;
@@ -196,7 +196,7 @@ describe("ConfigVersionChecker", () => {
 
 			try {
 				// Should not throw, should return no updates
-				const result = await ConfigVersionChecker.checkForUpdates("engineer", "1.0.0", false);
+				const result = await ConfigVersionChecker.checkForUpdates("coding", "1.0.0", false);
 				expect(result.hasUpdates).toBe(false);
 			} finally {
 				globalThis.fetch = originalFetch;
@@ -214,7 +214,7 @@ describe("ConfigVersionChecker", () => {
 			};
 
 			await writeFile(
-				join(testDir, "engineer-config-update-cache.json"),
+				join(testDir, "coding-config-update-cache.json"),
 				JSON.stringify(engineerCache),
 			);
 			await writeFile(
@@ -222,7 +222,7 @@ describe("ConfigVersionChecker", () => {
 				JSON.stringify(marketingCache),
 			);
 
-			const engineerResult = await ConfigVersionChecker.checkForUpdates("engineer", "1.0.0", false);
+			const engineerResult = await ConfigVersionChecker.checkForUpdates("coding", "1.0.0", false);
 			const marketingResult = await ConfigVersionChecker.checkForUpdates(
 				"marketing",
 				"1.0.0",
@@ -244,17 +244,17 @@ describe("ConfigVersionChecker", () => {
 			};
 
 			await writeFile(
-				join(testDir, "engineer-stable-config-update-cache.json"),
+				join(testDir, "coding-stable-config-update-cache.json"),
 				JSON.stringify(stableCache),
 			);
 			await writeFile(
-				join(testDir, "engineer-beta-config-update-cache.json"),
+				join(testDir, "coding-beta-config-update-cache.json"),
 				JSON.stringify(betaCache),
 			);
 
-			const stableResult = await ConfigVersionChecker.checkForUpdates("engineer", "2.16.0", false);
+			const stableResult = await ConfigVersionChecker.checkForUpdates("coding", "2.16.0", false);
 			const betaResult = await ConfigVersionChecker.checkForUpdates(
-				"engineer",
+				"coding",
 				"2.17.0-beta.1",
 				false,
 			);
@@ -286,11 +286,7 @@ describe("ConfigVersionChecker", () => {
 			) as typeof fetch;
 
 			try {
-				const result = await ConfigVersionChecker.checkForUpdates(
-					"engineer",
-					"2.16.0-beta.9",
-					false,
-				);
+				const result = await ConfigVersionChecker.checkForUpdates("coding", "2.16.0-beta.9", false);
 
 				expect(result.latestVersion).toBe("2.16.0-beta.10");
 				expect(result.hasUpdates).toBe(true);

@@ -37,7 +37,7 @@ describe("promptKitUpdate version display", () => {
 			getSetupFn: (async () => ({
 				global: {
 					path: tempDir,
-					metadata: { kits: { engineer: { version: "1.0.0" } } },
+					metadata: { kits: { coding: { version: "1.0.0" } } },
 					components: { commands: 0, hooks: 0, skills: 0, workflows: 0, settings: 0 },
 				},
 				project: {
@@ -62,7 +62,7 @@ describe("promptKitUpdate version display", () => {
 			join(tempDir, "metadata.json"),
 			JSON.stringify({
 				version: "1.0.0",
-				kits: { engineer: { version: "1.0.0", installedAt: "2025-01-01T00:00:00Z" } },
+				kits: { coding: { version: "1.0.0", installedAt: "2025-01-01T00:00:00Z" } },
 			}),
 		);
 
@@ -73,7 +73,7 @@ describe("promptKitUpdate version display", () => {
 					join(tempDir, "metadata.json"),
 					JSON.stringify({
 						version: "1.0.0",
-						kits: { engineer: { version: "2.0.0", installedAt: "2025-01-01T00:00:00Z" } },
+						kits: { coding: { version: "2.0.0", installedAt: "2025-01-01T00:00:00Z" } },
 					}),
 				);
 			},
@@ -85,7 +85,7 @@ describe("promptKitUpdate version display", () => {
 		expect(stopMsg).toBeDefined();
 		expect(stopMsg).toContain("1.0.0");
 		expect(stopMsg).toContain("2.0.0");
-		expect(stopMsg).toContain("engineer");
+		expect(stopMsg).toContain("coding");
 	});
 
 	it("skips update entirely when latest tag matches installed version", async () => {
@@ -93,7 +93,7 @@ describe("promptKitUpdate version display", () => {
 			join(tempDir, "metadata.json"),
 			JSON.stringify({
 				version: "1.0.0",
-				kits: { engineer: { version: "1.0.0", installedAt: "2025-01-01T00:00:00Z" } },
+				kits: { coding: { version: "1.0.0", installedAt: "2025-01-01T00:00:00Z" } },
 			}),
 		);
 
@@ -112,7 +112,7 @@ describe("promptKitUpdate version display", () => {
 			join(tempDir, "metadata.json"),
 			JSON.stringify({
 				version: "1.0.0",
-				kits: { engineer: { version: "v1.5.0", installedAt: "2025-01-01T00:00:00Z" } },
+				kits: { coding: { version: "v1.5.0", installedAt: "2025-01-01T00:00:00Z" } },
 			}),
 		);
 
@@ -130,7 +130,7 @@ describe("promptKitUpdate version display", () => {
 			join(tempDir, "metadata.json"),
 			JSON.stringify({
 				version: "1.0.0",
-				kits: { engineer: { version: "1.0.0", installedAt: "2025-01-01T00:00:00Z" } },
+				kits: { coding: { version: "1.0.0", installedAt: "2025-01-01T00:00:00Z" } },
 			}),
 		);
 
@@ -147,7 +147,7 @@ describe("promptKitUpdate version display", () => {
 			join(tempDir, "metadata.json"),
 			JSON.stringify({
 				version: "1.0.0",
-				kits: { engineer: { version: "1.0.0", installedAt: "2025-01-01T00:00:00Z" } },
+				kits: { coding: { version: "1.0.0", installedAt: "2025-01-01T00:00:00Z" } },
 			}),
 		);
 

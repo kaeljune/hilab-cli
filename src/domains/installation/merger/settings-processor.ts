@@ -15,13 +15,13 @@ import semver from "semver";
  */
 export class SettingsProcessor {
 	/** Minimum Claude Code version that supports TaskCompleted/TeammateIdle hooks.
-	 * Earlier versions throw "Invalid key in record" errors. See hilab-engineer#464 */
+	 * Earlier versions throw "Invalid key in record" errors. See hilab-coding#464 */
 	private static readonly MIN_TEAM_HOOKS_VERSION = "2.1.33";
 
 	private isGlobal = false;
 	private forceOverwriteSettings = false;
 	private projectDir = "";
-	private kitName = "engineer";
+	private kitName = "coding";
 	private tracker: InstalledSettingsTracker | null = null;
 	private installingKit: string | undefined;
 	private cachedVersion: string | null | undefined = undefined;

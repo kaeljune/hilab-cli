@@ -9,7 +9,7 @@ import { describe, expect, it, mock } from "bun:test";
 import type { KitType } from "@/types";
 
 // Create mock prompts manager
-function createMockPrompts(selectKitResult: KitType = "engineer") {
+function createMockPrompts(selectKitResult: KitType = "coding") {
 	return {
 		selectKit: mock(async (_default?: KitType, _accessible?: KitType[]) => selectKitResult),
 		selectKits: mock(async (_accessible: KitType[]) => [selectKitResult]),
@@ -43,7 +43,7 @@ function createOfflineContext(overrides: OfflineTestContextOptions) {
 			archive: overrides.archive,
 			useGit: overrides.useGit ?? false,
 			release: overrides.release,
-			kit: overrides.kit ?? "engineer",
+			kit: overrides.kit ?? "coding",
 			yes: overrides.yes ?? true,
 			global: overrides.global ?? true,
 			beta: overrides.beta ?? false,
@@ -239,12 +239,12 @@ describe("selection-handler offline modes", () => {
 	describe("regression test: Issue #298 exact scenario", () => {
 		it("handles exact user scenario from Issue #298", () => {
 			// Exact reproduction from GitHub issue:
-			// hi init -g --prefix -y --kit engineer --kit-path /root/.hilab/.git/hilab-engineer
+			// hi init -g --prefix -y --kit coding --kit-path /root/.hilab/.git/hilab-coding
 			const ctx = createOfflineContext({
 				global: true,
 				yes: true,
-				kit: "engineer",
-				kitPath: "/root/.hilab/.git/hilab-engineer",
+				kit: "coding",
+				kitPath: "/root/.hilab/.git/hilab-coding",
 			});
 
 			const isOfflineMode = !!(ctx.options.kitPath || ctx.options.archive);
@@ -272,9 +272,9 @@ describe("selection-handler offline modes", () => {
 		it("handles Docker/CI scenario without any auth", () => {
 			// Docker container scenario: no gh CLI, no GITHUB_TOKEN, no SSH keys
 			const ctx = createOfflineContext({
-				kitPath: "/opt/hilab-engineer",
+				kitPath: "/opt/hilab-coding",
 				yes: true,
-				kit: "engineer",
+				kit: "coding",
 				global: true,
 			});
 

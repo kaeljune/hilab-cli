@@ -13,7 +13,7 @@ export const initCommandHelp: CommandHelp = {
 	usage: "hi init [options]",
 	examples: [
 		{
-			command: "hi init --kit engineer",
+			command: "hi init --kit coding",
 			description: "Update local project with latest engineer kit",
 		},
 		{
@@ -58,7 +58,7 @@ export const initCommandHelp: CommandHelp = {
 				},
 				{
 					flags: "--kit <kit>",
-					description: "Kit to use (engineer, marketing)",
+					description: "Kit to use (coding, marketing)",
 				},
 				{
 					flags: "-r, --release <version>",

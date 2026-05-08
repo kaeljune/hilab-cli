@@ -16,10 +16,10 @@ describe("Hook Origin Tracking", () => {
 		};
 		const dest: SettingsJson = {};
 
-		const result = mergeSettings(source, dest, { sourceKit: "engineer" });
+		const result = mergeSettings(source, dest, { sourceKit: "coding" });
 
 		expect(result.hooksByOrigin).toBeDefined();
-		expect(result.hooksByOrigin.get("engineer")).toContain("node ~/.claude/scripts/foo.cjs");
+		expect(result.hooksByOrigin.get("coding")).toContain("node ~/.claude/scripts/foo.cjs");
 	});
 
 	it("separates hooks by different kits", () => {
@@ -36,7 +36,7 @@ describe("Hook Origin Tracking", () => {
 		const dest: SettingsJson = {};
 
 		// First merge engineer
-		const result1 = mergeSettings(engineerHooks, dest, { sourceKit: "engineer" });
+		const result1 = mergeSettings(engineerHooks, dest, { sourceKit: "coding" });
 
 		// Then merge marketing
 		const marketingHooks: SettingsJson = {
@@ -98,7 +98,7 @@ describe("Hook Origin Tracking", () => {
 		};
 		const dest: SettingsJson = {};
 
-		const result = mergeSettings(source, dest, { sourceKit: "engineer" });
+		const result = mergeSettings(source, dest, { sourceKit: "coding" });
 
 		// Check that hooks are tagged with _origin
 		const hooks = result.merged.hooks?.PreToolUse;
@@ -107,7 +107,7 @@ describe("Hook Origin Tracking", () => {
 
 		const hook = hooks?.[0];
 		if (hook && "command" in hook) {
-			expect(hook._origin).toBe("engineer");
+			expect(hook._origin).toBe("coding");
 		}
 	});
 
@@ -134,9 +134,9 @@ describe("Hook Origin Tracking", () => {
 		};
 		const dest: SettingsJson = {};
 
-		const result = mergeSettings(source, dest, { sourceKit: "engineer" });
+		const result = mergeSettings(source, dest, { sourceKit: "coding" });
 
-		const engineerHooks = result.hooksByOrigin.get("engineer") || [];
+		const engineerHooks = result.hooksByOrigin.get("coding") || [];
 		expect(engineerHooks).toContain("node ~/.claude/scripts/hook1.cjs");
 		expect(engineerHooks).toContain("node ~/.claude/scripts/hook2.cjs");
 		expect(engineerHooks).toContain("node ~/.claude/scripts/hook3.cjs");
@@ -193,9 +193,9 @@ describe("Hook Origin Tracking", () => {
 		};
 		const dest: SettingsJson = {};
 
-		const result = mergeSettings(source, dest, { sourceKit: "engineer" });
+		const result = mergeSettings(source, dest, { sourceKit: "coding" });
 
-		const engineerHooks = result.hooksByOrigin.get("engineer") || [];
+		const engineerHooks = result.hooksByOrigin.get("coding") || [];
 		expect(engineerHooks).toContain("node ~/.claude/scripts/edit-hook.cjs");
 	});
 });

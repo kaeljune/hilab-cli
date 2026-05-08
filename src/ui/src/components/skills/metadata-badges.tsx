@@ -6,7 +6,7 @@ import type React from "react";
 
 /** Kit badge colors: orange for engineer, blue for marketing, gray fallback */
 const KIT_COLORS: Record<string, string> = {
-	engineer: "#F7A072",
+	coding: "#F7A072",
 	marketing: "#4A9BD9",
 };
 

@@ -15,13 +15,19 @@ function isSafeRelativeLayoutPath(value: string): boolean {
 }
 
 // Kit types
-export const KitType = z.enum(["engineer", "marketing"]);
+export const KitType = z.enum(["coding", "marketing"]);
 export type KitType = z.infer<typeof KitType>;
 
 // Runtime validation helper - validates string is valid KitType before unsafe casts
 export function isValidKitType(value: string): value is KitType {
-	return value === "engineer" || value === "marketing";
+	return value === "coding" || value === "marketing";
 }
+
+// Legacy kit names that should be auto-migrated to current names.
+// The "engineer" kit was renamed to "coding" — the rebrand from claudekit-engineer to hilab-coding.
+export const LEGACY_KIT_ALIASES: Record<string, KitType> = {
+	engineer: "coding",
+};
 
 // Kit configuration
 export const KitConfigSchema = z.object({
@@ -49,7 +55,7 @@ export const DEFAULT_KIT_LAYOUT: KitLayout = {
 
 // Available kits
 export const AVAILABLE_KITS: Record<KitType, KitConfig> = {
-	engineer: {
+	coding: {
 		name: "HiLab Coding",
 		repo: "hilab-coding",
 		owner: "kaeljune",
@@ -95,7 +101,7 @@ export const USER_CONFIG_PATTERNS = [
 	".gitignore",
 	".repomixignore",
 	".mcp.json",
-	".ckignore",
+	".hiignore",
 	".hi.json",
 	"CLAUDE.md",
 ];

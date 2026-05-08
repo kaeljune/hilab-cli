@@ -217,7 +217,7 @@ describe("kit-access-checker", () => {
 
 			const result = await detectAccessibleKits();
 
-			expect(result).toContain("engineer");
+			expect(result).toContain("coding");
 			expect(result).toContain("marketing");
 			expect(result.length).toBe(Object.keys(AVAILABLE_KITS).length);
 			expect(mockSpinner.succeed).toHaveBeenCalled();
@@ -264,7 +264,7 @@ describe("kit-access-checker", () => {
 
 			const result = await detectAccessibleKits();
 
-			expect(result).toContain("engineer");
+			expect(result).toContain("coding");
 			expect(result).not.toContain("marketing");
 			expect(result.length).toBe(1);
 			expect(mockSpinner.succeed).toHaveBeenCalled();
@@ -272,7 +272,7 @@ describe("kit-access-checker", () => {
 
 		test("returns only marketing when engineer returns 404", async () => {
 			spyOn(GitHubClient.prototype, "checkAccess").mockImplementation(async (config) => {
-				if (config.repo === AVAILABLE_KITS.engineer.repo) {
+				if (config.repo === AVAILABLE_KITS.coding.repo) {
 					throw makeHttpError(404, "Not Found");
 				}
 				return true;
@@ -280,7 +280,7 @@ describe("kit-access-checker", () => {
 
 			const result = await detectAccessibleKits();
 
-			expect(result).not.toContain("engineer");
+			expect(result).not.toContain("coding");
 			expect(result).toContain("marketing");
 			expect(result.length).toBe(1);
 			expect(mockSpinner.succeed).toHaveBeenCalled();

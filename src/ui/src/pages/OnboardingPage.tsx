@@ -88,7 +88,7 @@ const OnboardingPageContent: React.FC = () => {
 
 	// Map string kit IDs to KitType enum
 	const getKitTypeFromId = (id: string): KitType => {
-		return id === "engineer" ? KitType.ENGINEER : KitType.MARKETING;
+		return id === "coding" ? KitType.ENGINEER : KitType.MARKETING;
 	};
 
 	return (

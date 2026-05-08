@@ -80,7 +80,7 @@ function extractOptionsFromSource(): Set<string> {
 
 // ─── Engineer file paths ──────────────────────────────────────────────────────
 
-const ENGINEER_REPO_ROOT = resolve(__dirname, "../../../../../hilab-engineer");
+const ENGINEER_REPO_ROOT = resolve(__dirname, "../../../../../hilab-coding");
 
 function resolveEngineerSourceRoot(): string {
 	const packageJsonPath = join(ENGINEER_REPO_ROOT, "package.json");
@@ -253,7 +253,7 @@ describe.skipIf(!HAS_ENGINEER_REPO)("Named engineer files — subcommands are va
 	});
 
 	for (const inv of withSubcommands) {
-		const label = `${inv.subcommand} (${inv.file.split("/hilab-engineer/")[1]}:${inv.line})`;
+		const label = `${inv.subcommand} (${inv.file.split("/hilab-coding/")[1]}:${inv.line})`;
 		test(`subcommand '${label}' is registered in CLI`, () => {
 			expect(VALID_SUBCOMMANDS.has(inv.subcommand as string)).toBe(true);
 		});
@@ -266,7 +266,7 @@ describe.skipIf(!HAS_ENGINEER_REPO)("Named engineer files — flags are valid", 
 
 	for (const inv of withFlags) {
 		for (const flag of inv.flags) {
-			const relPath = inv.file.split("/hilab-engineer/")[1];
+			const relPath = inv.file.split("/hilab-coding/")[1];
 			const label = `--${flag} (${relPath}:${inv.line})`;
 			test(`flag '${label}' is registered in CLI`, () => {
 				expect(VALID_FLAGS.has(flag)).toBe(true);
@@ -312,7 +312,7 @@ describe.skipIf(!HAS_ENGINEER_REPO)(
 		});
 
 		for (const inv of withSubcommands) {
-			const relPath = inv.file.split("/hilab-engineer/")[1] ?? inv.file;
+			const relPath = inv.file.split("/hilab-coding/")[1] ?? inv.file;
 			const label = `${inv.subcommand} (${relPath}:${inv.line})`;
 			test(`subcommand '${label}' is registered in CLI`, () => {
 				expect(VALID_SUBCOMMANDS.has(inv.subcommand as string)).toBe(true);
@@ -331,7 +331,7 @@ describe.skipIf(!HAS_ENGINEER_REPO)(
 
 		for (const inv of withFlags) {
 			for (const flag of inv.flags) {
-				const relPath = inv.file.split("/hilab-engineer/")[1] ?? inv.file;
+				const relPath = inv.file.split("/hilab-coding/")[1] ?? inv.file;
 				const label = `--${flag} (${relPath}:${inv.line})`;
 				test(`flag '${label}' is registered in CLI`, () => {
 					expect(VALID_FLAGS.has(flag)).toBe(true);

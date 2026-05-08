@@ -3,13 +3,13 @@
  * Uses translation keys for all user-facing strings
  */
 
-export type KitType = "engineer" | "marketing";
+export type KitType = "coding" | "marketing";
 
 export interface KitFeature {
 	id: string;
 	name: string; // Translation key: e.g., "featureAgents"
 	description: string; // Translation key
-	engineer: boolean;
+	coding: boolean;
 	marketing: boolean;
 }
 
@@ -26,49 +26,49 @@ export const KIT_FEATURES: KitFeature[] = [
 		id: "agents",
 		name: "featureAgents",
 		description: "featureAgentsDesc",
-		engineer: true,
+		coding: true,
 		marketing: true,
 	},
 	{
 		id: "hooks",
 		name: "featureHooks",
 		description: "featureHooksDesc",
-		engineer: true,
+		coding: true,
 		marketing: true,
 	},
 	{
 		id: "skills",
 		name: "featureSkills",
 		description: "featureSkillsDesc",
-		engineer: true,
+		coding: true,
 		marketing: true,
 	},
 	{
 		id: "multiagent",
 		name: "featureMultiAgent",
 		description: "featureMultiAgentDesc",
-		engineer: true,
+		coding: true,
 		marketing: false,
 	},
 	{
 		id: "content",
 		name: "featureContent",
 		description: "featureContentDesc",
-		engineer: false,
+		coding: false,
 		marketing: true,
 	},
 	{
 		id: "social",
 		name: "featureSocial",
 		description: "featureSocialDesc",
-		engineer: false,
+		coding: false,
 		marketing: true,
 	},
 ];
 
 export const KIT_COMPARISONS: Record<KitType, KitComparison> = {
-	engineer: {
-		id: "engineer",
+	coding: {
+		id: "coding",
 		name: "kitEngineerName",
 		tagline: "kitEngineerTagline",
 		primaryColor: "text-blue-500",

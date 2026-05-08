@@ -27,7 +27,7 @@ const HOOKS_SKIP_DIR_NAMES = new Set(["__tests__", "tests", ".logs", "docs"]);
  * Dotfiles (in the hooks source root, NOT subdirs) that should accompany
  * hook scripts to the target because hooks require them at runtime.
  */
-const HOOKS_COMPANION_DOTFILES = new Set([".ckignore"]);
+const HOOKS_COMPANION_DOTFILES = new Set([".hiignore"]);
 
 /**
  * Result of copying companion directories for a hooks install.
@@ -35,7 +35,7 @@ const HOOKS_COMPANION_DOTFILES = new Set([".ckignore"]);
 export interface HooksCompanionCopyResult {
 	/** Subdirectory names successfully copied */
 	copiedDirs: string[];
-	/** Companion dotfiles (e.g. .ckignore) successfully copied */
+	/** Companion dotfiles (e.g. .hiignore) successfully copied */
 	copiedDotfiles: string[];
 	/** Non-fatal errors encountered during copy (per dir/file) */
 	errors: Array<{ name: string; error: string }>;
@@ -43,7 +43,7 @@ export interface HooksCompanionCopyResult {
 
 /**
  * Copy hook companion directories (e.g. lib/, scout-block/) and companion dotfiles
- * (e.g. .ckignore) from a source hooks directory to a target directory.
+ * (e.g. .hiignore) from a source hooks directory to a target directory.
  *
  * Called after hook .cjs files are installed so that `require('./lib/*.cjs')` calls
  * inside hooks resolve without MODULE_NOT_FOUND errors.
@@ -52,9 +52,9 @@ export interface HooksCompanionCopyResult {
  * - Only subdirectories are copied (not top-level files — those are handled by installPerFile).
  * - Directories listed in HOOKS_SKIP_DIR_NAMES (__tests__, tests, .logs, docs) are excluded.
  * - Directories whose names start with "." are excluded.
- * - Dotfiles in HOOKS_COMPANION_DOTFILES (.ckignore) are copied from the source hooks
- *   directory's PARENT to the target's PARENT (e.g. ~/.claude/.ckignore →
- *   ~/.codex/.ckignore). This matches scout-block's `path.dirname(__dirname)` lookup.
+ * - Dotfiles in HOOKS_COMPANION_DOTFILES (.hiignore) are copied from the source hooks
+ *   directory's PARENT to the target's PARENT (e.g. ~/.claude/.hiignore →
+ *   ~/.codex/.hiignore). This matches scout-block's `path.dirname(__dirname)` lookup.
  * - Source and target identical paths are silently skipped (no-op for claude-code → claude-code).
  * - Individual copy failures are non-fatal; they are collected in errors[].
  */
@@ -98,8 +98,8 @@ export async function copyHooksCompanionDirs(
 	}
 
 	// Copy companion dotfiles from source's PARENT dir to target's PARENT dir.
-	// scout-block resolves `.ckignore` via `path.dirname(__dirname)` — i.e. at
-	// ~/.codex/.ckignore (not ~/.codex/hooks/.ckignore). So we mirror the layout.
+	// scout-block resolves `.hiignore` via `path.dirname(__dirname)` — i.e. at
+	// ~/.codex/.hiignore (not ~/.codex/hooks/.hiignore). So we mirror the layout.
 	const sourceParent = resolve(sourceDir, "..");
 	const targetParent = resolve(targetDir, "..");
 	if (sourceParent !== targetParent) {

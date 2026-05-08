@@ -2,7 +2,7 @@
  * Global Path Transformer
  *
  * Transforms hardcoded `.claude/` paths in file contents to use platform-appropriate
- * home directory paths when installing globally. This allows the hilab-engineer
+ * home directory paths when installing globally. This allows the hilab-coding
  * template to remain project-scope friendly while the CLI handles the transformation
  * at install time.
  *

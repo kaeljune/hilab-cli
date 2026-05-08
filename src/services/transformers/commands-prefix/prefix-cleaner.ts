@@ -43,7 +43,7 @@ export interface CleanupResult {
  * Used to identify which directories belong to which kits
  */
 const KIT_PREFIX_MAP: Record<string, KitType> = {
-	ck: "engineer",
+	ck: "coding",
 	mkt: "marketing",
 };
 

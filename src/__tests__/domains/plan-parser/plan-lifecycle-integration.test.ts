@@ -209,7 +209,7 @@ describe("Sub-phase chain ordering", () => {
 const SET_ACTIVE_PLAN_PATH = resolve(
 	dirname(new URL(import.meta.url).pathname),
 	"../../../../..",
-	"hilab-engineer/.claude/scripts/set-active-plan.cjs",
+	"hilab-coding/.claude/scripts/set-active-plan.cjs",
 );
 
 describe.skipIf(!existsSync(SET_ACTIVE_PLAN_PATH))("set-active-plan.cjs", () => {

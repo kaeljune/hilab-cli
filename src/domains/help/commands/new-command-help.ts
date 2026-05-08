@@ -13,7 +13,7 @@ export const newCommandHelp: CommandHelp = {
 	usage: "hi new [options]",
 	examples: [
 		{
-			command: "hi new --kit engineer --dir ./my-project",
+			command: "hi new --kit coding --dir ./my-project",
 			description: "Create engineer kit project in specific directory",
 		},
 		{
@@ -53,7 +53,7 @@ export const newCommandHelp: CommandHelp = {
 				},
 				{
 					flags: "--kit <kit>",
-					description: "Kit to use (engineer, marketing)",
+					description: "Kit to use (coding, marketing)",
 				},
 				{
 					flags: "-r, --release <version>",

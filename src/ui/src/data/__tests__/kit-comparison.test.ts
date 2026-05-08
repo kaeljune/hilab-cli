@@ -15,13 +15,13 @@ describe("kit-comparison data", () => {
 				expect(feature).toHaveProperty("id");
 				expect(feature).toHaveProperty("name");
 				expect(feature).toHaveProperty("description");
-				expect(feature).toHaveProperty("engineer");
+				expect(feature).toHaveProperty("coding");
 				expect(feature).toHaveProperty("marketing");
 			}
 		});
 
 		it("has agents, hooks, skills features for both kits", () => {
-			const sharedFeatures = KIT_FEATURES.filter((f) => f.engineer && f.marketing);
+			const sharedFeatures = KIT_FEATURES.filter((f) => f.coding && f.marketing);
 			expect(sharedFeatures.map((f) => f.id)).toContain("agents");
 			expect(sharedFeatures.map((f) => f.id)).toContain("hooks");
 			expect(sharedFeatures.map((f) => f.id)).toContain("skills");
@@ -29,33 +29,33 @@ describe("kit-comparison data", () => {
 
 		it("has multiagent for engineer only", () => {
 			const multiagent = KIT_FEATURES.find((f) => f.id === "multiagent");
-			expect(multiagent?.engineer).toBe(true);
+			expect(multiagent?.coding).toBe(true);
 			expect(multiagent?.marketing).toBe(false);
 		});
 
 		it("has content and social for marketing only", () => {
 			const content = KIT_FEATURES.find((f) => f.id === "content");
 			const social = KIT_FEATURES.find((f) => f.id === "social");
-			expect(content?.engineer).toBe(false);
+			expect(content?.coding).toBe(false);
 			expect(content?.marketing).toBe(true);
-			expect(social?.engineer).toBe(false);
+			expect(social?.coding).toBe(false);
 			expect(social?.marketing).toBe(true);
 		});
 	});
 
 	describe("KIT_COMPARISONS", () => {
 		it("contains engineer and marketing kits", () => {
-			expect(KIT_COMPARISONS).toHaveProperty("engineer");
+			expect(KIT_COMPARISONS).toHaveProperty("coding");
 			expect(KIT_COMPARISONS).toHaveProperty("marketing");
 		});
 
 		it("engineer kit has correct properties", () => {
-			const engineer = KIT_COMPARISONS.engineer;
-			expect(engineer.id).toBe("engineer");
-			expect(engineer.name).toBe("kitEngineerName");
-			expect(engineer.tagline).toBe("kitEngineerTagline");
-			expect(engineer.primaryColor).toBe("text-blue-500");
-			expect(engineer.features).toContain("multiagent");
+			const coding = KIT_COMPARISONS.coding;
+			expect(coding.id).toBe("coding");
+			expect(coding.name).toBe("kitEngineerName");
+			expect(coding.tagline).toBe("kitEngineerTagline");
+			expect(coding.primaryColor).toBe("text-blue-500");
+			expect(coding.features).toContain("multiagent");
 		});
 
 		it("marketing kit has correct properties", () => {
@@ -71,7 +71,7 @@ describe("kit-comparison data", () => {
 
 	describe("getKitFeatures", () => {
 		it("returns 4 features for engineer kit", () => {
-			const features = getKitFeatures("engineer");
+			const features = getKitFeatures("coding");
 			expect(features).toHaveLength(4);
 			expect(features.map((f) => f.id)).toEqual(["agents", "hooks", "skills", "multiagent"]);
 		});
@@ -95,12 +95,12 @@ describe("kit-comparison data", () => {
 		});
 
 		it("returns all KitFeature objects with complete properties", () => {
-			const features = getKitFeatures("engineer");
+			const features = getKitFeatures("coding");
 			for (const feature of features) {
 				expect(feature.id).toBeDefined();
 				expect(feature.name).toBeDefined();
 				expect(feature.description).toBeDefined();
-				expect(typeof feature.engineer).toBe("boolean");
+				expect(typeof feature.coding).toBe("boolean");
 				expect(typeof feature.marketing).toBe("boolean");
 			}
 		});

@@ -29,7 +29,7 @@ describe("deletion-handler", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -65,7 +65,7 @@ describe("deletion-handler", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -101,7 +101,7 @@ describe("deletion-handler", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -119,12 +119,12 @@ describe("deletion-handler", () => {
 
 			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
-				name: "hilab-engineer",
+				name: "hilab-coding",
 				description: "test",
 				deletions: ["commands/ask.md"],
 			};
 
-			const result = await handleDeletions(sourceMetadata, testDir, "engineer");
+			const result = await handleDeletions(sourceMetadata, testDir, "coding");
 
 			expect(result.deletedPaths).toContain("commands/hi/ask.md");
 			expect(existsSync(filePath)).toBe(false);
@@ -137,7 +137,7 @@ describe("deletion-handler", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -247,7 +247,7 @@ describe("deletion-handler", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [
@@ -283,7 +283,7 @@ describe("deletion-handler", () => {
 			const updatedMetadata: Metadata = JSON.parse(await updatedContent);
 
 			// old.md should be removed from metadata
-			const files = updatedMetadata.kits?.engineer?.files || [];
+			const files = updatedMetadata.kits?.coding?.files || [];
 			expect(files.find((f) => f.path === "commands/old.md")).toBeUndefined();
 			// keep.md should still be there
 			expect(files.find((f) => f.path === "commands/keep.md")).toBeDefined();
@@ -316,7 +316,7 @@ describe("deletion-handler", () => {
 			// Empty metadata (no files tracked)
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: new Date().toISOString(),
 						files: [],

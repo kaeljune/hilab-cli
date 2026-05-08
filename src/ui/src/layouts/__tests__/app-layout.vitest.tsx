@@ -34,7 +34,7 @@ vi.mock("../../hooks", () => ({
 				name: "Alpha",
 				path: "/tmp/alpha",
 				health: "healthy",
-				kitType: "engineer",
+				kitType: "coding",
 				model: "gpt-5",
 				activeHooks: 0,
 				mcpServers: 0,

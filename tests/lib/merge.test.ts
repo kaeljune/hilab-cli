@@ -1548,7 +1548,7 @@ describe("FileMerger", () => {
 
 	describe("local mode: monorepo path transformation", () => {
 		test("should transform relative .claude/ paths to $CLAUDE_PROJECT_DIR on Unix (local mode)", async () => {
-			// Create settings.json with relative hook paths (as in hilab-engineer template)
+			// Create settings.json with relative hook paths (as in hilab-coding template)
 			const settingsContent = JSON.stringify(
 				{
 					statusLine: {

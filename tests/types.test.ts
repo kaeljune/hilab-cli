@@ -19,7 +19,7 @@ import {
 describe("Types and Schemas", () => {
 	describe("KitType", () => {
 		test("should validate correct kit types", () => {
-			expect(KitType.parse("engineer")).toBe("engineer");
+			expect(KitType.parse("coding")).toBe("coding");
 			expect(KitType.parse("marketing")).toBe("marketing");
 		});
 
@@ -72,11 +72,11 @@ describe("Types and Schemas", () => {
 		test("should validate correct options", () => {
 			const result = NewCommandOptionsSchema.parse({
 				dir: "./test",
-				kit: "engineer",
+				kit: "coding",
 				release: "v1.0.0",
 			});
 			expect(result.dir).toBe("./test");
-			expect(result.kit).toBe("engineer");
+			expect(result.kit).toBe("coding");
 			expect(result.release).toBe("v1.0.0");
 		});
 
@@ -129,7 +129,7 @@ describe("Types and Schemas", () => {
 		test("should validate all optional flags together", () => {
 			const result = NewCommandOptionsSchema.parse({
 				dir: "./custom",
-				kit: "engineer",
+				kit: "coding",
 				version: "v1.0.0",
 				force: true,
 				exclude: ["*.log"],
@@ -152,11 +152,11 @@ describe("Types and Schemas", () => {
 		test("should validate correct options", () => {
 			const result = UpdateCommandOptionsSchema.parse({
 				dir: "./test",
-				kit: "engineer",
+				kit: "coding",
 				release: "v2.0.0",
 			});
 			expect(result.dir).toBe("./test");
-			expect(result.kit).toBe("engineer");
+			expect(result.kit).toBe("coding");
 			expect(result.release).toBe("v2.0.0");
 		});
 
@@ -201,7 +201,7 @@ describe("Types and Schemas", () => {
 		test("should validate all optional flags together", () => {
 			const result = UpdateCommandOptionsSchema.parse({
 				dir: "./custom",
-				kit: "engineer",
+				kit: "coding",
 				version: "v2.0.0",
 				exclude: ["*.log"],
 				only: ["*.ts"],
@@ -223,12 +223,12 @@ describe("Types and Schemas", () => {
 		test("should validate complete config", () => {
 			const config = {
 				defaults: {
-					kit: "engineer",
+					kit: "coding",
 					dir: "./projects",
 				},
 			};
 			const result = ConfigSchema.parse(config);
-			expect(result.defaults?.kit).toBe("engineer");
+			expect(result.defaults?.kit).toBe("coding");
 			expect(result.defaults?.dir).toBe("./projects");
 		});
 
@@ -348,9 +348,9 @@ describe("Types and Schemas", () => {
 
 	describe("AVAILABLE_KITS", () => {
 		test("should have engineer kit", () => {
-			expect(AVAILABLE_KITS.engineer).toBeDefined();
-			expect(AVAILABLE_KITS.engineer.name).toBe("HiLab Coding");
-			expect(AVAILABLE_KITS.engineer.repo).toBe("hilab-coding");
+			expect(AVAILABLE_KITS.coding).toBeDefined();
+			expect(AVAILABLE_KITS.coding.name).toBe("HiLab Coding");
+			expect(AVAILABLE_KITS.coding.repo).toBe("hilab-coding");
 		});
 
 		test("should have marketing kit", () => {

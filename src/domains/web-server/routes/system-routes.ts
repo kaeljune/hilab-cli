@@ -145,7 +145,7 @@ export function registerSystemRoutes(app: Express): void {
 				res.json(response);
 			} else {
 				// Kit update check
-				const kitName = typeof kit === "string" && isValidKitType(kit) ? kit : "engineer";
+				const kitName = typeof kit === "string" && isValidKitType(kit) ? kit : "coding";
 				const metadata = await getKitMetadata(kitName);
 				const currentVersion = metadata?.version ?? "0.0.0";
 				const kitChannel =
@@ -222,7 +222,7 @@ export function registerSystemRoutes(app: Express): void {
 				}
 			} else {
 				// Fetch from GitHub releases
-				const kitName = (kit as string) ?? "engineer";
+				const kitName = (kit as string) ?? "coding";
 				const kitConfig = AVAILABLE_KITS[kitName as KitType];
 				if (kitConfig) {
 					const githubClient = new GitHubClient();

@@ -395,7 +395,7 @@ describe("config-discovery", () => {
 		});
 	});
 
-	// Regression test for GH-741: companion dirs (lib/, scout-block/) and .ckignore
+	// Regression test for GH-741: companion dirs (lib/, scout-block/) and .hiignore
 	// must be copied alongside hook scripts so require('./lib/*.cjs') resolves correctly.
 	describe("copyHooksCompanionDirs", () => {
 		it("copies lib/ and scout-block/ subdirectories to the target dir", async () => {
@@ -424,10 +424,10 @@ describe("config-discovery", () => {
 			expect(existsSync(join(dst, "session-init.cjs"))).toBe(false);
 		});
 
-		it("copies .ckignore from source parent to target parent (scout-block layout)", async () => {
-			// scout-block resolves .ckignore via path.dirname(__dirname), i.e. one
-			// level up from hooks/. Mirror that layout: .ckignore lives at the
-			// provider root (~/.claude/.ckignore → ~/.codex/.ckignore), NOT inside hooks/.
+		it("copies .hiignore from source parent to target parent (scout-block layout)", async () => {
+			// scout-block resolves .hiignore via path.dirname(__dirname), i.e. one
+			// level up from hooks/. Mirror that layout: .hiignore lives at the
+			// provider root (~/.claude/.hiignore → ~/.codex/.hiignore), NOT inside hooks/.
 			const providerSrcRoot = join(testDir, "parent-ckignore-src-root");
 			const providerDstRoot = join(testDir, "parent-ckignore-dst-root");
 			const src = join(providerSrcRoot, "hooks");
@@ -435,16 +435,16 @@ describe("config-discovery", () => {
 
 			mkdirSync(src, { recursive: true });
 			mkdirSync(providerDstRoot, { recursive: true });
-			// .ckignore lives at the PARENT of hooks/, not inside hooks/
-			writeFileSync(join(providerSrcRoot, ".ckignore"), "!node_modules\n!dist\n");
+			// .hiignore lives at the PARENT of hooks/, not inside hooks/
+			writeFileSync(join(providerSrcRoot, ".hiignore"), "!node_modules\n!dist\n");
 
 			const result = await copyHooksCompanionDirs(src, dst);
 
-			expect(result.copiedDotfiles).toContain(".ckignore");
+			expect(result.copiedDotfiles).toContain(".hiignore");
 			expect(result.errors).toHaveLength(0);
-			expect(existsSync(join(providerDstRoot, ".ckignore"))).toBe(true);
+			expect(existsSync(join(providerDstRoot, ".hiignore"))).toBe(true);
 			// Should NOT be written inside hooks/
-			expect(existsSync(join(dst, ".ckignore"))).toBe(false);
+			expect(existsSync(join(dst, ".hiignore"))).toBe(false);
 		});
 
 		it("excludes __tests__ and tests directories", async () => {
@@ -516,24 +516,24 @@ describe("config-discovery", () => {
 			mkdirSync(join(src, "scout-block"), { recursive: true });
 			writeFileSync(join(src, "lib", "utils.cjs"), "module.exports = {};");
 			writeFileSync(join(src, "scout-block", "fmt.cjs"), "module.exports = {};");
-			writeFileSync(join(providerSrcRoot, ".ckignore"), "!dist\n");
+			writeFileSync(join(providerSrcRoot, ".hiignore"), "!dist\n");
 
 			const first = await copyHooksCompanionDirs(src, dst);
 			const second = await copyHooksCompanionDirs(src, dst);
 
 			expect(first.copiedDirs.sort()).toEqual(["lib", "scout-block"]);
-			expect(first.copiedDotfiles).toContain(".ckignore");
+			expect(first.copiedDotfiles).toContain(".hiignore");
 			expect(first.errors).toHaveLength(0);
 
 			// Second invocation reports same results (no duplicates, no errors)
 			expect(second.copiedDirs.sort()).toEqual(["lib", "scout-block"]);
-			expect(second.copiedDotfiles).toContain(".ckignore");
+			expect(second.copiedDotfiles).toContain(".hiignore");
 			expect(second.errors).toHaveLength(0);
 
 			// Target content unchanged after second call
 			expect(existsSync(join(dst, "lib", "utils.cjs"))).toBe(true);
 			expect(existsSync(join(dst, "scout-block", "fmt.cjs"))).toBe(true);
-			expect(existsSync(join(providerDstRoot, ".ckignore"))).toBe(true);
+			expect(existsSync(join(providerDstRoot, ".hiignore"))).toBe(true);
 		});
 	});
 });

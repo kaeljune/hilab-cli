@@ -137,9 +137,9 @@ description: Found via claude source layout
 			}
 		});
 
-		it("preserves legacy bundled node_modules/hilab-engineer/skills lookup", async () => {
+		it("preserves legacy bundled node_modules/hilab-coding/skills lookup", async () => {
 			const projectDir = join(testDir, "legacy-bundled-project");
-			const bundledSkillsDir = join(projectDir, "node_modules", "hilab-engineer", "skills");
+			const bundledSkillsDir = join(projectDir, "node_modules", "hilab-coding", "skills");
 			const originalCwd = process.cwd();
 
 			mkdirSync(join(bundledSkillsDir, "legacy-demo"), { recursive: true });

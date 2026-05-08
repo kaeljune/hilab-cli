@@ -73,7 +73,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 			const checksum2 = "b".repeat(64);
 
 			// Engineer has file from 2025-01-01
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "skills/shared.md",
 					checksum: checksum1,
@@ -107,14 +107,14 @@ describe("Timestamp-Based Conflict Resolution", () => {
 			expect(result.conflictInfo?.winner).toBe("incoming");
 			expect(result.conflictInfo?.reason).toBe("newer");
 			expect(result.conflictInfo?.incomingKit).toBe("marketing");
-			expect(result.conflictInfo?.existingKit).toBe("engineer");
+			expect(result.conflictInfo?.existingKit).toBe("coding");
 		});
 
 		test("includes correct timestamps in conflictInfo", async () => {
 			const incomingTs = "2025-12-01T10:00:00+00:00";
 			const existingTs = "2025-06-01T10:00:00+00:00";
 
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "agents/shared.md",
 					checksum: "a".repeat(64),
@@ -151,7 +151,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 			const checksum2 = "b".repeat(64);
 
 			// Engineer has file from 2025-12-01 (newer)
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "skills/shared.md",
 					checksum: checksum1,
@@ -190,7 +190,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 		test("keeps existing when timestamps are identical", async () => {
 			const sameTimestamp = "2025-06-15T12:00:00Z";
 
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "skills/shared.md",
 					checksum: "a".repeat(64),
@@ -226,7 +226,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 	describe("Version Fallback (no timestamps)", () => {
 		test("uses version comparison when incoming has no timestamp", async () => {
 			// Engineer has v1.0.0
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "skills/shared.md",
 					checksum: "a".repeat(64),
@@ -264,7 +264,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 
 		test("keeps existing when incoming version is older (no timestamps)", async () => {
 			// Engineer has v2.0.0
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "skills/shared.md",
 					checksum: "a".repeat(64),
@@ -300,7 +300,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 
 		test("uses version comparison when existing has no timestamp", async () => {
 			// Engineer v1.0.0, no sourceTimestamp
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "skills/shared.md",
 					checksum: "a".repeat(64),
@@ -337,7 +337,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 
 	describe("Invalid Timestamp Handling", () => {
 		test("falls back to version when incoming timestamp is invalid", async () => {
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "skills/shared.md",
 					checksum: "a".repeat(64),
@@ -373,7 +373,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 		});
 
 		test("falls back to version when existing timestamp is invalid", async () => {
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "skills/shared.md",
 					checksum: "a".repeat(64),
@@ -412,7 +412,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 		test("correctly compares timestamps with different timezones", async () => {
 			// These are the same instant in time
 			// 2025-06-15T12:00:00Z = 2025-06-15T14:00:00+02:00
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "skills/shared.md",
 					checksum: "a".repeat(64),
@@ -443,7 +443,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 		});
 
 		test("newer timezone-offset timestamp wins", async () => {
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "skills/shared.md",
 					checksum: "a".repeat(64),
@@ -480,7 +480,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 			// Old metadata without sourceTimestamp
 			const metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "1.0.0",
 						installedAt: "2025-01-01T00:00:00Z",
 						files: [
@@ -524,7 +524,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 		});
 
 		test("works with manifest without lastModified", async () => {
-			await createMetadata("engineer", [
+			await createMetadata("coding", [
 				{
 					path: "skills/shared.md",
 					checksum: "a".repeat(64),
@@ -581,7 +581,7 @@ describe("ConflictInfo Aggregation", () => {
 	test("conflictInfo contains all required fields", async () => {
 		const metadata = {
 			kits: {
-				engineer: {
+				coding: {
 					version: "1.0.0",
 					installedAt: "2025-01-01T00:00:00Z",
 					files: [
@@ -624,7 +624,7 @@ describe("ConflictInfo Aggregation", () => {
 		expect(info).toBeDefined();
 		expect(info.relativePath).toBe("skills/test.md");
 		expect(info.incomingKit).toBe("marketing");
-		expect(info.existingKit).toBe("engineer");
+		expect(info.existingKit).toBe("coding");
 		expect(info.incomingTimestamp).toBe("2025-06-15T12:00:00Z");
 		expect(info.existingTimestamp).toBe("2025-01-01T12:00:00Z");
 		expect(info.winner).toBe("incoming");

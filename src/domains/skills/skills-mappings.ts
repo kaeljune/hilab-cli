@@ -1,6 +1,6 @@
 /**
  * Skills migration mappings from old (flat) to new (categorized) structure
- * Based on hilab-web → hilab-engineer migration
+ * Based on hilab-web → hilab-coding migration
  */
 
 export interface SkillCategoryMapping {

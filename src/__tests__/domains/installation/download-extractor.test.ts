@@ -11,7 +11,7 @@ import { AVAILABLE_KITS } from "@/types";
 import * as tar from "tar";
 
 const TEST_DIR = path.join(os.tmpdir(), "hi-test-offline");
-const mockKit = AVAILABLE_KITS.engineer;
+const mockKit = AVAILABLE_KITS.coding;
 
 async function createWrappedSourceLayoutKit(baseDir: string, wrapperName: string): Promise<string> {
 	const wrapperDir = path.join(baseDir, wrapperName);
@@ -107,7 +107,7 @@ describe("downloadAndExtract - offline options", () => {
 		test("should resolve wrapped local repo directories before materializing runtime layout", async () => {
 			const downloadDir = path.join(TEST_DIR, "downloaded-kit");
 			await fs.promises.mkdir(downloadDir, { recursive: true });
-			await createWrappedSourceLayoutKit(downloadDir, "hilab-engineer-main");
+			await createWrappedSourceLayoutKit(downloadDir, "hilab-coding-main");
 
 			const result = await downloadAndExtract({
 				kit: mockKit,
@@ -127,8 +127,8 @@ describe("downloadAndExtract - offline options", () => {
 		test("should ignore top-level metadata noise when resolving wrapped local repo directories", async () => {
 			const downloadDir = path.join(TEST_DIR, "downloaded-kit-with-noise");
 			await fs.promises.mkdir(downloadDir, { recursive: true });
-			await createWrappedSourceLayoutKit(downloadDir, "hilab-engineer-main");
-			await fs.promises.writeFile(path.join(downloadDir, "._hilab-engineer-main"), "noise");
+			await createWrappedSourceLayoutKit(downloadDir, "hilab-coding-main");
+			await fs.promises.writeFile(path.join(downloadDir, "._hilab-coding-main"), "noise");
 			await fs.promises.writeFile(path.join(downloadDir, "Thumbs.db"), "noise");
 
 			const result = await downloadAndExtract({
@@ -187,10 +187,10 @@ describe("downloadAndExtract - offline options", () => {
 		test("should resolve wrapped repo archives and keep global path transforms working", async () => {
 			const archiveSourceDir = path.join(TEST_DIR, "archive-source");
 			await fs.promises.mkdir(archiveSourceDir, { recursive: true });
-			const wrapperName = "hilab-engineer-main";
+			const wrapperName = "hilab-coding-main";
 			await createWrappedSourceLayoutKit(archiveSourceDir, wrapperName);
 
-			const archivePath = path.join(TEST_DIR, "hilab-engineer-main.tar.gz");
+			const archivePath = path.join(TEST_DIR, "hilab-coding-main.tar.gz");
 			await tar.create(
 				{
 					cwd: archiveSourceDir,
@@ -224,19 +224,19 @@ describe("downloadAndExtract - offline options", () => {
 		test("should ignore top-level metadata noise when resolving wrapped repo archives", async () => {
 			const archiveSourceDir = path.join(TEST_DIR, "archive-source-with-noise");
 			await fs.promises.mkdir(archiveSourceDir, { recursive: true });
-			const wrapperName = "hilab-engineer-main";
+			const wrapperName = "hilab-coding-main";
 			await createWrappedSourceLayoutKit(archiveSourceDir, wrapperName);
-			await fs.promises.writeFile(path.join(archiveSourceDir, "._hilab-engineer-main"), "noise");
+			await fs.promises.writeFile(path.join(archiveSourceDir, "._hilab-coding-main"), "noise");
 			await fs.promises.writeFile(path.join(archiveSourceDir, "desktop.ini"), "noise");
 
-			const archivePath = path.join(TEST_DIR, "hilab-engineer-main-with-noise.tar.gz");
+			const archivePath = path.join(TEST_DIR, "hilab-coding-main-with-noise.tar.gz");
 			await tar.create(
 				{
 					cwd: archiveSourceDir,
 					file: archivePath,
 					gzip: true,
 				},
-				["._hilab-engineer-main", "desktop.ini", wrapperName],
+				["._hilab-coding-main", "desktop.ini", wrapperName],
 			);
 
 			const result = await downloadAndExtract({

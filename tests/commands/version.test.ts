@@ -10,9 +10,9 @@ describe("Version Command", () => {
 
 	describe("VersionCommandOptionsSchema", () => {
 		test("should accept valid options with kit filter", () => {
-			const options = { kit: "engineer" as const };
+			const options = { kit: "coding" as const };
 			const result = VersionCommandOptionsSchema.parse(options);
-			expect(result.kit).toBe("engineer");
+			expect(result.kit).toBe("coding");
 		});
 
 		test("should accept valid options with limit", () => {
@@ -51,7 +51,7 @@ describe("Version Command", () => {
 
 	describe("Kit Configuration", () => {
 		test("should have engineer kit configured", () => {
-			const engineerKit = AVAILABLE_KITS.engineer;
+			const engineerKit = AVAILABLE_KITS.coding;
 			expect(engineerKit.name).toBe("HiLab Coding");
 			expect(engineerKit.repo).toBe("hilab-coding");
 			expect(engineerKit.owner).toBe("kaeljune");
@@ -291,15 +291,15 @@ describe("Version Command", () => {
 	describe("Integration Scenarios", () => {
 		test("should handle both kits in parallel", () => {
 			const kits = Object.keys(AVAILABLE_KITS);
-			expect(kits).toContain("engineer");
+			expect(kits).toContain("coding");
 			expect(kits).toContain("marketing");
 			expect(kits).toHaveLength(2);
 		});
 
 		test("should support filtering by engineer kit", () => {
-			const options = { kit: "engineer" as const };
+			const options = { kit: "coding" as const };
 			const result = VersionCommandOptionsSchema.parse(options);
-			expect(result.kit).toBe("engineer");
+			expect(result.kit).toBe("coding");
 
 			if (result.kit) {
 				const kitConfig = AVAILABLE_KITS[result.kit];

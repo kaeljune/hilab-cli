@@ -59,23 +59,23 @@ export async function handleSync(ctx: InitContext): Promise<InitContext> {
 	}
 
 	// Try to determine kit type from options or existing metadata
-	let kitType = ctx.options.kit as "engineer" | "marketing" | undefined;
+	let kitType = ctx.options.kit as "coding" | "marketing" | undefined;
 
 	// If no kit specified, try to auto-detect from metadata
 	if (!kitType) {
-		const engineerMeta = await readKitManifest(claudeDir, "engineer");
+		const engineerMeta = await readKitManifest(claudeDir, "coding");
 		const marketingMeta = await readKitManifest(claudeDir, "marketing");
 
 		if (engineerMeta && marketingMeta) {
 			// Both installed - need user to specify
 			if (!ctx.isNonInteractive) {
-				kitType = (await ctx.prompts.selectKit()) as "engineer" | "marketing";
+				kitType = (await ctx.prompts.selectKit()) as "coding" | "marketing";
 			} else {
-				logger.error("Multiple kits installed. Please specify --kit engineer or --kit marketing");
+				logger.error("Multiple kits installed. Please specify --kit coding or --kit marketing");
 				return { ...ctx, cancelled: true };
 			}
 		} else if (engineerMeta) {
-			kitType = "engineer";
+			kitType = "coding";
 		} else if (marketingMeta) {
 			kitType = "marketing";
 		} else {

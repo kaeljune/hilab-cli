@@ -20,7 +20,7 @@ const SKIP_DIRS = ["node_modules", ".git", "dist", "build", ".venv", "__pycache_
  * Priority: bundled with engineer package > global ~/.claude/skills
  */
 export function getSkillSourcePath(): string | null {
-	const bundledRoot = join(process.cwd(), "node_modules", "hilab-engineer");
+	const bundledRoot = join(process.cwd(), "node_modules", "hilab-coding");
 	return findFirstExistingPath([
 		join(bundledRoot, "skills"),
 		...getProjectLayoutCandidates(bundledRoot, "skills"),

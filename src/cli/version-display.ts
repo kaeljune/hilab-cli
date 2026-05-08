@@ -34,7 +34,7 @@ function formatInstalledKits(metadata: Metadata): string | null {
 	const kitVersions = Object.entries(metadata.kits)
 		.filter(([_, meta]) => meta.version && meta.version.trim() !== "")
 		.map(([kit, meta]) => `${kit}@${meta.version}`)
-		.sort() // Alphabetical: engineer, marketing
+		.sort() // Alphabetical: coding, marketing
 		.join(", ");
 
 	return kitVersions.length > 0 ? kitVersions : null;
@@ -58,7 +58,7 @@ export function inferLegacyKitType(metadata: Metadata): KitType {
 		return "marketing";
 	}
 
-	return "engineer";
+	return "coding";
 }
 
 export function getInstalledKitVersions(

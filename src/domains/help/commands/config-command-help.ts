@@ -20,7 +20,7 @@ export const configCommandHelp: CommandHelp = {
 			description: "Expose the dashboard to your network intentionally",
 		},
 		{
-			command: "hi config set defaults.kit engineer",
+			command: "hi config set defaults.kit coding",
 			description: "Set a config value from the CLI",
 		},
 	],

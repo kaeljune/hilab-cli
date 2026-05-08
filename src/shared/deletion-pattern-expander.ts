@@ -1,7 +1,7 @@
 import type { KitType } from "@/types";
 
 const LEGACY_COMMAND_PREFIX_BY_KIT: Partial<Record<KitType, string>> = {
-	engineer: "hi",
+	coding: "hi",
 	marketing: "mkt",
 };
 

@@ -14,7 +14,7 @@ import { readManifest } from "./manifest-reader.js";
  * @param kitName - Name of the kit being installed
  * @param version - Version being installed
  * @param scope - Installation scope (local or global)
- * @param kitType - Kit type identifier (engineer, marketing)
+ * @param kitType - Kit type identifier (coding, marketing)
  * @param trackedFiles - Array of tracked files to write
  * @param userConfigFiles - Array of user config file patterns
  */
@@ -30,7 +30,7 @@ export async function writeManifest(
 	const metadataPath = join(claudeDir, "metadata.json");
 
 	// Determine kit type from name if not provided (use word boundaries to avoid false matches)
-	const kit: KitType = kitType || (/\bmarketing\b/i.test(kitName) ? "marketing" : "engineer");
+	const kit: KitType = kitType || (/\bmarketing\b/i.test(kitName) ? "marketing" : "coding");
 
 	// Ensure file exists for locking (proper-lockfile requires existing file)
 	await ensureFile(metadataPath);
@@ -70,8 +70,8 @@ export async function writeManifest(
 		};
 
 		// Detect multi-kit scenario: are there OTHER kits besides the one being installed?
-		// - If installing "marketing" and "engineer" already exists → otherKitsExist = true
-		// - If re-installing "engineer" and only "engineer" exists → otherKitsExist = false
+		// - If installing "marketing" and "coding" already exists → otherKitsExist = true
+		// - If re-installing "coding" and only "coding" exists → otherKitsExist = false
 		const existingKits = existingMetadata.kits || {};
 		const otherKitsExist = Object.keys(existingKits).some((k) => k !== kit);
 

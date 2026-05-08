@@ -73,7 +73,7 @@ function transformApiProject(p: ApiProject): Project {
 		name: p.name,
 		path: p.path,
 		health: p.health as HealthStatus,
-		kitType: (p.kitType || "engineer") as KitType,
+		kitType: (p.kitType || "coding") as KitType,
 		model: p.model,
 		activeHooks: p.activeHooks,
 		mcpServers: p.mcpServers,

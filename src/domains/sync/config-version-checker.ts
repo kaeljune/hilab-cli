@@ -73,7 +73,7 @@ const RELEASES_PER_PAGE = 100;
  * Users must fork the CLI if they need different upstream repos.
  */
 const KIT_REPOS: Record<string, { owner: string; repo: string }> = {
-	engineer: { owner: "hilab", repo: "hilab-engineer" },
+	coding: { owner: "kaeljune", repo: "hilab-coding" },
 	marketing: { owner: "hilab", repo: "hilab-marketing" },
 };
 

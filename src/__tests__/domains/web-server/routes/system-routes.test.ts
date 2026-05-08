@@ -67,7 +67,7 @@ describe("system routes", () => {
 			join(globalClaudeDir, "metadata.json"),
 			JSON.stringify({
 				kits: {
-					engineer: {
+					coding: {
 						installedAt: "2026-04-10T12:00:00.000Z",
 						files: [],
 					},
@@ -80,7 +80,7 @@ describe("system routes", () => {
 		);
 
 		expect(response.status).toBe(200);
-		expect(checkForUpdatesSpy).toHaveBeenCalledWith("engineer", "0.0.0", true, "beta");
+		expect(checkForUpdatesSpy).toHaveBeenCalledWith("coding", "0.0.0", true, "beta");
 
 		const body = (await response.json()) as {
 			current: string;
@@ -99,7 +99,7 @@ describe("system routes", () => {
 			join(globalClaudeDir, "metadata.json"),
 			JSON.stringify({
 				kits: {
-					engineer: {
+					coding: {
 						version: "2.16.0-beta.9",
 						installedAt: "2026-04-10T12:00:00.000Z",
 						files: [],
@@ -111,6 +111,6 @@ describe("system routes", () => {
 		const response = await fetch(`${ctx.baseUrl}/api/system/check-updates?target=kit&kit=engineer`);
 
 		expect(response.status).toBe(200);
-		expect(checkForUpdatesSpy).toHaveBeenCalledWith("engineer", "2.16.0-beta.9", true, "beta");
+		expect(checkForUpdatesSpy).toHaveBeenCalledWith("coding", "2.16.0-beta.9", true, "beta");
 	});
 });

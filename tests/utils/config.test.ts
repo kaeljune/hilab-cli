@@ -39,7 +39,7 @@ describe("ConfigManager", () => {
 
 		test("should load config from file when it exists", async () => {
 			const testConfig: Config = {
-				defaults: { kit: "engineer", dir: "./test" },
+				defaults: { kit: "coding", dir: "./test" },
 			};
 
 			// Write test config file - PathResolver uses test paths
@@ -52,7 +52,7 @@ describe("ConfigManager", () => {
 			await writeFile(configFile, JSON.stringify(testConfig));
 
 			const config = await ConfigManager.load();
-			expect(config.defaults?.kit).toBe("engineer");
+			expect(config.defaults?.kit).toBe("coding");
 		});
 
 		test("should return default config on invalid JSON", async () => {
@@ -98,12 +98,12 @@ describe("ConfigManager", () => {
 
 		test("should update cached config", async () => {
 			const testConfig: Config = {
-				defaults: { kit: "engineer" },
+				defaults: { kit: "coding" },
 			};
 
 			await ConfigManager.save(testConfig);
 			const loaded = await ConfigManager.get();
-			expect(loaded.defaults?.kit).toBe("engineer");
+			expect(loaded.defaults?.kit).toBe("coding");
 		});
 	});
 
@@ -117,15 +117,15 @@ describe("ConfigManager", () => {
 
 	describe("set", () => {
 		test("should set nested config value", async () => {
-			await ConfigManager.set("defaults.kit", "engineer");
+			await ConfigManager.set("defaults.kit", "coding");
 			const config = await ConfigManager.get();
-			expect(config.defaults?.kit).toBe("engineer");
+			expect(config.defaults?.kit).toBe("coding");
 		});
 
 		test("should create nested objects if they do not exist", async () => {
-			await ConfigManager.set("defaults.kit", "engineer");
+			await ConfigManager.set("defaults.kit", "coding");
 			const config = await ConfigManager.get();
-			expect(config.defaults?.kit).toBe("engineer");
+			expect(config.defaults?.kit).toBe("coding");
 		});
 
 		test("should handle multiple nested levels", async () => {
@@ -165,7 +165,7 @@ describe("ConfigManager", () => {
 			ConfigManager.setGlobalFlag(false);
 
 			const testConfig: Config = {
-				defaults: { kit: "engineer" },
+				defaults: { kit: "coding" },
 			};
 
 			await ConfigManager.save(testConfig);
@@ -196,7 +196,7 @@ describe("ConfigManager", () => {
 			ConfigManager.setGlobalFlag(true);
 
 			const testConfig: Config = {
-				defaults: { kit: "engineer" },
+				defaults: { kit: "coding" },
 			};
 
 			await ConfigManager.save(testConfig);
@@ -213,7 +213,7 @@ describe("ConfigManager", () => {
 			// Save local config
 			ConfigManager.setGlobalFlag(false);
 			await ConfigManager.save({
-				defaults: { kit: "engineer" },
+				defaults: { kit: "coding" },
 			});
 
 			// Save global config
@@ -225,7 +225,7 @@ describe("ConfigManager", () => {
 			// Load local config
 			ConfigManager.setGlobalFlag(false);
 			const localConfig = await ConfigManager.load();
-			expect(localConfig.defaults?.kit).toBe("engineer");
+			expect(localConfig.defaults?.kit).toBe("coding");
 
 			// Load global config
 			ConfigManager.setGlobalFlag(true);

@@ -25,7 +25,7 @@ async function writeMetadata(dir: string, version = "1.0.0") {
 		join(dir, "metadata.json"),
 		JSON.stringify({
 			version: "1.0.0",
-			kits: { engineer: { version, installedAt: "2025-01-01T00:00:00Z" } },
+			kits: { coding: { version, installedAt: "2025-01-01T00:00:00Z" } },
 		}),
 	);
 }
@@ -72,7 +72,7 @@ describe("promptKitUpdate auto-init behavior", () => {
 						version: "1.0.0",
 						name: "HiLab",
 						description: "test install",
-						kits: { engineer: { version: "1.0.0" } },
+						kits: { coding: { version: "1.0.0" } },
 					},
 					components: { commands: 0, hooks: 0, skills: 0, workflows: 0, settings: 0 },
 				},
@@ -124,7 +124,7 @@ describe("promptKitUpdate auto-init behavior", () => {
 		const { deps, capturedSpawnArgs } = makeDeps();
 		await promptKitUpdate(false, false, deps);
 		expect(capturedSpawnArgs()).not.toContain("--kit");
-		expect(capturedSpawnArgs()).not.toContain("engineer");
+		expect(capturedSpawnArgs()).not.toContain("coding");
 	});
 
 	test("autoInitAfterUpdate uses spawn (interactive kit selection)", async () => {
@@ -161,7 +161,7 @@ describe("promptKitUpdate auto-init behavior", () => {
 		expect(execCount()).toBe(1);
 		expect(spawnCount()).toBe(0);
 		expect(capturedExecCmd()).toContain("--yes");
-		expect(capturedExecCmd()).toContain("--kit engineer");
+		expect(capturedExecCmd()).toContain("--kit coding");
 	});
 
 	test("-y flag overrides autoInit: uses exec even when autoInitAfterUpdate is enabled", async () => {
@@ -177,7 +177,7 @@ describe("promptKitUpdate auto-init behavior", () => {
 		expect(execCount()).toBe(1);
 		expect(spawnCount()).toBe(0);
 		expect(capturedExecCmd()).toContain("--yes");
-		expect(capturedExecCmd()).toContain("--kit engineer");
+		expect(capturedExecCmd()).toContain("--kit coding");
 	});
 
 	// --- Shared behavior tests ---

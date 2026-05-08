@@ -30,13 +30,13 @@ describe("ManifestWriter multi-kit", () => {
 		it("creates multi-kit structure for fresh install", async () => {
 			const writer = new ManifestWriter();
 
-			await writer.writeManifest(testDir, "HiLab Coding", "v1.2.3", "local", "engineer");
+			await writer.writeManifest(testDir, "HiLab Coding", "v1.2.3", "local", "coding");
 
 			const content = await readFile(join(testDir, "metadata.json"), "utf-8");
 			const metadata = JSON.parse(content) as Metadata;
 
 			expect(metadata.kits).toBeDefined();
-			expect(metadata.kits?.engineer?.version).toBe("v1.2.3");
+			expect(metadata.kits?.coding?.version).toBe("v1.2.3");
 			expect(metadata.scope).toBe("local");
 			// Legacy fields preserved for backward compat
 			expect(metadata.name).toBe("HiLab Coding");
@@ -47,7 +47,7 @@ describe("ManifestWriter multi-kit", () => {
 			// Pre-create multi-kit metadata with engineer
 			const existing: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 						files: [],
@@ -64,7 +64,7 @@ describe("ManifestWriter multi-kit", () => {
 			const content = await readFile(join(testDir, "metadata.json"), "utf-8");
 			const metadata = JSON.parse(content) as Metadata;
 
-			expect(metadata.kits?.engineer?.version).toBe("v1.0.0");
+			expect(metadata.kits?.coding?.version).toBe("v1.0.0");
 			expect(metadata.kits?.marketing?.version).toBe("v0.1.0");
 		});
 
@@ -72,7 +72,7 @@ describe("ManifestWriter multi-kit", () => {
 			// Pre-create multi-kit metadata
 			const existing: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -83,12 +83,12 @@ describe("ManifestWriter multi-kit", () => {
 
 			// Update engineer kit
 			const writer = new ManifestWriter();
-			await writer.writeManifest(testDir, "HiLab Coding", "v2.0.0", "local", "engineer");
+			await writer.writeManifest(testDir, "HiLab Coding", "v2.0.0", "local", "coding");
 
 			const content = await readFile(join(testDir, "metadata.json"), "utf-8");
 			const metadata = JSON.parse(content) as Metadata;
 
-			expect(metadata.kits?.engineer?.version).toBe("v2.0.0");
+			expect(metadata.kits?.coding?.version).toBe("v2.0.0");
 		});
 
 		it("migrates legacy format before writing", async () => {
@@ -110,7 +110,7 @@ describe("ManifestWriter multi-kit", () => {
 			const metadata = JSON.parse(content) as Metadata;
 
 			// Should have both kits
-			expect(metadata.kits?.engineer?.version).toBe("v1.0.0");
+			expect(metadata.kits?.coding?.version).toBe("v1.0.0");
 			expect(metadata.kits?.marketing?.version).toBe("v0.1.0");
 			// DEPRECATED: Legacy fields preserved from first kit, not overwritten
 			// Use kits object for version display instead
@@ -137,7 +137,7 @@ describe("ManifestWriter multi-kit", () => {
 			const content = await readFile(join(testDir, "metadata.json"), "utf-8");
 			const metadata = JSON.parse(content) as Metadata;
 
-			expect(metadata.kits?.engineer?.version).toBe("v1.0.0");
+			expect(metadata.kits?.coding?.version).toBe("v1.0.0");
 		});
 
 		it("waits for the shared installation lock before writing metadata", async () => {
@@ -146,7 +146,7 @@ describe("ManifestWriter multi-kit", () => {
 
 			let settled = false;
 			const run = writer
-				.writeManifest(testDir, "HiLab Coding", "v1.2.3", "local", "engineer")
+				.writeManifest(testDir, "HiLab Coding", "v1.2.3", "local", "coding")
 				.finally(() => {
 					settled = true;
 				});
@@ -164,7 +164,7 @@ describe("ManifestWriter multi-kit", () => {
 		it("returns kit-specific metadata", async () => {
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.2.3",
 						installedAt: "2024-01-01T00:00:00.000Z",
 						files: [],
@@ -177,7 +177,7 @@ describe("ManifestWriter multi-kit", () => {
 			};
 			await writeFile(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
-			const result = await ManifestWriter.readKitManifest(testDir, "engineer");
+			const result = await ManifestWriter.readKitManifest(testDir, "coding");
 
 			expect(result?.version).toBe("v1.2.3");
 		});
@@ -185,7 +185,7 @@ describe("ManifestWriter multi-kit", () => {
 		it("returns null for non-existent kit", async () => {
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -199,7 +199,7 @@ describe("ManifestWriter multi-kit", () => {
 		});
 
 		it("returns null when no metadata.json", async () => {
-			const result = await ManifestWriter.readKitManifest(testDir, "engineer");
+			const result = await ManifestWriter.readKitManifest(testDir, "coding");
 			expect(result).toBeNull();
 		});
 	});
@@ -221,7 +221,7 @@ describe("ManifestWriter multi-kit", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 						files: [file1],
@@ -258,7 +258,7 @@ describe("ManifestWriter multi-kit", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 						files: [file1],
@@ -272,7 +272,7 @@ describe("ManifestWriter multi-kit", () => {
 			};
 			await writeFile(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
-			const result = await ManifestWriter.getUninstallManifest(testDir, "engineer");
+			const result = await ManifestWriter.getUninstallManifest(testDir, "coding");
 
 			expect(result.isMultiKit).toBe(true);
 			expect(result.filesToRemove).toContain("commands/engineer.md");
@@ -296,7 +296,7 @@ describe("ManifestWriter multi-kit", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 						files: [sharedFile, engineerFile],
@@ -310,7 +310,7 @@ describe("ManifestWriter multi-kit", () => {
 			};
 			await writeFile(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
-			const result = await ManifestWriter.getUninstallManifest(testDir, "engineer");
+			const result = await ManifestWriter.getUninstallManifest(testDir, "coding");
 
 			// Shared file should be preserved
 			expect(result.filesToRemove).toContain("commands/engineer.md");
@@ -335,7 +335,7 @@ describe("ManifestWriter multi-kit", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 						files: [engineerVersion],
@@ -350,7 +350,7 @@ describe("ManifestWriter multi-kit", () => {
 			await writeFile(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
 			// When uninstalling engineer kit, shared file should be preserved for marketing
-			const result = await ManifestWriter.getUninstallManifest(testDir, "engineer");
+			const result = await ManifestWriter.getUninstallManifest(testDir, "coding");
 
 			expect(result.filesToRemove).not.toContain("shared/config.md");
 			expect(result.filesToPreserve).toContain("shared/config.md");
@@ -375,7 +375,7 @@ describe("ManifestWriter multi-kit", () => {
 
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 						files: [engineerFile],
@@ -390,7 +390,7 @@ describe("ManifestWriter multi-kit", () => {
 			await writeFile(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
 			// Shared file should be preserved regardless of ownership differences
-			const result = await ManifestWriter.getUninstallManifest(testDir, "engineer");
+			const result = await ManifestWriter.getUninstallManifest(testDir, "coding");
 
 			expect(result.filesToRemove).not.toContain("shared/utility.md");
 			expect(result.filesToPreserve).toContain("shared/utility.md");
@@ -422,7 +422,7 @@ describe("ManifestWriter multi-kit", () => {
 		it("removes kit from multi-kit metadata", async () => {
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -435,21 +435,21 @@ describe("ManifestWriter multi-kit", () => {
 			};
 			await writeFile(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
-			const result = await ManifestWriter.removeKitFromManifest(testDir, "engineer");
+			const result = await ManifestWriter.removeKitFromManifest(testDir, "coding");
 
 			expect(result).toBe(true);
 
 			const content = await readFile(join(testDir, "metadata.json"), "utf-8");
 			const updated = JSON.parse(content) as Metadata;
 
-			expect(updated.kits?.engineer).toBeUndefined();
+			expect(updated.kits?.coding).toBeUndefined();
 			expect(updated.kits?.marketing?.version).toBe("v0.1.0");
 		});
 
 		it("removes metadata.json when the last kit is removed", async () => {
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -457,7 +457,7 @@ describe("ManifestWriter multi-kit", () => {
 			};
 			await writeFile(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
-			const result = await ManifestWriter.removeKitFromManifest(testDir, "engineer");
+			const result = await ManifestWriter.removeKitFromManifest(testDir, "coding");
 
 			expect(result).toBe(true);
 			expect(await pathExists(join(testDir, "metadata.json"))).toBe(false);
@@ -466,7 +466,7 @@ describe("ManifestWriter multi-kit", () => {
 		it("returns false for non-existent kit", async () => {
 			const metadata: Metadata = {
 				kits: {
-					engineer: {
+					coding: {
 						version: "v1.0.0",
 						installedAt: "2024-01-01T00:00:00.000Z",
 					},
@@ -480,7 +480,7 @@ describe("ManifestWriter multi-kit", () => {
 		});
 
 		it("returns false when no metadata.json", async () => {
-			const result = await ManifestWriter.removeKitFromManifest(testDir, "engineer");
+			const result = await ManifestWriter.removeKitFromManifest(testDir, "coding");
 			expect(result).toBe(false);
 		});
 	});

@@ -65,7 +65,7 @@ describe("displayVersion", () => {
 			join(testHome, ".claude", "metadata.json"),
 			JSON.stringify({
 				kits: {
-					engineer: {
+					coding: {
 						version: "2.16.0-beta.9",
 						installedAt: "2026-04-10T12:00:00.000Z",
 						files: [],
@@ -88,7 +88,7 @@ describe("displayVersion", () => {
 		expect(kitCheckSpy).toHaveBeenCalledTimes(2);
 		expect(kitCheckSpy?.mock.calls).toEqual([
 			["marketing", "1.3.2", false],
-			["engineer", "2.16.0-beta.9", true],
+			["coding", "2.16.0-beta.9", true],
 		]);
 		expect(displayNotificationSpy).not.toHaveBeenCalled();
 	});
@@ -98,7 +98,7 @@ describe("displayVersion", () => {
 			join(testHome, ".claude", "metadata.json"),
 			JSON.stringify({
 				kits: {
-					engineer: {
+					coding: {
 						version: "2.16.0-beta.8",
 						installedAt: "2026-04-10T12:00:00.000Z",
 						files: [],
@@ -123,13 +123,13 @@ describe("displayVersion", () => {
 				updateAvailable: true,
 				releaseUrl: "https://github.com/kaeljune/hilab-coding/releases/tag/v2.16.0-beta.9",
 			},
-			{ isGlobal: true, kitName: "engineer" },
+			{ isGlobal: true, kitName: "coding" },
 		);
 	});
 
 	it("infers legacy marketing installs from the metadata name", () => {
 		expect(inferLegacyKitType({ name: "HiLab Marketing" })).toBe("marketing");
-		expect(inferLegacyKitType({ name: "HiLab" })).toBe("engineer");
+		expect(inferLegacyKitType({ name: "HiLab" })).toBe("coding");
 	});
 
 	it("falls back to the legacy root version when kits are absent", () => {
@@ -142,7 +142,7 @@ describe("displayVersion", () => {
 		expect(
 			getInstalledKitVersions({
 				kits: {
-					engineer: {
+					coding: {
 						version: "  ",
 						installedAt: "2026-04-10T12:00:00.000Z",
 						files: [],
