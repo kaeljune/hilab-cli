@@ -1,5 +1,5 @@
 /**
- * Tests for bin/ck.js wrapper script.
+ * Tests for bin/hi.js wrapper script.
  * The published wrapper must run the packaged bundle under plain Node.js.
  */
 
@@ -15,10 +15,10 @@ const distPath = join(projectRoot, "dist", "index.js");
 const isCI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
 const hasBuiltDist = existsSync(distPath);
 
-describe("bin/ck.js wrapper", () => {
+describe("bin/hi.js wrapper", () => {
 	describe("file structure", () => {
 		test("wrapper script exists", () => {
-			expect(existsSync(join(binDir, "ck.js"))).toBe(true);
+			expect(existsSync(join(binDir, "hi.js"))).toBe(true);
 		});
 
 		test.skipIf(isCI || !hasBuiltDist)("dist/index.js exists after build", () => {
@@ -27,7 +27,7 @@ describe("bin/ck.js wrapper", () => {
 	});
 
 	describe("wrapper content integrity", () => {
-		const wrapperContent = readFileSync(join(binDir, "ck.js"), "utf-8");
+		const wrapperContent = readFileSync(join(binDir, "hi.js"), "utf-8");
 
 		test("uses node shebang", () => {
 			expect(wrapperContent.startsWith("#!/usr/bin/env node")).toBe(true);
@@ -69,7 +69,7 @@ describe("bin/ck.js wrapper", () => {
 		});
 
 		test("surfaces issue-reporting instructions", () => {
-			const wrapperContent = readFileSync(join(binDir, "ck.js"), "utf-8");
+			const wrapperContent = readFileSync(join(binDir, "hi.js"), "utf-8");
 			expect(wrapperContent).toContain("Please report this issue at:");
 		});
 	});
@@ -79,7 +79,7 @@ describe("bin/ck.js wrapper", () => {
 			const packageJsonPath = join(projectRoot, "package.json");
 			const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
 			expect(packageJson.files).toContain("dist/index.js");
-			expect(packageJson.files).toContain("bin/ck.js");
+			expect(packageJson.files).toContain("bin/hi.js");
 			expect(packageJson.files).toContain("dist/ui/");
 		});
 
@@ -103,7 +103,7 @@ describe("bin/ck.js wrapper", () => {
 		test("npmignore does not include binary negation", () => {
 			const npmIgnorePath = join(projectRoot, ".npmignore");
 			const npmIgnore = readFileSync(npmIgnorePath, "utf-8");
-			expect(npmIgnore).not.toMatch(/^!bin\/ck-\*$/m);
+			expect(npmIgnore).not.toMatch(/^!bin\/hi-\*$/m);
 		});
 	});
 

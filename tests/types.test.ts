@@ -350,7 +350,7 @@ describe("Types and Schemas", () => {
 		test("should have engineer kit", () => {
 			expect(AVAILABLE_KITS.engineer).toBeDefined();
 			expect(AVAILABLE_KITS.engineer.name).toBe("HiLab Coding");
-			expect(AVAILABLE_KITS.engineer.repo).toBe("hilab-engineer");
+			expect(AVAILABLE_KITS.engineer.repo).toBe("hilab-coding");
 		});
 
 		test("should have marketing kit", () => {
