@@ -17,7 +17,7 @@ import type { SectionConfig } from "../components/schema-form";
 import { useConfigEditor } from "../hooks/use-config-editor";
 import { usePanelSizes } from "../hooks/use-panel-sizes-for-resizable-columns";
 import { useI18n } from "../i18n";
-import { fetchCkConfig, fetchCkConfigSchema, saveCkConfig } from "../services/ck-config-api";
+import { fetchCkConfig, fetchCkConfigSchema, saveCkConfig } from "../services/hi-config-api";
 
 /** Vertical resize between two panels (percentage-based, persisted) */
 function useVerticalResize(

@@ -12,19 +12,19 @@ interface TrackedFile {
 
 /** Count files by ownership type */
 export function getOwnershipCounts(files: TrackedFile[]): {
-	ck: number;
+	hi: number;
 	user: number;
 	modified: number;
 } {
-	const hi = 0;
+	let hi = 0;
 	let user = 0;
 	let modified = 0;
 	for (const f of files) {
-		if (f.ownership === "hi") ck++;
+		if (f.ownership === "hi") hi++;
 		else if (f.ownership === "user") user++;
 		else if (f.ownership === "hi-modified") modified++;
 	}
-	return { ck, user, modified };
+	return { hi, user, modified };
 }
 
 /** Group files by path prefix category */

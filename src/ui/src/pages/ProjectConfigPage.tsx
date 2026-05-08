@@ -16,8 +16,8 @@ import type { SectionConfig } from "../components/schema-form";
 import { useConfigEditor } from "../hooks/use-config-editor";
 import { usePanelSizes } from "../hooks/use-panel-sizes-for-resizable-columns";
 import { useI18n } from "../i18n";
-import { fetchProjects } from "../services/api";
-import { fetchCkConfigSchema, fetchCkConfigScope, saveCkConfig } from "../services/ck-config-api";
+import { type Project, fetchProjects } from "../services/api";
+import { fetchCkConfigSchema, fetchCkConfigScope, saveCkConfig } from "../services/hi-config-api";
 import { getNestedValue } from "../utils/config-editor-utils";
 
 const ProjectConfigPage: React.FC = () => {
@@ -45,7 +45,7 @@ const ProjectConfigPage: React.FC = () => {
 		]);
 
 		// Resolve project path from registry
-		const matchedProject = projects.find((p) => p.id === projectId);
+		const matchedProject = projects.find((p: Project) => p.id === projectId);
 		if (matchedProject) {
 			setProjectPath(matchedProject.path);
 		}

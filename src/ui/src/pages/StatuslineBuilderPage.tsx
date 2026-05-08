@@ -19,7 +19,11 @@ import { StatuslineTerminalPreview } from "../components/statusline-builder/stat
 import { StatuslineThemePicker } from "../components/statusline-builder/statusline-theme-picker";
 import { useResizable } from "../hooks/useResizable";
 import { useI18n } from "../i18n";
-import { fetchCkConfigScope, updateCkConfigField } from "../services/ck-config-api";
+import {
+	type CkConfigResponse,
+	fetchCkConfigScope,
+	updateCkConfigField,
+} from "../services/hi-config-api";
 
 // Settings tab removed (YAGNI — baseMode/breakpoint/agentRows/todoTruncation
 // don't affect preview yet, renderer needs follow-up PR first)
@@ -75,7 +79,7 @@ const StatuslineBuilderPage: React.FC = () => {
 	useEffect(() => {
 		let cancelled = false;
 		void fetchCkConfigScope("global")
-			.then((res) => {
+			.then((res: CkConfigResponse) => {
 				if (cancelled) return;
 				const raw = res.config.statuslineLayout as RawStatuslineLayout | undefined;
 				if (raw) setLayout(parseLayout(raw));

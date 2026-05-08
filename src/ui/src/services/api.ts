@@ -8,6 +8,7 @@ import type {
 	Session,
 	Skill,
 } from "@/types";
+export type { Project };
 import type { ProjectActivePlan } from "@/types/plan-types";
 import type { InstallDiscoveryResponse } from "@/types/reconcile-types";
 
