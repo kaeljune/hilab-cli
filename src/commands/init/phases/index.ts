@@ -2,7 +2,6 @@
  * Phase handlers re-exports
  */
 
-export { handleApiKeySetup } from "./api-key-handler.js";
 export { handleConflicts } from "./conflict-handler.js";
 export { handleDownload } from "./download-handler.js";
 export { handleMerge } from "./merge-handler.js";

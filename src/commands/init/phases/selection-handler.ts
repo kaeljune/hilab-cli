@@ -92,8 +92,8 @@ export async function handleSelection(ctx: InitContext): Promise<InitContext> {
 
 		if (accessibleKits.length === 0) {
 			// Pre-flight passed but no access = real access issue (not a gh CLI problem)
-			logger.error("No ClaudeKit repository access found.");
-			logger.info("Check email for GitHub invitation, or purchase at https://claudekit.cc");
+			logger.error("No repository access found.");
+			logger.info("Check email for GitHub invitation");
 			logger.info("");
 			logger.info("Full diagnostics: ck doctor");
 			return { ...ctx, cancelled: true };
@@ -155,7 +155,7 @@ export async function handleSelection(ctx: InitContext): Promise<InitContext> {
 					logger.error(
 						`No access to: ${noAccessKits.map((k) => AVAILABLE_KITS[k].name).join(", ")}`,
 					);
-					logger.info("Purchase at https://claudekit.cc");
+					logger.info("Check email for GitHub invitation");
 					return { ...ctx, cancelled: true };
 				}
 			}
@@ -177,7 +177,7 @@ export async function handleSelection(ctx: InitContext): Promise<InitContext> {
 			// Validate explicit --kit flag has access
 			if (accessibleKits && !accessibleKits.includes(kitType)) {
 				logger.error(`No access to ${AVAILABLE_KITS[kitType].name}`);
-				logger.info("Purchase at https://claudekit.cc");
+				logger.info("Check email for GitHub invitation");
 				return { ...ctx, cancelled: true };
 			}
 		}

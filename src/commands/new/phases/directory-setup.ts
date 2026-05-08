@@ -34,8 +34,8 @@ export async function directorySetup(
 		accessibleKits = await detectAccessibleKits();
 
 		if (accessibleKits.length === 0) {
-			logger.error("No ClaudeKit access found.");
-			logger.info("Purchase at https://claudekit.cc");
+			logger.error("No repository access found.");
+			logger.info("Check email for GitHub invitation");
 			return null;
 		}
 	}
@@ -71,7 +71,7 @@ export async function directorySetup(
 			kit = validKits[0];
 			if (accessibleKits && !accessibleKits.includes(kit)) {
 				logger.error(`No access to ${AVAILABLE_KITS[kit].name}`);
-				logger.info("Purchase at https://claudekit.cc");
+				logger.info("Check email for GitHub invitation");
 				return null;
 			}
 		} else {
@@ -84,7 +84,7 @@ export async function directorySetup(
 			kit = kitOption;
 			if (accessibleKits && !accessibleKits.includes(kit)) {
 				logger.error(`No access to ${AVAILABLE_KITS[kit].name}`);
-				logger.info("Purchase at https://claudekit.cc");
+				logger.info("Check email for GitHub invitation");
 				return null;
 			}
 		}

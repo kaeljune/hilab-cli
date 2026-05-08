@@ -7,11 +7,9 @@
 
 import {
 	agentsCommandHelp,
-	apiCommandHelp,
 	backupsCommandHelp,
 	commandsCommandHelp,
 	configCommandHelp,
-	contentCommandHelp,
 	doctorCommandHelp,
 	initCommandHelp,
 	migrateCommandHelp,
@@ -23,7 +21,6 @@ import {
 	uninstallCommandHelp,
 	updateCommandHelp,
 	versionsCommandHelp,
-	watchCommandHelp,
 } from "./commands/index.js";
 import type { CommandHelp, CommandRegistry } from "./help-types.js";
 
@@ -32,11 +29,9 @@ import type { CommandHelp, CommandRegistry } from "./help-types.js";
  */
 export const HELP_REGISTRY: CommandRegistry = {
 	agents: agentsCommandHelp,
-	api: apiCommandHelp,
 	backups: backupsCommandHelp,
 	commands: commandsCommandHelp,
 	config: configCommandHelp,
-	content: contentCommandHelp,
 	doctor: doctorCommandHelp,
 	init: initCommandHelp,
 	migrate: migrateCommandHelp,
@@ -48,7 +43,6 @@ export const HELP_REGISTRY: CommandRegistry = {
 	uninstall: uninstallCommandHelp,
 	update: updateCommandHelp,
 	versions: versionsCommandHelp,
-	watch: watchCommandHelp,
 };
 
 /**
@@ -76,11 +70,9 @@ export function hasCommand(command: string): boolean {
 export type { CommandHelp, CommandRegistry } from "./help-types.js";
 export {
 	agentsCommandHelp,
-	apiCommandHelp,
 	backupsCommandHelp,
 	commandsCommandHelp,
 	configCommandHelp,
-	contentCommandHelp,
 	doctorCommandHelp,
 	initCommandHelp,
 	migrateCommandHelp,
@@ -92,5 +84,4 @@ export {
 	uninstallCommandHelp,
 	updateCommandHelp,
 	versionsCommandHelp,
-	watchCommandHelp,
 } from "./commands/index.js";

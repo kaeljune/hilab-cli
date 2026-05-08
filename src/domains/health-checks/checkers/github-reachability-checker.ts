@@ -461,7 +461,7 @@ function buildCheckResult(result: ReachabilityResult): CheckResult {
 	const authSuggestion =
 		failedProbe?.statusCode === 401
 			? "GitHub token invalid or missing — run: gh auth login"
-			: "No repository access — check GitHub invitation email or purchase at https://claudekit.cc";
+			: "No repository access — check GitHub invitation email";
 
 	const suggestions: Record<string, string> = {
 		dns: "DNS resolution failed — check /etc/resolv.conf or system DNS settings",
