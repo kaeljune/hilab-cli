@@ -650,4 +650,4 @@ List available versions of HiLab repositories
 - `hi versions --all` — Show all releases including prereleases
 
 
-<!-- generated: 2026-05-08T08:56:42.571Z -->
+<!-- generated: 2026-05-08T09:00:04.062Z -->
