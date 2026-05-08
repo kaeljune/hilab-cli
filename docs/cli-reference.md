@@ -151,7 +151,7 @@ Manage HiLab configuration and launch the config dashboard
 
 - `hi config` — Launch the web dashboard (same as 'hi config ui')
 - `hi config --host 0.0.0.0 --no-open` — Expose the dashboard to your network intentionally
-- `hi config set defaults.kit engineer` — Set a config value from the CLI
+- `hi config set defaults.kit coding` — Set a config value from the CLI
 
 **Notes:**
 
@@ -221,7 +221,7 @@ Initialize or update HiLab project (with interactive version selection)
 | `--archive <path>` | Use local archive file instead of downloading (zip/tar.gz) | — |
 | `--kit-path <path>` | Use local kit directory instead of downloading | — |
 | `--dir <directory>` | Target directory to initialize/update | `.` |
-| `--kit <kit>` | Kit to use (engineer, marketing) | — |
+| `--kit <kit>` | Kit to use (coding, marketing) | — |
 | `-r, --release <version>` | Skip version selection, use specific version | — |
 | `-g, --global` | Use platform-specific user configuration directory | — |
 | `--fresh` | Full reset: remove CK files, replace settings.json and CLAUDE.md, reinstall from scratch | — |
@@ -242,7 +242,7 @@ Initialize or update HiLab project (with interactive version selection)
 
 **Examples:**
 
-- `hi init --kit engineer` — Update local project with latest engineer kit
+- `hi init --kit coding` — Update local project with latest engineer kit
 - `hi init --use-git --release v2.1.0 -y` — Non-interactive with git clone (no GitHub API needed)
 
 
@@ -310,7 +310,7 @@ Bootstrap a new HiLab project (with interactive version selection)
 | `--archive <path>` | Use local archive file instead of downloading (zip/tar.gz) | — |
 | `--kit-path <path>` | Use local kit directory instead of downloading | — |
 | `--dir <directory>` | Target directory for the new project | `.` |
-| `--kit <kit>` | Kit to use (engineer, marketing) | — |
+| `--kit <kit>` | Kit to use (coding, marketing) | — |
 | `-r, --release <version>` | Skip version selection, use specific version (e.g., latest, v1.0.0) | — |
 | `--force` | Overwrite existing files without confirmation | — |
 | `--exclude <pattern>` | Exclude files matching glob pattern (can be used multiple times) | — |
@@ -326,7 +326,7 @@ Bootstrap a new HiLab project (with interactive version selection)
 
 **Examples:**
 
-- `hi new --kit engineer --dir ./my-project` — Create engineer kit project in specific directory
+- `hi new --kit coding --dir ./my-project` — Create engineer kit project in specific directory
 - `hi new -y --use-git --release v2.1.0` — Non-interactive with git clone (no GitHub API needed)
 
 
@@ -586,7 +586,7 @@ Remove HiLab installations (ownership-aware)
 | `-l, --local` | Uninstall only local installation (current project) | — |
 | `-g, --global` | Uninstall only global installation (~/.claude/) | — |
 | `-A, --all` | Uninstall from both local and global locations | — |
-| `-k, --kit <type>` | Uninstall specific kit only (engineer, marketing) | — |
+| `-k, --kit <type>` | Uninstall specific kit only (coding, marketing) | — |
 | `--dry-run` | Preview what would be removed without deleting | — |
 | `--force-overwrite` | Delete even user-modified files (requires confirmation) | — |
 | `-y, --yes` | Skip confirmation prompt | — |
@@ -640,14 +640,14 @@ List available versions of HiLab repositories
 
 | Flag | Description | Default |
 |------|-------------|----------|
-| `--kit <kit>` | Filter by specific kit (engineer, marketing) | — |
+| `--kit <kit>` | Filter by specific kit (coding, marketing) | — |
 | `--limit <number>` | Number of releases to show | `30` |
 | `--all` | Show all releases including prereleases | — |
 
 **Examples:**
 
-- `hi versions --kit engineer --limit 10` — Show latest 10 versions of engineer kit
+- `hi versions --kit coding --limit 10` — Show latest 10 versions of engineer kit
 - `hi versions --all` — Show all releases including prereleases
 
 
-<!-- generated: 2026-05-08T09:01:01.995Z -->
+<!-- generated: 2026-05-08T15:33:30.681Z -->

@@ -1,6 +1,6 @@
 {
-	"version": "0.1.1",
-	"generatedAt": "2026-05-08T09:01:01.892Z",
+	"version": "0.1.2",
+	"generatedAt": "2026-05-08T15:33:30.574Z",
 	"commands": {
 		"agents": {
 			"name": "agents",
@@ -252,7 +252,7 @@
 					"description": "Expose the dashboard to your network intentionally"
 				},
 				{
-					"command": "hi config set defaults.kit engineer",
+					"command": "hi config set defaults.kit coding",
 					"description": "Set a config value from the CLI"
 				}
 			],
@@ -411,7 +411,7 @@
 			"usage": "hi init [options]",
 			"examples": [
 				{
-					"command": "hi init --kit engineer",
+					"command": "hi init --kit coding",
 					"description": "Update local project with latest engineer kit"
 				},
 				{
@@ -455,7 +455,7 @@
 						},
 						{
 							"flags": "--kit <kit>",
-							"description": "Kit to use (engineer, marketing)"
+							"description": "Kit to use (coding, marketing)"
 						},
 						{
 							"flags": "-r, --release <version>",
@@ -686,7 +686,7 @@
 			"usage": "hi new [options]",
 			"examples": [
 				{
-					"command": "hi new --kit engineer --dir ./my-project",
+					"command": "hi new --kit coding --dir ./my-project",
 					"description": "Create engineer kit project in specific directory"
 				},
 				{
@@ -726,7 +726,7 @@
 						},
 						{
 							"flags": "--kit <kit>",
-							"description": "Kit to use (engineer, marketing)"
+							"description": "Kit to use (coding, marketing)"
 						},
 						{
 							"flags": "-r, --release <version>",
@@ -1293,7 +1293,7 @@
 						},
 						{
 							"flags": "-k, --kit <type>",
-							"description": "Uninstall specific kit only (engineer, marketing)"
+							"description": "Uninstall specific kit only (coding, marketing)"
 						}
 					]
 				},
@@ -1405,7 +1405,7 @@
 			"usage": "hi versions [options]",
 			"examples": [
 				{
-					"command": "hi versions --kit engineer --limit 10",
+					"command": "hi versions --kit coding --limit 10",
 					"description": "Show latest 10 versions of engineer kit"
 				},
 				{
@@ -1419,7 +1419,7 @@
 					"options": [
 						{
 							"flags": "--kit <kit>",
-							"description": "Filter by specific kit (engineer, marketing)"
+							"description": "Filter by specific kit (coding, marketing)"
 						},
 						{
 							"flags": "--limit <number>",
