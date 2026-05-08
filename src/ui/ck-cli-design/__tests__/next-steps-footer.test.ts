@@ -22,7 +22,7 @@ describe("renderNextStepsFooter", () => {
 			commands: ["hi doctor"],
 			context: createCliDesignContext({
 				columns: 72,
-				env: { ...process.env, CK_FORCE_ASCII: "1" },
+				env: { ...process.env, HI_FORCE_ASCII: "1" },
 				isTTY: true,
 				platform: "win32",
 			}),

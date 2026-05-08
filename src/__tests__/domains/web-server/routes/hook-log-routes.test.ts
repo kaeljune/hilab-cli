@@ -44,7 +44,7 @@ afterAll(async () => {
 	ProjectsRegistryManager.clearCache();
 	clearDiscoveredProjectsCache();
 	await rm(TEST_HOME, { recursive: true, force: true });
-	Reflect.deleteProperty(process.env, "CK_TEST_HOME");
+	Reflect.deleteProperty(process.env, "HI_TEST_HOME");
 });
 
 describe("GET /api/system/hook-diagnostics", () => {

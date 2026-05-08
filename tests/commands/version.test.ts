@@ -53,15 +53,15 @@ describe("Version Command", () => {
 		test("should have engineer kit configured", () => {
 			const engineerKit = AVAILABLE_KITS.engineer;
 			expect(engineerKit.name).toBe("HiLab Coding");
-			expect(engineerKit.repo).toBe("hilab-engineer");
-			expect(engineerKit.owner).toBe("hilab");
+			expect(engineerKit.repo).toBe("hilab-coding");
+			expect(engineerKit.owner).toBe("kaeljune");
 		});
 
 		test("should have marketing kit configured", () => {
 			const marketingKit = AVAILABLE_KITS.marketing;
 			expect(marketingKit.name).toBe("HiLab Marketing");
 			expect(marketingKit.repo).toBe("hilab-marketing");
-			expect(marketingKit.owner).toBe("hilab");
+			expect(marketingKit.owner).toBe("kaeljune");
 		});
 	});
 
@@ -303,7 +303,7 @@ describe("Version Command", () => {
 
 			if (result.kit) {
 				const kitConfig = AVAILABLE_KITS[result.kit];
-				expect(kitConfig.repo).toBe("hilab-engineer");
+				expect(kitConfig.repo).toBe("hilab-coding");
 			}
 		});
 

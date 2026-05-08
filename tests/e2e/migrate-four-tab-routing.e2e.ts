@@ -24,7 +24,7 @@ import type { ReconcileAction, ReconcilePlan } from "../../src/ui/src/types/reco
 
 // ─── Mock data ────────────────────────────────────────────────────────────────
 
-const MOCK_PROVIDERS = [
+const MOHI_PROVIDERS = [
 	{
 		name: "claude",
 		displayName: "Claude",
@@ -57,7 +57,7 @@ const MOCK_PROVIDERS = [
 	},
 ];
 
-const MOCK_DISCOVERY = {
+const MOHI_DISCOVERY = {
 	cwd: "/tmp/ck-e2e-test",
 	targetPaths: {
 		project: "/tmp/ck-e2e-test/.claude",
@@ -79,7 +79,7 @@ const MOCK_DISCOVERY = {
 		config: null,
 		rules: null,
 	},
-	providers: MOCK_PROVIDERS,
+	providers: MOHI_PROVIDERS,
 	counts: { agents: 1, commands: 1, skills: 0, hooks: 2, config: 0, rules: 0 },
 	installationCounts: { agents: 1, commands: 1, skills: 0, hooks: 2, config: 0, rules: 0 },
 	collisions: [],
@@ -158,14 +158,14 @@ const INSTALL_ACTION: ReconcileAction = {
 	registeredTargetChecksum: "unknown",
 };
 
-const MOCK_RECONCILE_PLAN: ReconcilePlan = {
+const MOHI_RECONCILE_PLAN: ReconcilePlan = {
 	actions: [INSTALL_ACTION, UPDATE_ACTION, DELETE_ACTION, SKIP_ACTION],
 	summary: { install: 1, update: 1, skip: 1, conflict: 0, delete: 1 },
 	hasConflicts: false,
 	banners: [], // No banners in scenario B
 };
 
-const MOCK_EXECUTE_RESULT = {
+const MOHI_EXECUTE_RESULT = {
 	results: [
 		{
 			item: "post-commit",
@@ -208,16 +208,16 @@ const MOCK_EXECUTE_RESULT = {
 
 async function setupMocks(page: import("@playwright/test").Page): Promise<void> {
 	await page.route("**/api/migrate/providers", (route) =>
-		route.fulfill({ json: { providers: MOCK_PROVIDERS } }),
+		route.fulfill({ json: { providers: MOHI_PROVIDERS } }),
 	);
 	await page.route("**/api/migrate/discovery**", (route) =>
-		route.fulfill({ json: MOCK_DISCOVERY }),
+		route.fulfill({ json: MOHI_DISCOVERY }),
 	);
 	await page.route("**/api/migrate/reconcile**", (route) =>
-		route.fulfill({ json: { plan: MOCK_RECONCILE_PLAN, suggestedMode: "reconcile" } }),
+		route.fulfill({ json: { plan: MOHI_RECONCILE_PLAN, suggestedMode: "reconcile" } }),
 	);
 	await page.route("**/api/migrate/execute", (route) =>
-		route.fulfill({ json: MOCK_EXECUTE_RESULT }),
+		route.fulfill({ json: MOHI_EXECUTE_RESULT }),
 	);
 }
 

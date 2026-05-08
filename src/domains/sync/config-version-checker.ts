@@ -25,7 +25,7 @@ const MIN_CACHE_TTL_MS = 60 * 1000;
 const MAX_CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
 /**
- * Parse and validate CK_SYNC_CACHE_TTL env var
+ * Parse and validate HI_SYNC_CACHE_TTL env var
  * Returns validated TTL in milliseconds, or default if invalid
  */
 function parseCacheTtl(): number {
@@ -39,7 +39,7 @@ function parseCacheTtl(): number {
 	// Check for NaN or negative values
 	if (Number.isNaN(parsed) || parsed < 0) {
 		logger.warning(
-			`Invalid CK_SYNC_CACHE_TTL value "${envValue}", using default (${CACHE_TTL_HOURS}h)`,
+			`Invalid HI_SYNC_CACHE_TTL value "${envValue}", using default (${CACHE_TTL_HOURS}h)`,
 		);
 		return DEFAULT_CACHE_TTL_MS;
 	}
@@ -48,12 +48,12 @@ function parseCacheTtl(): number {
 
 	// Clamp to reasonable bounds
 	if (ttlMs < MIN_CACHE_TTL_MS) {
-		logger.warning(`CK_SYNC_CACHE_TTL too low (${parsed}s), using minimum (60s)`);
+		logger.warning(`HI_SYNC_CACHE_TTL too low (${parsed}s), using minimum (60s)`);
 		return MIN_CACHE_TTL_MS;
 	}
 
 	if (ttlMs > MAX_CACHE_TTL_MS) {
-		logger.warning(`CK_SYNC_CACHE_TTL too high (${parsed}s), using maximum (7 days)`);
+		logger.warning(`HI_SYNC_CACHE_TTL too high (${parsed}s), using maximum (7 days)`);
 		return MAX_CACHE_TTL_MS;
 	}
 

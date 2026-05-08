@@ -24,11 +24,11 @@ import type {
 const createMockCommandHelp = (): CommandHelp => ({
 	name: "test",
 	description: "Test command description",
-	usage: "ck test [options]",
+	usage: "hi test [options]",
 	examples: [
-		{ command: "ck test --verbose", description: "Run with verbose output" },
-		{ command: "ck test --dry-run", description: "Preview changes without executing" },
-		{ command: "ck test --format json", description: "Output in JSON format" },
+		{ command: "hi test --verbose", description: "Run with verbose output" },
+		{ command: "hi test --dry-run", description: "Preview changes without executing" },
+		{ command: "hi test --format json", description: "Output in JSON format" },
 	],
 	optionGroups: [
 		{
@@ -57,12 +57,12 @@ const createMockCommandHelp = (): CommandHelp => ({
 const createDeprecatedCommandHelp = (): CommandHelp => ({
 	name: "old-command",
 	description: "Deprecated command",
-	usage: "ck old-command",
+	usage: "hi old-command",
 	examples: [],
 	optionGroups: [],
 	deprecated: {
 		message: "This command is deprecated",
-		alternative: "ck new-command",
+		alternative: "hi new-command",
 		removeInVersion: "3.0.0",
 	},
 });
@@ -70,7 +70,7 @@ const createDeprecatedCommandHelp = (): CommandHelp => ({
 const createCommandWithDeprecatedOption = (): CommandHelp => ({
 	name: "test",
 	description: "Test command",
-	usage: "ck test",
+	usage: "hi test",
 	examples: [],
 	optionGroups: [
 		{
@@ -97,21 +97,21 @@ const createSimpleRegistry = (): CommandRegistry => ({
 	new: {
 		name: "new",
 		description: "Create a new HiLab project",
-		usage: "ck new [options]",
+		usage: "hi new [options]",
 		examples: [],
 		optionGroups: [],
 	},
 	init: {
 		name: "init",
 		description: "Initialize HiLab in current directory",
-		usage: "ck init",
+		usage: "hi init",
 		examples: [],
 		optionGroups: [],
 	},
 	doctor: {
 		name: "doctor",
 		description: "Diagnose installation issues",
-		usage: "ck doctor",
+		usage: "hi doctor",
 		examples: [],
 		optionGroups: [],
 	},
@@ -164,11 +164,11 @@ describe("renderHelp", () => {
 
 		// Should include usage
 		expect(stripped).toContain("Usage:");
-		expect(stripped).toContain("ck test [options]");
+		expect(stripped).toContain("hi test [options]");
 
 		// Should include examples
 		expect(stripped).toContain("Examples:");
-		expect(stripped).toContain("ck test --verbose");
+		expect(stripped).toContain("hi test --verbose");
 
 		// Should include options
 		expect(stripped).toContain("Test Options:");
@@ -215,7 +215,7 @@ describe("renderHelp", () => {
 		const stripped = stripColors(output);
 
 		expect(stripped).toContain("DEPRECATED: This command is deprecated");
-		expect(stripped).toContain("Use: ck new-command");
+		expect(stripped).toContain("Use: hi new-command");
 		expect(stripped).toContain("Will be removed in 3.0.0");
 	});
 
@@ -232,7 +232,7 @@ describe("renderHelp", () => {
 		const help: CommandHelp = {
 			name: "test",
 			description: "Test",
-			usage: "ck test",
+			usage: "hi test",
 			examples: [],
 			optionGroups: [
 				{
@@ -258,7 +258,7 @@ describe("renderHelp", () => {
 		const help: CommandHelp = {
 			name: "test",
 			description: "Test",
-			usage: "ck test",
+			usage: "hi test",
 			examples: [],
 			optionGroups: [],
 		};
@@ -273,7 +273,7 @@ describe("renderHelp", () => {
 		const help: CommandHelp = {
 			name: "test",
 			description: "Test",
-			usage: "ck test",
+			usage: "hi test",
 			examples: [],
 			optionGroups: [],
 		};
@@ -290,7 +290,7 @@ describe("renderHelp", () => {
 		const help: CommandHelp = {
 			name: "test",
 			description: "Test",
-			usage: "ck test",
+			usage: "hi test",
 			examples: [],
 			optionGroups: [],
 		};
@@ -309,7 +309,7 @@ describe("renderHelp", () => {
 		const help: CommandHelp = {
 			name: "test",
 			description: "Test",
-			usage: "ck test",
+			usage: "hi test",
 			examples: [],
 			optionGroups: [],
 		};
@@ -331,9 +331,9 @@ describe("renderHelp - examples limit", () => {
 		const stripped = stripColors(output);
 
 		// Default maxExamples=3 shows all 3
-		expect(stripped).toContain("ck test --verbose");
-		expect(stripped).toContain("ck test --dry-run");
-		expect(stripped).toContain("ck test --format json");
+		expect(stripped).toContain("hi test --verbose");
+		expect(stripped).toContain("hi test --dry-run");
+		expect(stripped).toContain("hi test --format json");
 	});
 
 	test("respects custom maxExamples value", () => {
@@ -347,9 +347,9 @@ describe("renderHelp - examples limit", () => {
 		const stripped = stripColors(output);
 
 		// Should only show 1 example
-		expect(stripped).toContain("ck test --verbose");
-		expect(stripped).not.toContain("ck test --dry-run");
-		expect(stripped).not.toContain("ck test --format json");
+		expect(stripped).toContain("hi test --verbose");
+		expect(stripped).not.toContain("hi test --dry-run");
+		expect(stripped).not.toContain("hi test --format json");
 	});
 
 	test("shows all examples if maxExamples is greater than available", () => {
@@ -363,9 +363,9 @@ describe("renderHelp - examples limit", () => {
 		const stripped = stripColors(output);
 
 		// Should show all 3 examples
-		expect(stripped).toContain("ck test --verbose");
-		expect(stripped).toContain("ck test --dry-run");
-		expect(stripped).toContain("ck test --format json");
+		expect(stripped).toContain("hi test --verbose");
+		expect(stripped).toContain("hi test --dry-run");
+		expect(stripped).toContain("hi test --format json");
 	});
 
 	test("hides examples when showExamples is false", () => {
@@ -379,7 +379,7 @@ describe("renderHelp - examples limit", () => {
 		const stripped = stripColors(output);
 
 		expect(stripped).not.toContain("Examples:");
-		expect(stripped).not.toContain("ck test --verbose");
+		expect(stripped).not.toContain("hi test --verbose");
 	});
 });
 
@@ -434,7 +434,7 @@ describe("renderGlobalHelp", () => {
 		const stripped = stripColors(output);
 
 		expect(stripped).toContain(
-			"Run 'ck <command> --help' for details. Start with 'ck skills --help' and 'ck config --help'.",
+			"Run 'hi <command> --help' for details. Start with 'hi skills --help' and 'hi config --help'.",
 		);
 	});
 
@@ -443,21 +443,21 @@ describe("renderGlobalHelp", () => {
 			zebra: {
 				name: "zebra",
 				description: "Last command",
-				usage: "ck zebra",
+				usage: "hi zebra",
 				examples: [],
 				optionGroups: [],
 			},
 			alpha: {
 				name: "alpha",
 				description: "First command",
-				usage: "ck alpha",
+				usage: "hi alpha",
 				examples: [],
 				optionGroups: [],
 			},
 			middle: {
 				name: "middle",
 				description: "Middle command",
-				usage: "ck middle",
+				usage: "hi middle",
 				examples: [],
 				optionGroups: [],
 			},

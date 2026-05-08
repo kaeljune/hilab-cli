@@ -330,12 +330,13 @@ describe("Fresh Installer", () => {
 			expect(existsSync(join(claudeDir, "commands"))).toBe(true);
 		});
 
-		test("should cleanup empty directories after removing CK files", async () => {
+		test("should cleanup empty directories after removing tracked files", async () => {
 			// Create nested directory structure
 			await mkdir(join(claudeDir, "skills", "nested"), { recursive: true });
-			await writeFile(join(claudeDir, "skills", "nested", "hi-file.md"), "ck content");
+			await writeFile(join(claudeDir, "skills", "nested", "hi-file.md"), "tracked content");
+			await writeFile(join(claudeDir, "skills", "test.md"), "tracked content");
 
-			// Create metadata tracking only CK files
+			// Create metadata tracking only HiLab-owned files
 			const metadata = {
 				kits: {
 					engineer: {
@@ -349,7 +350,7 @@ describe("Fresh Installer", () => {
 								installedVersion: "1.0.0",
 							},
 							{
-								path: "skills/nested/ck-file.md",
+								path: "skills/nested/hi-file.md",
 								checksum: CHECKSUM_2,
 								ownership: "hi",
 								installedVersion: "1.0.0",

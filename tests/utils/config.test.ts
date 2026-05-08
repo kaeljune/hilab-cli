@@ -7,8 +7,8 @@ import { PathResolver } from "@/shared/path-resolver.js";
 import type { Config } from "@/types";
 import { type TestPaths, setupTestPaths } from "../helpers/test-paths.js";
 
-// Test uses isolated temp directories via CK_TEST_HOME
-// PathResolver automatically uses test paths when CK_TEST_HOME is set
+// Test uses isolated temp directories via HI_TEST_HOME
+// PathResolver automatically uses test paths when HI_TEST_HOME is set
 
 describe("ConfigManager", () => {
 	let testPaths: TestPaths;

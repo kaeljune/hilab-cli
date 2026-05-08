@@ -1,29 +1,26 @@
 # HiLab CLI Reference
 
-Complete reference for all `ck` commands, auto-generated from the help registry.
+Complete reference for all `hi` commands, auto-generated from the help registry.
 
 ## Table of Contents
 
-- [ck agents](#ck-agents)
-- [ck api](#ck-api)
-- [ck backups](#ck-backups)
-- [ck commands](#ck-commands)
-- [ck config](#ck-config)
-- [ck content](#ck-content)
-- [ck doctor](#ck-doctor)
-- [ck init](#ck-init)
-- [ck migrate](#ck-migrate)
-- [ck new](#ck-new)
-- [ck plan](#ck-plan)
-- [ck projects](#ck-projects)
-- [ck setup](#ck-setup)
-- [ck skills](#ck-skills)
-- [ck uninstall](#ck-uninstall)
-- [ck update](#ck-update)
-- [ck versions](#ck-versions)
-- [ck watch](#ck-watch)
+- [hi agents](#hi-agents)
+- [hi backups](#hi-backups)
+- [hi commands](#hi-commands)
+- [hi config](#hi-config)
+- [hi doctor](#hi-doctor)
+- [hi init](#hi-init)
+- [hi migrate](#hi-migrate)
+- [hi new](#hi-new)
+- [hi plan](#hi-plan)
+- [hi projects](#hi-projects)
+- [hi setup](#hi-setup)
+- [hi skills](#hi-skills)
+- [hi uninstall](#hi-uninstall)
+- [hi update](#hi-update)
+- [hi versions](#hi-versions)
 
-## ck agents
+## hi agents
 
 Install, uninstall, and manage Claude Code agents across providers
 
@@ -50,307 +47,7 @@ Install, uninstall, and manage Claude Code agents across providers
 - `hi agents --list --installed` — Show installed agents and locations
 
 
-## ck api
-
-Interact with HiLab API and proxy services
-
-**Usage:** `hi api [action] [service] [path] [options]`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--json` | Output raw JSON instead of formatted display | — |
-
-**Examples:**
-
-- `hi api status` — Validate your API key and check rate limit status
-- `hi api vidcap summary https://youtu.be/abc123` — Generate an AI summary of a YouTube video
-
-### status
-
-Validate API key and check rate limit
-
-**Usage:** `hi api status [--json]`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--json` | Output raw JSON instead of formatted display | — |
-
-### services
-
-List available proxy services
-
-**Usage:** `hi api services [--json]`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--json` | Output raw JSON instead of formatted display | — |
-
-### setup
-
-Configure and store your HiLab API key
-
-**Usage:** `hi api setup [--key <key>] [--force] [--json]`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--key <key>` | API key to store | — |
-| `--force` | Force re-setup even if key already exists | — |
-| `--json` | Output raw JSON instead of formatted display | — |
-
-### proxy
-
-Generic HTTP proxy to any HiLab-backed service
-
-**Usage:** `hi api proxy <service> <path> [options]`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--method <method>` | HTTP method for the request | `GET` |
-| `--body <json>` | Request body as JSON string | — |
-| `--query <json>` | Query params as JSON string | — |
-| `--json` | Output raw JSON instead of formatted display | — |
-
-### vidcap
-
-Video metadata and AI processing via YouTube
-
-**Usage:** `hi api vidcap <action> <url|query>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--locale <locale>` | Locale for summary/caption output | `en` |
-| `--max-results <n>` | Max results for search action | — |
-| `--second <s>` | Timestamp in seconds for screenshot action | — |
-| `--order <order>` | Sort order for comments (time/relevance) | — |
-| `--json` | Output raw JSON instead of formatted display | — |
-
-#### info
-
-Fetch video metadata (title, duration, channel)
-
-**Usage:** `hi api vidcap info <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--json` | Output raw JSON | — |
-
-#### search
-
-Search YouTube for videos matching a query
-
-**Usage:** `hi api vidcap search <query>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--max-results <n>` | Maximum number of results | — |
-
-#### summary
-
-Generate an AI summary of a video
-
-**Usage:** `hi api vidcap summary <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--locale <locale>` | Locale for summary text | `en` |
-
-#### caption
-
-Extract captions/transcript from a video
-
-**Usage:** `hi api vidcap caption <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--locale <locale>` | Locale for caption text | `en` |
-
-#### screenshot
-
-Capture a frame from a video at a specific timestamp
-
-**Usage:** `hi api vidcap screenshot <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--second <s>` | Timestamp in seconds | — |
-
-#### comments
-
-Fetch comments for a video
-
-**Usage:** `hi api vidcap comments <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--order <order>` | Sort order: time or relevance | — |
-| `--max-results <n>` | Maximum number of comments | — |
-
-#### media
-
-Download media or extract media URLs from a video
-
-**Usage:** `hi api vidcap media <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--json` | Output raw JSON | — |
-
-### reviewweb
-
-Web scraping and SEO analysis via the HiLab proxy
-
-**Usage:** `hi api reviewweb <action> <url|domain|keyword>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--format <fmt>` | Summary format: bullet or paragraph | — |
-| `--max-length <n>` | Maximum summary length in characters | — |
-| `--instructions <text>` | Extraction instructions (extract action) | — |
-| `--template <json>` | JSON template for structured extraction | — |
-| `--type <type>` | Link type filter: web/image/file/all | — |
-| `--country <code>` | Country code for SEO commands | — |
-| `--json` | Output raw JSON instead of formatted display | — |
-
-#### scrape
-
-Scrape raw HTML content from a URL
-
-**Usage:** `hi api reviewweb scrape <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--json` | Output raw JSON | — |
-
-#### summarize
-
-AI-generated summary of a web page
-
-**Usage:** `hi api reviewweb summarize <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--format <fmt>` | Output format: bullet or paragraph | — |
-| `--max-length <n>` | Maximum length in characters | — |
-
-#### markdown
-
-Convert a web page to clean Markdown
-
-**Usage:** `hi api reviewweb markdown <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--json` | Output raw JSON | — |
-
-#### extract
-
-Extract structured data from a web page
-
-**Usage:** `hi api reviewweb extract <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--instructions <text>` | Extraction instructions | — |
-| `--template <json>` | JSON template for output shape | — |
-
-#### links
-
-Extract all links from a web page
-
-**Usage:** `hi api reviewweb links <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--type <type>` | Link type: web/image/file/all | `all` |
-
-#### screenshot
-
-Capture a screenshot of a web page
-
-**Usage:** `hi api reviewweb screenshot <url>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--json` | Output raw JSON | — |
-
-#### seo-traffic
-
-Fetch estimated organic traffic data for a domain
-
-**Usage:** `hi api reviewweb seo-traffic <domain>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--country <code>` | Country code for traffic data | — |
-
-#### seo-keywords
-
-Fetch top SEO keywords for a domain or keyword
-
-**Usage:** `hi api reviewweb seo-keywords <domain|keyword>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--country <code>` | Country code for keyword data | — |
-
-#### seo-backlinks
-
-Fetch backlink profile for a domain
-
-**Usage:** `hi api reviewweb seo-backlinks <domain>`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--country <code>` | Country code for backlink data | — |
-
-
-## ck backups
+## hi backups
 
 List, restore, and prune HiLab recovery backups
 
@@ -401,7 +98,7 @@ Delete one, many, or old recovery backups
 **Usage:** `hi backups prune [id] [--keep <n> | --all] [--yes] [--json]`
 
 
-## ck commands
+## hi commands
 
 Install, uninstall, and manage Claude commands across providers
 
@@ -428,7 +125,7 @@ Install, uninstall, and manage Claude commands across providers
 - `hi commands --list` — List available commands from source
 
 
-## ck config
+## hi config
 
 Manage HiLab configuration and launch the config dashboard
 
@@ -485,90 +182,7 @@ Print merged config
 **Usage:** `hi config show [-g | -l] [--json]`
 
 
-## ck content
-
-Multi-channel content automation engine
-
-**Usage:** `hi content [action] [id] [options]`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `start` | Start the content daemon (default when no action specified) | — |
-| `stop` | Stop the running content daemon | — |
-| `status` | Show daemon status and recent activity | — |
-| `logs` | View content daemon logs | — |
-| `setup` | Interactive configuration wizard | — |
-| `queue` | List pending content items | — |
-| `approve <id>` | Approve a content item for publishing | — |
-| `reject <id>` | Reject a content item | — |
-| `--dry-run` | Generate content without publishing | — |
-| `--verbose` | Enable verbose logging | — |
-| `--force` | Kill existing process and start fresh | — |
-| `--tail` | Follow log output in real-time (for logs action) | — |
-| `--reason <reason>` | Rejection reason (for reject action) | — |
-
-**Examples:**
-
-- `hi content start` — Start the content daemon (default action)
-- `hi content setup` — Interactive configuration wizard
-- `hi content queue` — List pending content items for review
-
-**Notes:**
-
-Requires content config in .hi.json. Run 'hi content setup' for guided configuration. Review mode can be 'auto' or 'manual' (default: manual).
-
-### start
-
-Start the content daemon (default when no action specified)
-
-**Usage:** `hi content start`
-
-### stop
-
-Stop the running content daemon
-
-**Usage:** `hi content stop`
-
-### status
-
-Show daemon status and recent activity
-
-**Usage:** `hi content status`
-
-### logs
-
-View content daemon logs
-
-**Usage:** `hi content logs [--tail]`
-
-### setup
-
-Interactive configuration wizard
-
-**Usage:** `hi content setup`
-
-### queue
-
-List pending content items
-
-**Usage:** `hi content queue`
-
-### approve
-
-Approve a content item for publishing
-
-**Usage:** `hi content approve <id>`
-
-### reject
-
-Reject a content item
-
-**Usage:** `hi content reject <id> [--reason <reason>]`
-
-
-## ck doctor
+## hi doctor
 
 Comprehensive health check for HiLab
 
@@ -591,7 +205,7 @@ Comprehensive health check for HiLab
 - `hi doctor --check-only` — CI mode: exit 1 on failures, no prompts
 
 
-## ck init
+## hi init
 
 Initialize or update HiLab project (with interactive version selection)
 
@@ -618,7 +232,7 @@ Initialize or update HiLab project (with interactive version selection)
 | `--refresh` | Bypass release cache to fetch latest versions from GitHub | — |
 | `--install-skills` | Install skills dependencies (non-interactive mode) | — |
 | `--with-sudo` | Include system packages requiring sudo (Linux: ffmpeg, imagemagick) | — |
-| `--prefix` | Add /ck: prefix to all slash commands | — |
+| `--prefix` | Add /hi: prefix to all slash commands | — |
 | `--skip-setup` | Skip interactive configuration wizard | — |
 | `--dry-run` | Preview changes without applying them (requires --prefix) | — |
 | `--force-overwrite` | Override ownership protections and delete user-modified files | — |
@@ -632,7 +246,7 @@ Initialize or update HiLab project (with interactive version selection)
 - `hi init --use-git --release v2.1.0 -y` — Non-interactive with git clone (no GitHub API needed)
 
 
-## ck migrate
+## hi migrate
 
 Migrate Claude Code agents, commands, skills, config, rules, and hooks to other providers
 
@@ -681,7 +295,7 @@ Migrate Claude Code agents, commands, skills, config, rules, and hooks to other 
   --force overrides skip decisions per item; --reinstall-empty-dirs is a per-directory heuristic
 
 
-## ck new
+## hi new
 
 Bootstrap a new HiLab project (with interactive version selection)
 
@@ -706,7 +320,7 @@ Bootstrap a new HiLab project (with interactive version selection)
 | `--gemini` | Install Google Gemini CLI package (non-interactive mode) | — |
 | `--install-skills` | Install skills dependencies (non-interactive mode) | — |
 | `--with-sudo` | Include system packages requiring sudo (Linux: ffmpeg, imagemagick) | — |
-| `--prefix` | Add /ck: prefix to all slash commands | — |
+| `--prefix` | Add /hi: prefix to all slash commands | — |
 | `--docs-dir <name>` | Custom docs folder name to avoid conflicts with existing folders | `docs` |
 | `--plans-dir <name>` | Custom plans folder name to avoid conflicts with existing folders | `plans` |
 
@@ -716,7 +330,7 @@ Bootstrap a new HiLab project (with interactive version selection)
 - `hi new -y --use-git --release v2.1.0` — Non-interactive with git clone (no GitHub API needed)
 
 
-## ck plan
+## hi plan
 
 Plan management: parse, validate, status, kanban, create, check, uncheck, add-phase
 
@@ -837,7 +451,7 @@ Append a new phase to an existing plan
 | `--after <after>` | Insert the new phase after this phase ID | — |
 
 
-## ck projects
+## hi projects
 
 Manage local HiLab project registry entries
 
@@ -881,7 +495,7 @@ Remove project by alias or ID
 **Usage:** `hi projects remove [alias] [--id <id>]`
 
 
-## ck setup
+## hi setup
 
 Run guided setup for provider API keys, preferred image provider, and optional packages
 
@@ -902,7 +516,7 @@ Run guided setup for provider API keys, preferred image provider, and optional p
 - `hi setup --global --skip-packages` — Configure global setup without package installation
 
 
-## ck skills
+## hi skills
 
 Install, uninstall, and manage HiLab skills across coding agents
 
@@ -959,7 +573,7 @@ Install, uninstall, and manage HiLab skills across coding agents
   • Target paths vary by agent; some agents intentionally share a common skills directory
 
 
-## ck uninstall
+## hi uninstall
 
 Remove HiLab installations (ownership-aware)
 
@@ -987,7 +601,7 @@ Remove HiLab installations (ownership-aware)
 Uninstall preserves user customizations by default. Only CK-installed files that haven't been modified are removed. User-created files and modified files are preserved unless --force-overwrite is used.
 
 
-## ck update
+## hi update
 
 Update HiLab CLI tool only (not kit content)
 
@@ -1016,7 +630,7 @@ Update HiLab CLI tool only (not kit content)
 'hi update' updates the CLI tool only and defaults to the latest stable release. Use '--beta' to opt into prerelease CLI builds. To update kit content (skills, commands, rules), use 'hi init' for local or 'hi init -g' for global. Use --yes to skip all prompts (both CLI and kit content update) for non-interactive/CI usage.
 
 
-## ck versions
+## hi versions
 
 List available versions of HiLab repositories
 
@@ -1036,25 +650,4 @@ List available versions of HiLab repositories
 - `hi versions --all` — Show all releases including prereleases
 
 
-## ck watch
-
-Watch GitHub issues and auto-respond with AI analysis
-
-**Usage:** `hi watch [options]`
-
-**Options:**
-
-| Flag | Description | Default |
-|------|-------------|----------|
-| `--interval <ms>` | Poll interval in milliseconds | `30000` |
-| `--dry-run` | Detect issues without posting responses | — |
-| `--force` | Kill existing watch process and start fresh | — |
-| `--verbose` | Enable verbose logging | — |
-
-**Examples:**
-
-- `hi watch --dry-run` — Preview issue detection without posting responses
-- `hi watch --interval 60000` — Poll every 60 seconds instead of default 30s
-
-
-<!-- generated: 2026-05-05T16:48:45.217Z -->
+<!-- generated: 2026-05-08T05:08:48.078Z -->

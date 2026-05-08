@@ -22,28 +22,23 @@ describe("generateReference", () => {
 	test("contains H2 section for every top-level command", () => {
 		const md = generateReference();
 		for (const name of Object.keys(HELP_REGISTRY)) {
-			expect(md).toContain(`## ck ${name}`);
+			expect(md).toContain(`## hi ${name}`);
 		}
 	});
 
-	test("contains ## ck api section", () => {
+	test("contains ## hi plan section", () => {
 		const md = generateReference();
-		expect(md).toContain("## ck api");
+		expect(md).toContain("## hi plan");
 	});
 
-	test("contains ## ck plan section", () => {
+	test("contains ## hi new section", () => {
 		const md = generateReference();
-		expect(md).toContain("## ck plan");
+		expect(md).toContain("## hi new");
 	});
 
-	test("contains ## ck new section", () => {
+	test("contains ## hi migrate section", () => {
 		const md = generateReference();
-		expect(md).toContain("## ck new");
-	});
-
-	test("contains ## ck migrate section", () => {
-		const md = generateReference();
-		expect(md).toContain("## ck migrate");
+		expect(md).toContain("## hi migrate");
 	});
 
 	test("contains options table header (| Flag | Description | Default |)", () => {
@@ -70,8 +65,6 @@ describe("generateReference", () => {
 
 	test("contains H3 subcommand sections for commands with subcommands", () => {
 		const md = generateReference();
-		// api has subcommands: status, services, setup, proxy, vidcap, reviewweb
-		expect(md).toContain("### status");
 		// plan has subcommands: parse, validate, status, kanban, create, check, uncheck, add-phase
 		expect(md).toContain("### parse");
 		expect(md).toContain("### kanban");
@@ -85,8 +78,8 @@ describe("generateReference", () => {
 	test("TOC contains anchor links to each command section", () => {
 		const md = generateReference();
 		// TOC should have markdown links
-		expect(md).toContain("[ck api]");
-		expect(md).toContain("[ck plan]");
+		expect(md).toContain("[hi plan]");
+		expect(md).toContain("[hi migrate]");
 	});
 
 	test("each command section contains the description text", () => {

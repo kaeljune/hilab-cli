@@ -96,33 +96,33 @@ describe("environment utilities", () => {
 	});
 
 	describe("shouldSkipExpensiveOperations", () => {
-		it("should return false when CK_TEST_HOME is set (isolated tests)", () => {
-			process.env.CK_TEST_HOME = "/tmp/test-home";
+		it("should return false when HI_TEST_HOME is set (isolated tests)", () => {
+			process.env.HI_TEST_HOME = "/tmp/test-home";
 			process.env.CI = "true";
 			expect(shouldSkipExpensiveOperations()).toBe(false);
 		});
 
-		it("should return true in CI when CK_TEST_HOME is not set", () => {
-			unsetEnv("CK_TEST_HOME");
+		it("should return true in CI when HI_TEST_HOME is not set", () => {
+			unsetEnv("HI_TEST_HOME");
 			process.env.CI = "true";
 			expect(shouldSkipExpensiveOperations()).toBe(true);
 		});
 
-		it("should return false outside CI when CK_TEST_HOME is not set", () => {
-			unsetEnv("CK_TEST_HOME");
+		it("should return false outside CI when HI_TEST_HOME is not set", () => {
+			unsetEnv("HI_TEST_HOME");
 			unsetEnv("CI");
 			unsetEnv("CI_SAFE_MODE");
 			expect(shouldSkipExpensiveOperations()).toBe(false);
 		});
 
-		it("should treat whitespace CK_TEST_HOME as unset", () => {
-			process.env.CK_TEST_HOME = "   ";
+		it("should treat whitespace HI_TEST_HOME as unset", () => {
+			process.env.HI_TEST_HOME = "   ";
 			process.env.CI = "true";
 			expect(shouldSkipExpensiveOperations()).toBe(true);
 		});
 
-		it("should treat CK_TEST_HOME=0 as unset", () => {
-			process.env.CK_TEST_HOME = "0";
+		it("should treat HI_TEST_HOME=0 as unset", () => {
+			process.env.HI_TEST_HOME = "0";
 			process.env.CI = "true";
 			expect(shouldSkipExpensiveOperations()).toBe(true);
 		});

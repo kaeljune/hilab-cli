@@ -178,10 +178,10 @@ export {
 	type CkConfig,
 	type CkConfigWithSources,
 	type ConfigSource,
-	DEFAULT_CK_CONFIG,
+	DEFAULT_HI_CONFIG,
 	normalizeCkConfigInput,
 	normalizeMigrateProvidersInput,
-	CK_HOOK_NAMES,
+	HI_HOOK_NAMES,
 	type CkHookName,
 } from "./hi-config.js";
 

@@ -380,7 +380,7 @@ Unit tests for core libraries, command integration tests, authentication flows, 
 
 ## Build & Distribution
 
-Bun's --compile for standalone binaries. Multi-platform builds via GitHub Actions. Platform detection wrapper (bin/ck.js). Published to npm. Semantic versioning with automated releases via GitHub.
+Bun's --compile for standalone binaries. Multi-platform builds via GitHub Actions. Platform detection wrapper (bin/hi.js). Published to npm. Semantic versioning with automated releases via GitHub.
 
 ## CI/CD Pipeline
 

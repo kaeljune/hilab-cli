@@ -12,7 +12,7 @@ export interface TestPaths {
 
 /**
  * Setup isolated test paths with unique temp directory
- * Sets CK_TEST_HOME environment variable for PathResolver
+ * Sets HI_TEST_HOME environment variable for PathResolver
  *
  * @returns TestPaths object with cleanup function
  */
@@ -35,7 +35,7 @@ export function setupTestPaths(): TestPaths {
 	mkdirSync(join(testHome, ".claude"), { recursive: true });
 
 	// Set test environment variable
-	process.env.CK_TEST_HOME = testHome;
+	process.env.HI_TEST_HOME = testHome;
 
 	const cleanup = () => {
 		try {
@@ -43,7 +43,7 @@ export function setupTestPaths(): TestPaths {
 		} catch (_error) {
 			// Ignore cleanup errors
 		}
-		process.env.CK_TEST_HOME = undefined;
+		process.env.HI_TEST_HOME = undefined;
 	};
 
 	return {
@@ -60,12 +60,12 @@ export function setupTestPaths(): TestPaths {
  * Returns undefined if not in test mode
  */
 export function getTestHome(): string | undefined {
-	return process.env.CK_TEST_HOME;
+	return process.env.HI_TEST_HOME;
 }
 
 /**
  * Check if currently in test mode
  */
 export function isTestMode(): boolean {
-	return process.env.CK_TEST_HOME !== undefined;
+	return process.env.HI_TEST_HOME !== undefined;
 }

@@ -18,7 +18,7 @@ const ReleaseCacheEntrySchema = z.object({
 
 export class ReleaseCache {
 	private static readonly CACHE_DIR = "releases";
-	private static readonly CACHE_TTL_SECONDS = Number(process.env.HI_CACHE_TTL) || 3600; // 1 hour (configurable via CK_CACHE_TTL env var)
+	private static readonly CACHE_TTL_SECONDS = Number(process.env.HI_CACHE_TTL) || 3600; // 1 hour (configurable via HI_CACHE_TTL env var)
 	private readonly cacheDir: string;
 
 	constructor() {

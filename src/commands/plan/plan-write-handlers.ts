@@ -112,7 +112,7 @@ export async function handleCreate(
 		// Registry update is non-critical; continue silently
 	}
 
-	// Telemetry (no-op stub, debug logging when CK_TELEMETRY=1)
+	// Telemetry (no-op stub, debug logging when HI_TELEMETRY=1)
 	try {
 		trackPlanCreated(safeResolvedDir, source);
 	} catch {
@@ -191,7 +191,7 @@ export async function handleCheck(
 		// Registry update is non-critical; continue silently
 	}
 
-	// Telemetry (no-op stub, debug logging when CK_TELEMETRY=1)
+	// Telemetry (no-op stub, debug logging when HI_TELEMETRY=1)
 	try {
 		trackPhaseChecked(planDir, target, options.source ?? "cli");
 		if (planStatus === "done") {
@@ -260,7 +260,7 @@ export async function handleUncheck(
 		// Registry update is non-critical; continue silently
 	}
 
-	// Telemetry (no-op stub, debug logging when CK_TELEMETRY=1)
+	// Telemetry (no-op stub, debug logging when HI_TELEMETRY=1)
 	try {
 		trackPhaseUnchecked(planDir, target, options.source ?? "cli");
 	} catch {

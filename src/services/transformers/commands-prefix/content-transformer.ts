@@ -91,7 +91,7 @@ function buildCommandPatterns(): Array<{ regex: RegExp; replacement: string }> {
 		// (?!/) at end prevents matching directory paths like /plan:/subdir/
 		patterns.push({
 			regex: new RegExp(`(?:^|(?<=[\\s\`]))(/)(${cmd})(:)(?!/)`, "gm"),
-			replacement: "$1ck:$2$3",
+			replacement: "$1hi:$2$3",
 		});
 
 		// Pattern 2: /cmd alone (no subcommand)
@@ -100,7 +100,7 @@ function buildCommandPatterns(): Array<{ regex: RegExp; replacement: string }> {
 		// Positive lookahead requires: whitespace, backtick, brackets, or end of string
 		patterns.push({
 			regex: new RegExp(`(?:^|(?<=[\\s\`]))(/)(${cmd})(?![?/=&:\\w])(?=[\\s\`\\]\\)]|$)`, "gm"),
-			replacement: "$1ck:$2",
+			replacement: "$1hi:$2",
 		});
 	}
 

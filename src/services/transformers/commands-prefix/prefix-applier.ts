@@ -16,7 +16,7 @@ import { validatePath } from "./prefix-utils.js";
 /**
  * Apply prefix reorganization to commands directory
  *
- * Moves all files from .claude/commands/ to .claude/commands/ck/
+ * Moves all files from .claude/commands/ to .claude/commands/hi/
  * This enables slash commands to have /hi: prefix (e.g., /hi:plan)
  *
  * @param extractDir - Temporary extraction directory containing .claude folder
@@ -60,11 +60,11 @@ export async function applyPrefix(extractDir: string): Promise<void> {
 			return;
 		}
 
-		// Check if already prefixed (ck subdirectory exists and is the only entry)
+		// Check if already prefixed (hi subdirectory exists and is the only entry)
 		if (entries.length === 1 && entries[0] === "hi") {
-			const ckDir = join(commandsDir, "hi");
-			const ckStat = await stat(ckDir);
-			if (ckStat.isDirectory()) {
+			const hiDir = join(commandsDir, "hi");
+			const hiStat = await stat(hiDir);
+			if (hiStat.isDirectory()) {
 				logger.verbose("Commands already have /hi: prefix, skipping");
 				return;
 			}
@@ -78,8 +78,8 @@ export async function applyPrefix(extractDir: string): Promise<void> {
 		await mkdir(tempDir, { recursive: true });
 
 		// Create hi subdirectory in temp
-		const ckDir = join(tempDir, "hi");
-		await mkdir(ckDir, { recursive: true });
+		const hiDir = join(tempDir, "hi");
+		await mkdir(hiDir, { recursive: true });
 
 		// Move all current commands to hi subdirectory
 		let processedCount = 0;
@@ -93,7 +93,7 @@ export async function applyPrefix(extractDir: string): Promise<void> {
 				continue;
 			}
 
-			const destPath = join(ckDir, entry);
+			const destPath = join(hiDir, entry);
 
 			// Copy the file/directory to the new location
 			await copy(sourcePath, destPath, {
@@ -102,7 +102,7 @@ export async function applyPrefix(extractDir: string): Promise<void> {
 			});
 
 			processedCount++;
-			logger.verbose(`Moved ${entry} to ck/${entry}`);
+			logger.verbose(`Moved ${entry} to hi/${entry}`);
 		}
 
 		if (processedCount === 0) {

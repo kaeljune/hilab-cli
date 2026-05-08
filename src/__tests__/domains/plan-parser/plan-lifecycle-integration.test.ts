@@ -234,9 +234,9 @@ describe.skipIf(!existsSync(SET_ACTIVE_PLAN_PATH))("set-active-plan.cjs", () => 
 		};
 	}
 
-	test("without CK_SESSION_ID: warns but exits 0", () => {
+	test("without HI_SESSION_ID: warns but exits 0", () => {
 		const { exitCode, stdout, stderr } = runScript(["some/plan"], {
-			CK_SESSION_ID: "",
+			HI_SESSION_ID: "",
 		});
 
 		expect(exitCode).toBe(0);
@@ -245,17 +245,17 @@ describe.skipIf(!existsSync(SET_ACTIVE_PLAN_PATH))("set-active-plan.cjs", () => 
 	});
 
 	test("without plan path argument: exits with error code 1", () => {
-		const { exitCode } = runScript([], { CK_SESSION_ID: "" });
+		const { exitCode } = runScript([], { HI_SESSION_ID: "" });
 		expect(exitCode).toBe(1);
 	});
 
-	test("with CK_SESSION_ID: writes session state to temp file", () => {
+	test("with HI_SESSION_ID: writes session state to temp file", () => {
 		const sessionId = `test-set-active-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 		const tempPath = getSessionTempPath(sessionId);
 
 		try {
 			const { exitCode } = runScript([testDir], {
-				CK_SESSION_ID: sessionId,
+				HI_SESSION_ID: sessionId,
 			});
 
 			expect(exitCode).toBe(0);
@@ -281,7 +281,7 @@ describe.skipIf(!existsSync(SET_ACTIVE_PLAN_PATH))("set-active-plan.cjs", () => 
 		try {
 			// Run from testDir with a relative path argument
 			const { exitCode } = runScript(["./subdir"], {
-				CK_SESSION_ID: sessionId,
+				HI_SESSION_ID: sessionId,
 			});
 
 			expect(exitCode).toBe(0);

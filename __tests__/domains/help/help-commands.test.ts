@@ -16,7 +16,6 @@ describe("help-commands", () => {
 		"new",
 		"init",
 		"config",
-		"content",
 		"projects",
 		"setup",
 		"update",
@@ -28,8 +27,6 @@ describe("help-commands", () => {
 		"backups",
 		"commands",
 		"migrate",
-		"watch",
-		"api",
 		"plan",
 	];
 
@@ -104,7 +101,7 @@ describe("help-commands", () => {
 			const help = HELP_REGISTRY.new;
 			expect(help.name).toBe("new");
 			expect(help.description).toContain("Bootstrap");
-			expect(help.usage).toBe("ck new [options]");
+			expect(help.usage).toBe("hi new [options]");
 			expect(help.examples).toHaveLength(2);
 			expect(help.optionGroups.length).toBeGreaterThan(0);
 		});
@@ -123,7 +120,7 @@ describe("help-commands", () => {
 			const help = HELP_REGISTRY.init;
 			expect(help.name).toBe("init");
 			expect(help.description).toContain("Initialize");
-			expect(help.usage).toBe("ck init [options]");
+			expect(help.usage).toBe("hi init [options]");
 			expect(help.examples).toHaveLength(2);
 		});
 
@@ -141,7 +138,7 @@ describe("help-commands", () => {
 			const help = HELP_REGISTRY.update;
 			expect(help.name).toBe("update");
 			expect(help.description).toContain("Update HiLab CLI");
-			expect(help.usage).toBe("ck update [options]");
+			expect(help.usage).toBe("hi update [options]");
 			expect(help.examples).toHaveLength(2);
 		});
 
@@ -169,7 +166,7 @@ describe("help-commands", () => {
 			const kitOption = deprecatedGroup.options.find((o) => o.flags.includes("--kit"));
 			expect(kitOption).toBeDefined();
 			if (!kitOption?.deprecated) return;
-			expect(kitOption.deprecated.alternative).toBe("ck init --kit <kit>");
+			expect(kitOption.deprecated.alternative).toBe("hi init --kit <kit>");
 		});
 
 		test("deprecated --global option points to ck init", () => {
@@ -180,10 +177,10 @@ describe("help-commands", () => {
 			const globalOption = deprecatedGroup.options.find((o) => o.flags.includes("--global"));
 			expect(globalOption).toBeDefined();
 			if (!globalOption?.deprecated) return;
-			expect(globalOption.deprecated.alternative).toBe("ck init --global");
+			expect(globalOption.deprecated.alternative).toBe("hi init --global");
 		});
 
-		test("has note section about ck update vs ck init", () => {
+		test("has note section about hi update vs hi init", () => {
 			const help = HELP_REGISTRY.update;
 			expect(help.sections).toBeDefined();
 			if (!help.sections) return;
@@ -191,8 +188,8 @@ describe("help-commands", () => {
 			const noteSection = help.sections.find((s) => s.title === "Note");
 			expect(noteSection).toBeDefined();
 			if (!noteSection) return;
-			expect(noteSection.content).toContain("ck update");
-			expect(noteSection.content).toContain("ck init");
+			expect(noteSection.content).toContain("hi update");
+			expect(noteSection.content).toContain("hi init");
 		});
 	});
 
@@ -201,7 +198,7 @@ describe("help-commands", () => {
 			const help = HELP_REGISTRY.versions;
 			expect(help.name).toBe("versions");
 			expect(help.description).toContain("List available versions");
-			expect(help.usage).toBe("ck versions [options]");
+			expect(help.usage).toBe("hi versions [options]");
 			expect(help.examples).toHaveLength(2);
 		});
 	});
@@ -211,7 +208,7 @@ describe("help-commands", () => {
 			const help = HELP_REGISTRY.doctor;
 			expect(help.name).toBe("doctor");
 			expect(help.description).toContain("health check");
-			expect(help.usage).toBe("ck doctor [options]");
+			expect(help.usage).toBe("hi doctor [options]");
 			expect(help.examples).toHaveLength(3);
 		});
 	});
@@ -221,7 +218,7 @@ describe("help-commands", () => {
 			const help = HELP_REGISTRY.uninstall;
 			expect(help.name).toBe("uninstall");
 			expect(help.description).toContain("Remove");
-			expect(help.usage).toBe("ck uninstall [options]");
+			expect(help.usage).toBe("hi uninstall [options]");
 			expect(help.examples).toHaveLength(2);
 		});
 	});
@@ -231,7 +228,7 @@ describe("help-commands", () => {
 			const help = HELP_REGISTRY.skills;
 			expect(help.name).toBe("skills");
 			expect(help.description).toContain("skill");
-			expect(help.usage).toBe("ck skills [options]");
+			expect(help.usage).toBe("hi skills [options]");
 			expect(help.examples).toHaveLength(2);
 		});
 
@@ -321,16 +318,16 @@ describe("help-commands", () => {
 			expect(names.length).toBe(uniqueNames.length);
 		});
 
-		test("all usage strings start with 'ck'", () => {
+		test("all usage strings start with 'hi'", () => {
 			for (const command of Object.values(HELP_REGISTRY)) {
-				expect(command.usage).toMatch(/^ck\s+/);
+				expect(command.usage).toMatch(/^hi\s+/);
 			}
 		});
 
-		test("all example commands start with 'ck' (optionally prefixed with env vars)", () => {
+		test("all example commands start with 'hi' (optionally prefixed with env vars)", () => {
 			for (const command of Object.values(HELP_REGISTRY)) {
 				for (const example of command.examples) {
-					expect(example.command).toMatch(/^(\w+=\S+\s+)*ck\s+/);
+					expect(example.command).toMatch(/^(\w+=\S+\s+)*hi\s+/);
 				}
 			}
 		});

@@ -1,7 +1,7 @@
 /**
  * Plan Telemetry Stub
  * Future: Send anonymous usage analytics to HiLab backend
- * Current: No-op, debug logging only when CK_TELEMETRY=1
+ * Current: No-op, debug logging only when HI_TELEMETRY=1
  */
 
 export interface PlanEvent {
@@ -14,7 +14,7 @@ export interface PlanEvent {
 
 /**
  * Track a plan event. Currently a no-op stub.
- * @future When CK_TELEMETRY backend is ready, this will send events.
+ * @future When HI_TELEMETRY backend is ready, this will send events.
  */
 export function trackPlanEvent(event: PlanEvent): void {
 	try {

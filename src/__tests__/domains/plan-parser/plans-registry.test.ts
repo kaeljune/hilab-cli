@@ -20,7 +20,7 @@ const tempProjectDirs: string[] = [];
 beforeEach(() => {
 	testRoot = mkdtempSync(join(tmpdir(), "hi-plans-registry-"));
 	mkdirSync(join(testRoot, ".claude"), { recursive: true });
-	// Always set CK_TEST_HOME for global path isolation
+	// Always set HI_TEST_HOME for global path isolation
 	testHome = mkdtempSync(join(tmpdir(), "hi-plans-home-"));
 	mkdirSync(join(testHome, ".claude"), { recursive: true });
 	process.env.HI_TEST_HOME = testHome;
@@ -39,7 +39,7 @@ afterEach(() => {
 		rmSync(dir, { recursive: true, force: true });
 	}
 	tempProjectDirs.length = 0;
-	Reflect.deleteProperty(process.env, "CK_TEST_HOME");
+	Reflect.deleteProperty(process.env, "HI_TEST_HOME");
 });
 
 describe("plans-registry", () => {
@@ -389,7 +389,7 @@ describe("global-registry-relocation", () => {
 		expect(existsSync(`${getOldRegistryPath(projectDir)}.bak`)).toBe(false);
 	});
 
-	test("CK_TEST_HOME override — global path derived from test home", () => {
+	test("HI_TEST_HOME override — global path derived from test home", () => {
 		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "hi-proj-")));
 
 		// The registries dir should be under testHome

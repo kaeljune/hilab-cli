@@ -358,10 +358,10 @@ describe("Fixture: paths with spaces (#435, #594)", () => {
 
 describe("Fixture: multi-provider merge, no false conflicts (#520)", () => {
 	it("preserves all provider hooks from dest during CK merge", async () => {
-		// dest has hooks from multiple providers; source adds only CK hooks
+		// dest has hooks from multiple providers; source adds only HiLab hooks
 		const source = {
 			hooks: {
-				SessionStart: [{ type: "command", command: "node .claude/hooks/ck-session-start.cjs" }],
+				SessionStart: [{ type: "command", command: "node .claude/hooks/hi-session-start.cjs" }],
 			},
 		};
 		const dest = {

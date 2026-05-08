@@ -50,18 +50,6 @@ const matrix: MatrixRow[] = [
 		requiredFlags: ["--catalog", "--regenerate", "--search", "--json", "--limit", "--validate"],
 		requiredSubcommands: [],
 	},
-	// 03B ── content (subcommands populated in subcommands array)
-	{
-		command: "content",
-		requiredFlags: [],
-		requiredSubcommands: ["start", "stop", "status", "logs", "setup", "queue", "approve", "reject"],
-	},
-	// 03C ── watch
-	{
-		command: "watch",
-		requiredFlags: ["--verbose"],
-		requiredSubcommands: [],
-	},
 	// 03C ── update
 	{
 		command: "update",

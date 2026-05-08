@@ -234,7 +234,7 @@ export class PathResolver {
 	 * @returns Global kit installation directory path
 	 *
 	 * Resolution order:
-	 * 1. CK_TEST_HOME (test isolation)
+	 * 1. HI_TEST_HOME (test isolation)
 	 * 2. CLAUDE_CONFIG_DIR (multi-profile support, e.g. ~/.claude-personal)
 	 * 3. ~/.claude/ (default on all platforms)
 	 */

@@ -421,7 +421,7 @@ export const translations = {
 		fieldSimplifyThresholdSingleFileLocDesc: "Per-file LOC change above which the gate fires.",
 		fieldSimplifyGateEnabled: "Enabled",
 		fieldSimplifyGateEnabledDesc:
-			"Master toggle. Off by default (opt-in). Enable to activate the gate; env CK_SIMPLIFY_DISABLED=1 always bypasses.",
+			"Master toggle. Off by default (opt-in). Enable to activate the gate; env HI_SIMPLIFY_DISABLED=1 always bypasses.",
 		fieldSimplifyGateHardVerbs: "Hard-block verbs",
 		fieldSimplifyGateHardVerbsDesc: "Verbs that hard-block when thresholds breached.",
 		fieldSimplifyGateSoftVerbs: "Soft-warn verbs",
@@ -1520,7 +1520,7 @@ export const translations = {
 			"LOC thay đổi trong một file vượt ngưỡng này thì cổng kích hoạt.",
 		fieldSimplifyGateEnabled: "Bật",
 		fieldSimplifyGateEnabledDesc:
-			"Công tắc chính. Tắt mặc định (opt-in). Bật để kích hoạt cổng; env CK_SIMPLIFY_DISABLED=1 luôn bỏ qua.",
+			"Công tắc chính. Tắt mặc định (opt-in). Bật để kích hoạt cổng; env HI_SIMPLIFY_DISABLED=1 luôn bỏ qua.",
 		fieldSimplifyGateHardVerbs: "Động từ chặn cứng",
 		fieldSimplifyGateHardVerbsDesc: "Động từ chặn cứng khi vượt ngưỡng.",
 		fieldSimplifyGateSoftVerbs: "Động từ cảnh báo nhẹ",

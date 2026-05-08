@@ -22,7 +22,7 @@ describe("SettingsProcessor custom global dir support", () => {
 		sourceFile = join(testDir, "source-settings.json");
 		destFile = join(customClaudeDir, "settings.json");
 		await mkdir(customClaudeDir, { recursive: true });
-		// CK_TEST_HOME takes priority over CLAUDE_CONFIG_DIR in PathResolver.getGlobalKitDir(),
+		// HI_TEST_HOME takes priority over CLAUDE_CONFIG_DIR in PathResolver.getGlobalKitDir(),
 		// so clear it to prevent env leakage from other tests running in the same Bun process.
 		// Must use delete — Node.js coerces `= undefined` to the string "undefined".
 		// biome-ignore lint/performance/noDelete: process.env requires delete to actually unset

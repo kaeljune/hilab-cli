@@ -6,10 +6,10 @@ Command-line tool and web dashboard for managing HiLab projects.
 
 ## Overview
 
-HiLab Config UI (`ck`) provides both CLI and web dashboard for managing HiLab projects. It is built with Bun, TypeScript, and React for development, while the published CLI runs on plain Node.js so end users do not need Bun installed.
+HiLab Config UI (`hi`) provides both CLI and web dashboard for managing HiLab projects. It is built with Bun, TypeScript, and React for development, while the published CLI runs on plain Node.js so end users do not need Bun installed.
 
 **Key Features:**
-- **CLI Commands (16)**: new, init, config, projects, setup, skills, agents, commands, migrate, doctor, versions, update, uninstall, watch, content, easter-egg
+- **CLI Commands**: new, init, config, projects, setup, skills, agents, commands, migrate, doctor, versions, update, uninstall, plan, backups
 - **Web Dashboard**: Interactive React UI via `hi config ui` for configuration and project management
 - **Hook Diagnostics Dashboard**: Inspect recent Claude hook activity and failures from `hi config` across global and project scopes
 - **Projects Registry**: Centralized registry at `~/.hilab/projects.json` with file locking
@@ -33,8 +33,8 @@ Comprehensive documentation in `/docs`:
 - **[Code Standards](./docs/code-standards.md)** - Coding conventions, best practices
 - **[Project Roadmap](./docs/project-roadmap.md)** - Release timeline, feature status
 - **[Deployment Guide](./docs/deployment-guide.md)** - Release procedures
-- **[ck watch](./docs/ck-watch.md)** - GitHub issue monitoring daemon
-- **[ck content](./docs/ck-content.md)** - Automated content generation from git activity
+- **[CLI Reference](./docs/cli-reference.md)** - Auto-generated command reference
+- **[Command Flow Guide](./docs/hi-command-flow-guide.md)** - End-to-end command flow walkthrough
 
 ## Prerequisites
 
@@ -79,7 +79,7 @@ pnpm add -g hilab-cli
 After installation, verify it's working:
 
 ```bash
-ck --version
+hi --version
 ```
 
 ## Usage
@@ -88,20 +88,20 @@ ck --version
 
 ```bash
 # Top-level command discovery
-ck --help
+hi --help
 
 # Open config dashboard immediately
-ck config
+hi config
 
 # Expose the dashboard intentionally to your LAN/Tailscale
-ck config --host 0.0.0.0 --no-open
+hi config --host 0.0.0.0 --no-open
 
 # Command-level help (recommended)
-ck config --help
-ck skills --help
-ck agents --help
-ck commands --help
-ck migrate --help
+hi config --help
+hi skills --help
+hi agents --help
+hi commands --help
+hi migrate --help
 ```
 
 ### Config Dashboard Access
@@ -112,11 +112,11 @@ Use `--host` when you intentionally want remote access from another device on th
 
 ```bash
 # Bind to all interfaces
-ck config --host 0.0.0.0 --no-open
+hi config --host 0.0.0.0 --no-open
 
 # Bind to a specific interface or hostname
-ck config --host 100.88.12.4 --no-open
-ck config --host dashboard.local --no-open
+hi config --host 100.88.12.4 --no-open
+hi config --host dashboard.local --no-open
 ```
 
 The dashboard still enforces same-origin browser access. Remote access works when you open the UI from the same host/origin that reaches the server, instead of relying on a hardcoded IP allowlist.
@@ -125,38 +125,38 @@ The dashboard still enforces same-origin browser access. Remote access works whe
 
 ```bash
 # Interactive mode
-ck new
+hi new
 
 # With options
-ck new --dir my-project --kit engineer
+hi new --dir my-project --kit engineer
 
 # Show beta versions
-ck new --beta
+hi new --beta
 
 # With exclude patterns
-ck new --exclude "*.log" --exclude "temp/**"
+hi new --exclude "*.log" --exclude "temp/**"
 
 # Optional packages (OpenCode, Gemini)
-ck new --opencode --gemini
+hi new --opencode --gemini
 
 # Install skills dependencies (Python, Node packages, system tools)
-ck new --install-skills
+hi new --install-skills
 
-# Command prefix (/ck: namespace to avoid conflicts)
-ck new --prefix
+# Command prefix (/hi: namespace to avoid conflicts)
+hi new --prefix
 
 # Offline installation (from local archive or directory)
-ck new --archive ~/downloads/engineer-v1.16.0.zip
-ck new --kit-path ~/extracted-kit/
+hi new --archive ~/downloads/engineer-v1.16.0.zip
+hi new --kit-path ~/extracted-kit/
 
 # Direct repo downloads are also supported
-ck new --archive ~/downloads/hilab-engineer-main.zip
-ck new --kit-path ~/downloads/hilab-engineer-main/
+hi new --archive ~/downloads/hilab-engineer-main.zip
+hi new --kit-path ~/downloads/hilab-engineer-main/
 ```
 
 **Flags:**
 - `--install-skills`: Auto-install Python packages, system tools (FFmpeg, ImageMagick), Node.js packages
-- `--prefix`: Move commands to /ck: namespace (/plan → /ck:plan)
+- `--prefix`: Move commands to /hi: namespace (/plan → /hi:plan)
 - `--beta`: Show pre-release versions in selection
 - `--opencode/--gemini`: Install optional packages
 - `--archive <path>`: Use local archive (zip/tar.gz) instead of downloading
@@ -170,34 +170,34 @@ ck new --kit-path ~/downloads/hilab-engineer-main/
 
 ```bash
 # Interactive mode
-ck init
+hi init
 
 # Non-interactive mode with sensible defaults
-ck init --yes
-ck init -y
+hi init --yes
+hi init -y
 
 # Combine with other flags
-ck init -g --kit engineer -y
+hi init -g --kit engineer -y
 
 # With options
-ck init --kit engineer --beta
+hi init --kit engineer --beta
 
 # Global mode (platform-specific paths)
-ck init --global
+hi init --global
 
 # Fresh installation (⚠️ DESTRUCTIVE - removes ALL customizations)
-ck init --fresh
+hi init --fresh
 
 # With exclude patterns and prefix
-ck init --exclude "*.local" --prefix
+hi init --exclude "*.local" --prefix
 
 # Offline installation (from local archive or directory)
-ck init --archive ~/downloads/engineer-v1.16.0.zip
-ck init --kit-path ~/extracted-kit/
+hi init --archive ~/downloads/engineer-v1.16.0.zip
+hi init --kit-path ~/extracted-kit/
 
 # Direct repo downloads are also supported
-ck init --archive ~/downloads/hilab-engineer-main.zip
-ck init --kit-path ~/downloads/hilab-engineer-main/
+hi init --archive ~/downloads/hilab-engineer-main.zip
+hi init --kit-path ~/downloads/hilab-engineer-main/
 ```
 
 **Flags:**
@@ -205,7 +205,7 @@ ck init --kit-path ~/downloads/hilab-engineer-main/
 - `--global/-g`: Use platform-specific config (macOS/Linux: ~/.claude, Windows: %USERPROFILE%\.claude)
 - `--fresh`: Clean reinstall, removes .claude directory (requires "yes" confirmation)
 - `--beta`: Show pre-release versions
-- `--prefix`: Apply /ck: namespace to commands
+- `--prefix`: Apply /hi: namespace to commands
 - `--archive <path>`: Use local archive (zip/tar.gz) instead of downloading
 - `--kit-path <path>`: Use local kit directory instead of downloading
 
@@ -227,17 +227,17 @@ Keep the HiLab CLI up to date:
 
 ```bash
 # Check for CLI updates
-ck update --check
+hi update --check
 
 # Update to latest version
-ck update
+hi update
 
 # Update to specific version
-ck update --version 1.17.0
+hi update --version 1.17.0
 
 # Update to beta / skip confirmation
-ck update --beta
-ck update --yes
+hi update --beta
+hi update --yes
 ```
 
 The CLI notifies you when updates are available via `hi --version`.
@@ -252,43 +252,43 @@ The CLI notifies you when updates are available via `hi --version`.
 
 ```bash
 # Show all available versions for all kits
-ck versions
+hi versions
 
 # Filter by specific kit
-ck versions --kit engineer
-ck versions --kit marketing
+hi versions --kit engineer
+hi versions --kit marketing
 
 # Show more versions (default: 30)
-ck versions --limit 50
+hi versions --limit 50
 
 # Include prereleases and drafts
-ck versions --all
+hi versions --all
 ```
 
 ### Diagnostics & Doctor
 
 ```bash
 # Full health check (default)
-ck doctor
+hi doctor
 
 # Verbose mode with execution timing and command details
-ck doctor --verbose
+hi doctor --verbose
 
 # Generate shareable diagnostic report (prompts for gist upload)
-ck doctor --report
+hi doctor --report
 
 # Auto-fix all fixable issues
-ck doctor --fix
+hi doctor --fix
 
 # CI mode: no prompts, exit 1 on failures
-ck doctor --check-only
+hi doctor --check-only
 
 # Machine-readable JSON output
-ck doctor --json
+hi doctor --json
 
 # Combine flags
-ck doctor --verbose --check-only --json
-ck doctor --verbose --fix
+hi doctor --verbose --check-only --json
+hi doctor --verbose --fix
 ```
 
 **Health Checks:**
@@ -318,12 +318,12 @@ ck doctor --verbose --fix
 Remove HiLab installations from your system:
 
 ```bash
-ck uninstall              # Interactive mode - prompts for scope and confirmation
-ck uninstall --local      # Uninstall only local installation (current project)
-ck uninstall --global     # Uninstall only global installation (~/.claude/)
-ck uninstall -l -y        # Local only, skip confirmation
-ck uninstall -g -y        # Global only, skip confirmation
-ck uninstall --yes        # Non-interactive - skip confirmation (for scripts)
+hi uninstall              # Interactive mode - prompts for scope and confirmation
+hi uninstall --local      # Uninstall only local installation (current project)
+hi uninstall --global     # Uninstall only global installation (~/.claude/)
+hi uninstall -l -y        # Local only, skip confirmation
+hi uninstall -g -y        # Global only, skip confirmation
+hi uninstall --yes        # Non-interactive - skip confirmation (for scripts)
 ```
 
 **Scope Selection:**
@@ -343,88 +343,30 @@ ck uninstall --yes        # Non-interactive - skip confirmation (for scripts)
 
 **Note:** Only removes valid HiLab installations (with metadata.json). Regular `.claude` directories from Claude Desktop are not affected.
 
-### Watch GitHub Issues (`hi watch`)
-
-Autonomous daemon that monitors GitHub issues, analyzes them with Claude, generates plans, and creates PRs.
-
-```bash
-# Start watching (single repo)
-ck watch
-
-# Dry-run mode (no posts/PRs)
-ck watch --dry-run
-
-# Custom poll interval (ms)
-ck watch --interval 60000
-
-# Force restart (clear state)
-ck watch --force
-
-# Verbose logging
-ck watch --verbose
-```
-
-**Features:** issue lifecycle management (10 statuses), Claude-powered brainstorming/planning, automatic PR creation, rate limiting (persisted across restarts), maintainer reply filtering, processedIssues TTL, optional git worktree isolation per issue, multi-repo support, graceful shutdown.
-
-**Config:** `.hi.json` under `watch` key. See [docs/ck-watch.md](./docs/ck-watch.md) for full configuration reference.
-
-### Content Generation (`hi content`)
-
-Daemon that scans git activity (commits, PRs, tags), generates social media content with Claude, and publishes to X/Twitter and Facebook.
-
-```bash
-# Interactive setup wizard
-ck content setup
-
-# Start daemon
-ck content start
-
-# Check status
-ck content status
-
-# View logs
-ck content logs
-
-# Queue manual content
-ck content queue
-
-# Review workflow
-ck content approve <id>
-ck content reject <id>
-
-# Dry-run / verbose
-ck content start --dry-run
-ck content start --verbose
-```
-
-**Features:** 11-phase pipeline (scan → filter → classify → context → create → validate → review → photo → publish → engage → analyze), noise filtering, context caching (24h TTL), content validation, photo generation, 3 review modes (auto/manual/hybrid), quiet hours scheduling, engagement tracking, SQLite database, platform-specific adapters.
-
-**Config:** `.hi.json` under `content` key. See [docs/ck-content.md](./docs/ck-content.md) for full configuration reference.
-
 ### Other Commands
 
 ```bash
 # Show CLI version (shows local + global kit versions)
-ck --version
+hi --version
 
 # Show help
-ck --help
-ck -h
+hi --help
+hi -h
 
 # Command-specific help
-ck new --help
-ck init --help
-ck config --help
-ck skills --help
-ck versions --help
+hi new --help
+hi init --help
+hi config --help
+hi skills --help
+hi versions --help
 ```
 
 ### Debugging
 
 ```bash
-ck new --verbose              # Enable verbose logging
-ck new --verbose --log-file debug.log  # Save to file
-CLAUDEKIT_VERBOSE=1 ck new   # Via environment variable
+hi new --verbose              # Enable verbose logging
+hi new --verbose --log-file debug.log  # Save to file
+CLAUDEKIT_VERBOSE=1 hi new   # Via environment variable
 ```
 
 ### Cache Configuration
@@ -433,8 +375,8 @@ Release data is cached locally to improve performance. You can configure the cac
 
 ```bash
 # Set custom cache TTL (in seconds, default: 3600 = 1 hour)
-CK_CACHE_TTL=7200 ck versions    # Cache for 2 hours
-CK_CACHE_TTL=0 ck versions       # Disable caching (always fetch fresh)
+CK_CACHE_TTL=7200 hi versions    # Cache for 2 hours
+CK_CACHE_TTL=0 hi versions       # Disable caching (always fetch fresh)
 
 # Permanent configuration (add to ~/.bashrc or ~/.zshrc)
 export CK_CACHE_TTL=1800         # 30 minutes
@@ -449,7 +391,7 @@ The `hi --version` command checks for newer versions of your installed HiLab and
 **Disable Update Notifications:**
 ```bash
 # Set environment variable to disable
-NO_UPDATE_NOTIFIER=1 ck --version
+NO_UPDATE_NOTIFIER=1 hi --version
 
 # Windows (permanent)
 [System.Environment]::SetEnvironmentVariable("NO_UPDATE_NOTIFIER", "1", [System.EnvironmentVariableTarget]::User)
@@ -518,17 +460,17 @@ Run the doctor command to diagnose issues:
 
 ```bash
 # Interactive diagnostics
-ck doctor
+hi doctor
 
 # Generate report for support
-ck doctor --report
+hi doctor --report
 
 # CI/automation
-ck doctor --check-only --json
+hi doctor --check-only --json
 
 # Verbose logging
-ck new --verbose
-ck init --verbose
+hi new --verbose
+hi init --verbose
 ```
 
 **Common Issues:**
@@ -577,8 +519,8 @@ The following file patterns are protected and will not be overwritten during upd
 Use `--exclude` flag with glob patterns to skip files:
 
 ```bash
-ck new --exclude "*.log" --exclude "temp/**"
-ck update --exclude "node_modules/**" --exclude "dist/**"
+hi new --exclude "*.log" --exclude "temp/**"
+hi update --exclude "node_modules/**" --exclude "dist/**"
 ```
 
 **Patterns:** `*` (any chars), `**` (recursive), `?` (single char), `[abc]`, `{a,b}`

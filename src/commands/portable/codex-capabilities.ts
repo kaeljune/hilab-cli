@@ -125,7 +125,7 @@ if (CODEX_CAPABILITY_TABLE.length > 1) {
  * it is safer to strip MORE fields than to risk emitting a field that causes a
  * hard-error in an unsupported Codex version — which was the root cause of #730.
  *
- * Opt-out: set CK_CODEX_COMPAT=optimistic to use the newest entry instead.
+ * Opt-out: set HI_CODEX_COMPAT=optimistic to use the newest entry instead.
  */
 const FALLBACK_CAPABILITIES: CodexCapabilities =
 	CODEX_CAPABILITY_TABLE[CODEX_CAPABILITY_TABLE.length - 1];
@@ -134,8 +134,8 @@ const FALLBACK_CAPABILITIES: CodexCapabilities =
  * Detect Codex CLI capabilities by running `codex --version`.
  *
  * - On success: matches version against CODEX_CAPABILITY_TABLE using semver.
- * - If CK_CODEX_COMPAT=strict: uses the oldest (most restrictive) entry regardless.
- * - If CK_CODEX_COMPAT=optimistic: uses the newest entry as fallback (pre-#730 behavior).
+ * - If HI_CODEX_COMPAT=strict: uses the oldest (most restrictive) entry regardless.
+ * - If HI_CODEX_COMPAT=optimistic: uses the newest entry as fallback (pre-#730 behavior).
  * - On failure / unknown version: logs a warning and falls back to FALLBACK_CAPABILITIES.
  */
 export async function detectCodexCapabilities(): Promise<CodexCapabilities> {
@@ -159,7 +159,7 @@ export async function detectCodexCapabilities(): Promise<CodexCapabilities> {
 
 		// Version is unknown to our table — warn and fall back
 		logger.warning(
-			`[!] Codex version ${version} not found in hi capability table; using most-restrictive baseline. Set CK_CODEX_COMPAT=optimistic to use newest known capabilities instead.`,
+			`[!] Codex version ${version} not found in hi capability table; using most-restrictive baseline. Set HI_CODEX_COMPAT=optimistic to use newest known capabilities instead.`,
 		);
 		return process.env.HI_CODEX_COMPAT === "optimistic"
 			? CODEX_CAPABILITY_TABLE[0]
@@ -167,7 +167,7 @@ export async function detectCodexCapabilities(): Promise<CodexCapabilities> {
 	} catch {
 		// Binary missing, timeout, or non-zero exit — warn and fall back
 		logger.warning(
-			"[!] Could not detect Codex version; using most-restrictive capability baseline. Set CK_CODEX_COMPAT=optimistic to use newest known capabilities instead.",
+			"[!] Could not detect Codex version; using most-restrictive capability baseline. Set HI_CODEX_COMPAT=optimistic to use newest known capabilities instead.",
 		);
 		return process.env.HI_CODEX_COMPAT === "optimistic"
 			? CODEX_CAPABILITY_TABLE[0]

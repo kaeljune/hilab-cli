@@ -27,7 +27,7 @@ describe("checkHookSyntax", () => {
 		projectDir = join(tempDir, "project");
 		await mkdir(projectDir, { recursive: true });
 
-		// Set CK_TEST_HOME to isolate from global .claude directory
+		// Set HI_TEST_HOME to isolate from global .claude directory
 		originalCkTestHome = process.env.HI_TEST_HOME;
 		process.env.HI_TEST_HOME = tempDir;
 	});
@@ -35,7 +35,7 @@ describe("checkHookSyntax", () => {
 	afterEach(async () => {
 		await rm(tempDir, { recursive: true, force: true });
 
-		// Restore original CK_TEST_HOME
+		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
 			process.env.HI_TEST_HOME = undefined;
 		} else {
@@ -109,7 +109,7 @@ describe("checkHookDeps", () => {
 		projectDir = join(tempDir, "project");
 		await mkdir(projectDir, { recursive: true });
 
-		// Set CK_TEST_HOME to isolate from global .claude directory
+		// Set HI_TEST_HOME to isolate from global .claude directory
 		originalCkTestHome = process.env.HI_TEST_HOME;
 		process.env.HI_TEST_HOME = tempDir;
 	});
@@ -117,7 +117,7 @@ describe("checkHookDeps", () => {
 	afterEach(async () => {
 		await rm(tempDir, { recursive: true, force: true });
 
-		// Restore original CK_TEST_HOME
+		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
 			process.env.HI_TEST_HOME = undefined;
 		} else {
@@ -231,7 +231,7 @@ describe("checkHookRuntime", () => {
 		projectDir = join(tempDir, "project");
 		await mkdir(projectDir, { recursive: true });
 
-		// Set CK_TEST_HOME to isolate from global .claude directory
+		// Set HI_TEST_HOME to isolate from global .claude directory
 		originalCkTestHome = process.env.HI_TEST_HOME;
 		process.env.HI_TEST_HOME = tempDir;
 	});
@@ -239,7 +239,7 @@ describe("checkHookRuntime", () => {
 	afterEach(async () => {
 		await rm(tempDir, { recursive: true, force: true });
 
-		// Restore original CK_TEST_HOME
+		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
 			process.env.HI_TEST_HOME = undefined;
 		} else {
@@ -325,7 +325,7 @@ describe("checkHookConfig", () => {
 		projectDir = join(tempDir, "project");
 		await mkdir(projectDir, { recursive: true });
 
-		// Set CK_TEST_HOME to isolate from global .claude directory
+		// Set HI_TEST_HOME to isolate from global .claude directory
 		originalCkTestHome = process.env.HI_TEST_HOME;
 		process.env.HI_TEST_HOME = tempDir;
 	});
@@ -333,7 +333,7 @@ describe("checkHookConfig", () => {
 	afterEach(async () => {
 		await rm(tempDir, { recursive: true, force: true });
 
-		// Restore original CK_TEST_HOME
+		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
 			process.env.HI_TEST_HOME = undefined;
 		} else {
@@ -604,7 +604,7 @@ describe("checkHookLogs", () => {
 		projectDir = join(tempDir, "project");
 		await mkdir(projectDir, { recursive: true });
 
-		// Set CK_TEST_HOME to isolate from global .claude directory
+		// Set HI_TEST_HOME to isolate from global .claude directory
 		originalCkTestHome = process.env.HI_TEST_HOME;
 		process.env.HI_TEST_HOME = tempDir;
 	});
@@ -612,7 +612,7 @@ describe("checkHookLogs", () => {
 	afterEach(async () => {
 		await rm(tempDir, { recursive: true, force: true });
 
-		// Restore original CK_TEST_HOME
+		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
 			process.env.HI_TEST_HOME = undefined;
 		} else {
@@ -730,7 +730,7 @@ describe("checkPythonVenv", () => {
 		projectDir = join(tempDir, "project");
 		await mkdir(projectDir, { recursive: true });
 
-		// Set CK_TEST_HOME to isolate from global .claude directory
+		// Set HI_TEST_HOME to isolate from global .claude directory
 		originalCkTestHome = process.env.HI_TEST_HOME;
 		process.env.HI_TEST_HOME = tempDir;
 	});
@@ -738,7 +738,7 @@ describe("checkPythonVenv", () => {
 	afterEach(async () => {
 		await rm(tempDir, { recursive: true, force: true });
 
-		// Restore original CK_TEST_HOME
+		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
 			process.env.HI_TEST_HOME = undefined;
 		} else {

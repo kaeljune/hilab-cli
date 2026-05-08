@@ -121,7 +121,7 @@ describe("displayVersion", () => {
 				currentVersion: "2.16.0-beta.8",
 				latestVersion: "2.16.0-beta.9",
 				updateAvailable: true,
-				releaseUrl: "https://github.com/hilab/hilab-engineer/releases/tag/v2.16.0-beta.9",
+				releaseUrl: "https://github.com/kaeljune/hilab-coding/releases/tag/v2.16.0-beta.9",
 			},
 			{ isGlobal: true, kitName: "engineer" },
 		);

@@ -223,14 +223,14 @@ describe("PathResolver", () => {
 			expect(globalKitDir).toBe(join(homedir(), ".claude"));
 		});
 
-		it("should prioritize CK_TEST_HOME over CLAUDE_CONFIG_DIR", () => {
-			process.env.CK_TEST_HOME = tmpdir();
+		it("should prioritize HI_TEST_HOME over CLAUDE_CONFIG_DIR", () => {
+			process.env.HI_TEST_HOME = tmpdir();
 			process.env.CLAUDE_CONFIG_DIR = "/custom/claude-personal";
 
 			const globalKitDir = PathResolver.getGlobalKitDir();
 			expect(globalKitDir).toBe(join(tmpdir(), ".claude"));
 
-			process.env.CK_TEST_HOME = undefined;
+			process.env.HI_TEST_HOME = undefined;
 		});
 	});
 
@@ -343,44 +343,44 @@ describe("PathResolver", () => {
 		});
 	});
 
-	describe("test mode (CK_TEST_HOME)", () => {
-		const originalTestHome = process.env.CK_TEST_HOME;
+	describe("test mode (HI_TEST_HOME)", () => {
+		const originalTestHome = process.env.HI_TEST_HOME;
 
 		afterEach(() => {
 			// Restore original test home
 			if (originalTestHome) {
-				process.env.CK_TEST_HOME = originalTestHome;
+				process.env.HI_TEST_HOME = originalTestHome;
 			} else {
-				process.env.CK_TEST_HOME = undefined;
+				process.env.HI_TEST_HOME = undefined;
 			}
 		});
 
-		it("should use test home for getConfigDir when CK_TEST_HOME is set", () => {
+		it("should use test home for getConfigDir when HI_TEST_HOME is set", () => {
 			const testHome = join(tmpdir(), "test-123");
-			process.env.CK_TEST_HOME = testHome;
+			process.env.HI_TEST_HOME = testHome;
 
 			const configDir = PathResolver.getConfigDir(false);
 			expect(configDir).toBe(join(testHome, ".hilab"));
 		});
 
-		it("should use test home for getCacheDir when CK_TEST_HOME is set", () => {
+		it("should use test home for getCacheDir when HI_TEST_HOME is set", () => {
 			const testHome = join(tmpdir(), "test-123");
-			process.env.CK_TEST_HOME = testHome;
+			process.env.HI_TEST_HOME = testHome;
 
 			const cacheDir = PathResolver.getCacheDir(false);
 			expect(cacheDir).toBe(join(testHome, ".hilab", "cache"));
 		});
 
-		it("should use test home for getGlobalKitDir when CK_TEST_HOME is set", () => {
+		it("should use test home for getGlobalKitDir when HI_TEST_HOME is set", () => {
 			const testHome = join(tmpdir(), "test-123");
-			process.env.CK_TEST_HOME = testHome;
+			process.env.HI_TEST_HOME = testHome;
 
 			const globalKitDir = PathResolver.getGlobalKitDir();
 			expect(globalKitDir).toBe(join(testHome, ".claude"));
 		});
 
-		it("should use real paths when CK_TEST_HOME is not set", () => {
-			process.env.CK_TEST_HOME = undefined;
+		it("should use real paths when HI_TEST_HOME is not set", () => {
+			process.env.HI_TEST_HOME = undefined;
 
 			const configDir = PathResolver.getConfigDir(false);
 			expect(configDir).toContain(".hilab");
@@ -397,7 +397,7 @@ describe("PathResolver", () => {
 
 		it("should maintain separate local/global paths in test mode for getConfigDir", () => {
 			const testHome = join(tmpdir(), "test-456");
-			process.env.CK_TEST_HOME = testHome;
+			process.env.HI_TEST_HOME = testHome;
 
 			// Test mode simulates real behavior with separate paths
 			const configDirLocal = PathResolver.getConfigDir(false);
@@ -410,7 +410,7 @@ describe("PathResolver", () => {
 
 		it("should maintain separate local/global paths in test mode for getCacheDir", () => {
 			const testHome = join(tmpdir(), "test-456");
-			process.env.CK_TEST_HOME = testHome;
+			process.env.HI_TEST_HOME = testHome;
 
 			// Test mode simulates real behavior with separate paths
 			const cacheDirLocal = PathResolver.getCacheDir(false);
@@ -424,7 +424,7 @@ describe("PathResolver", () => {
 		it("should isolate tests from real user directories", () => {
 			// This is the key security test - verify test mode isolation
 			const testHome = join(tmpdir(), "isolated-test");
-			process.env.CK_TEST_HOME = testHome;
+			process.env.HI_TEST_HOME = testHome;
 
 			const configDir = PathResolver.getConfigDir(false);
 			const cacheDir = PathResolver.getCacheDir(false);
@@ -465,9 +465,9 @@ describe("PathResolver", () => {
 			expect(PathResolver.isLocalSameAsGlobal("/some/project")).toBe(false);
 		});
 
-		it("isLocalSameAsGlobal respects CK_TEST_HOME", () => {
+		it("isLocalSameAsGlobal respects HI_TEST_HOME", () => {
 			const testHome = "/tmp/test-home-check";
-			process.env.CK_TEST_HOME = testHome;
+			process.env.HI_TEST_HOME = testHome;
 
 			// When at test home, local === global
 			expect(PathResolver.isLocalSameAsGlobal(testHome)).toBe(true);
@@ -475,7 +475,7 @@ describe("PathResolver", () => {
 			// When not at test home, local !== global
 			expect(PathResolver.isLocalSameAsGlobal("/other/path")).toBe(false);
 
-			process.env.CK_TEST_HOME = undefined;
+			process.env.HI_TEST_HOME = undefined;
 		});
 	});
 

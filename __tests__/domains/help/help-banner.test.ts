@@ -34,7 +34,7 @@ describe("BANNER_LINES", () => {
 	});
 
 	test("BANNER_WIDTH matches declared constant", () => {
-		expect(BANNER_WIDTH).toBe(16);
+		expect(BANNER_WIDTH).toBe(11);
 		// Note: Actual lines may have trailing spaces, so we verify against declared width
 		expect(BANNER_LINES[0].length).toBeGreaterThanOrEqual(BANNER_WIDTH);
 	});
@@ -139,26 +139,26 @@ describe("getCenteredBanner", () => {
 	});
 
 	test("does not center if terminal too narrow (width < BANNER_WIDTH + 4)", () => {
-		const narrowBanner = getCenteredBanner(18); // Less than 16 + 4 = 20
+		const narrowBanner = getCenteredBanner(12); // Less than 11 + 4 = 15
 		const normalBanner = getBanner();
 
 		// Should fallback to left-aligned (no centering)
 		expect(stripColors(narrowBanner)).toBe(stripColors(normalBanner));
 	});
 
-	test("fallback for very narrow terminal (width 15)", () => {
-		const narrowBanner = getCenteredBanner(15);
+	test("fallback for very narrow terminal (width 10)", () => {
+		const narrowBanner = getCenteredBanner(10);
 		const normalBanner = getBanner();
 
 		expect(stripColors(narrowBanner)).toBe(stripColors(normalBanner));
 	});
 
-	test("handles exact threshold width (BANNER_WIDTH + 4 = 20)", () => {
-		const banner = getCenteredBanner(20);
+	test("handles exact threshold width (BANNER_WIDTH + 4 = 15)", () => {
+		const banner = getCenteredBanner(15);
 		const lines = stripColors(banner).split("\n");
 
 		// At threshold, should start centering with minimal padding
-		const expectedPadding = Math.floor((20 - BANNER_WIDTH) / 2);
+		const expectedPadding = Math.floor((15 - BANNER_WIDTH) / 2);
 
 		// Check first line has padding
 		const firstLine = lines[0];

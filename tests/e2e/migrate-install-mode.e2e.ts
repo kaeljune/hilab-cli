@@ -27,7 +27,7 @@ import type { InstallCandidate } from "../../src/ui/src/types/reconcile-types.js
 
 // ─── Mock data ────────────────────────────────────────────────────────────────
 
-const MOCK_PROVIDERS = [
+const MOHI_PROVIDERS = [
 	{
 		name: "claude",
 		displayName: "Claude",
@@ -45,7 +45,7 @@ const MOCK_PROVIDERS = [
 	},
 ];
 
-const MOCK_DISCOVERY = {
+const MOHI_DISCOVERY = {
 	cwd: "/tmp/ck-e2e-test",
 	targetPaths: {
 		project: "/tmp/ck-e2e-test/.claude",
@@ -67,14 +67,14 @@ const MOCK_DISCOVERY = {
 		config: null,
 		rules: null,
 	},
-	providers: MOCK_PROVIDERS,
+	providers: MOHI_PROVIDERS,
 	counts: { agents: 2, commands: 2, skills: 0, hooks: 0, config: 0, rules: 0 },
 	installationCounts: { agents: 0, commands: 0, skills: 0, hooks: 0, config: 0, rules: 0 },
 	collisions: [],
 };
 
 /** 4 install candidates: 2 agents + 2 commands, all not yet installed */
-const MOCK_INSTALL_CANDIDATES: InstallCandidate[] = [
+const MOHI_INSTALL_CANDIDATES: InstallCandidate[] = [
 	{
 		item: "code-reviewer",
 		type: "agent",
@@ -118,7 +118,7 @@ const MOCK_INSTALL_CANDIDATES: InstallCandidate[] = [
 ];
 
 /** Reconcile endpoint: fresh state → suggestedMode=install, empty plan */
-const MOCK_RECONCILE_FRESH = {
+const MOHI_RECONCILE_FRESH = {
 	plan: {
 		actions: [],
 		summary: { install: 0, update: 0, skip: 0, conflict: 0, delete: 0 },
@@ -129,7 +129,7 @@ const MOCK_RECONCILE_FRESH = {
 };
 
 /** Reconcile endpoint: after install → suggestedMode=reconcile (registry now populated) */
-const MOCK_RECONCILE_AFTER_INSTALL = {
+const MOHI_RECONCILE_AFTER_INSTALL = {
 	plan: {
 		actions: [],
 		summary: { install: 0, update: 0, skip: 2, conflict: 0, delete: 0 },
@@ -139,13 +139,13 @@ const MOCK_RECONCILE_AFTER_INSTALL = {
 	suggestedMode: "reconcile",
 };
 
-const MOCK_INSTALL_DISCOVERY = {
-	candidates: MOCK_INSTALL_CANDIDATES,
+const MOHI_INSTALL_DISCOVERY = {
+	candidates: MOHI_INSTALL_CANDIDATES,
 	typeDirectoryStates: [],
 };
 
 /** Execute result for 2 commands only (agents were deselected) */
-const MOCK_EXECUTE_2_ITEMS = {
+const MOHI_EXECUTE_2_ITEMS = {
 	results: [
 		{
 			item: "build",
@@ -175,10 +175,10 @@ async function setupMocks(
 	opts: { afterInstall?: boolean } = {},
 ): Promise<void> {
 	await page.route("**/api/migrate/providers", (route) =>
-		route.fulfill({ json: { providers: MOCK_PROVIDERS } }),
+		route.fulfill({ json: { providers: MOHI_PROVIDERS } }),
 	);
 	await page.route("**/api/migrate/discovery**", (route) =>
-		route.fulfill({ json: MOCK_DISCOVERY }),
+		route.fulfill({ json: MOHI_DISCOVERY }),
 	);
 
 	// Reconcile mock: returns suggestedMode=install on first call, reconcile on second
@@ -186,16 +186,16 @@ async function setupMocks(
 	await page.route("**/api/migrate/reconcile**", (route) => {
 		reconcileCallCount++;
 		if (opts.afterInstall || reconcileCallCount > 1) {
-			return route.fulfill({ json: MOCK_RECONCILE_AFTER_INSTALL });
+			return route.fulfill({ json: MOHI_RECONCILE_AFTER_INSTALL });
 		}
-		return route.fulfill({ json: MOCK_RECONCILE_FRESH });
+		return route.fulfill({ json: MOHI_RECONCILE_FRESH });
 	});
 
 	await page.route("**/api/migrate/install-discovery**", (route) =>
-		route.fulfill({ json: MOCK_INSTALL_DISCOVERY }),
+		route.fulfill({ json: MOHI_INSTALL_DISCOVERY }),
 	);
 	await page.route("**/api/migrate/execute", (route) =>
-		route.fulfill({ json: MOCK_EXECUTE_2_ITEMS }),
+		route.fulfill({ json: MOHI_EXECUTE_2_ITEMS }),
 	);
 }
 
@@ -350,7 +350,7 @@ test.describe("Scenario C — Install mode picker", () => {
 		await page.route("**/api/migrate/execute", async (route) => {
 			const body = route.request().postDataJSON();
 			executePayloads.push(body);
-			await route.fulfill({ json: MOCK_EXECUTE_2_ITEMS });
+			await route.fulfill({ json: MOHI_EXECUTE_2_ITEMS });
 		});
 
 		await selectClaudeAndRun(page);

@@ -24,7 +24,7 @@ import type { ReconcileAction, ReconcilePlan } from "../../src/ui/src/types/reco
 
 // ─── Mock data ────────────────────────────────────────────────────────────────
 
-const MOCK_PROVIDERS = [
+const MOHI_PROVIDERS = [
 	{
 		name: "codex",
 		displayName: "Codex",
@@ -63,7 +63,7 @@ function buildHookInstallAction(item: string): ReconcileAction {
 	};
 }
 
-const MOCK_RECONCILE_PLAN: ReconcilePlan = {
+const MOHI_RECONCILE_PLAN: ReconcilePlan = {
 	actions: HOOK_ITEMS.map(buildHookInstallAction),
 	summary: { install: 3, update: 0, skip: 0, conflict: 0, delete: 0 },
 	hasConflicts: false,
@@ -84,7 +84,7 @@ const MOCK_RECONCILE_PLAN: ReconcilePlan = {
 	],
 };
 
-const MOCK_DISCOVERY = {
+const MOHI_DISCOVERY = {
 	cwd: "/tmp/ck-e2e-test",
 	targetPaths: {
 		project: "/tmp/ck-e2e-test/.claude",
@@ -106,13 +106,13 @@ const MOCK_DISCOVERY = {
 		config: null,
 		rules: null,
 	},
-	providers: MOCK_PROVIDERS,
+	providers: MOHI_PROVIDERS,
 	counts: { agents: 0, commands: 0, skills: 0, hooks: 3, config: 0, rules: 0 },
 	installationCounts: { agents: 0, commands: 0, skills: 0, hooks: 3, config: 0, rules: 0 },
 	collisions: [],
 };
 
-const MOCK_EXECUTE_RESULT = {
+const MOHI_EXECUTE_RESULT = {
 	results: HOOK_ITEMS.map((item) => ({
 		item,
 		type: "hooks",
@@ -129,16 +129,16 @@ const MOCK_EXECUTE_RESULT = {
 
 async function setupMocks(page: import("@playwright/test").Page): Promise<void> {
 	await page.route("**/api/migrate/providers", (route) =>
-		route.fulfill({ json: { providers: MOCK_PROVIDERS } }),
+		route.fulfill({ json: { providers: MOHI_PROVIDERS } }),
 	);
 	await page.route("**/api/migrate/discovery**", (route) =>
-		route.fulfill({ json: MOCK_DISCOVERY }),
+		route.fulfill({ json: MOHI_DISCOVERY }),
 	);
 	await page.route("**/api/migrate/reconcile**", (route) =>
-		route.fulfill({ json: { plan: MOCK_RECONCILE_PLAN, suggestedMode: "reconcile" } }),
+		route.fulfill({ json: { plan: MOHI_RECONCILE_PLAN, suggestedMode: "reconcile" } }),
 	);
 	await page.route("**/api/migrate/execute", (route) =>
-		route.fulfill({ json: MOCK_EXECUTE_RESULT }),
+		route.fulfill({ json: MOHI_EXECUTE_RESULT }),
 	);
 }
 

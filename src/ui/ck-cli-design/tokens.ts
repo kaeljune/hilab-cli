@@ -75,7 +75,7 @@ function supportsCliUnicode(options: {
 	platform: NodeJS.Platform;
 }): boolean {
 	const { env, isTTY, platform } = options;
-	if (env.CK_FORCE_ASCII === "1" || env.NO_UNICODE === "1") return false;
+	if (env.HI_FORCE_ASCII === "1" || env.NO_UNICODE === "1") return false;
 	if (env.TERM === "dumb") return false;
 	if (env.WT_SESSION) return true;
 	const ci = (env.CI ?? "").trim().toLowerCase();

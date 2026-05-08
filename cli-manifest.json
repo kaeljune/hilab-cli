@@ -1,1 +1,1438 @@
-{}
+{
+	"version": "4.0.0",
+	"generatedAt": "2026-05-08T05:08:47.954Z",
+	"commands": {
+		"agents": {
+			"name": "agents",
+			"description": "Install, uninstall, and manage Claude Code agents across providers",
+			"usage": "hi agents [options]",
+			"examples": [
+				{
+					"command": "hi agents --name maintainer --agent codex",
+					"description": "Install one agent to Codex"
+				},
+				{
+					"command": "hi agents --list --installed",
+					"description": "Show installed agents and locations"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Mode Options",
+					"options": [
+						{
+							"flags": "-l, --list",
+							"description": "List available agents from source"
+						},
+						{
+							"flags": "--installed",
+							"description": "When used with --list, show installed agents instead"
+						},
+						{
+							"flags": "-u, --uninstall",
+							"description": "Uninstall agent(s) from providers"
+						},
+						{
+							"flags": "--sync",
+							"description": "Sync registry with filesystem (clean orphaned entries)"
+						}
+					]
+				},
+				{
+					"title": "Installation Options",
+					"options": [
+						{
+							"flags": "-n, --name <agent>",
+							"description": "Agent name to install or uninstall"
+						},
+						{
+							"flags": "-a, --agent <provider>",
+							"description": "Target provider(s), can be specified multiple times"
+						},
+						{
+							"flags": "-g, --global",
+							"description": "Install globally instead of project-level"
+						},
+						{
+							"flags": "--all",
+							"description": "Install to all supported providers"
+						},
+						{
+							"flags": "-y, --yes",
+							"description": "Skip confirmation prompts"
+						}
+					]
+				},
+				{
+					"title": "Uninstall Options",
+					"options": [
+						{
+							"flags": "--force",
+							"description": "Force uninstall even if not tracked in registry"
+						}
+					]
+				}
+			]
+		},
+		"backups": {
+			"name": "backups",
+			"description": "List, restore, and prune HiLab recovery backups",
+			"usage": "hi backups <list|restore|prune> [options]",
+			"examples": [
+				{
+					"command": "hi backups list --limit 5",
+					"description": "Show the newest five recovery backups"
+				},
+				{
+					"command": "hi backups restore 2026-04-06T21-53-01-706-byrf --yes",
+					"description": "Restore a specific recovery backup without prompting"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Subcommands",
+					"options": [
+						{
+							"flags": "list [--limit <n>] [--json]",
+							"description": "List recovery backups under ~/.hilab/backups/"
+						},
+						{
+							"flags": "restore <id> [--yes] [--json]",
+							"description": "Restore a specific recovery backup to its original source root"
+						},
+						{
+							"flags": "prune [id] [--keep <n> | --all] [--yes] [--json]",
+							"description": "Delete one, many, or old recovery backups"
+						}
+					]
+				},
+				{
+					"title": "Shared Options",
+					"options": [
+						{
+							"flags": "--limit <n>",
+							"description": "Show only the newest N backups"
+						},
+						{
+							"flags": "--keep <n>",
+							"description": "Keep the newest N backups when pruning"
+						},
+						{
+							"flags": "--all",
+							"description": "Delete all recovery backups"
+						},
+						{
+							"flags": "-y, --yes",
+							"description": "Skip confirmation prompts"
+						},
+						{
+							"flags": "--json",
+							"description": "Output machine-readable JSON"
+						}
+					]
+				}
+			],
+			"subcommands": [
+				{
+					"name": "list",
+					"description": "List recovery backups under ~/.hilab/backups/",
+					"usage": "hi backups list [--limit <n>] [--json]",
+					"examples": [],
+					"optionGroups": []
+				},
+				{
+					"name": "restore",
+					"description": "Restore a specific recovery backup to its original source root",
+					"usage": "hi backups restore <id> [--yes] [--json]",
+					"examples": [],
+					"optionGroups": []
+				},
+				{
+					"name": "prune",
+					"description": "Delete one, many, or old recovery backups",
+					"usage": "hi backups prune [id] [--keep <n> | --all] [--yes] [--json]",
+					"examples": [],
+					"optionGroups": []
+				}
+			],
+			"sections": [
+				{
+					"title": "Backup Scope",
+					"content": "These backups contain only the HiLab-managed files targeted by destructive operations, not the full ~/.claude/ directory."
+				},
+				{
+					"title": "Automatic Retention",
+					"content": "HiLab keeps the newest recovery backups automatically and prunes older ones after successful destructive operations."
+				}
+			]
+		},
+		"commands": {
+			"name": "commands",
+			"description": "Install, uninstall, and manage Claude commands across providers",
+			"usage": "hi commands [options]",
+			"examples": [
+				{
+					"command": "hi commands --name plan --agent codex",
+					"description": "Install one slash command to Codex"
+				},
+				{
+					"command": "hi commands --list",
+					"description": "List available commands from source"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Mode Options",
+					"options": [
+						{
+							"flags": "-l, --list",
+							"description": "List available commands from source"
+						},
+						{
+							"flags": "--installed",
+							"description": "When used with --list, show installed commands instead"
+						},
+						{
+							"flags": "-u, --uninstall",
+							"description": "Uninstall command(s) from providers"
+						},
+						{
+							"flags": "--sync",
+							"description": "Sync registry with filesystem (clean orphaned entries)"
+						}
+					]
+				},
+				{
+					"title": "Installation Options",
+					"options": [
+						{
+							"flags": "-n, --name <command>",
+							"description": "Command name to install or uninstall"
+						},
+						{
+							"flags": "-a, --agent <provider>",
+							"description": "Target provider(s), can be specified multiple times"
+						},
+						{
+							"flags": "-g, --global",
+							"description": "Install globally instead of project-level"
+						},
+						{
+							"flags": "--all",
+							"description": "Install to all supported providers"
+						},
+						{
+							"flags": "-y, --yes",
+							"description": "Skip confirmation prompts"
+						}
+					]
+				},
+				{
+					"title": "Uninstall Options",
+					"options": [
+						{
+							"flags": "--force",
+							"description": "Force uninstall even if not tracked in registry"
+						}
+					]
+				}
+			]
+		},
+		"config": {
+			"name": "config",
+			"description": "Manage HiLab configuration and launch the config dashboard",
+			"usage": "hi config [action] [key] [value] [options]",
+			"examples": [
+				{
+					"command": "hi config",
+					"description": "Launch the web dashboard (same as 'hi config ui')"
+				},
+				{
+					"command": "hi config --host 0.0.0.0 --no-open",
+					"description": "Expose the dashboard to your network intentionally"
+				},
+				{
+					"command": "hi config set defaults.kit engineer",
+					"description": "Set a config value from the CLI"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Actions",
+					"options": [
+						{
+							"flags": "ui",
+							"description": "Launch config dashboard (default action when omitted)"
+						},
+						{
+							"flags": "get <key>",
+							"description": "Read a config value"
+						},
+						{
+							"flags": "set <key> <value>",
+							"description": "Write a config value"
+						},
+						{
+							"flags": "show",
+							"description": "Print merged config"
+						}
+					]
+				},
+				{
+					"title": "Scope Options",
+					"options": [
+						{
+							"flags": "-g, --global",
+							"description": "Use global config (~/.hilab/config.json)"
+						},
+						{
+							"flags": "-l, --local",
+							"description": "Use local config (.claude/.hi.json)"
+						}
+					]
+				},
+				{
+					"title": "Dashboard Options",
+					"options": [
+						{
+							"flags": "--port <port>",
+							"description": "Port for dashboard server"
+						},
+						{
+							"flags": "--host <host>",
+							"description": "Bind dashboard host (default: 127.0.0.1)"
+						},
+						{
+							"flags": "--no-open",
+							"description": "Do not auto-open browser when launching dashboard"
+						},
+						{
+							"flags": "--dev",
+							"description": "Run dashboard in development mode with HMR"
+						}
+					]
+				},
+				{
+					"title": "Output Options",
+					"options": [
+						{
+							"flags": "--json",
+							"description": "Output machine-readable JSON for CLI actions"
+						}
+					]
+				}
+			],
+			"subcommands": [
+				{
+					"name": "ui",
+					"description": "Launch config dashboard (default action when omitted)",
+					"usage": "hi config ui [--port <port>] [--host <host>] [--no-open] [--dev]",
+					"examples": [],
+					"optionGroups": []
+				},
+				{
+					"name": "get",
+					"description": "Read a config value",
+					"usage": "hi config get <key> [-g | -l] [--json]",
+					"examples": [],
+					"optionGroups": []
+				},
+				{
+					"name": "set",
+					"description": "Write a config value",
+					"usage": "hi config set <key> <value> [-g | -l]",
+					"examples": [],
+					"optionGroups": []
+				},
+				{
+					"name": "show",
+					"description": "Print merged config",
+					"usage": "hi config show [-g | -l] [--json]",
+					"examples": [],
+					"optionGroups": []
+				}
+			],
+			"sections": [
+				{
+					"title": "Notes",
+					"content": "Run 'hi config --help' to see both CLI actions and dashboard flags. Running bare 'hi config' opens the dashboard directly. Use '--host' to expose the dashboard intentionally beyond localhost."
+				}
+			]
+		},
+		"doctor": {
+			"name": "doctor",
+			"description": "Comprehensive health check for HiLab",
+			"usage": "hi doctor [options]",
+			"examples": [
+				{
+					"command": "hi doctor",
+					"description": "Run full health check interactively"
+				},
+				{
+					"command": "hi doctor --fix",
+					"description": "Auto-fix all fixable issues"
+				},
+				{
+					"command": "hi doctor --check-only",
+					"description": "CI mode: exit 1 on failures, no prompts"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Options",
+					"options": [
+						{
+							"flags": "--report",
+							"description": "Generate shareable diagnostic report"
+						},
+						{
+							"flags": "--fix",
+							"description": "Auto-fix all fixable issues"
+						},
+						{
+							"flags": "--check-only",
+							"description": "CI mode: no prompts, exit 1 on failures"
+						},
+						{
+							"flags": "--full",
+							"description": "Include extended priority checks (slower but more thorough)"
+						},
+						{
+							"flags": "--json",
+							"description": "Output JSON format"
+						}
+					]
+				}
+			]
+		},
+		"init": {
+			"name": "init",
+			"description": "Initialize or update HiLab project (with interactive version selection)",
+			"usage": "hi init [options]",
+			"examples": [
+				{
+					"command": "hi init --kit engineer",
+					"description": "Update local project with latest engineer kit"
+				},
+				{
+					"command": "hi init --use-git --release v2.1.0 -y",
+					"description": "Non-interactive with git clone (no GitHub API needed)"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Mode Options",
+					"options": [
+						{
+							"flags": "-y, --yes",
+							"description": "Non-interactive mode with sensible defaults (kit: engineer, dir: ., version: latest)"
+						},
+						{
+							"flags": "--use-git",
+							"description": "Use git clone instead of GitHub API (uses SSH/HTTPS credentials)"
+						},
+						{
+							"flags": "--sync",
+							"description": "Sync config files from upstream with interactive hunk-by-hunk merge"
+						},
+						{
+							"flags": "--archive <path>",
+							"description": "Use local archive file instead of downloading (zip/tar.gz)"
+						},
+						{
+							"flags": "--kit-path <path>",
+							"description": "Use local kit directory instead of downloading"
+						}
+					]
+				},
+				{
+					"title": "Project Options",
+					"options": [
+						{
+							"flags": "--dir <directory>",
+							"description": "Target directory to initialize/update",
+							"defaultValue": "."
+						},
+						{
+							"flags": "--kit <kit>",
+							"description": "Kit to use (engineer, marketing)"
+						},
+						{
+							"flags": "-r, --release <version>",
+							"description": "Skip version selection, use specific version"
+						},
+						{
+							"flags": "-g, --global",
+							"description": "Use platform-specific user configuration directory"
+						},
+						{
+							"flags": "--fresh",
+							"description": "Full reset: remove CK files, replace settings.json and CLAUDE.md, reinstall from scratch"
+						},
+						{
+							"flags": "--force",
+							"description": "Force reinstall even if already at latest version (use with --yes; re-onboards missing files without full reset)"
+						}
+					]
+				},
+				{
+					"title": "Filter Options",
+					"options": [
+						{
+							"flags": "--exclude <pattern>",
+							"description": "Exclude files matching glob pattern (can be used multiple times)"
+						},
+						{
+							"flags": "--only <pattern>",
+							"description": "Include only files matching glob pattern (can be used multiple times)"
+						},
+						{
+							"flags": "--beta",
+							"description": "Show beta versions in selection prompt"
+						},
+						{
+							"flags": "--refresh",
+							"description": "Bypass release cache to fetch latest versions from GitHub"
+						}
+					]
+				},
+				{
+					"title": "Installation Options",
+					"options": [
+						{
+							"flags": "--install-skills",
+							"description": "Install skills dependencies (non-interactive mode)"
+						},
+						{
+							"flags": "--with-sudo",
+							"description": "Include system packages requiring sudo (Linux: ffmpeg, imagemagick)"
+						},
+						{
+							"flags": "--prefix",
+							"description": "Add /hi: prefix to all slash commands"
+						},
+						{
+							"flags": "--skip-setup",
+							"description": "Skip interactive configuration wizard"
+						},
+						{
+							"flags": "--dry-run",
+							"description": "Preview changes without applying them (requires --prefix)"
+						},
+						{
+							"flags": "--force-overwrite",
+							"description": "Override ownership protections and delete user-modified files"
+						},
+						{
+							"flags": "--force-overwrite-settings",
+							"description": "Fully replace settings.json instead of selective merge"
+						}
+					]
+				},
+				{
+					"title": "Folder Options",
+					"options": [
+						{
+							"flags": "--docs-dir <name>",
+							"description": "Custom docs folder name to avoid conflicts with existing folders",
+							"defaultValue": "docs"
+						},
+						{
+							"flags": "--plans-dir <name>",
+							"description": "Custom plans folder name to avoid conflicts with existing folders",
+							"defaultValue": "plans"
+						}
+					]
+				}
+			]
+		},
+		"migrate": {
+			"name": "migrate",
+			"description": "Migrate Claude Code agents, commands, skills, config, rules, and hooks to other providers",
+			"usage": "hi migrate [options]",
+			"examples": [
+				{
+					"command": "hi migrate --install",
+					"description": "Pick items to install interactively (install picker mode)"
+				},
+				{
+					"command": "hi migrate --agent codex --dry-run",
+					"description": "Preview the destination-aware reconcile plan before writing files"
+				},
+				{
+					"command": "hi migrate --respect-deletions",
+					"description": "Preserve empty directories — do not auto-reinstall deleted items"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Mode Options",
+					"options": [
+						{
+							"flags": "--install",
+							"description": "Opt-in install picker mode — interactively select which items to install (default when registry is empty or has unknown checksums)"
+						},
+						{
+							"flags": "--reconcile",
+							"description": "Force reconcile mode — compute diff vs registry and apply only changes (default when registry is valid)"
+						},
+						{
+							"flags": "--reinstall-empty-dirs",
+							"description": "Reinstall all items when their type directory is empty or missing (default: true). Use --respect-deletions to disable."
+						},
+						{
+							"flags": "--respect-deletions",
+							"description": "Preserve deletion even when a type directory is empty — skip reinstall heuristic. Mutually exclusive with --reinstall-empty-dirs."
+						}
+					]
+				},
+				{
+					"title": "Target Options",
+					"options": [
+						{
+							"flags": "-a, --agent <provider>",
+							"description": "Target provider(s), can be specified multiple times"
+						},
+						{
+							"flags": "--all",
+							"description": "Migrate to all supported providers"
+						},
+						{
+							"flags": "-g, --global",
+							"description": "Install globally instead of the default project-level scope"
+						},
+						{
+							"flags": "-y, --yes",
+							"description": "Skip confirmation prompts after the pre-flight summary"
+						},
+						{
+							"flags": "-f, --force",
+							"description": "Force reinstall deleted or edited managed items"
+						},
+						{
+							"flags": "--dry-run",
+							"description": "Preview plan, destinations, and next steps without writing files"
+						}
+					]
+				},
+				{
+					"title": "Content Selection",
+					"options": [
+						{
+							"flags": "--only-agents",
+							"description": "Migrate agents only"
+						},
+						{
+							"flags": "--only-commands",
+							"description": "Migrate commands only"
+						},
+						{
+							"flags": "--only-skills",
+							"description": "Migrate skills only"
+						},
+						{
+							"flags": "--config",
+							"description": "Migrate CLAUDE.md config only"
+						},
+						{
+							"flags": "--rules",
+							"description": "Migrate .claude/rules only"
+						},
+						{
+							"flags": "--hooks",
+							"description": "Migrate .claude/hooks only"
+						},
+						{
+							"flags": "--skip-agents",
+							"description": "Skip agents migration"
+						},
+						{
+							"flags": "--skip-commands",
+							"description": "Skip commands migration"
+						},
+						{
+							"flags": "--skip-skills",
+							"description": "Skip skills migration (preserve symlinks/custom layouts)"
+						},
+						{
+							"flags": "--skip-config",
+							"description": "Skip config migration"
+						},
+						{
+							"flags": "--skip-rules",
+							"description": "Skip rules migration"
+						},
+						{
+							"flags": "--skip-hooks",
+							"description": "Skip hooks migration"
+						},
+						{
+							"flags": "--source <path>",
+							"description": "Custom CLAUDE.md source path"
+						}
+					]
+				}
+			],
+			"sections": [
+				{
+					"title": "Gotchas",
+					"content": "  --install and --reconcile are mutually exclusive — pass only one\n  --reinstall-empty-dirs and --respect-deletions are mutually exclusive — pass only one\n  Default mode is smart-detected: no/stale registry → install, valid registry → reconcile\n  --respect-deletions disables the auto-reinstall heuristic for empty directories\n  --force overrides skip decisions per item; --reinstall-empty-dirs is a per-directory heuristic"
+				}
+			]
+		},
+		"new": {
+			"name": "new",
+			"description": "Bootstrap a new HiLab project (with interactive version selection)",
+			"usage": "hi new [options]",
+			"examples": [
+				{
+					"command": "hi new --kit engineer --dir ./my-project",
+					"description": "Create engineer kit project in specific directory"
+				},
+				{
+					"command": "hi new -y --use-git --release v2.1.0",
+					"description": "Non-interactive with git clone (no GitHub API needed)"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Mode Options",
+					"options": [
+						{
+							"flags": "-y, --yes",
+							"description": "Non-interactive mode (skip all prompts)"
+						},
+						{
+							"flags": "--use-git",
+							"description": "Use git clone instead of GitHub API (uses SSH/HTTPS credentials)"
+						},
+						{
+							"flags": "--archive <path>",
+							"description": "Use local archive file instead of downloading (zip/tar.gz)"
+						},
+						{
+							"flags": "--kit-path <path>",
+							"description": "Use local kit directory instead of downloading"
+						}
+					]
+				},
+				{
+					"title": "Project Options",
+					"options": [
+						{
+							"flags": "--dir <directory>",
+							"description": "Target directory for the new project",
+							"defaultValue": "."
+						},
+						{
+							"flags": "--kit <kit>",
+							"description": "Kit to use (engineer, marketing)"
+						},
+						{
+							"flags": "-r, --release <version>",
+							"description": "Skip version selection, use specific version (e.g., latest, v1.0.0)"
+						},
+						{
+							"flags": "--force",
+							"description": "Overwrite existing files without confirmation"
+						}
+					]
+				},
+				{
+					"title": "Filter Options",
+					"options": [
+						{
+							"flags": "--exclude <pattern>",
+							"description": "Exclude files matching glob pattern (can be used multiple times)"
+						},
+						{
+							"flags": "--beta",
+							"description": "Show beta versions in selection prompt"
+						},
+						{
+							"flags": "--refresh",
+							"description": "Bypass release cache to fetch latest versions from GitHub"
+						}
+					]
+				},
+				{
+					"title": "Installation Options",
+					"options": [
+						{
+							"flags": "--opencode",
+							"description": "Install OpenCode CLI package (non-interactive mode)"
+						},
+						{
+							"flags": "--gemini",
+							"description": "Install Google Gemini CLI package (non-interactive mode)"
+						},
+						{
+							"flags": "--install-skills",
+							"description": "Install skills dependencies (non-interactive mode)"
+						},
+						{
+							"flags": "--with-sudo",
+							"description": "Include system packages requiring sudo (Linux: ffmpeg, imagemagick)"
+						},
+						{
+							"flags": "--prefix",
+							"description": "Add /hi: prefix to all slash commands"
+						}
+					]
+				},
+				{
+					"title": "Folder Options",
+					"options": [
+						{
+							"flags": "--docs-dir <name>",
+							"description": "Custom docs folder name to avoid conflicts with existing folders",
+							"defaultValue": "docs"
+						},
+						{
+							"flags": "--plans-dir <name>",
+							"description": "Custom plans folder name to avoid conflicts with existing folders",
+							"defaultValue": "plans"
+						}
+					]
+				}
+			]
+		},
+		"plan": {
+			"name": "plan",
+			"description": "Plan management: parse, validate, status, kanban, create, check, uncheck, add-phase",
+			"usage": "hi plan [action] [target] [options]",
+			"examples": [
+				{
+					"command": "hi plan status",
+					"description": "Show progress summary for all plans in the current project"
+				},
+				{
+					"command": "hi plan create --title 'Auth feature' --phases setup,api,ui",
+					"description": "Scaffold a new plan directory with three phases"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Output Options",
+					"options": [
+						{
+							"flags": "--json",
+							"description": "Output in JSON format"
+						},
+						{
+							"flags": "--strict",
+							"description": "Strict validation mode (validate action)"
+						}
+					]
+				},
+				{
+					"title": "Scope Options",
+					"options": [
+						{
+							"flags": "-g, --global",
+							"description": "Use global plans scope (~/.claude/plans or configured global root)"
+						}
+					]
+				}
+			],
+			"subcommands": [
+				{
+					"name": "parse",
+					"description": "Parse a plan.md and output an ASCII table or JSON of all phases",
+					"usage": "hi plan parse [target] [--json]",
+					"examples": [],
+					"optionGroups": [
+						{
+							"title": "Output Options",
+							"options": [
+								{
+									"flags": "--json",
+									"description": "Output machine-readable JSON"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "validate",
+					"description": "Validate plan.md syntax and structure",
+					"usage": "hi plan validate [target] [--strict] [--json]",
+					"examples": [],
+					"optionGroups": [
+						{
+							"title": "Validation Options",
+							"options": [
+								{
+									"flags": "--strict",
+									"description": "Fail on warnings in addition to errors"
+								},
+								{
+									"flags": "--json",
+									"description": "Output results as JSON"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "status",
+					"description": "Show progress for plans in scope",
+					"usage": "hi plan status [--json] [-g]",
+					"examples": [],
+					"optionGroups": [
+						{
+							"title": "Output Options",
+							"options": [
+								{
+									"flags": "--json",
+									"description": "Output in JSON format"
+								}
+							]
+						},
+						{
+							"title": "Scope Options",
+							"options": [
+								{
+									"flags": "-g, --global",
+									"description": "Show status for global plans scope"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "kanban",
+					"description": "Launch interactive Kanban dashboard in the browser",
+					"usage": "hi plan kanban [--port <port>] [--no-open] [--dev]",
+					"examples": [],
+					"optionGroups": [
+						{
+							"title": "Dashboard Options",
+							"options": [
+								{
+									"flags": "--port <port>",
+									"description": "Port to serve the Kanban dashboard on"
+								},
+								{
+									"flags": "--no-open",
+									"description": "Do not auto-open the browser"
+								},
+								{
+									"flags": "--dev",
+									"description": "Start dashboard in development mode"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "create",
+					"description": "Scaffold a new plan directory with phase files",
+					"usage": "hi plan create [--title <title>] [--phases <phases>] [options]",
+					"examples": [],
+					"optionGroups": [
+						{
+							"title": "Create Options",
+							"options": [
+								{
+									"flags": "--title <title>",
+									"description": "Plan title"
+								},
+								{
+									"flags": "--phases <phases>",
+									"description": "Comma-separated list of phase names"
+								},
+								{
+									"flags": "--dir <dir>",
+									"description": "Plan output directory"
+								},
+								{
+									"flags": "--priority <priority>",
+									"description": "Priority level: P1, P2, or P3"
+								},
+								{
+									"flags": "--issue <issue>",
+									"description": "GitHub issue number to link"
+								},
+								{
+									"flags": "--source <source>",
+									"description": "Creation source: skill | cli | dashboard"
+								},
+								{
+									"flags": "--session-id <id>",
+									"description": "Claude session ID for tracking"
+								}
+							]
+						},
+						{
+							"title": "Scope Options",
+							"options": [
+								{
+									"flags": "-g, --global",
+									"description": "Create plan in global plans scope"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "check",
+					"description": "Mark a phase as completed (or in-progress with --start)",
+					"usage": "hi plan check <id> [--start]",
+					"examples": [],
+					"optionGroups": [
+						{
+							"title": "Check Options",
+							"options": [
+								{
+									"flags": "--start",
+									"description": "Mark phase as in-progress instead of completed"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "uncheck",
+					"description": "Reset a phase back to pending status",
+					"usage": "hi plan uncheck <id>",
+					"examples": [],
+					"optionGroups": []
+				},
+				{
+					"name": "add-phase",
+					"description": "Append a new phase to an existing plan",
+					"usage": "hi plan add-phase [target] [--after <id>]",
+					"examples": [],
+					"optionGroups": [
+						{
+							"title": "Phase Options",
+							"options": [
+								{
+									"flags": "--after <after>",
+									"description": "Insert the new phase after this phase ID"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		"projects": {
+			"name": "projects",
+			"description": "Manage local HiLab project registry entries",
+			"usage": "hi projects <subcommand> [options]",
+			"examples": [
+				{
+					"command": "hi projects list --pinned",
+					"description": "Show only pinned projects"
+				},
+				{
+					"command": "hi projects add . --alias engine --pinned",
+					"description": "Add current directory with an alias and pin it"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Subcommands",
+					"options": [
+						{
+							"flags": "list | ls",
+							"description": "List projects in registry"
+						},
+						{
+							"flags": "add <path>",
+							"description": "Add project path to registry"
+						},
+						{
+							"flags": "remove [alias] | rm [alias]",
+							"description": "Remove project by alias or ID"
+						}
+					]
+				},
+				{
+					"title": "List Options",
+					"options": [
+						{
+							"flags": "--json",
+							"description": "Output in JSON format"
+						},
+						{
+							"flags": "--pinned",
+							"description": "Filter to pinned projects only"
+						}
+					]
+				},
+				{
+					"title": "Add/Remove Options",
+					"options": [
+						{
+							"flags": "--alias <alias>",
+							"description": "Custom alias for project (add)"
+						},
+						{
+							"flags": "--pinned",
+							"description": "Pin this project (add)"
+						},
+						{
+							"flags": "--tags <tags>",
+							"description": "Comma-separated tags (add)"
+						},
+						{
+							"flags": "--id <id>",
+							"description": "Remove by project ID (remove)"
+						}
+					]
+				}
+			],
+			"subcommands": [
+				{
+					"name": "list",
+					"description": "List projects in registry",
+					"usage": "hi projects list [--json] [--pinned]",
+					"examples": [],
+					"optionGroups": [],
+					"aliases": ["ls"]
+				},
+				{
+					"name": "add",
+					"description": "Add project path to registry",
+					"usage": "hi projects add <path> [--alias <alias>] [--pinned] [--tags <tags>]",
+					"examples": [],
+					"optionGroups": []
+				},
+				{
+					"name": "remove",
+					"description": "Remove project by alias or ID",
+					"usage": "hi projects remove [alias] [--id <id>]",
+					"examples": [],
+					"optionGroups": [],
+					"aliases": ["rm"]
+				}
+			]
+		},
+		"setup": {
+			"name": "setup",
+			"description": "Run guided setup for provider API keys, preferred image provider, and optional packages",
+			"usage": "hi setup [options]",
+			"examples": [
+				{
+					"command": "hi setup",
+					"description": "Run setup wizard in current project"
+				},
+				{
+					"command": "hi setup --global",
+					"description": "Configure global provider keys and a preferred image-generation path"
+				},
+				{
+					"command": "hi setup --global --skip-packages",
+					"description": "Configure global setup without package installation"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Options",
+					"options": [
+						{
+							"flags": "--global",
+							"description": "Configure in global Claude directory (~/.claude/)"
+						},
+						{
+							"flags": "--skip-packages",
+							"description": "Skip optional package installation"
+						},
+						{
+							"flags": "--dir <dir>",
+							"description": "Target directory for setup",
+							"defaultValue": "current directory"
+						}
+					]
+				}
+			]
+		},
+		"skills": {
+			"name": "skills",
+			"description": "Install, uninstall, and manage HiLab skills across coding agents",
+			"usage": "hi skills [options]",
+			"examples": [
+				{
+					"command": "hi skills --name frontend-design --agent claude-code -g",
+					"description": "Install skill to Claude Code globally"
+				},
+				{
+					"command": "hi skills --list --installed",
+					"description": "Show all installed skills with their locations"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Mode Options",
+					"options": [
+						{
+							"flags": "-l, --list",
+							"description": "List available skills from HiLab source"
+						},
+						{
+							"flags": "--installed",
+							"description": "When used with --list, show installed skills instead"
+						},
+						{
+							"flags": "-u, --uninstall",
+							"description": "Uninstall skill(s) from agent(s)"
+						},
+						{
+							"flags": "--sync",
+							"description": "Sync registry with filesystem (clean orphaned entries)"
+						}
+					]
+				},
+				{
+					"title": "Installation Options",
+					"options": [
+						{
+							"flags": "-n, --name <skill>",
+							"description": "Skill name to install or uninstall"
+						},
+						{
+							"flags": "-a, --agent <agent>",
+							"description": "Target agent(s) - can be specified multiple times. Valid: claude-code, cursor, codex, opencode, goose, gemini-cli, antigravity, github-copilot, amp, kilo, roo, windsurf, cline, openhands"
+						},
+						{
+							"flags": "-g, --global",
+							"description": "Install to user's home directory (available across projects)"
+						},
+						{
+							"flags": "--all",
+							"description": "Install to all supported agents"
+						},
+						{
+							"flags": "-y, --yes",
+							"description": "Non-interactive mode (skip confirmations)"
+						}
+					]
+				},
+				{
+					"title": "Catalog Options",
+					"options": [
+						{
+							"flags": "--catalog",
+							"description": "Show skill catalog stats and metadata"
+						},
+						{
+							"flags": "--regenerate",
+							"description": "Force regenerate catalog (use with --catalog)"
+						},
+						{
+							"flags": "--search <query>",
+							"description": "BM25 full-text search over skill catalog"
+						},
+						{
+							"flags": "--json",
+							"description": "Output search results as JSON (use with --search)"
+						},
+						{
+							"flags": "--limit <n>",
+							"description": "Max search results, default 10 (use with --search)"
+						},
+						{
+							"flags": "--validate",
+							"description": "Validate SKILL.md frontmatter fields"
+						}
+					]
+				},
+				{
+					"title": "Uninstall Options",
+					"options": [
+						{
+							"flags": "-f, --force",
+							"description": "Force uninstall even if skill not in registry (requires --agent)"
+						}
+					]
+				}
+			],
+			"sections": [
+				{
+					"title": "Supported Agents",
+					"content": "  claude-code     Claude Code CLI\n  cursor          Cursor IDE\n  codex           Codex CLI\n  opencode        OpenCode\n  goose           Goose AI\n  gemini-cli      Gemini CLI\n  antigravity     Antigravity Agent\n  github-copilot  GitHub Copilot\n  amp             Amp\n  kilo            Kilo Code\n  roo             Roo Code\n  windsurf        Windsurf IDE\n  cline           Cline\n  openhands       OpenHands"
+				},
+				{
+					"title": "Notes",
+					"content": "  • Skills are installed from ~/.claude/skills (HiLab Engineer source)\n  • OpenCode reuses Claude-compatible skill roots (.claude/skills, ~/.claude/skills), so installs may be a no-op\n  • Registry stored at ~/.hilab/skill-registry.json\n  • Target paths vary by agent; some agents intentionally share a common skills directory"
+				}
+			]
+		},
+		"uninstall": {
+			"name": "uninstall",
+			"description": "Remove HiLab installations (ownership-aware)",
+			"usage": "hi uninstall [options]",
+			"examples": [
+				{
+					"command": "hi uninstall --local --yes",
+					"description": "Remove local installation without confirmation"
+				},
+				{
+					"command": "hi uninstall --dry-run",
+					"description": "Preview what would be removed without deleting"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Scope Options",
+					"options": [
+						{
+							"flags": "-l, --local",
+							"description": "Uninstall only local installation (current project)"
+						},
+						{
+							"flags": "-g, --global",
+							"description": "Uninstall only global installation (~/.claude/)"
+						},
+						{
+							"flags": "-A, --all",
+							"description": "Uninstall from both local and global locations"
+						},
+						{
+							"flags": "-k, --kit <type>",
+							"description": "Uninstall specific kit only (engineer, marketing)"
+						}
+					]
+				},
+				{
+					"title": "Safety Options",
+					"options": [
+						{
+							"flags": "--dry-run",
+							"description": "Preview what would be removed without deleting"
+						},
+						{
+							"flags": "--force-overwrite",
+							"description": "Delete even user-modified files (requires confirmation)"
+						},
+						{
+							"flags": "-y, --yes",
+							"description": "Skip confirmation prompt"
+						}
+					]
+				}
+			],
+			"sections": [
+				{
+					"title": "Ownership-Aware Uninstall",
+					"content": "Uninstall preserves user customizations by default. Only CK-installed files that haven't been modified are removed. User-created files and modified files are preserved unless --force-overwrite is used."
+				}
+			]
+		},
+		"update": {
+			"name": "update",
+			"description": "Update HiLab CLI tool only (not kit content)",
+			"usage": "hi update [options]",
+			"examples": [
+				{
+					"command": "hi update --check",
+					"description": "Check for CLI updates without installing"
+				},
+				{
+					"command": "hi update --dev --yes",
+					"description": "Update to latest dev version without confirmation"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Update Options",
+					"options": [
+						{
+							"flags": "-r, --release <version>",
+							"description": "Update to a specific version"
+						},
+						{
+							"flags": "--check",
+							"description": "Check for updates without installing"
+						},
+						{
+							"flags": "-y, --yes",
+							"description": "Skip all confirmation prompts (CLI and kit content update)"
+						},
+						{
+							"flags": "-d, --dev",
+							"description": "Update to the latest dev version"
+						},
+						{
+							"flags": "--registry <url>",
+							"description": "Custom npm registry URL"
+						}
+					]
+				},
+				{
+					"title": "Deprecated Options",
+					"options": [
+						{
+							"flags": "--beta",
+							"description": "(deprecated) Alias for --dev; use -d, --dev instead",
+							"deprecated": {
+								"message": "Use '-d, --dev' to update to the latest dev version",
+								"alternative": "-d, --dev"
+							}
+						},
+						{
+							"flags": "--kit <kit>",
+							"description": "This option is no longer supported with 'hi update'",
+							"deprecated": {
+								"message": "Use 'hi init --kit <kit>' to update kit installations",
+								"alternative": "hi init --kit <kit>"
+							}
+						},
+						{
+							"flags": "-g, --global",
+							"description": "This option is no longer supported with 'hi update'",
+							"deprecated": {
+								"message": "Use 'hi init --global' to update global kit",
+								"alternative": "hi init --global"
+							}
+						}
+					]
+				}
+			],
+			"sections": [
+				{
+					"title": "Note",
+					"content": "'hi update' updates the CLI tool only and defaults to the latest stable release. Use '--beta' to opt into prerelease CLI builds. To update kit content (skills, commands, rules), use 'hi init' for local or 'hi init -g' for global. Use --yes to skip all prompts (both CLI and kit content update) for non-interactive/CI usage."
+				}
+			]
+		},
+		"versions": {
+			"name": "versions",
+			"description": "List available versions of HiLab repositories",
+			"usage": "hi versions [options]",
+			"examples": [
+				{
+					"command": "hi versions --kit engineer --limit 10",
+					"description": "Show latest 10 versions of engineer kit"
+				},
+				{
+					"command": "hi versions --all",
+					"description": "Show all releases including prereleases"
+				}
+			],
+			"optionGroups": [
+				{
+					"title": "Filter Options",
+					"options": [
+						{
+							"flags": "--kit <kit>",
+							"description": "Filter by specific kit (engineer, marketing)"
+						},
+						{
+							"flags": "--limit <number>",
+							"description": "Number of releases to show",
+							"defaultValue": "30"
+						},
+						{
+							"flags": "--all",
+							"description": "Show all releases including prereleases"
+						}
+					]
+				}
+			]
+		}
+	}
+}

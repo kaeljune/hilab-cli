@@ -1,7 +1,7 @@
 /**
  * E2E test for GitHubReachabilityChecker — hits real api.github.com.
  *
- * Skipped by default in CI. Enable with: CK_TEST_NETWORK=1 bun test
+ * Skipped by default in CI. Enable with: HI_TEST_NETWORK=1 bun test
  *
  * Uses `createDefaultDeps()` from the production module so the e2e exercises
  * the same DNS/TCP/TLS implementations the prod path uses (auth is stubbed
@@ -14,7 +14,7 @@ const NETWORK_ENABLED = process.env.HI_TEST_NETWORK === "1";
 
 describe("GitHubReachabilityChecker e2e (real network)", () => {
 	if (!NETWORK_ENABLED) {
-		test.skip("skipped — set CK_TEST_NETWORK=1 to run", () => {});
+		test.skip("skipped — set HI_TEST_NETWORK=1 to run", () => {});
 		return;
 	}
 
@@ -62,7 +62,7 @@ describe("GitHubReachabilityChecker e2e (real network)", () => {
 		expect(results[0].group).toBe("network");
 		expect(results[0].autoFixable).toBe(false);
 		// In CI/test env this returns status "info" via the skip guard; on a real
-		// online dev machine with CK_TEST_NETWORK=1 set explicitly outside CI, it
+		// online dev machine with HI_TEST_NETWORK=1 set explicitly outside CI, it
 		// should be pass or fail depending on auth state.
 		expect(["pass", "fail", "info"]).toContain(results[0].status);
 	}, 15000);

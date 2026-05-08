@@ -171,7 +171,7 @@ const MAX_LOCK_TIMEOUT_MS = 5 * 60 * 1000;
 
 /**
  * Get lock timeout from env var or use default
- * Configurable via CK_SYNC_LOCK_TIMEOUT env var (in seconds)
+ * Configurable via HI_SYNC_LOCK_TIMEOUT env var (in seconds)
  */
 function getLockTimeout(): number {
 	const envValue = process.env.HI_SYNC_LOCK_TIMEOUT;
@@ -179,17 +179,17 @@ function getLockTimeout(): number {
 
 	const parsed = Number.parseInt(envValue, 10);
 	if (Number.isNaN(parsed) || parsed < 0) {
-		logger.warning(`Invalid CK_SYNC_LOCK_TIMEOUT "${envValue}", using default (30s)`);
+		logger.warning(`Invalid HI_SYNC_LOCK_TIMEOUT "${envValue}", using default (30s)`);
 		return DEFAULT_LOCK_TIMEOUT_MS;
 	}
 
 	const timeoutMs = parsed * 1000;
 	if (timeoutMs < MIN_LOCK_TIMEOUT_MS) {
-		logger.warning(`CK_SYNC_LOCK_TIMEOUT too low (${parsed}s), using minimum (5s)`);
+		logger.warning(`HI_SYNC_LOCK_TIMEOUT too low (${parsed}s), using minimum (5s)`);
 		return MIN_LOCK_TIMEOUT_MS;
 	}
 	if (timeoutMs > MAX_LOCK_TIMEOUT_MS) {
-		logger.warning(`CK_SYNC_LOCK_TIMEOUT too high (${parsed}s), using maximum (300s)`);
+		logger.warning(`HI_SYNC_LOCK_TIMEOUT too high (${parsed}s), using maximum (300s)`);
 		return MAX_LOCK_TIMEOUT_MS;
 	}
 	return timeoutMs;

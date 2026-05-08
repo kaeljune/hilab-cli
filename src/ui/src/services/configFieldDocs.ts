@@ -560,9 +560,9 @@ export const CONFIG_FIELD_DOCS: Record<string, FieldDoc> = {
 		type: "boolean",
 		default: "true",
 		description:
-			"UserPromptSubmit hook that hard-blocks ship/merge/pr/deploy/publish verbs and soft-warns commit/finalize/release when the live `git diff HEAD` plus untracked files exceed the simplify thresholds. Bypass with env CK_SIMPLIFY_DISABLED=1.",
+			"UserPromptSubmit hook that hard-blocks ship/merge/pr/deploy/publish verbs and soft-warns commit/finalize/release when the live `git diff HEAD` plus untracked files exceed the simplify thresholds. Bypass with env HI_SIMPLIFY_DISABLED=1.",
 		descriptionVi:
-			"Hook UserPromptSubmit chặn cứng các động từ ship/merge/pr/deploy/publish và cảnh báo nhẹ commit/finalize/release khi `git diff HEAD` cộng file chưa track vượt ngưỡng simplify. Bỏ qua bằng env CK_SIMPLIFY_DISABLED=1.",
+			"Hook UserPromptSubmit chặn cứng các động từ ship/merge/pr/deploy/publish và cảnh báo nhẹ commit/finalize/release khi `git diff HEAD` cộng file chưa track vượt ngưỡng simplify. Bỏ qua bằng env HI_SIMPLIFY_DISABLED=1.",
 		effect:
 			"Stateless hook. Recomputes signals from live git on every fire. Hard-block exits with code 2; soft-warn injects additionalContext. Verb matching uses word boundaries plus negation guards.",
 		effectVi:
@@ -612,9 +612,9 @@ export const CONFIG_FIELD_DOCS: Record<string, FieldDoc> = {
 		type: "boolean",
 		default: "false",
 		description:
-			"Master toggle for the simplify gate. Off by default (opt-in). Set true to activate; env CK_SIMPLIFY_DISABLED=1 always bypasses.",
+			"Master toggle for the simplify gate. Off by default (opt-in). Set true to activate; env HI_SIMPLIFY_DISABLED=1 always bypasses.",
 		descriptionVi:
-			"Công tắc chính cho cổng simplify. Tắt mặc định (opt-in). Đặt true để kích hoạt; env CK_SIMPLIFY_DISABLED=1 luôn bỏ qua.",
+			"Công tắc chính cho cổng simplify. Tắt mặc định (opt-in). Đặt true để kích hoạt; env HI_SIMPLIFY_DISABLED=1 luôn bỏ qua.",
 		effect:
 			"When false (default), the hook exits 0 immediately on every prompt. Set true to enforce thresholds against ship/merge/pr/deploy/publish verbs.",
 		effectVi:

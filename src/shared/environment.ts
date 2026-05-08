@@ -40,8 +40,8 @@ export function isCIEnvironment(): boolean {
 }
 
 /**
- * Check if tests are running with an isolated home directory (CK_TEST_HOME).
- * CK_TEST_HOME is a path to a temp directory — any non-empty, non-falsy value
+ * Check if tests are running with an isolated home directory (HI_TEST_HOME).
+ * HI_TEST_HOME is a path to a temp directory — any non-empty, non-falsy value
  * (e.g. "/tmp/ck-test-home") means tests have their own isolated config space,
  * so expensive operations (npm queries, network checks) can safely run.
  */
@@ -55,7 +55,7 @@ function isIsolatedTestEnvironment(): boolean {
 
 /**
  * Check if expensive operations should be skipped.
- * Skip in CI unless tests have an isolated home (CK_TEST_HOME) —
+ * Skip in CI unless tests have an isolated home (HI_TEST_HOME) —
  * isolated tests need real npm/network checks to verify integration behavior.
  */
 export function shouldSkipExpensiveOperations(): boolean {

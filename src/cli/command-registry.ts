@@ -46,7 +46,7 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 		.option("--with-sudo", "Include system packages requiring sudo (Linux: ffmpeg, imagemagick)")
 		.option(
 			"--prefix",
-			"Add /hi: prefix to all slash commands by moving them to commands/ck/ subdirectory",
+			"Add /hi: prefix to all slash commands by moving them to commands/hi/ subdirectory",
 		)
 		.option("--beta", "Show beta versions in selection prompt")
 		.option("--refresh", "Bypass release cache to fetch latest versions from GitHub")
@@ -94,7 +94,7 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 		.option("--with-sudo", "Include system packages requiring sudo (Linux: ffmpeg, imagemagick)")
 		.option(
 			"--prefix",
-			"Add /hi: prefix to all slash commands by moving them to commands/ck/ subdirectory",
+			"Add /hi: prefix to all slash commands by moving them to commands/hi/ subdirectory",
 		)
 		.option("--beta", "Show beta versions in selection prompt")
 		.option("--refresh", "Bypass release cache to fetch latest versions from GitHub")

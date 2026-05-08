@@ -25,13 +25,13 @@ afterEach(() => {
 });
 
 describe("plan-telemetry", () => {
-	test("stays silent when CK_TELEMETRY is disabled", () => {
+	test("stays silent when HI_TELEMETRY is disabled", () => {
 		process.env.HI_TELEMETRY = undefined;
 		trackPlanCreated("/tmp/demo", "cli");
 		expect(output).toBe("");
 	});
 
-	test("writes debug output to stderr when CK_TELEMETRY=1", () => {
+	test("writes debug output to stderr when HI_TELEMETRY=1", () => {
 		process.env.HI_TELEMETRY = "1";
 		trackPlanCreated("/tmp/demo", "cli");
 		expect(output).toContain("[telemetry]");

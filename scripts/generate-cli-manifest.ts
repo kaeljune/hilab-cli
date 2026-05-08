@@ -13,6 +13,7 @@
 import { execSync } from "node:child_process";
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import _pkg from "../package.json" with { type: "json" };
 import { HELP_REGISTRY } from "../src/domains/help/help-commands.js";
 import type { CommandHelp } from "../src/domains/help/help-types.js";
@@ -47,7 +48,7 @@ export function generateManifest(): CliManifest {
 
 // CLI entrypoint — only runs when executed directly (not when imported by tests)
 if (import.meta.main) {
-	const repoRoot = new URL("..", import.meta.url).pathname;
+	const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 	const outputPath = join(repoRoot, "cli-manifest.json");
 
 	const manifest = generateManifest();

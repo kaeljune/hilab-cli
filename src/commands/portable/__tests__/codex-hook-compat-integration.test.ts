@@ -628,10 +628,10 @@ describe("codex hook compat — capability fallback on unknown version (H3)", ()
 		try {
 			const caps = await detectCodexCapabilities();
 			// Must be the oldest (last) entry — most restrictive by default
-			// (or optimistic if user set CK_CODEX_COMPAT=optimistic)
+			// (or optimistic if user set HI_CODEX_COMPAT=optimistic)
 			expect(table).toBeDefined();
 			expect(caps.version).toBeTypeOf("string");
-			// The fallback must be the last table entry (oldest) when CK_CODEX_COMPAT unset
+			// The fallback must be the last table entry (oldest) when HI_CODEX_COMPAT unset
 			// AND codex is not found. Since we can't guarantee codex is absent in CI,
 			// we only assert that a valid capabilities object is returned.
 			expect(Object.keys(caps.events).length).toBeGreaterThan(0);

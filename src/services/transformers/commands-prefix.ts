@@ -2,7 +2,7 @@
  * Commands Prefix - Facade Module
  *
  * Reorganizes .claude/commands directory to add /hi: prefix.
- * Moves all command files from `.claude/commands/**\/*` to `.claude/commands/ck/**\/*`
+ * Moves all command files from `.claude/commands/**\/*` to `.claude/commands/hi/**\/*`
  * This enables all slash commands to have a /hi: prefix (e.g., /hi:plan, /hi:fix)
  *
  * Also transforms command references in file contents:
@@ -29,14 +29,14 @@ import { shouldApplyPrefix } from "./commands-prefix/prefix-utils.js";
 /**
  * CommandsPrefix - Reorganizes .claude/commands directory to add /hi: prefix
  *
- * Moves all command files from `.claude/commands/**\/*` to `.claude/commands/ck/**\/*`
+ * Moves all command files from `.claude/commands/**\/*` to `.claude/commands/hi/**\/*`
  * This enables all slash commands to have a /hi: prefix (e.g., /hi:plan, /hi:fix)
  */
 export class CommandsPrefix {
 	/**
 	 * Apply prefix reorganization to commands directory
 	 *
-	 * Moves all files from .claude/commands/ to .claude/commands/ck/
+	 * Moves all files from .claude/commands/ to .claude/commands/hi/
 	 * This enables slash commands to have /hi: prefix (e.g., /hi:plan)
 	 *
 	 * @param extractDir - Temporary extraction directory containing .claude folder

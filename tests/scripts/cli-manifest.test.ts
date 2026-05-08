@@ -26,9 +26,9 @@ describe("generateManifest", () => {
 		expect(manifest.generatedAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
 	});
 
-	test("contains at least 18 commands", () => {
+	test("contains at least 15 commands", () => {
 		const manifest = generateManifest();
-		expect(Object.keys(manifest.commands).length).toBeGreaterThanOrEqual(18);
+		expect(Object.keys(manifest.commands).length).toBeGreaterThanOrEqual(15);
 	});
 
 	test("every top-level command from HELP_REGISTRY is a key in manifest.commands", () => {
@@ -74,17 +74,7 @@ describe("generateManifest", () => {
 		expect(str1).toBe(str2);
 	});
 
-	test("ck api command is present with subcommands", () => {
-		const manifest = generateManifest();
-		const api = manifest.commands.api as {
-			subcommands?: unknown[];
-		};
-		expect(api).toBeDefined();
-		expect(Array.isArray(api.subcommands)).toBe(true);
-		expect((api.subcommands ?? []).length).toBeGreaterThan(0);
-	});
-
-	test("ck plan command is present with subcommands", () => {
+	test("hi plan command is present with subcommands", () => {
 		const manifest = generateManifest();
 		const plan = manifest.commands.plan as {
 			subcommands?: unknown[];

@@ -24,7 +24,7 @@ describe("PackageManagerDetector", () => {
 		// Create isolated test directory
 		testHomeDir = join(tmpdir(), `ck-test-${Date.now()}-${Math.random().toString(36).slice(2)}`);
 		mkdirSync(testHomeDir, { recursive: true });
-		process.env.CK_TEST_HOME = testHomeDir;
+		process.env.HI_TEST_HOME = testHomeDir;
 
 		// Clear relevant env vars
 		process.env.npm_config_user_agent = undefined;

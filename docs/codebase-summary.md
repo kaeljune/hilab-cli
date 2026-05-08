@@ -711,7 +711,7 @@ bun run format           # Format code
 ### Binary Compilation
 ```bash
 bun run compile          # Compile standalone binary
-bun run compile:binary   # Compile to bin/ck
+bun run compile:binary   # Compile to bin/hi
 bun run build:platform-binaries  # Build all platforms
 ```
 

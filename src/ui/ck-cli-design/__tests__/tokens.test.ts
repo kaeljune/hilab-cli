@@ -8,10 +8,10 @@ import {
 } from "../tokens.js";
 
 describe("hi-cli-design tokens", () => {
-	it("forces ASCII when CK_FORCE_ASCII is enabled", () => {
+	it("forces ASCII when HI_FORCE_ASCII is enabled", () => {
 		const context = createCliDesignContext({
 			columns: 72,
-			env: { ...process.env, CK_FORCE_ASCII: "1" },
+			env: { ...process.env, HI_FORCE_ASCII: "1" },
 			isTTY: true,
 			platform: "win32",
 		});

@@ -5,11 +5,9 @@ import { DEFAULT_HELP_OPTIONS, renderGlobalHelp } from "@/domains/help/help-rend
 describe("help registry coverage", () => {
 	const expectedCommands = [
 		"agents",
-		"api",
 		"backups",
 		"commands",
 		"config",
-		"content",
 		"doctor",
 		"init",
 		"migrate",
@@ -21,7 +19,6 @@ describe("help registry coverage", () => {
 		"uninstall",
 		"update",
 		"versions",
-		"watch",
 	];
 
 	test("registers all top-level commands surfaced by custom help", () => {
@@ -42,9 +39,9 @@ describe("help registry coverage", () => {
 		});
 
 		expect(output).toContain("Quick Start:");
-		expect(output).toContain("ck config");
-		expect(output).toContain("ck config --help");
-		expect(output).toContain("ck skills --help");
-		expect(output).toContain("ck migrate --help");
+		expect(output).toContain("hi config");
+		expect(output).toContain("hi config --help");
+		expect(output).toContain("hi skills --help");
+		expect(output).toContain("hi migrate --help");
 	});
 });

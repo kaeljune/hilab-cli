@@ -7,7 +7,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const isCI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
-const runCliIntegration = /^(1|true)$/i.test(process.env.CK_RUN_CLI_INTEGRATION ?? "");
+const runCliIntegration = /^(1|true)$/i.test(process.env.HI_RUN_CLI_INTEGRATION ?? "");
 const shouldRunIntegration = !isCI && runCliIntegration;
 const integrationDescribe = shouldRunIntegration ? describe : describe.skip;
 

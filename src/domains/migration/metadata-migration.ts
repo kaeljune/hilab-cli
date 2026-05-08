@@ -257,7 +257,7 @@ export function getInstalledKits(metadata: Metadata): KitType[] {
 	const nameToCheck = metadata.name || "";
 	const kits: KitType[] = [];
 
-	if (/\bengineer\b/i.test(nameToCheck)) {
+	if (/\b(engineer|coding)\b/i.test(nameToCheck)) {
 		kits.push("engineer");
 	}
 	if (/\bmarketing\b/i.test(nameToCheck)) {

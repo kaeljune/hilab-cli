@@ -5,8 +5,8 @@ import { shouldSkipExpensiveOperations as shouldSkipExpensiveChecks } from "@/sh
  * IMPORTANT: This must be a function, not a constant, because env vars
  * may be set AFTER module load (e.g., in tests)
  *
- * Skip when: CI environment WITHOUT isolated test paths (CK_TEST_HOME)
- * Don't skip when: Unit tests with CK_TEST_HOME set (isolated environment)
+ * Skip when: CI environment WITHOUT isolated test paths (HI_TEST_HOME)
+ * Don't skip when: Unit tests with HI_TEST_HOME set (isolated environment)
  */
 export function shouldSkipExpensiveOperations(): boolean {
 	return shouldSkipExpensiveChecks();

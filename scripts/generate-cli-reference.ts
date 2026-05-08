@@ -15,6 +15,7 @@
 
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { HELP_REGISTRY } from "../src/domains/help/help-commands.js";
 import type { CommandHelp, OptionGroup } from "../src/domains/help/help-types.js";
 
@@ -51,7 +52,7 @@ function renderOptionsTable(optionGroups: OptionGroup[]): string {
 /** Render a single command section at a given heading level (H2 for top-level, H3 for subs). */
 function renderCommandSection(cmd: CommandHelp, level: number): string {
 	const prefix = "#".repeat(level);
-	const heading = level === 2 ? `ck ${cmd.name}` : cmd.name;
+	const heading = level === 2 ? `hi ${cmd.name}` : cmd.name;
 	const lines: string[] = [];
 
 	lines.push(`${prefix} ${heading}`);
@@ -111,7 +112,7 @@ function renderCommandSection(cmd: CommandHelp, level: number): string {
  * Structure:
  *   # HiLab CLI Reference
  *   ## Table of Contents
- *   ## ck <command>   (one per HELP_REGISTRY entry, alpha-sorted)
+ *   ## hi <command>   (one per HELP_REGISTRY entry, alpha-sorted)
  *     ### <subcommand>
  *   <!-- generated: <iso> -->
  */
@@ -122,15 +123,15 @@ export function generateReference(): string {
 	// H1 title
 	parts.push("# HiLab CLI Reference");
 	parts.push("");
-	parts.push("Complete reference for all `ck` commands, auto-generated from the help registry.");
+	parts.push("Complete reference for all `hi` commands, auto-generated from the help registry.");
 	parts.push("");
 
 	// Table of Contents
 	parts.push("## Table of Contents");
 	parts.push("");
 	for (const name of sortedKeys) {
-		const anchor = toAnchor(`ck ${name}`);
-		parts.push(`- [ck ${name}](#${anchor})`);
+		const anchor = toAnchor(`hi ${name}`);
+		parts.push(`- [hi ${name}](#${anchor})`);
 	}
 	parts.push("");
 
@@ -152,7 +153,7 @@ export function generateReference(): string {
 // ---------------------------------------------------------------------------
 
 if (import.meta.main) {
-	const repoRoot = new URL("..", import.meta.url).pathname;
+	const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 	const outputPath = join(repoRoot, "docs", "cli-reference.md");
 
 	const content = generateReference();

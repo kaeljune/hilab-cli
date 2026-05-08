@@ -10,7 +10,7 @@ import { dirname, join } from "node:path";
 import { logger, normalizeCommand } from "@/shared";
 import type { InstalledSettings } from "@/types";
 
-const CK_JSON_FILE = ".hi.json";
+const HI_JSON_FILE = ".hi.json";
 
 interface CkJsonData {
 	kits?: Record<string, { installedSettings?: InstalledSettings; [key: string]: unknown }>;
@@ -34,10 +34,10 @@ export class InstalledSettingsTracker {
 	private getCkJsonPath(): string {
 		if (this.isGlobal) {
 			// Global: ~/.claude/.hi.json
-			return join(this.projectDir, CK_JSON_FILE);
+			return join(this.projectDir, HI_JSON_FILE);
 		}
 		// Local: ./.claude/.hi.json
-		return join(this.projectDir, ".claude", CK_JSON_FILE);
+		return join(this.projectDir, ".claude", HI_JSON_FILE);
 	}
 
 	/**

@@ -36,13 +36,13 @@ describe("GitHubClient", () => {
 	describe("integration scenarios", () => {
 		test("should handle kit configuration correctly", () => {
 			const engineerKit = AVAILABLE_KITS.engineer;
-			expect(engineerKit.owner).toBe("hilab");
-			expect(engineerKit.repo).toBe("hilab-engineer");
+			expect(engineerKit.owner).toBe("kaeljune");
+			expect(engineerKit.repo).toBe("hilab-coding");
 		});
 
 		test("should handle marketing kit configuration", () => {
 			const marketingKit = AVAILABLE_KITS.marketing;
-			expect(marketingKit.owner).toBe("hilab");
+			expect(marketingKit.owner).toBe("kaeljune");
 			expect(marketingKit.repo).toBe("hilab-marketing");
 		});
 	});

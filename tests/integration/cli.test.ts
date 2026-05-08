@@ -9,10 +9,10 @@ import { fileURLToPath } from "node:url";
  * Integration tests for CLI commands.
  *
  * These tests are expensive (network + CLI subprocesses), so they are opt-in.
- * Run with CK_RUN_CLI_INTEGRATION=1.
+ * Run with HI_RUN_CLI_INTEGRATION=1.
  */
 const isCI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
-const runCliIntegration = /^(1|true)$/i.test(process.env.CK_RUN_CLI_INTEGRATION ?? "");
+const runCliIntegration = /^(1|true)$/i.test(process.env.HI_RUN_CLI_INTEGRATION ?? "");
 const shouldRunIntegration = !isCI && runCliIntegration;
 const integrationDescribe = shouldRunIntegration ? describe : describe.skip;
 
@@ -29,7 +29,7 @@ integrationDescribe("CLI Integration Tests", () => {
 		}
 
 		// Get release version from env or fetch latest once for the full suite
-		releaseVersion = process.env.CK_TEST_RELEASE || "";
+		releaseVersion = process.env.HI_TEST_RELEASE || "";
 		if (!releaseVersion) {
 			try {
 				const output = execSync(`node ${cliPath} versions --kit engineer --limit 1`, {

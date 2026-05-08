@@ -52,7 +52,7 @@ async function teardownTestContext(ctx: TestContext): Promise<void> {
 	if (ctx.originalCkTestHome === undefined) {
 		// Must use `delete` — assigning `undefined` to process.env coerces it to
 		// the string "undefined", causing test pollution (PathResolver would see
-		// CK_TEST_HOME as a non-empty string instead of unset).
+		// HI_TEST_HOME as a non-empty string instead of unset).
 		// biome-ignore lint/performance/noDelete: process.env semantics require delete to truly unset
 		delete process.env.HI_TEST_HOME;
 	} else {

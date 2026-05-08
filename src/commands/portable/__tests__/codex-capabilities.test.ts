@@ -115,7 +115,7 @@ describe("codex-capabilities", () => {
 			expect(Object.keys(caps.events).length).toBeGreaterThan(0);
 		});
 
-		it("returns strict (oldest) capabilities when CK_CODEX_COMPAT=strict", async () => {
+		it("returns strict (oldest) capabilities when HI_CODEX_COMPAT=strict", async () => {
 			const prev = process.env.HI_CODEX_COMPAT;
 			process.env.HI_CODEX_COMPAT = "strict";
 			try {

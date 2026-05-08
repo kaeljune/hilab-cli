@@ -107,7 +107,7 @@ export async function readHiLabMetadata(metadataPath: string): Promise<HiLabMeta
 
 /**
  * Get the global HiLab installation directory for the current platform
- * Uses PathResolver to respect CK_TEST_HOME for test isolation
+ * Uses PathResolver to respect HI_TEST_HOME for test isolation
  */
 function getGlobalInstallDir(): string {
 	return PathResolver.getGlobalKitDir();

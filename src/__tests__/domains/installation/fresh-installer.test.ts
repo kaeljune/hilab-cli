@@ -26,7 +26,7 @@ import { type TestPaths, setupTestPaths } from "../../../../tests/helpers/test-p
 
 // Spinner stub — avoids TTY checks and ora transitive dep
 // NOTE: backup, lock, and proper-lockfile are NOT mocked here.
-// CK_TEST_HOME (set by setupTestPaths in beforeEach) isolates all file-system
+// HI_TEST_HOME (set by setupTestPaths in beforeEach) isolates all file-system
 // operations to a per-test tmpdir so the real implementations run safely.
 mock.module("@/shared/safe-spinner.js", () => ({
 	createSpinner: () => ({
@@ -119,7 +119,7 @@ let claudeDir: string;
 
 beforeEach(() => {
 	testPaths = setupTestPaths();
-	// claudeDir lives inside testHome so backup/lock subsystems stay within CK_TEST_HOME
+	// claudeDir lives inside testHome so backup/lock subsystems stay within HI_TEST_HOME
 	claudeDir = testPaths.claudeDir;
 	mkdirSync(claudeDir, { recursive: true });
 });

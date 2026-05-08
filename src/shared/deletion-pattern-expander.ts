@@ -25,7 +25,7 @@ function canExpandLegacyCommandPattern(pattern: string, prefix: string): boolean
 /**
  * Expand deletion patterns so deprecated command paths also match legacy prefixed installs.
  *
- * Older `--prefix` installs moved commands from `commands/foo.md` to `commands/ck/foo.md`
+ * Older `--prefix` installs moved commands from `commands/foo.md` to `commands/hi/foo.md`
  * (and `commands/mkt/` for marketing). Newer kits may delete only the unprefixed source path,
  * so upgrades need to consider both locations.
  */

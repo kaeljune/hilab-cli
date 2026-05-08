@@ -13,11 +13,11 @@ import {
 	CkConfigSchema,
 	type CkConfigWithSources,
 	type ConfigSource,
-	DEFAULT_CK_CONFIG,
+	DEFAULT_HI_CONFIG,
 	normalizeCkConfigInput,
 } from "@/types";
 
-const CK_CONFIG_FILE = ".hi.json";
+const HI_CONFIG_FILE = ".hi.json";
 
 /**
  * Get nested value from object using dot-notation path
@@ -124,7 +124,7 @@ export class CkConfigManager {
 	 * Get the global config file path (~/.claude/.hi.json)
 	 */
 	static getGlobalConfigPath(): string {
-		return join(CkConfigManager.getGlobalConfigDir(), CK_CONFIG_FILE);
+		return join(CkConfigManager.getGlobalConfigDir(), HI_CONFIG_FILE);
 	}
 
 	/**
@@ -138,7 +138,7 @@ export class CkConfigManager {
 	 * Get the project config file path (projectDir/.claude/.hi.json)
 	 */
 	static getProjectConfigPath(projectDir: string): string {
-		return join(CkConfigManager.getProjectConfigDir(projectDir), CK_CONFIG_FILE);
+		return join(CkConfigManager.getProjectConfigDir(projectDir), HI_CONFIG_FILE);
 	}
 
 	/**
@@ -213,7 +213,7 @@ export class CkConfigManager {
 		const projectConfig = projectPath ? await CkConfigManager.loadConfigFile(projectPath) : null;
 
 		// Merge: defaults <- global <- project
-		let merged: CkConfig = { ...DEFAULT_CK_CONFIG };
+		let merged: CkConfig = { ...DEFAULT_HI_CONFIG };
 		if (globalConfig) {
 			merged = deepMerge(
 				merged as Record<string, unknown>,

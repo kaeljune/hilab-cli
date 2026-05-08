@@ -45,7 +45,7 @@ beforeEach(() => {
 	originalCwd = process.cwd();
 	testRoot = mkdtempSync(join(tmpdir(), "hi-plan-actions-"));
 	mkdirSync(join(testRoot, ".claude"), { recursive: true });
-	// Global path isolation — writes go to CK_TEST_HOME/.claude/plans-registries/
+	// Global path isolation — writes go to HI_TEST_HOME/.claude/plans-registries/
 	testHome = mkdtempSync(join(tmpdir(), "hi-plan-home-"));
 	mkdirSync(join(testHome, ".claude"), { recursive: true });
 	process.env.HI_TEST_HOME = testHome;
@@ -57,7 +57,7 @@ afterEach(() => {
 	process.chdir(originalCwd);
 	rmSync(testRoot, { recursive: true, force: true });
 	if (testHome) rmSync(testHome, { recursive: true, force: true });
-	Reflect.deleteProperty(process.env, "CK_TEST_HOME");
+	Reflect.deleteProperty(process.env, "HI_TEST_HOME");
 });
 
 describe("executeAction", () => {

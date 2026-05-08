@@ -114,7 +114,7 @@ async function assertProjectCommandConverges(
  * after `repairClaudeNodeCommandPath` is applied via the detect→fix→detect cycle.
  *
  * Note: We cannot use `checkHookCommandPaths` for global settings in tests because
- * `CK_TEST_HOME` changes `PathResolver.getGlobalKitDir()` to a temp path, which
+ * `HI_TEST_HOME` changes `PathResolver.getGlobalKitDir()` to a temp path, which
  * makes `getCanonicalGlobalCommandRoot()` return an absolute temp path instead of
  * "$HOME". This test therefore exercises the detect/repair functions directly with
  * an explicit "$HOME" root, matching the real production path.
@@ -124,7 +124,7 @@ async function assertGlobalCommandConverges(
 	command: string,
 	expectedPattern: RegExp,
 ): Promise<void> {
-	// Write to a temp location (not the CK_TEST_HOME global dir to avoid root confusion).
+	// Write to a temp location (not the HI_TEST_HOME global dir to avoid root confusion).
 	const settingsDir = join(ctx.tempDir, "global-test", ".claude");
 	const settingsPath = join(settingsDir, "settings.local.json");
 	await mkdir(settingsDir, { recursive: true });

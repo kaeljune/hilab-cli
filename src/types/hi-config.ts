@@ -423,7 +423,7 @@ export const CkAssertionSchema = z.object({
 export type CkAssertion = z.infer<typeof CkAssertionSchema>;
 
 // SYNC POINT: When adding/removing hooks in hilab-engineer settings.json,
-// update ALL of: CkHooksConfigSchema, DEFAULT_CK_CONFIG.hooks, CK_HOOK_NAMES,
+// update ALL of: CkHooksConfigSchema, DEFAULT_HI_CONFIG.hooks, HI_HOOK_NAMES,
 // src/schemas/hi-config.schema.json, GlobalConfigPage.tsx sections,
 // src/ui/src/services/configFieldDocs.ts, and src/ui/src/i18n/translations.ts (EN + VI)
 //
@@ -510,7 +510,7 @@ export interface CkConfigWithSources {
 }
 
 // Default values matching schema defaults
-export const DEFAULT_CK_CONFIG: CkConfig = {
+export const DEFAULT_HI_CONFIG: CkConfig = {
 	codingLevel: -1,
 	statusline: "full",
 	statuslineColors: true,
@@ -590,7 +590,7 @@ export const DEFAULT_CK_CONFIG: CkConfig = {
 };
 
 // Hook names for iteration
-export const CK_HOOK_NAMES = [
+export const HI_HOOK_NAMES = [
 	"session-init",
 	"subagent-init",
 	"descriptive-name",
@@ -602,4 +602,4 @@ export const CK_HOOK_NAMES = [
 	"simplify-gate",
 ] as const;
 
-export type CkHookName = (typeof CK_HOOK_NAMES)[number];
+export type CkHookName = (typeof HI_HOOK_NAMES)[number];

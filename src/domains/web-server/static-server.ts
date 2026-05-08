@@ -32,7 +32,7 @@ function addRuntimeUiCandidate(candidates: Set<string>, runtimePath?: string): v
 export function resolveUiDistPath(): string {
 	const candidates = new Set<string>();
 
-	// Bun/Node execution: <package>/dist/index.js or <package>/bin/ck.js
+	// Bun/Node execution: <package>/dist/index.js or <package>/bin/hi.js
 	addRuntimeUiCandidate(candidates, process.argv[1]);
 	// Production (npm install -g): dist/index.js → dist/ui/ (same directory)
 	candidates.add(join(__dirname, "ui"));

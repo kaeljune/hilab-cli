@@ -60,7 +60,7 @@ describe("HiLabChecker - Enhanced Checks", () => {
 			},
 		};
 
-		// PathResolver will automatically use testPaths.claudeDir when CK_TEST_HOME is set
+		// PathResolver will automatically use testPaths.claudeDir when HI_TEST_HOME is set
 		// No need to mock it since it has built-in test support
 
 		// Mock getHiLabSetup
@@ -690,7 +690,7 @@ describe("HiLabChecker - Enhanced Checks", () => {
 			expect(result.status).toBe("fail");
 			expect(result.message).toBe("Incomplete configuration");
 			expect(result.details).toBe("Only CLAUDE.md found - missing agents, commands, rules, skills");
-			expect(result.suggestion).toBe("Run 'ck init' to install complete HiLab in project");
+			expect(result.suggestion).toBe("Run 'hi init' to install complete HiLab in project");
 		});
 
 		test("fails when all required directories are missing", async () => {
@@ -745,7 +745,7 @@ describe("HiLabChecker - Enhanced Checks", () => {
 			expect(result.message).toBe("Missing 2 directories");
 			expect(result.details).toContain("commands");
 			expect(result.details).toContain("rules");
-			expect(result.suggestion).toBe("Run 'ck init' to update project configuration");
+			expect(result.suggestion).toBe("Run 'hi init' to update project configuration");
 		});
 
 		test("warns when one directory is missing", async () => {

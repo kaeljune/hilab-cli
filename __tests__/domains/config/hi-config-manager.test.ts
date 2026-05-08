@@ -6,10 +6,10 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { CkConfigManager } from "../../../src/domains/config/hi-config-manager.js";
 import {
-	CK_HOOK_NAMES,
 	type CkConfig,
 	CkConfigSchema,
-	DEFAULT_CK_CONFIG,
+	DEFAULT_HI_CONFIG,
+	HI_HOOK_NAMES,
 } from "../../../src/types/hi-config.js";
 // CkSimplifyConfigSchema is validated via CkConfigSchema.parse({ simplify: {...} })
 
@@ -88,34 +88,34 @@ describe("CkConfigManager", () => {
 
 	describe("Hook schema sync", () => {
 		it("should have consistent hook counts across all locations", () => {
-			const hooksInNames = CK_HOOK_NAMES.length;
-			const hooksInDefaults = Object.keys(DEFAULT_CK_CONFIG.hooks ?? {}).length;
+			const hooksInNames = HI_HOOK_NAMES.length;
+			const hooksInDefaults = Object.keys(DEFAULT_HI_CONFIG.hooks ?? {}).length;
 			// Both should be 9 (matching the hook count)
 			expect(hooksInNames).toBe(9);
 			expect(hooksInDefaults).toBe(9);
 		});
 
-		it("should have all hooks from CK_HOOK_NAMES in DEFAULT_CK_CONFIG.hooks", () => {
-			for (const hookName of CK_HOOK_NAMES) {
-				expect(DEFAULT_CK_CONFIG.hooks).toHaveProperty(hookName);
+		it("should have all hooks from HI_HOOK_NAMES in DEFAULT_HI_CONFIG.hooks", () => {
+			for (const hookName of HI_HOOK_NAMES) {
+				expect(DEFAULT_HI_CONFIG.hooks).toHaveProperty(hookName);
 			}
 		});
 
-		it("should have all hooks in DEFAULT_CK_CONFIG.hooks set to true", () => {
-			const hooks = DEFAULT_CK_CONFIG.hooks;
+		it("should have all hooks in DEFAULT_HI_CONFIG.hooks set to true", () => {
+			const hooks = DEFAULT_HI_CONFIG.hooks;
 			expect(hooks).toBeDefined();
 			if (!hooks) return;
-			for (const hookName of CK_HOOK_NAMES) {
+			for (const hookName of HI_HOOK_NAMES) {
 				const hookValue = hooks[hookName as keyof typeof hooks];
 				expect(hookValue).toBe(true);
 			}
 		});
 
-		it("should have all DEFAULT_CK_CONFIG.hooks entries in CK_HOOK_NAMES", () => {
-			expect(DEFAULT_CK_CONFIG.hooks).toBeDefined();
-			const hookEntries = Object.keys(DEFAULT_CK_CONFIG.hooks as Record<string, boolean>);
+		it("should have all DEFAULT_HI_CONFIG.hooks entries in HI_HOOK_NAMES", () => {
+			expect(DEFAULT_HI_CONFIG.hooks).toBeDefined();
+			const hookEntries = Object.keys(DEFAULT_HI_CONFIG.hooks as Record<string, boolean>);
 			for (const hookEntry of hookEntries) {
-				expect(CK_HOOK_NAMES).toContain(hookEntry as any);
+				expect(HI_HOOK_NAMES).toContain(hookEntry as any);
 			}
 		});
 
@@ -133,7 +133,7 @@ describe("CkConfigManager", () => {
 			};
 
 			const testConfig: CkConfig = {
-				...DEFAULT_CK_CONFIG,
+				...DEFAULT_HI_CONFIG,
 				hooks: hooksConfig,
 			};
 
@@ -154,7 +154,7 @@ describe("CkConfigManager", () => {
 			expect(result.hooks?.["privacy-block"]).toBe(true);
 		});
 
-		it("should validate that CK_HOOK_NAMES includes all expected hooks", () => {
+		it("should validate that HI_HOOK_NAMES includes all expected hooks", () => {
 			const expectedHooks = [
 				"session-init",
 				"subagent-init",
@@ -168,11 +168,11 @@ describe("CkConfigManager", () => {
 			];
 
 			for (const hook of expectedHooks) {
-				expect(CK_HOOK_NAMES).toContain(hook as any);
+				expect(HI_HOOK_NAMES).toContain(hook as any);
 			}
 		});
 
-		it("should have no unexpected hooks in CK_HOOK_NAMES", () => {
+		it("should have no unexpected hooks in HI_HOOK_NAMES", () => {
 			const expectedHooks = new Set([
 				"session-init",
 				"subagent-init",
@@ -185,17 +185,17 @@ describe("CkConfigManager", () => {
 				"simplify-gate",
 			]);
 
-			for (const hook of CK_HOOK_NAMES) {
+			for (const hook of HI_HOOK_NAMES) {
 				expect(expectedHooks.has(hook)).toBe(true);
 			}
 		});
 
 		it("should maintain hook schema consistency across all three locations", () => {
 			// All three must have exactly the same hooks
-			const hooksInNames = new Set(CK_HOOK_NAMES);
-			expect(DEFAULT_CK_CONFIG.hooks).toBeDefined();
+			const hooksInNames = new Set(HI_HOOK_NAMES);
+			expect(DEFAULT_HI_CONFIG.hooks).toBeDefined();
 			const hooksInConfig = new Set(
-				Object.keys(DEFAULT_CK_CONFIG.hooks as Record<string, boolean>),
+				Object.keys(DEFAULT_HI_CONFIG.hooks as Record<string, boolean>),
 			);
 
 			expect(hooksInNames.size).toBe(hooksInConfig.size);
@@ -212,7 +212,7 @@ describe("CkConfigManager", () => {
 			await mkdir(claudeDir, { recursive: true });
 
 			const config: CkConfig = {
-				...DEFAULT_CK_CONFIG,
+				...DEFAULT_HI_CONFIG,
 				codingLevel: 2,
 			};
 
@@ -289,7 +289,7 @@ describe("CkConfigManager", () => {
 			await mkdir(claudeDir, { recursive: true });
 
 			const initialConfig: CkConfig = {
-				...DEFAULT_CK_CONFIG,
+				...DEFAULT_HI_CONFIG,
 				codingLevel: 0,
 				statusline: "compact",
 			};
@@ -311,7 +311,7 @@ describe("CkConfigManager", () => {
 			await mkdir(claudeDir, { recursive: true });
 
 			const customConfig: CkConfig = {
-				...DEFAULT_CK_CONFIG,
+				...DEFAULT_HI_CONFIG,
 				hooks: {
 					"session-init": true,
 					"privacy-block": false,

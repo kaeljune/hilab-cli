@@ -18,7 +18,7 @@ describe("uninstall command integration", () => {
 		// Save original cwd
 		originalCwd = process.cwd();
 
-		// Setup isolated test paths (sets CK_TEST_HOME)
+		// Setup isolated test paths (sets HI_TEST_HOME)
 		testPaths = setupTestPaths();
 
 		// Create project directory within test home
@@ -37,7 +37,7 @@ describe("uninstall command integration", () => {
 		// Restore original cwd
 		process.chdir(originalCwd);
 
-		// Cleanup via test paths helper (also clears CK_TEST_HOME)
+		// Cleanup via test paths helper (also clears HI_TEST_HOME)
 		testPaths.cleanup();
 	});
 
