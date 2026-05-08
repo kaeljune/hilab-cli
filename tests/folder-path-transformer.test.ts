@@ -109,7 +109,7 @@ Link: [docs](docs/)
 			// Check content was transformed
 			const newContent = await readFile(join(testDir, "README.md"), "utf-8");
 			expect(newContent).toContain("hi-docs/");
-			expect(newContent).toContain("./ck-docs");
+			expect(newContent).toContain("./hi-docs");
 		});
 
 		test("should handle .claude subdirectory", async () => {
@@ -220,7 +220,7 @@ const jsonPath = {"path": "docs"};
 
 			const newContent = await readFile(join(testDir, "config.ts"), "utf-8");
 			expect(newContent).toContain('"hi-docs"');
-			expect(newContent).toContain("'ck-docs'");
+			expect(newContent).toContain("'hi-docs'");
 		});
 	});
 

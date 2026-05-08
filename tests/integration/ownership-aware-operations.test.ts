@@ -38,7 +38,7 @@ describe("Ownership-Aware Operations", () => {
 				scope: "local",
 				files: [
 					{
-						path: "commands/ck-plan.md",
+						path: "commands/hi-plan.md",
 						checksum,
 						ownership: "hi",
 						installedVersion: "1.0.0",
