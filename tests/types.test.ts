@@ -349,7 +349,7 @@ describe("Types and Schemas", () => {
 	describe("AVAILABLE_KITS", () => {
 		test("should have engineer kit", () => {
 			expect(AVAILABLE_KITS.engineer).toBeDefined();
-			expect(AVAILABLE_KITS.engineer.name).toBe("HiLab Engineer");
+			expect(AVAILABLE_KITS.engineer.name).toBe("HiLab Coding");
 			expect(AVAILABLE_KITS.engineer.repo).toBe("hilab-engineer");
 		});
 

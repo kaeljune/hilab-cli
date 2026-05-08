@@ -73,8 +73,8 @@ describe("filterDeletionPaths", () => {
 
 		it("filters legacy prefixed command paths for engineer installs", () => {
 			const files = [
-				createTrackedFile("commands/ck/ask.md"),
-				createTrackedFile("commands/ck/bootstrap.md"),
+				createTrackedFile("commands/hi/ask.md"),
+				createTrackedFile("commands/hi/bootstrap.md"),
 				createTrackedFile("skills/ask/SKILL.md"),
 			];
 			const deletions = ["commands/ask.md"];
@@ -82,7 +82,7 @@ describe("filterDeletionPaths", () => {
 			const result = filterDeletionPaths(files, deletions, "engineer");
 			expect(result).toHaveLength(2);
 			expect(result.map((f) => f.path)).toEqual([
-				"commands/ck/bootstrap.md",
+				"commands/hi/bootstrap.md",
 				"skills/ask/SKILL.md",
 			]);
 		});
@@ -146,15 +146,15 @@ describe("filterDeletionPaths", () => {
 
 		it("filters legacy prefixed command globs for engineer installs", () => {
 			const files = [
-				createTrackedFile("commands/ck/plan/archive.md"),
-				createTrackedFile("commands/ck/plan/fast.md"),
-				createTrackedFile("commands/ck/review/codebase.md"),
+				createTrackedFile("commands/hi/plan/archive.md"),
+				createTrackedFile("commands/hi/plan/fast.md"),
+				createTrackedFile("commands/hi/review/codebase.md"),
 			];
 			const deletions = ["commands/plan/**"];
 
 			const result = filterDeletionPaths(files, deletions, "engineer");
 			expect(result).toHaveLength(1);
-			expect(result[0].path).toBe("commands/ck/review/codebase.md");
+			expect(result[0].path).toBe("commands/hi/review/codebase.md");
 		});
 	});
 

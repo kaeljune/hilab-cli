@@ -55,7 +55,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 						installedAt: new Date().toISOString(),
 						files: [
 							{
-								path: "commands/ck/plan.md",
+								path: "commands/hi/plan.md",
 								checksum: await calculateChecksum(planPath),
 								ownership: "hi",
 								installedVersion: "1.0.0",
@@ -121,13 +121,13 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 						installedAt: new Date().toISOString(),
 						files: [
 							{
-								path: "commands/ck/plan.md",
+								path: "commands/hi/plan.md",
 								checksum: await calculateChecksum(planPath),
 								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
-								path: "commands/ck/fix.md",
+								path: "commands/hi/fix.md",
 								checksum: await calculateChecksum(fixPath),
 								ownership: "hi",
 								installedVersion: "1.0.0",
@@ -194,7 +194,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 						installedAt: new Date().toISOString(),
 						files: [
 							{
-								path: "commands/ck/plan.md",
+								path: "commands/hi/plan.md",
 								checksum: await calculateChecksum(planPath),
 								ownership: "hi",
 								installedVersion: "1.0.0",
@@ -234,7 +234,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 
 			const planPath = join(commandsDir, "plan.md");
 			const metadata: Metadata = {
-				name: "HiLab Engineer",
+				name: "HiLab Coding",
 				version: "1.0.0",
 				installedAt: new Date().toISOString(),
 				files: [

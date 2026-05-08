@@ -328,7 +328,7 @@ describe("GitHubReachabilityChecker class", () => {
 		const results = await checker.run();
 
 		expect(results[0].status).toBe("fail");
-		expect(results[0].suggestion ?? "").toContain("hilab.cc");
+		expect(results[0].suggestion ?? "").toContain("GitHub invitation");
 		expect(results[0].suggestion ?? "").not.toContain("gh auth login");
 	});
 });

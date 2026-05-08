@@ -52,7 +52,7 @@ describe("Version Command", () => {
 	describe("Kit Configuration", () => {
 		test("should have engineer kit configured", () => {
 			const engineerKit = AVAILABLE_KITS.engineer;
-			expect(engineerKit.name).toBe("HiLab Engineer");
+			expect(engineerKit.name).toBe("HiLab Coding");
 			expect(engineerKit.repo).toBe("hilab-engineer");
 			expect(engineerKit.owner).toBe("hilab");
 		});

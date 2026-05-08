@@ -41,7 +41,7 @@ describe("metadata-migration", () => {
 
 		it("detects legacy format with name and version", async () => {
 			const legacy: Metadata = {
-				name: "HiLab Engineer",
+				name: "HiLab Coding",
 				version: "v1.2.3",
 				installedAt: "2024-01-01T00:00:00.000Z",
 				scope: "local",
@@ -163,7 +163,7 @@ describe("metadata-migration", () => {
 	describe("migrateToMultiKit", () => {
 		it("migrates legacy format to multi-kit", async () => {
 			const legacy: Metadata = {
-				name: "HiLab Engineer",
+				name: "HiLab Coding",
 				version: "v1.2.3",
 				installedAt: "2024-01-01T00:00:00.000Z",
 				scope: "local",
@@ -221,7 +221,7 @@ describe("metadata-migration", () => {
 
 		it("preserves legacy fields after migration for backward compat", async () => {
 			const legacy: Metadata = {
-				name: "HiLab Engineer",
+				name: "HiLab Coding",
 				version: "v1.2.3",
 				installedAt: "2024-01-01T00:00:00.000Z",
 				scope: "local",
@@ -234,14 +234,14 @@ describe("metadata-migration", () => {
 
 			const detection = await detectMetadataFormat(testDir);
 			// Legacy fields preserved for backward compat
-			expect(detection.metadata?.name).toBe("HiLab Engineer");
+			expect(detection.metadata?.name).toBe("HiLab Coding");
 			expect(detection.metadata?.version).toBe("v1.2.3");
 			expect(detection.metadata?.installedFiles).toEqual(["commands/test.md"]);
 		});
 
 		it("preserves scope during migration", async () => {
 			const legacy: Metadata = {
-				name: "HiLab Engineer",
+				name: "HiLab Coding",
 				version: "v1.0.0",
 				scope: "global",
 			};
@@ -387,7 +387,7 @@ describe("metadata-migration", () => {
 
 		it("detects engineer from legacy name", () => {
 			const metadata: Metadata = {
-				name: "HiLab Engineer",
+				name: "HiLab Coding",
 				version: "v1.0.0",
 			};
 
@@ -407,7 +407,7 @@ describe("metadata-migration", () => {
 
 		it("detects BOTH kits from legacy name containing both", () => {
 			const metadata: Metadata = {
-				name: "HiLab Engineer + Marketing Bundle",
+				name: "HiLab Coding + Marketing Bundle",
 				version: "v1.0.0",
 			};
 

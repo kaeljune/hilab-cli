@@ -4,7 +4,7 @@ import type { GitHubRelease } from "@/types";
 
 describe("GitHubClient - Asset Download Priority", () => {
 	describe("getDownloadableAsset", () => {
-		test("should prioritize HiLab Engineer Package zip file", () => {
+		test("should prioritize HiLab Coding Package zip file", () => {
 			const release: GitHubRelease = {
 				id: 1,
 				tag_name: "v1.0.0",
@@ -332,7 +332,7 @@ describe("GitHubClient - Asset Download Priority", () => {
 					},
 					{
 						id: 2,
-						name: "HiLab Engineer Package.zip",
+						name: "HiLab Coding Package.zip",
 						url: "https://api.github.com/repos/test/repo/releases/assets/2",
 						browser_download_url: "https://github.com/test/package.zip",
 						size: 3334963,
@@ -344,7 +344,7 @@ describe("GitHubClient - Asset Download Priority", () => {
 			const result = GitHubClient.getDownloadableAsset(release);
 
 			expect(result.type).toBe("asset");
-			expect(result.name).toBe("HiLab Engineer Package.zip");
+			expect(result.name).toBe("HiLab Coding Package.zip");
 			expect(result.size).toBe(3334963);
 		});
 
@@ -404,7 +404,7 @@ describe("GitHubClient - Asset Download Priority", () => {
 					},
 					{
 						id: 2,
-						name: "HiLab Engineer Package.zip",
+						name: "HiLab Coding Package.zip",
 						url: "https://api.github.com/repos/test/repo/releases/assets/2",
 						browser_download_url: "https://github.com/test/package.zip",
 						size: 3334963,
@@ -425,7 +425,7 @@ describe("GitHubClient - Asset Download Priority", () => {
 
 			// Should pick the HiLab package and ignore source code archives
 			expect(result.type).toBe("asset");
-			expect(result.name).toBe("HiLab Engineer Package.zip");
+			expect(result.name).toBe("HiLab Coding Package.zip");
 			expect(result.size).toBe(3334963);
 		});
 	});

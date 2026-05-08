@@ -23,13 +23,13 @@ function createLegacyMetadata() {
 					installedAt: "2026-04-06T15:07:00.000Z",
 					files: [
 						{
-							path: "commands/ck/ask.md",
+							path: "commands/hi/ask.md",
 							checksum: "a".repeat(64),
 							ownership: "hi",
 							installedVersion: "2.10.1",
 						},
 						{
-							path: "commands/ck/coding-level.md",
+							path: "commands/hi/coding-level.md",
 							checksum: "b".repeat(64),
 							ownership: "hi",
 							installedVersion: "2.10.1",

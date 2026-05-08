@@ -106,7 +106,7 @@ describe("deletion-handler", () => {
 						installedAt: new Date().toISOString(),
 						files: [
 							{
-								path: "commands/ck/ask.md",
+								path: "commands/hi/ask.md",
 								checksum: "d".repeat(64),
 								ownership: "hi",
 								installedVersion: "1.0.0",
@@ -126,7 +126,7 @@ describe("deletion-handler", () => {
 
 			const result = await handleDeletions(sourceMetadata, testDir, "engineer");
 
-			expect(result.deletedPaths).toContain("commands/ck/ask.md");
+			expect(result.deletedPaths).toContain("commands/hi/ask.md");
 			expect(existsSync(filePath)).toBe(false);
 		});
 

@@ -191,11 +191,11 @@ describe("selection-handler kit access logic", () => {
 
 	describe("error messages", () => {
 		it("generates correct error for no access", () => {
-			const errorMessage = "No HiLab access found.";
-			const helpMessage = "Purchase at https://hilab.cc";
+			const errorMessage = "No repository access found.";
+			const helpMessage = "Check email for GitHub invitation";
 
-			expect(errorMessage).toBe("No HiLab access found.");
-			expect(helpMessage).toContain("hilab.cc");
+			expect(errorMessage).toBe("No repository access found.");
+			expect(helpMessage).toContain("GitHub invitation");
 		});
 
 		it("generates correct error for specific kit access denied", () => {
@@ -271,7 +271,7 @@ describe("selection-handler kit access logic", () => {
 			const selectedKits: KitType[] = ["engineer", "marketing"];
 			const message = `Selected ${selectedKits.length} kits: ${selectedKits.map((k) => AVAILABLE_KITS[k].name).join(", ")}`;
 
-			expect(message).toBe("Selected 2 kits: HiLab Engineer, HiLab Marketing");
+			expect(message).toBe("Selected 2 kits: HiLab Coding, HiLab Marketing");
 		});
 
 		it("throws error when no kits selected from multi-select", () => {
