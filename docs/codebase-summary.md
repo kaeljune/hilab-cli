@@ -358,7 +358,7 @@ Renamed from `skill` command. Includes detection, installation, uninstall, and r
 Detection, analysis, and safe removal with fallback for installations without metadata.json.
 
 #### update-cli.ts - CLI Self-Update with Smart Kit Detection
-Detects installed kits, builds kit-specific init commands (e.g., `ck init --kit engineer --yes --install-skills`), performs parallel version checks with non-blocking fallback.
+Detects installed kits, builds kit-specific init commands (e.g., `hi init --kit engineer --yes --install-skills`), performs parallel version checks with non-blocking fallback.
 
 #### config/ - Configuration UI Dashboard
 Express+Vite dashboard server (src/ui/) with WebSocket support. 6 main pages: GlobalConfig, ProjectConfig, Migrate, Skills, Onboarding, ProjectDashboard. 45+ React components with Tailwind CSS. 16 backend API routes (action, migration, project, skill, ck-config, system, session, user, settings, health).
@@ -633,7 +633,7 @@ Pure utilities (logger, path-resolver, environment, progress-bar, safe-prompts, 
 - **Platform optimizations**: macOS native unzip fallback, adaptive concurrency
 - **Slow extraction warnings**: 30-second threshold notifications
 - **Environment detection**: Platform-aware concurrency tuning (macOS: 10, Windows: 15, Linux: 20)
-- **Smart Kit Detection for `ck update`**: Automatic detection of installed kits; displays kit-specific commands (e.g., `ck init --kit engineer --yes --install-skills`) instead of generic ones
+- **Smart Kit Detection for `hi update`**: Automatic detection of installed kits; displays kit-specific commands (e.g., `hi init --kit engineer --yes --install-skills`) instead of generic ones
 
 ### Multi-Kit Support (Phase 1 - IN PROGRESS)
 - **Selective merge with multi-kit awareness**: Detects and reuses files shared across kits
@@ -742,4 +742,4 @@ Stale timeout: 1 minute. Global exit handler covers all termination paths. Activ
 - **#346**: Stale lock fix (global exit handler, 1-min timeout)
 - **#344**: Installation detection fallback (no metadata.json)
 - **Skills**: Renamed from `skill` to `skills`, multi-select, registry
-- **API**: New `ck api` command group (20+ subcommands, typed client)
+- **API**: New `hi api` command group (20+ subcommands, typed client)

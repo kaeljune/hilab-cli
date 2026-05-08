@@ -19,7 +19,7 @@ HiLab CLI (`ck`) is a command-line tool for bootstrapping and updating HiLab pro
 **Status**: IN PROGRESS
 
 #### New Social Content Daemon
-- **Content Command**: `ck content` (NEW) - Multi-daemon for monitoring Git repos and publishing social media content
+- **Content Command**: `hi content` (NEW) - Multi-daemon for monitoring Git repos and publishing social media content
 - **Subcommands**: start, stop, status, logs, setup, queue, approve, reject
 - **Features**:
   - ✅ Git scanning with repo discovery and event classification (commit, PR, tag, plan, release)

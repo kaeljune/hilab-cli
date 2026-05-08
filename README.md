@@ -10,8 +10,8 @@ HiLab Config UI (`ck`) provides both CLI and web dashboard for managing HiLab pr
 
 **Key Features:**
 - **CLI Commands (16)**: new, init, config, projects, setup, skills, agents, commands, migrate, doctor, versions, update, uninstall, watch, content, easter-egg
-- **Web Dashboard**: Interactive React UI via `ck config ui` for configuration and project management
-- **Hook Diagnostics Dashboard**: Inspect recent Claude hook activity and failures from `ck config` across global and project scopes
+- **Web Dashboard**: Interactive React UI via `hi config ui` for configuration and project management
+- **Hook Diagnostics Dashboard**: Inspect recent Claude hook activity and failures from `hi config` across global and project scopes
 - **Projects Registry**: Centralized registry at `~/.hilab/projects.json` with file locking
 - **Skill Installation**: Install HiLab skills to other coding agents (Cursor, Codex, etc.)
 - **Multi-tier Authentication**: gh CLI → env vars → keychain → prompt fallback
@@ -29,7 +29,7 @@ Comprehensive documentation in `/docs`:
 - **[Codebase Summary](./docs/codebase-summary.md)** - Overview, structure, key components
 - **[Project Overview & PDR](./docs/project-overview-pdr.md)** - Requirements, features, roadmap
 - **[System Architecture](./docs/system-architecture.md)** - Architecture diagrams, data flow
-- **[Reconciliation Architecture](./docs/reconciliation-architecture.md)** - `ck migrate` RECONCILE → EXECUTE → REPORT design
+- **[Reconciliation Architecture](./docs/reconciliation-architecture.md)** - `hi migrate` RECONCILE → EXECUTE → REPORT design
 - **[Code Standards](./docs/code-standards.md)** - Coding conventions, best practices
 - **[Project Roadmap](./docs/project-roadmap.md)** - Release timeline, feature status
 - **[Deployment Guide](./docs/deployment-guide.md)** - Release procedures
@@ -106,7 +106,7 @@ ck migrate --help
 
 ### Config Dashboard Access
 
-By default, `ck config` binds the dashboard to `127.0.0.1` for local-only access.
+By default, `hi config` binds the dashboard to `127.0.0.1` for local-only access.
 
 Use `--host` when you intentionally want remote access from another device on the same trusted network:
 
@@ -240,7 +240,7 @@ ck update --beta
 ck update --yes
 ```
 
-The CLI notifies you when updates are available via `ck --version`.
+The CLI notifies you when updates are available via `hi --version`.
 
 **Skills Migration:**
 - Auto-detects structure changes (flat → categorized)
@@ -304,14 +304,14 @@ ck doctor --verbose --fix
 | Missing dependencies | Install via package manager |
 | Missing gh auth | Run `gh auth login` |
 | Corrupted node_modules | Reinstall dependencies |
-| Missing global install | Run `ck init --global` |
+| Missing global install | Run `hi init --global` |
 | Missing skill deps | Install in skill directory |
 
 **Exit Codes:**
 - `0`: All checks pass or issues fixed
 - `1`: Failures detected (only with `--check-only`)
 
-> **Note:** `ck diagnose` is deprecated. Use `ck doctor` instead.
+> **Note:** `hi diagnose` is deprecated. Use `hi doctor` instead.
 
 ### Uninstall
 
@@ -343,7 +343,7 @@ ck uninstall --yes        # Non-interactive - skip confirmation (for scripts)
 
 **Note:** Only removes valid HiLab installations (with metadata.json). Regular `.claude` directories from Claude Desktop are not affected.
 
-### Watch GitHub Issues (`ck watch`)
+### Watch GitHub Issues (`hi watch`)
 
 Autonomous daemon that monitors GitHub issues, analyzes them with Claude, generates plans, and creates PRs.
 
@@ -368,7 +368,7 @@ ck watch --verbose
 
 **Config:** `.hi.json` under `watch` key. See [docs/ck-watch.md](./docs/ck-watch.md) for full configuration reference.
 
-### Content Generation (`ck content`)
+### Content Generation (`hi content`)
 
 Daemon that scans git activity (commits, PRs, tags), generates social media content with Claude, and publishes to X/Twitter and Facebook.
 
@@ -444,7 +444,7 @@ export CK_CACHE_TTL=1800         # 30 minutes
 
 ### Update Notifications
 
-The `ck --version` command checks for newer versions of your installed HiLab and displays a notification if an update is available. The check is cached for 7 days to minimize API calls.
+The `hi --version` command checks for newer versions of your installed HiLab and displays a notification if an update is available. The check is cached for 7 days to minimize API calls.
 
 **Disable Update Notifications:**
 ```bash
@@ -532,11 +532,11 @@ ck init --verbose
 ```
 
 **Common Issues:**
-- **"Access denied"**: Run `ck doctor` to check auth, use `--fix` to auto-repair
-- **"Authentication failed"**: Run `ck doctor --fix` to re-authenticate, or manually run `gh auth login` (select 'Login with a web browser')
+- **"Access denied"**: Run `hi doctor` to check auth, use `--fix` to auto-repair
+- **"Authentication failed"**: Run `hi doctor --fix` to re-authenticate, or manually run `gh auth login` (select 'Login with a web browser')
 - **"GitHub CLI not authenticated"**: Run `gh auth login` and select 'Login with a web browser' (NOT 'Paste token')
-- **Module errors**: Run `ck doctor --fix` to reinstall skill dependencies
-- **Need help**: Run `ck doctor --report` and share the gist URL
+- **Module errors**: Run `hi doctor --fix` to reinstall skill dependencies
+- **Need help**: Run `hi doctor --report` and share the gist URL
 
 ## Available Kits
 
@@ -649,7 +649,7 @@ bun run test:integration
 
 ## E2E Tests
 
-Playwright E2E tests cover the `ck migrate` dashboard (3 scenarios). Tests run against the local dev server and use API mocking — no real filesystem state is modified.
+Playwright E2E tests cover the `hi migrate` dashboard (3 scenarios). Tests run against the local dev server and use API mocking — no real filesystem state is modified.
 
 **Prerequisites:** Node 18+ or Bun 1.0+, Chromium (installed automatically).
 

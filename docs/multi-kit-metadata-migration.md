@@ -9,8 +9,8 @@ HiLab CLI v1.17+ supports multiple kits (engineer, marketing) in a single instal
 ### When Migration Occurs
 
 Migration happens automatically during:
-- `ck init` - When installing a kit into an existing installation
-- `ck new` - When creating a new project (fresh multi-kit format)
+- `hi init` - When installing a kit into an existing installation
+- `hi new` - When creating a new project (fresh multi-kit format)
 
 ### What Gets Migrated
 
@@ -125,7 +125,7 @@ If installation hangs or fails with lock errors:
 ### Kit Not Found During Uninstall
 
 `Kit "marketing" is not installed`
-- Use `ck versions` to see installed kits
+- Use `hi versions` to see installed kits
 - Check both local and global installations
 
 ## Technical Details

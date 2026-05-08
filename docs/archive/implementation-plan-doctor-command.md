@@ -1,4 +1,4 @@
-# Implementation Plan: `ck doctor` Command Enhancement
+# Implementation Plan: `hi doctor` Command Enhancement
 
 **Version**: 1.0
 **Date**: 2025-11-16
@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-The `ck doctor` command is **largely complete** and functional. Current implementation successfully checks system dependencies (claude, python, pip, nodejs, npm), detects OS/package managers, offers interactive installation, shows manual instructions, displays HiLab setup overview, and supports non-interactive mode for CI/CD.
+The `hi doctor` command is **largely complete** and functional. Current implementation successfully checks system dependencies (claude, python, pip, nodejs, npm), detects OS/package managers, offers interactive installation, shows manual instructions, displays HiLab setup overview, and supports non-interactive mode for CI/CD.
 
 **Key Finding**: Installation URLs verified against official docs (code.claude.com). Core functionality working as designed. Recommended action: **Minor improvements** rather than major refactoring.
 
@@ -309,7 +309,7 @@ The `ck doctor` command is **largely complete** and functional. Current implemen
 
 **Contents**:
 ```markdown
-# Troubleshooting `ck doctor`
+# Troubleshooting `hi doctor`
 
 ## Common Issues
 
@@ -932,7 +932,7 @@ A: Restart terminal or manually add to PATH in shell config (.bashrc, .zshrc, pr
    ```
 
    **Common Issues:**
-   - **Dependencies missing**: Run `ck doctor` for installation help
+   - **Dependencies missing**: Run `hi doctor` for installation help
    - **"Access denied"**: Accept GitHub repo invitation, verify `repo` scope
    - **"Authentication failed"**: Check token format (ghp_*), verify env var
    - **Token not persisting (Windows)**: Use `SetEnvironmentVariable` or `gh auth login`
@@ -944,11 +944,11 @@ A: Restart terminal or manually add to PATH in shell config (.bashrc, .zshrc, pr
    ```markdown
    ### Commands
 
-   - `ck new`: Bootstrap new project
-   - `ck init/update`: Update existing project
-   - `ck versions`: List available releases
-   - `ck diagnose`: Check auth and GitHub access
-   - `ck doctor`: Check system dependencies and HiLab setup
+   - `hi new`: Bootstrap new project
+   - `hi init/update`: Update existing project
+   - `hi versions`: List available releases
+   - `hi diagnose`: Check auth and GitHub access
+   - `hi doctor`: Check system dependencies and HiLab setup
    ```
 
 **Testing**:
@@ -1054,7 +1054,7 @@ A: Restart terminal or manually add to PATH in shell config (.bashrc, .zshrc, pr
 
 2. **Should doctor run on every ck command as health check?** Might be intrusive but catches issues early.
 
-3. **Should we add a --fix flag to auto-install without prompting?** E.g., `ck doctor --fix`
+3. **Should we add a --fix flag to auto-install without prompting?** E.g., `hi doctor --fix`
 
 4. **Windows admin prompt**: Should we detect if running as admin and warn if not?
 
@@ -1133,7 +1133,7 @@ A: Restart terminal or manually add to PATH in shell config (.bashrc, .zshrc, pr
 
 ## Summary
 
-**Current Status**: `ck doctor` is **largely complete and functional**.
+**Current Status**: `hi doctor` is **largely complete and functional**.
 
 **Recommended Actions**:
 1. **Implement Windows package manager support** (1-2 hours, high value)
@@ -1143,6 +1143,6 @@ A: Restart terminal or manually add to PATH in shell config (.bashrc, .zshrc, pr
 
 **Total Estimated Effort**: 4-6 hours
 
-**Expected Outcome**: Robust, production-ready `ck doctor` command with excellent Windows support, clear error messages, and comprehensive documentation.
+**Expected Outcome**: Robust, production-ready `hi doctor` command with excellent Windows support, clear error messages, and comprehensive documentation.
 
 **Next Steps**: Review plan, prioritize tasks, begin implementation in Phase 1 order.

@@ -77,7 +77,7 @@ HiLab CLI provides a comprehensive solution with:
 
 ## Core Features
 
-### 1. Project Initialization (`ck new`)
+### 1. Project Initialization (`hi new`)
 
 **3-Phase Orchestrator:**
 - Directory setup (validation, conflict detection)
@@ -107,7 +107,7 @@ HiLab CLI provides a comprehensive solution with:
 - Progress bars display correctly
 - Next steps are shown after successful creation
 
-### 2. Project Updates (`ck init`)
+### 2. Project Updates (`hi init`)
 
 **8-Phase Orchestrator:**
 1. Options resolution (validate & normalize)
@@ -146,7 +146,7 @@ HiLab CLI provides a comprehensive solution with:
 - Skills migration preserves all customizations
 - Manifest generated after successful migration
 
-### 3. Version Management (`ck versions`)
+### 3. Version Management (`hi versions`)
 
 #### Functional Requirements
 - List all available releases for kits
@@ -274,7 +274,7 @@ HiLab CLI provides a comprehensive solution with:
 - New manifest written after successful migration
 - Non-interactive mode works in CI/CD environments
 
-### 8. Interactive Setup Wizard (`ck init` post-install)
+### 8. Interactive Setup Wizard (`hi init` post-install)
 
 #### Functional Requirements
 - Prompt for essential config values after initialization
@@ -298,7 +298,7 @@ HiLab CLI provides a comprehensive solution with:
 - Local mode shows inherited global values
 - `--skip-setup` flag works correctly
 
-### 9. Social Content Daemon (`ck content`)
+### 9. Social Content Daemon (`hi content`)
 
 #### Functional Requirements
 - Start/stop/monitor content generation daemon
@@ -331,12 +331,12 @@ HiLab CLI provides a comprehensive solution with:
 - All state persisted in `.hi.json` under content key
 - Daemon lock file prevents multiple instances
 
-### 10. Onboarding & Kit Selection (`ck setup`)
+### 10. Onboarding & Kit Selection (`hi setup`)
 
-**New `ck setup` command for user education & guided installation**
+**New `hi setup` command for user education & guided installation**
 
 #### Functional Requirements
-- `ck setup` command launches interactive onboarding flow
+- `hi setup` command launches interactive onboarding flow
 - Kit comparison: Side-by-side feature matrix (Engineer vs Marketing)
 - Kit features preview: Visual feature cards and descriptions
 - Guided install wizard: Step-by-step kit selection → installation
@@ -344,21 +344,21 @@ HiLab CLI provides a comprehensive solution with:
 - Success screen: Congratulations + clear next steps + quick actions
 
 #### Acceptance Criteria
-- `ck setup` launches onboarding flow
+- `hi setup` launches onboarding flow
 - Kit comparison displays side-by-side
 - Install wizard guides user to selection
 - Success screen has next steps + quick actions
 - Works in both CLI and web dashboard
 
-### 10. HiLab API Command Group (`ck api`)
+### 10. HiLab API Command Group (`hi api`)
 
 **NEW command group for interacting with HiLab.cc backend services via API key authentication.**
 
 #### Functional Requirements
-- `ck api setup` — Configure API key authentication (secure storage)
-- `ck api status` — Validate API key + display rate limit info
-- `ck api services` — List available API services for proxy
-- `ck api proxy <service> <path>` — Generic proxy to any service endpoint
+- `hi api setup` — Configure API key authentication (secure storage)
+- `hi api status` — Validate API key + display rate limit info
+- `hi api services` — List available API services for proxy
+- `hi api proxy <service> <path>` — Generic proxy to any service endpoint
 - **VidCap service**: YouTube video processing (info, search, summary, caption, screenshot, comments, media)
 - **ReviewWeb service**: Website analysis (scrape, summarize, markdown, extract, links, screenshot, seo-traffic, seo-keywords, seo-backlinks)
 - All handlers proxy through `/api/proxy/{service}/{path}`
@@ -504,7 +504,7 @@ HiLab CLI provides a comprehensive solution with:
 
 ### Phase 4: Multi-Kit & Dashboard (Completed)
 - ✅ Marketing kit support (v1.0.0 released)
-- ✅ Web dashboard with React UI (`ck config ui`)
+- ✅ Web dashboard with React UI (`hi config ui`)
 - ✅ Projects registry (centralized project management)
 - ✅ Configuration management UI
 - ✅ Multi-kit metadata tracking
@@ -513,7 +513,7 @@ HiLab CLI provides a comprehensive solution with:
 - 📋 Template customization
 
 ### Phase 5: User Onboarding & Education (In Progress)
-- 🔄 `ck setup` command (interactive onboarding) - Planned
+- 🔄 `hi setup` command (interactive onboarding) - Planned
 - 🔄 Kit comparison data & features - Planned
 - 🔄 Dashboard `/onboarding` route - Planned
 - 🔄 Install wizard UI component - Planned
@@ -521,7 +521,7 @@ HiLab CLI provides a comprehensive solution with:
 - 🔄 Success screen with next steps - Planned
 
 ### Phase 6: Idempotent Migration & Reconciliation (Completed)
-- ✅ `ck migrate` command with 3-phase reconciliation pipeline
+- ✅ `hi migrate` command with 3-phase reconciliation pipeline
 - ✅ Registry v3.0 with SHA-256 checksums
 - ✅ Portable manifest for cross-version evolution
 - ✅ Interactive conflict resolution with diff preview
@@ -551,7 +551,7 @@ HiLab CLI provides a comprehensive solution with:
 - ✅ Droid hooks migration support
 - ✅ Explicit hooks capability per provider
 
-### Phase 10: GitHub Issues Auto-Responder (`ck watch`) (In Progress)
+### Phase 10: GitHub Issues Auto-Responder (`hi watch`) (In Progress)
 **NEW command for AI-powered GitHub Issues automation.**
 
 #### Functional Requirements
@@ -574,7 +574,7 @@ HiLab CLI provides a comprehensive solution with:
 - State persistence: Track activeIssues, processedIssues, conversationHistory in .hi.json
 
 #### Acceptance Criteria
-- `ck watch` starts daemon and polls issues
+- `hi watch` starts daemon and polls issues
 - Claude analysis invoked successfully for each new issue
 - Multi-turn conversations maintained across turns
 - State persisted to .hi.json after each operation

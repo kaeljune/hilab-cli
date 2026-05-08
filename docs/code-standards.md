@@ -285,7 +285,7 @@ All must pass. No exceptions.
 
 ## Checker/Fixer Parity for autoFixable health checks
 
-Every health checker with `autoFixable: true` MUST maintain parity between its detection and fix logic. Violations cause `ck doctor --fix` to report success while leaving stale entries intact (issue #767).
+Every health checker with `autoFixable: true` MUST maintain parity between its detection and fix logic. Violations cause `hi doctor --fix` to report success while leaving stale entries intact (issue #767).
 
 **Rules:**
 

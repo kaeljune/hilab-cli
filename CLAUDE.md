@@ -164,9 +164,9 @@ All paths must be covered by tests in `update-cli.test.ts`.
 
 ---
 
-## Idempotent Migration (`ck migrate`)
+## Idempotent Migration (`hi migrate`)
 
-The `ck migrate` command uses a **3-phase reconciliation pipeline** (RECONCILE → EXECUTE → REPORT) designed for safe repeated execution as CK evolves.
+The `hi migrate` command uses a **3-phase reconciliation pipeline** (RECONCILE → EXECUTE → REPORT) designed for safe repeated execution as CK evolves.
 
 **Key modules in `src/commands/portable/`:**
 - `reconciler.ts` — Pure function, zero I/O, 8-case decision matrix (install/update/skip/conflict/delete)
@@ -248,18 +248,17 @@ Detailed docs in `docs/`:
 Machine-readable CLI manifest: [`cli-manifest.json`](./cli-manifest.json)
 Human/LLM reference: [`docs/cli-reference.md`](./docs/cli-reference.md)
 
-Top-level commands (all support `ck <cmd> --help`):
-- `ck new` — bootstrap a new HiLab project
-- `ck init` — initialize/update a HiLab project
-- `ck update` — update the CLI itself
-- `ck doctor` — health check
-- `ck uninstall`, `ck backups`, `ck versions`, `ck setup`
-- `ck config`, `ck projects`, `ck skills`, `ck agents`, `ck commands`, `ck migrate`
-- `ck api`, `ck plan`, `ck content`, `ck watch`
+Top-level commands (all support `hi <cmd> --help`):
+- `hi new` — bootstrap a new HiLab project
+- `hi init` — initialize/update a HiLab project
+- `hi update` — update the CLI itself
+- `hi doctor` — health check
+- `hi uninstall`, `hi backups`, `hi versions`, `hi setup`
+- `hi config`, `hi projects`, `hi skills`, `hi agents`, `hi commands`, `hi migrate`, `hi plan`
 
-Two-level help also works: `ck <cmd> <subcommand> --help`.
+Two-level help also works: `hi <cmd> <subcommand> --help`.
 
 Pitfalls:
-- `ck init --force` does NOT do a fresh install — use `--fresh` for that.
-- `ck update --kit` is deprecated — use `ck init --kit` instead.
-- `ck migrate --dry-run` first to preview before writing.
+- `hi init --force` does NOT do a fresh install — use `--fresh` for that.
+- `hi update --kit` is deprecated — use `hi init --kit` instead.
+- `hi migrate --dry-run` first to preview before writing.

@@ -82,7 +82,7 @@ Detects installed kits, builds kit-specific commands, parallel version checks.
 
 ### migrate - Idempotent Reconciliation Pipeline
 
-`ck migrate` follows a 3-phase model designed for safe repeated execution:
+`hi migrate` follows a 3-phase model designed for safe repeated execution:
 
 1. **RECONCILE** — Pure function (`reconciler.ts`), zero I/O. Takes source items + registry + target states + manifest → produces `ReconcilePlan` with actions. 8-case decision matrix: install, update, skip, conflict, delete (+ rename/path-migration from manifest).
 2. **EXECUTE** — Applies plan actions. Interactive conflict resolution (`conflict-resolver.ts`) with diff preview. Updates Registry v3.0 with new checksums.
@@ -185,7 +185,7 @@ Custom renderer with theme support and NO_COLOR compliance. CommandHelp, OptionG
 Express server with Vite HMR on single port (3456-3460 auto-fallback). 6 pages, 45+ components, 16 API routes, WebSocket support.
 
 ### web-server/ + claude-data/ - Hook Diagnostics
-`/api/system/hook-diagnostics` exposes recent structured hook activity for the Config UI. `hook-log-reader.ts` resolves global installs (`~/.claude/hooks/.logs/hook-log.jsonl`) and project installs (`<project>/.claude/hooks/.logs/hook-log.jsonl`), supports registry-backed and discovered project ids, tolerates malformed JSONL lines, and returns summary counts for dashboard rendering. These routes default to local-only access, but `ck config --host ...` can expose the dashboard intentionally while keeping same-origin browser validation in place.
+`/api/system/hook-diagnostics` exposes recent structured hook activity for the Config UI. `hook-log-reader.ts` resolves global installs (`~/.claude/hooks/.logs/hook-log.jsonl`) and project installs (`<project>/.claude/hooks/.logs/hook-log.jsonl`), supports registry-backed and discovered project ids, tolerates malformed JSONL lines, and returns summary counts for dashboard rendering. These routes default to local-only access, but `hi config --host ...` can expose the dashboard intentionally while keeping same-origin browser validation in place.
 
 ### api-key/ - API Key Management (NEW)
 Secure storage and validation of API keys (Gemini, Discord, Telegram, OpenAI, etc.).
@@ -271,7 +271,7 @@ Tracks shared files, enables cross-kit file checking via `setMultiKitContext()`.
 ## Dashboard Architecture (NEW)
 
 ### Entry Point
-`ck config ui` launches an Express+Vite server on a single port (3456-3460 auto-fallback). Default bind host is `127.0.0.1`; `--host` enables intentional LAN/Tailscale/custom-host access.
+`hi config ui` launches an Express+Vite server on a single port (3456-3460 auto-fallback). Default bind host is `127.0.0.1`; `--host` enables intentional LAN/Tailscale/custom-host access.
 
 ### Frontend (React+Vite)
 - **6 Main Pages**: GlobalConfig, ProjectConfig, Migrate, Skills, Onboarding, ProjectDashboard
@@ -298,7 +298,7 @@ Live updates for long-running operations (downloads, migrations, installations).
 ## Recent Improvements
 
 - **#412 Idempotent migration**: Pure reconciler, Registry v3.0 with checksums, portable manifest, CLI + Dashboard conflict resolution
-- **Hook diagnostics dashboard**: Scope-aware hook log reader, `/api/system/hook-diagnostics`, and `ck config` panel for recent hook failures
+- **Hook diagnostics dashboard**: Scope-aware hook log reader, `/api/system/hook-diagnostics`, and `hi config` panel for recent hook failures
 - **#346 Stale lock fix**: Global exit handler, activeLocks registry, 1-min timeout
 - **#344 Installation detection**: Fallback for installs without metadata.json
 - **#343 Dev prerelease suppression**: Hide dev→stable updates

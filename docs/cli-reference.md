@@ -27,7 +27,7 @@ Complete reference for all `ck` commands, auto-generated from the help registry.
 
 Install, uninstall, and manage Claude Code agents across providers
 
-**Usage:** `ck agents [options]`
+**Usage:** `hi agents [options]`
 
 **Options:**
 
@@ -46,15 +46,15 @@ Install, uninstall, and manage Claude Code agents across providers
 
 **Examples:**
 
-- `ck agents --name maintainer --agent codex` — Install one agent to Codex
-- `ck agents --list --installed` — Show installed agents and locations
+- `hi agents --name maintainer --agent codex` — Install one agent to Codex
+- `hi agents --list --installed` — Show installed agents and locations
 
 
 ## ck api
 
 Interact with HiLab API and proxy services
 
-**Usage:** `ck api [action] [service] [path] [options]`
+**Usage:** `hi api [action] [service] [path] [options]`
 
 **Options:**
 
@@ -64,14 +64,14 @@ Interact with HiLab API and proxy services
 
 **Examples:**
 
-- `ck api status` — Validate your API key and check rate limit status
-- `ck api vidcap summary https://youtu.be/abc123` — Generate an AI summary of a YouTube video
+- `hi api status` — Validate your API key and check rate limit status
+- `hi api vidcap summary https://youtu.be/abc123` — Generate an AI summary of a YouTube video
 
 ### status
 
 Validate API key and check rate limit
 
-**Usage:** `ck api status [--json]`
+**Usage:** `hi api status [--json]`
 
 **Options:**
 
@@ -83,7 +83,7 @@ Validate API key and check rate limit
 
 List available proxy services
 
-**Usage:** `ck api services [--json]`
+**Usage:** `hi api services [--json]`
 
 **Options:**
 
@@ -95,7 +95,7 @@ List available proxy services
 
 Configure and store your HiLab API key
 
-**Usage:** `ck api setup [--key <key>] [--force] [--json]`
+**Usage:** `hi api setup [--key <key>] [--force] [--json]`
 
 **Options:**
 
@@ -109,7 +109,7 @@ Configure and store your HiLab API key
 
 Generic HTTP proxy to any HiLab-backed service
 
-**Usage:** `ck api proxy <service> <path> [options]`
+**Usage:** `hi api proxy <service> <path> [options]`
 
 **Options:**
 
@@ -124,7 +124,7 @@ Generic HTTP proxy to any HiLab-backed service
 
 Video metadata and AI processing via YouTube
 
-**Usage:** `ck api vidcap <action> <url|query>`
+**Usage:** `hi api vidcap <action> <url|query>`
 
 **Options:**
 
@@ -140,7 +140,7 @@ Video metadata and AI processing via YouTube
 
 Fetch video metadata (title, duration, channel)
 
-**Usage:** `ck api vidcap info <url>`
+**Usage:** `hi api vidcap info <url>`
 
 **Options:**
 
@@ -152,7 +152,7 @@ Fetch video metadata (title, duration, channel)
 
 Search YouTube for videos matching a query
 
-**Usage:** `ck api vidcap search <query>`
+**Usage:** `hi api vidcap search <query>`
 
 **Options:**
 
@@ -164,7 +164,7 @@ Search YouTube for videos matching a query
 
 Generate an AI summary of a video
 
-**Usage:** `ck api vidcap summary <url>`
+**Usage:** `hi api vidcap summary <url>`
 
 **Options:**
 
@@ -176,7 +176,7 @@ Generate an AI summary of a video
 
 Extract captions/transcript from a video
 
-**Usage:** `ck api vidcap caption <url>`
+**Usage:** `hi api vidcap caption <url>`
 
 **Options:**
 
@@ -188,7 +188,7 @@ Extract captions/transcript from a video
 
 Capture a frame from a video at a specific timestamp
 
-**Usage:** `ck api vidcap screenshot <url>`
+**Usage:** `hi api vidcap screenshot <url>`
 
 **Options:**
 
@@ -200,7 +200,7 @@ Capture a frame from a video at a specific timestamp
 
 Fetch comments for a video
 
-**Usage:** `ck api vidcap comments <url>`
+**Usage:** `hi api vidcap comments <url>`
 
 **Options:**
 
@@ -213,7 +213,7 @@ Fetch comments for a video
 
 Download media or extract media URLs from a video
 
-**Usage:** `ck api vidcap media <url>`
+**Usage:** `hi api vidcap media <url>`
 
 **Options:**
 
@@ -225,7 +225,7 @@ Download media or extract media URLs from a video
 
 Web scraping and SEO analysis via the HiLab proxy
 
-**Usage:** `ck api reviewweb <action> <url|domain|keyword>`
+**Usage:** `hi api reviewweb <action> <url|domain|keyword>`
 
 **Options:**
 
@@ -243,7 +243,7 @@ Web scraping and SEO analysis via the HiLab proxy
 
 Scrape raw HTML content from a URL
 
-**Usage:** `ck api reviewweb scrape <url>`
+**Usage:** `hi api reviewweb scrape <url>`
 
 **Options:**
 
@@ -255,7 +255,7 @@ Scrape raw HTML content from a URL
 
 AI-generated summary of a web page
 
-**Usage:** `ck api reviewweb summarize <url>`
+**Usage:** `hi api reviewweb summarize <url>`
 
 **Options:**
 
@@ -268,7 +268,7 @@ AI-generated summary of a web page
 
 Convert a web page to clean Markdown
 
-**Usage:** `ck api reviewweb markdown <url>`
+**Usage:** `hi api reviewweb markdown <url>`
 
 **Options:**
 
@@ -280,7 +280,7 @@ Convert a web page to clean Markdown
 
 Extract structured data from a web page
 
-**Usage:** `ck api reviewweb extract <url>`
+**Usage:** `hi api reviewweb extract <url>`
 
 **Options:**
 
@@ -293,7 +293,7 @@ Extract structured data from a web page
 
 Extract all links from a web page
 
-**Usage:** `ck api reviewweb links <url>`
+**Usage:** `hi api reviewweb links <url>`
 
 **Options:**
 
@@ -305,7 +305,7 @@ Extract all links from a web page
 
 Capture a screenshot of a web page
 
-**Usage:** `ck api reviewweb screenshot <url>`
+**Usage:** `hi api reviewweb screenshot <url>`
 
 **Options:**
 
@@ -317,7 +317,7 @@ Capture a screenshot of a web page
 
 Fetch estimated organic traffic data for a domain
 
-**Usage:** `ck api reviewweb seo-traffic <domain>`
+**Usage:** `hi api reviewweb seo-traffic <domain>`
 
 **Options:**
 
@@ -329,7 +329,7 @@ Fetch estimated organic traffic data for a domain
 
 Fetch top SEO keywords for a domain or keyword
 
-**Usage:** `ck api reviewweb seo-keywords <domain|keyword>`
+**Usage:** `hi api reviewweb seo-keywords <domain|keyword>`
 
 **Options:**
 
@@ -341,7 +341,7 @@ Fetch top SEO keywords for a domain or keyword
 
 Fetch backlink profile for a domain
 
-**Usage:** `ck api reviewweb seo-backlinks <domain>`
+**Usage:** `hi api reviewweb seo-backlinks <domain>`
 
 **Options:**
 
@@ -354,7 +354,7 @@ Fetch backlink profile for a domain
 
 List, restore, and prune HiLab recovery backups
 
-**Usage:** `ck backups <list|restore|prune> [options]`
+**Usage:** `hi backups <list|restore|prune> [options]`
 
 **Options:**
 
@@ -371,8 +371,8 @@ List, restore, and prune HiLab recovery backups
 
 **Examples:**
 
-- `ck backups list --limit 5` — Show the newest five recovery backups
-- `ck backups restore 2026-04-06T21-53-01-706-byrf --yes` — Restore a specific recovery backup without prompting
+- `hi backups list --limit 5` — Show the newest five recovery backups
+- `hi backups restore 2026-04-06T21-53-01-706-byrf --yes` — Restore a specific recovery backup without prompting
 
 **Backup Scope:**
 
@@ -386,26 +386,26 @@ HiLab keeps the newest recovery backups automatically and prunes older ones afte
 
 List recovery backups under ~/.hilab/backups/
 
-**Usage:** `ck backups list [--limit <n>] [--json]`
+**Usage:** `hi backups list [--limit <n>] [--json]`
 
 ### restore
 
 Restore a specific recovery backup to its original source root
 
-**Usage:** `ck backups restore <id> [--yes] [--json]`
+**Usage:** `hi backups restore <id> [--yes] [--json]`
 
 ### prune
 
 Delete one, many, or old recovery backups
 
-**Usage:** `ck backups prune [id] [--keep <n> | --all] [--yes] [--json]`
+**Usage:** `hi backups prune [id] [--keep <n> | --all] [--yes] [--json]`
 
 
 ## ck commands
 
 Install, uninstall, and manage Claude commands across providers
 
-**Usage:** `ck commands [options]`
+**Usage:** `hi commands [options]`
 
 **Options:**
 
@@ -424,15 +424,15 @@ Install, uninstall, and manage Claude commands across providers
 
 **Examples:**
 
-- `ck commands --name plan --agent codex` — Install one slash command to Codex
-- `ck commands --list` — List available commands from source
+- `hi commands --name plan --agent codex` — Install one slash command to Codex
+- `hi commands --list` — List available commands from source
 
 
 ## ck config
 
 Manage HiLab configuration and launch the config dashboard
 
-**Usage:** `ck config [action] [key] [value] [options]`
+**Usage:** `hi config [action] [key] [value] [options]`
 
 **Options:**
 
@@ -452,44 +452,44 @@ Manage HiLab configuration and launch the config dashboard
 
 **Examples:**
 
-- `ck config` — Launch the web dashboard (same as 'ck config ui')
-- `ck config --host 0.0.0.0 --no-open` — Expose the dashboard to your network intentionally
-- `ck config set defaults.kit engineer` — Set a config value from the CLI
+- `hi config` — Launch the web dashboard (same as 'hi config ui')
+- `hi config --host 0.0.0.0 --no-open` — Expose the dashboard to your network intentionally
+- `hi config set defaults.kit engineer` — Set a config value from the CLI
 
 **Notes:**
 
-Run 'ck config --help' to see both CLI actions and dashboard flags. Running bare 'ck config' opens the dashboard directly. Use '--host' to expose the dashboard intentionally beyond localhost.
+Run 'hi config --help' to see both CLI actions and dashboard flags. Running bare 'hi config' opens the dashboard directly. Use '--host' to expose the dashboard intentionally beyond localhost.
 
 ### ui
 
 Launch config dashboard (default action when omitted)
 
-**Usage:** `ck config ui [--port <port>] [--host <host>] [--no-open] [--dev]`
+**Usage:** `hi config ui [--port <port>] [--host <host>] [--no-open] [--dev]`
 
 ### get
 
 Read a config value
 
-**Usage:** `ck config get <key> [-g | -l] [--json]`
+**Usage:** `hi config get <key> [-g | -l] [--json]`
 
 ### set
 
 Write a config value
 
-**Usage:** `ck config set <key> <value> [-g | -l]`
+**Usage:** `hi config set <key> <value> [-g | -l]`
 
 ### show
 
 Print merged config
 
-**Usage:** `ck config show [-g | -l] [--json]`
+**Usage:** `hi config show [-g | -l] [--json]`
 
 
 ## ck content
 
 Multi-channel content automation engine
 
-**Usage:** `ck content [action] [id] [options]`
+**Usage:** `hi content [action] [id] [options]`
 
 **Options:**
 
@@ -511,68 +511,68 @@ Multi-channel content automation engine
 
 **Examples:**
 
-- `ck content start` — Start the content daemon (default action)
-- `ck content setup` — Interactive configuration wizard
-- `ck content queue` — List pending content items for review
+- `hi content start` — Start the content daemon (default action)
+- `hi content setup` — Interactive configuration wizard
+- `hi content queue` — List pending content items for review
 
 **Notes:**
 
-Requires content config in .hi.json. Run 'ck content setup' for guided configuration. Review mode can be 'auto' or 'manual' (default: manual).
+Requires content config in .hi.json. Run 'hi content setup' for guided configuration. Review mode can be 'auto' or 'manual' (default: manual).
 
 ### start
 
 Start the content daemon (default when no action specified)
 
-**Usage:** `ck content start`
+**Usage:** `hi content start`
 
 ### stop
 
 Stop the running content daemon
 
-**Usage:** `ck content stop`
+**Usage:** `hi content stop`
 
 ### status
 
 Show daemon status and recent activity
 
-**Usage:** `ck content status`
+**Usage:** `hi content status`
 
 ### logs
 
 View content daemon logs
 
-**Usage:** `ck content logs [--tail]`
+**Usage:** `hi content logs [--tail]`
 
 ### setup
 
 Interactive configuration wizard
 
-**Usage:** `ck content setup`
+**Usage:** `hi content setup`
 
 ### queue
 
 List pending content items
 
-**Usage:** `ck content queue`
+**Usage:** `hi content queue`
 
 ### approve
 
 Approve a content item for publishing
 
-**Usage:** `ck content approve <id>`
+**Usage:** `hi content approve <id>`
 
 ### reject
 
 Reject a content item
 
-**Usage:** `ck content reject <id> [--reason <reason>]`
+**Usage:** `hi content reject <id> [--reason <reason>]`
 
 
 ## ck doctor
 
 Comprehensive health check for HiLab
 
-**Usage:** `ck doctor [options]`
+**Usage:** `hi doctor [options]`
 
 **Options:**
 
@@ -586,16 +586,16 @@ Comprehensive health check for HiLab
 
 **Examples:**
 
-- `ck doctor` — Run full health check interactively
-- `ck doctor --fix` — Auto-fix all fixable issues
-- `ck doctor --check-only` — CI mode: exit 1 on failures, no prompts
+- `hi doctor` — Run full health check interactively
+- `hi doctor --fix` — Auto-fix all fixable issues
+- `hi doctor --check-only` — CI mode: exit 1 on failures, no prompts
 
 
 ## ck init
 
 Initialize or update HiLab project (with interactive version selection)
 
-**Usage:** `ck init [options]`
+**Usage:** `hi init [options]`
 
 **Options:**
 
@@ -628,15 +628,15 @@ Initialize or update HiLab project (with interactive version selection)
 
 **Examples:**
 
-- `ck init --kit engineer` — Update local project with latest engineer kit
-- `ck init --use-git --release v2.1.0 -y` — Non-interactive with git clone (no GitHub API needed)
+- `hi init --kit engineer` — Update local project with latest engineer kit
+- `hi init --use-git --release v2.1.0 -y` — Non-interactive with git clone (no GitHub API needed)
 
 
 ## ck migrate
 
 Migrate Claude Code agents, commands, skills, config, rules, and hooks to other providers
 
-**Usage:** `ck migrate [options]`
+**Usage:** `hi migrate [options]`
 
 **Options:**
 
@@ -668,9 +668,9 @@ Migrate Claude Code agents, commands, skills, config, rules, and hooks to other 
 
 **Examples:**
 
-- `ck migrate --install` — Pick items to install interactively (install picker mode)
-- `ck migrate --agent codex --dry-run` — Preview the destination-aware reconcile plan before writing files
-- `ck migrate --respect-deletions` — Preserve empty directories — do not auto-reinstall deleted items
+- `hi migrate --install` — Pick items to install interactively (install picker mode)
+- `hi migrate --agent codex --dry-run` — Preview the destination-aware reconcile plan before writing files
+- `hi migrate --respect-deletions` — Preserve empty directories — do not auto-reinstall deleted items
 
 **Gotchas:**
 
@@ -685,7 +685,7 @@ Migrate Claude Code agents, commands, skills, config, rules, and hooks to other 
 
 Bootstrap a new HiLab project (with interactive version selection)
 
-**Usage:** `ck new [options]`
+**Usage:** `hi new [options]`
 
 **Options:**
 
@@ -712,15 +712,15 @@ Bootstrap a new HiLab project (with interactive version selection)
 
 **Examples:**
 
-- `ck new --kit engineer --dir ./my-project` — Create engineer kit project in specific directory
-- `ck new -y --use-git --release v2.1.0` — Non-interactive with git clone (no GitHub API needed)
+- `hi new --kit engineer --dir ./my-project` — Create engineer kit project in specific directory
+- `hi new -y --use-git --release v2.1.0` — Non-interactive with git clone (no GitHub API needed)
 
 
 ## ck plan
 
 Plan management: parse, validate, status, kanban, create, check, uncheck, add-phase
 
-**Usage:** `ck plan [action] [target] [options]`
+**Usage:** `hi plan [action] [target] [options]`
 
 **Options:**
 
@@ -732,14 +732,14 @@ Plan management: parse, validate, status, kanban, create, check, uncheck, add-ph
 
 **Examples:**
 
-- `ck plan status` — Show progress summary for all plans in the current project
-- `ck plan create --title 'Auth feature' --phases setup,api,ui` — Scaffold a new plan directory with three phases
+- `hi plan status` — Show progress summary for all plans in the current project
+- `hi plan create --title 'Auth feature' --phases setup,api,ui` — Scaffold a new plan directory with three phases
 
 ### parse
 
 Parse a plan.md and output an ASCII table or JSON of all phases
 
-**Usage:** `ck plan parse [target] [--json]`
+**Usage:** `hi plan parse [target] [--json]`
 
 **Options:**
 
@@ -751,7 +751,7 @@ Parse a plan.md and output an ASCII table or JSON of all phases
 
 Validate plan.md syntax and structure
 
-**Usage:** `ck plan validate [target] [--strict] [--json]`
+**Usage:** `hi plan validate [target] [--strict] [--json]`
 
 **Options:**
 
@@ -764,7 +764,7 @@ Validate plan.md syntax and structure
 
 Show progress for plans in scope
 
-**Usage:** `ck plan status [--json] [-g]`
+**Usage:** `hi plan status [--json] [-g]`
 
 **Options:**
 
@@ -777,7 +777,7 @@ Show progress for plans in scope
 
 Launch interactive Kanban dashboard in the browser
 
-**Usage:** `ck plan kanban [--port <port>] [--no-open] [--dev]`
+**Usage:** `hi plan kanban [--port <port>] [--no-open] [--dev]`
 
 **Options:**
 
@@ -791,7 +791,7 @@ Launch interactive Kanban dashboard in the browser
 
 Scaffold a new plan directory with phase files
 
-**Usage:** `ck plan create [--title <title>] [--phases <phases>] [options]`
+**Usage:** `hi plan create [--title <title>] [--phases <phases>] [options]`
 
 **Options:**
 
@@ -810,7 +810,7 @@ Scaffold a new plan directory with phase files
 
 Mark a phase as completed (or in-progress with --start)
 
-**Usage:** `ck plan check <id> [--start]`
+**Usage:** `hi plan check <id> [--start]`
 
 **Options:**
 
@@ -822,13 +822,13 @@ Mark a phase as completed (or in-progress with --start)
 
 Reset a phase back to pending status
 
-**Usage:** `ck plan uncheck <id>`
+**Usage:** `hi plan uncheck <id>`
 
 ### add-phase
 
 Append a new phase to an existing plan
 
-**Usage:** `ck plan add-phase [target] [--after <id>]`
+**Usage:** `hi plan add-phase [target] [--after <id>]`
 
 **Options:**
 
@@ -841,7 +841,7 @@ Append a new phase to an existing plan
 
 Manage local HiLab project registry entries
 
-**Usage:** `ck projects <subcommand> [options]`
+**Usage:** `hi projects <subcommand> [options]`
 
 **Options:**
 
@@ -859,33 +859,33 @@ Manage local HiLab project registry entries
 
 **Examples:**
 
-- `ck projects list --pinned` — Show only pinned projects
-- `ck projects add . --alias engine --pinned` — Add current directory with an alias and pin it
+- `hi projects list --pinned` — Show only pinned projects
+- `hi projects add . --alias engine --pinned` — Add current directory with an alias and pin it
 
 ### list
 
 List projects in registry
 
-**Usage:** `ck projects list [--json] [--pinned]`
+**Usage:** `hi projects list [--json] [--pinned]`
 
 ### add
 
 Add project path to registry
 
-**Usage:** `ck projects add <path> [--alias <alias>] [--pinned] [--tags <tags>]`
+**Usage:** `hi projects add <path> [--alias <alias>] [--pinned] [--tags <tags>]`
 
 ### remove
 
 Remove project by alias or ID
 
-**Usage:** `ck projects remove [alias] [--id <id>]`
+**Usage:** `hi projects remove [alias] [--id <id>]`
 
 
 ## ck setup
 
 Run guided setup for provider API keys, preferred image provider, and optional packages
 
-**Usage:** `ck setup [options]`
+**Usage:** `hi setup [options]`
 
 **Options:**
 
@@ -897,16 +897,16 @@ Run guided setup for provider API keys, preferred image provider, and optional p
 
 **Examples:**
 
-- `ck setup` — Run setup wizard in current project
-- `ck setup --global` — Configure global provider keys and a preferred image-generation path
-- `ck setup --global --skip-packages` — Configure global setup without package installation
+- `hi setup` — Run setup wizard in current project
+- `hi setup --global` — Configure global provider keys and a preferred image-generation path
+- `hi setup --global --skip-packages` — Configure global setup without package installation
 
 
 ## ck skills
 
 Install, uninstall, and manage HiLab skills across coding agents
 
-**Usage:** `ck skills [options]`
+**Usage:** `hi skills [options]`
 
 **Options:**
 
@@ -931,8 +931,8 @@ Install, uninstall, and manage HiLab skills across coding agents
 
 **Examples:**
 
-- `ck skills --name frontend-design --agent claude-code -g` — Install skill to Claude Code globally
-- `ck skills --list --installed` — Show all installed skills with their locations
+- `hi skills --name frontend-design --agent claude-code -g` — Install skill to Claude Code globally
+- `hi skills --list --installed` — Show all installed skills with their locations
 
 **Supported Agents:**
 
@@ -963,7 +963,7 @@ Install, uninstall, and manage HiLab skills across coding agents
 
 Remove HiLab installations (ownership-aware)
 
-**Usage:** `ck uninstall [options]`
+**Usage:** `hi uninstall [options]`
 
 **Options:**
 
@@ -979,8 +979,8 @@ Remove HiLab installations (ownership-aware)
 
 **Examples:**
 
-- `ck uninstall --local --yes` — Remove local installation without confirmation
-- `ck uninstall --dry-run` — Preview what would be removed without deleting
+- `hi uninstall --local --yes` — Remove local installation without confirmation
+- `hi uninstall --dry-run` — Preview what would be removed without deleting
 
 **Ownership-Aware Uninstall:**
 
@@ -991,7 +991,7 @@ Uninstall preserves user customizations by default. Only CK-installed files that
 
 Update HiLab CLI tool only (not kit content)
 
-**Usage:** `ck update [options]`
+**Usage:** `hi update [options]`
 
 **Options:**
 
@@ -1003,24 +1003,24 @@ Update HiLab CLI tool only (not kit content)
 | `-d, --dev` | Update to the latest dev version | — |
 | `--registry <url>` | Custom npm registry URL | — |
 | `--beta` | (deprecated) Alias for --dev; use -d, --dev instead | — |
-| `--kit <kit>` | This option is no longer supported with 'ck update' | — |
-| `-g, --global` | This option is no longer supported with 'ck update' | — |
+| `--kit <kit>` | This option is no longer supported with 'hi update' | — |
+| `-g, --global` | This option is no longer supported with 'hi update' | — |
 
 **Examples:**
 
-- `ck update --check` — Check for CLI updates without installing
-- `ck update --dev --yes` — Update to latest dev version without confirmation
+- `hi update --check` — Check for CLI updates without installing
+- `hi update --dev --yes` — Update to latest dev version without confirmation
 
 **Note:**
 
-'ck update' updates the CLI tool only and defaults to the latest stable release. Use '--beta' to opt into prerelease CLI builds. To update kit content (skills, commands, rules), use 'ck init' for local or 'ck init -g' for global. Use --yes to skip all prompts (both CLI and kit content update) for non-interactive/CI usage.
+'hi update' updates the CLI tool only and defaults to the latest stable release. Use '--beta' to opt into prerelease CLI builds. To update kit content (skills, commands, rules), use 'hi init' for local or 'hi init -g' for global. Use --yes to skip all prompts (both CLI and kit content update) for non-interactive/CI usage.
 
 
 ## ck versions
 
 List available versions of HiLab repositories
 
-**Usage:** `ck versions [options]`
+**Usage:** `hi versions [options]`
 
 **Options:**
 
@@ -1032,15 +1032,15 @@ List available versions of HiLab repositories
 
 **Examples:**
 
-- `ck versions --kit engineer --limit 10` — Show latest 10 versions of engineer kit
-- `ck versions --all` — Show all releases including prereleases
+- `hi versions --kit engineer --limit 10` — Show latest 10 versions of engineer kit
+- `hi versions --all` — Show all releases including prereleases
 
 
 ## ck watch
 
 Watch GitHub issues and auto-respond with AI analysis
 
-**Usage:** `ck watch [options]`
+**Usage:** `hi watch [options]`
 
 **Options:**
 
@@ -1053,8 +1053,8 @@ Watch GitHub issues and auto-respond with AI analysis
 
 **Examples:**
 
-- `ck watch --dry-run` — Preview issue detection without posting responses
-- `ck watch --interval 60000` — Poll every 60 seconds instead of default 30s
+- `hi watch --dry-run` — Preview issue detection without posting responses
+- `hi watch --interval 60000` — Poll every 60 seconds instead of default 30s
 
 
 <!-- generated: 2026-05-05T16:48:45.217Z -->

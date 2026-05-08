@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-The `ck doctor` command is a comprehensive system dependency checker and installer for HiLab CLI. Feature is fully implemented, thoroughly tested, and production-ready. All acceptance criteria met. Cross-platform support verified (Windows, macOS, Linux, WSL).
+The `hi doctor` command is a comprehensive system dependency checker and installer for HiLab CLI. Feature is fully implemented, thoroughly tested, and production-ready. All acceptance criteria met. Cross-platform support verified (Windows, macOS, Linux, WSL).
 
 **Key Achievement**: Delivered robust, secure, user-friendly diagnostic tool with extensive test coverage (50 passing tests, 324 assertions) and clear upgrade path for users with missing dependencies.
 
@@ -391,9 +391,9 @@ Skills: 12
 5. ✅ Error handling
 
 ### Compatible With
-1. ✅ `ck new` - users get doctor recommendation
-2. ✅ `ck init` - users get doctor recommendation
-3. ✅ `ck diagnose` - complementary diagnostics
+1. ✅ `hi new` - users get doctor recommendation
+2. ✅ `hi init` - users get doctor recommendation
+3. ✅ `hi diagnose` - complementary diagnostics
 4. ✅ CI/CD workflows - non-interactive mode
 
 ---
@@ -416,7 +416,7 @@ Skills: 12
 
 ## Conclusion
 
-The `ck doctor` command is **fully implemented, thoroughly tested, and production-ready**. Feature delivery is complete with excellent code quality, comprehensive documentation, and robust cross-platform support.
+The `hi doctor` command is **fully implemented, thoroughly tested, and production-ready**. Feature delivery is complete with excellent code quality, comprehensive documentation, and robust cross-platform support.
 
 **Recommendation**: Merge to main branch and include in next release. Feature ready for production deployment.
 

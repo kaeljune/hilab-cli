@@ -8,20 +8,20 @@
 import { defaultTheme, getVisibleLength } from "./help-colors.js";
 
 /**
- * 6-line ASCII art banner for CK (HiLab CLI)
- * Width: 19 characters per line
+ * 6-line ASCII art banner for HI (HiLab CLI)
+ * Width: 16 characters per line
  */
 export const BANNER_LINES = [
-	" ██████╗██╗  ██╗",
-	"██╔════╝██║ ██╔╝",
-	"██║     █████╔╝ ",
-	"██║     ██╔═██╗ ",
-	"╚██████╗██║  ██╗",
-	" ╚═════╝╚═╝  ╚═╝",
+	"██╗  ██╗██╗",
+	"██║  ██║██║",
+	"███████║██║",
+	"██╔══██║██║",
+	"██║  ██║██║",
+	"╚═╝  ╚═╝╚═╝",
 ] as const;
 
 /** Banner width in characters */
-export const BANNER_WIDTH = 16;
+export const BANNER_WIDTH = 11;
 
 /**
  * Get colored banner as multiline string

@@ -6,7 +6,7 @@
 
 ## Summary
 
-Updated project documentation to reflect the fully implemented and production-ready `ck doctor` command capabilities.
+Updated project documentation to reflect the fully implemented and production-ready `hi doctor` command capabilities.
 
 ## Files Updated
 
@@ -18,7 +18,7 @@ Updated project documentation to reflect the fully implemented and production-re
 - Complete list of checked dependencies with version requirements
 - Auto-installation support details by platform
 - Security notes about user confirmation and manual fallback
-- Reorganized troubleshooting section to prioritize `ck doctor`
+- Reorganized troubleshooting section to prioritize `hi doctor`
 
 **Key Additions**:
 ```bash
@@ -77,7 +77,7 @@ NON_INTERACTIVE=1 ck doctor
 - Comprehensive command reference in Appendix A (lines 484-503)
 - Features list including all capabilities
 - Usage examples for interactive and non-interactive modes
-- Updated `ck init` command reference (replaced `ck update`)
+- Updated `hi init` command reference (replaced `hi update`)
 
 ## Key Information Documented
 

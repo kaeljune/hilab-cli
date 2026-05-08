@@ -4,7 +4,7 @@
 
 Users experienced a version discrepancy where:
 - `npm show hilab-cli version` showed `1.9.2`
-- But `ck --version` showed `1.9.1`
+- But `hi --version` showed `1.9.1`
 
 ## Root Cause
 

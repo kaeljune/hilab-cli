@@ -53,7 +53,7 @@ flowchart TD
 
 ---
 
-## 2. `ck new` Command Flow
+## 2. `hi new` Command Flow
 
 ```mermaid
 flowchart TD
@@ -90,7 +90,7 @@ flowchart TD
     Y --> Z["Exit 0"]
 ```
 
-### `ck new` Phases
+### `hi new` Phases
 
 **Phase 1: Directory Setup** (`handleDirectorySetup`)
 - Validate/create target directory
@@ -112,7 +112,7 @@ flowchart TD
 
 ---
 
-## 3. `ck init` Command Flow
+## 3. `hi init` Command Flow
 
 ```mermaid
 flowchart TD
@@ -146,7 +146,7 @@ flowchart TD
     X --> Y["Exit 0"]
 ```
 
-### `ck init` Features
+### `hi init` Features
 
 - Handles merge conflicts interactively via `--sync`
 - Ownership protection prevents overwriting user files
@@ -157,7 +157,7 @@ flowchart TD
 
 ---
 
-## 4. `ck doctor` Command Flow
+## 4. `hi doctor` Command Flow
 
 ```mermaid
 flowchart TD
@@ -193,7 +193,7 @@ flowchart TD
     Q -->|Done| O
 ```
 
-### `ck doctor` Checkers
+### `hi doctor` Checkers
 
 **Installation Checks**
 - Global/project install detection
@@ -458,13 +458,13 @@ async calculateChecksum(filePath: string): Promise<string> {
 }
 ```
 
-**Important for Global Installs:** When generating the release manifest (`bun scripts/generate-release-manifest.ts`), checksums are calculated AFTER applying path transformation. This ensures manifest checksums match files after `ck init -g` transforms `.claude/` paths to `$HOME/.claude/`.
+**Important for Global Installs:** When generating the release manifest (`bun scripts/generate-release-manifest.ts`), checksums are calculated AFTER applying path transformation. This ensures manifest checksums match files after `hi init -g` transforms `.claude/` paths to `$HOME/.claude/`.
 
 ### Migration Execution
 
 ```mermaid
 flowchart TD
-    A["ck new/init"] --> B["Load Release Manifest"]
+    A["hi new/init"] --> B["Load Release Manifest"]
     B --> C["Run Legacy Detection"]
     C --> D{"Legacy<br/>Install?"}
     D -->|No| E["Skip Migration"]
