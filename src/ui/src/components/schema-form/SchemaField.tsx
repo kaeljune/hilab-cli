@@ -1,0 +1,157 @@
+/**
+ * SchemaField - Wrapper that renders appropriate field renderer based on schema type
+ */
+import type React from "react";
+import {
+	ArrayField,
+	BooleanField,
+	EnumField,
+	NumberField,
+	PasswordField,
+	StringArrayUnionField,
+	StringField,
+} from "./FieldRenderers";
+import { type ConfigSource, SourceBadge } from "./SourceBadge";
+
+export interface SchemaFieldProps {
+	fieldPath: string;
+	label: string;
+	description?: string;
+	schema: {
+		type?: string | string[];
+		enum?: unknown[];
+		const?: unknown;
+		items?: { type?: string };
+		oneOf?: Array<{
+			type?: string | string[];
+			enum?: unknown[];
+			const?: unknown;
+			items?: { type?: string };
+		}>;
+		minimum?: number;
+		maximum?: number;
+		default?: unknown;
+		description?: string;
+	};
+	value: unknown;
+	source: ConfigSource;
+	onChange: (value: unknown) => void;
+	onFocus?: () => void;
+	disabled?: boolean;
+	enumLabels?: Record<string, string>;
+	editable?: boolean;
+}
+
+/** Determine which field renderer to use based on schema */
+function getFieldType(schema: SchemaFieldProps["schema"], fieldPath: string): string {
+	// Special handling for password fields
+	if (fieldPath.includes("passphrase") || fieldPath.includes("password")) {
+		return "password";
+	}
+
+	// Support union fields like "auto" | string[]
+	if (
+		Array.isArray(schema.oneOf) &&
+		schema.oneOf.some((option) => option.const === "auto") &&
+		schema.oneOf.some((option) => option.type === "array" && option.items?.type === "string")
+	) {
+		return "string-array-union";
+	}
+
+	// Handle enum first (before type check)
+	if (schema.enum && schema.enum.length > 0) {
+		return "enum";
+	}
+
+	// Handle type (can be string or array)
+	const type = Array.isArray(schema.type)
+		? schema.type.find((t) => t !== "null") || "string"
+		: schema.type || "string";
+
+	switch (type) {
+		case "boolean":
+			return "boolean";
+		case "integer":
+		case "number":
+			return "number";
+		case "array":
+			return "array";
+		case "object":
+			return "object";
+		default:
+			return "string";
+	}
+}
+
+export const SchemaField: React.FC<SchemaFieldProps> = ({
+	fieldPath,
+	label,
+	description,
+	schema,
+	value,
+	source,
+	onChange,
+	onFocus,
+	disabled,
+	enumLabels,
+	editable,
+}) => {
+	const fieldType = getFieldType(schema, fieldPath);
+
+	// Render appropriate field component
+	const renderField = () => {
+		const props = { value, onChange, onFocus, schema, disabled };
+
+		switch (fieldType) {
+			case "boolean":
+				return <BooleanField {...props} />;
+			case "number":
+				return <NumberField {...props} />;
+			case "enum":
+				return <EnumField {...props} enumLabels={enumLabels} editable={editable} />;
+			case "string-array-union":
+				return <StringArrayUnionField {...props} />;
+			case "array":
+				return <ArrayField {...props} />;
+			case "password":
+				return <PasswordField {...props} />;
+			case "object":
+				// Objects are handled by SchemaSection recursively
+				return null;
+			default:
+				return <StringField {...props} />;
+		}
+	};
+
+	// Don't render object types here (they're sections)
+	if (fieldType === "object") {
+		return null;
+	}
+
+	return (
+		<div className="py-3 border-b border-dash-border/50 last:border-b-0">
+			<div className="flex items-start justify-between gap-4">
+				<div className="flex-1 min-w-0">
+					{/* Label row */}
+					<div className="flex items-center gap-2 mb-1">
+						<span className="text-sm font-medium text-dash-text">{label}</span>
+						<SourceBadge source={source} />
+					</div>
+
+					{/* Description */}
+					{description && (
+						<p className="text-xs text-dash-text-muted mb-2 leading-relaxed">{description}</p>
+					)}
+
+					{/* Field path (for debugging/power users) */}
+					<p className="text-[10px] text-dash-text-muted/50 font-mono mb-2">{fieldPath}</p>
+				</div>
+
+				{/* Field input - right aligned for booleans, full width for others */}
+				<div className={fieldType === "boolean" ? "shrink-0" : "w-1/2 max-w-xs"}>
+					{renderField()}
+				</div>
+			</div>
+		</div>
+	);
+};

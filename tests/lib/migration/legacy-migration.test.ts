@@ -1,0 +1,332 @@
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { mkdir, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { LegacyMigration } from "@/domains/migration/legacy-migration.js";
+import { ManifestWriter } from "@/services/file-operations/manifest-writer.js";
+import { OwnershipChecker } from "@/services/file-operations/ownership-checker.js";
+
+describe("LegacyMigration", () => {
+	let tempDir: string;
+
+	beforeEach(async () => {
+		tempDir = join(tmpdir(), `ck-migration-test-${Date.now()}`);
+		await mkdir(tempDir, { recursive: true });
+	});
+
+	afterEach(async () => {
+		await rm(tempDir, { recursive: true, force: true });
+	});
+
+	describe("detectLegacy", () => {
+		test("detects no-metadata case", async () => {
+			const result = await LegacyMigration.detectLegacy(tempDir);
+
+			expect(result.isLegacy).toBe(true);
+			expect(result.reason).toBe("no-metadata");
+			expect(result.confidence).toBe("high");
+		});
+
+		test("detects old-format case (metadata without files[])", async () => {
+			// Create old format metadata
+			await writeFile(
+				join(tempDir, "metadata.json"),
+				JSON.stringify({ version: "1.0.0", installedFiles: ["commands/"] }),
+			);
+
+			const result = await LegacyMigration.detectLegacy(tempDir);
+
+			expect(result.isLegacy).toBe(true);
+			expect(result.reason).toBe("old-format");
+		});
+
+		test("detects current format (has files[])", async () => {
+			// Create current format metadata
+			await writeFile(
+				join(tempDir, "metadata.json"),
+				JSON.stringify({
+					version: "1.0.0",
+					files: [
+						{
+							path: "commands/plan.md",
+							checksum: "abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd",
+							ownership: "ck",
+							installedVersion: "1.0.0",
+						},
+					],
+				}),
+			);
+
+			const result = await LegacyMigration.detectLegacy(tempDir);
+
+			expect(result.isLegacy).toBe(false);
+			expect(result.reason).toBe("current");
+		});
+	});
+
+	describe("scanFiles", () => {
+		test("collects all files recursively", async () => {
+			// Create nested structure
+			await mkdir(join(tempDir, "commands"), { recursive: true });
+			await writeFile(join(tempDir, "test.txt"), "root file");
+			await writeFile(join(tempDir, "commands", "plan.md"), "plan content");
+
+			const files = await LegacyMigration.scanFiles(tempDir);
+
+			expect(files.length).toBe(2);
+			expect(files.some((f) => f.endsWith("test.txt"))).toBe(true);
+			expect(files.some((f) => f.endsWith("plan.md"))).toBe(true);
+		});
+
+		test("excludes metadata.json", async () => {
+			await writeFile(join(tempDir, "metadata.json"), "{}");
+			await writeFile(join(tempDir, "test.txt"), "content");
+
+			const files = await LegacyMigration.scanFiles(tempDir);
+
+			expect(files.length).toBe(1);
+			expect(files[0]).toContain("test.txt");
+		});
+
+		test("skips node_modules, .venv, and other excluded directories", async () => {
+			// Create directories that should be skipped
+			await mkdir(join(tempDir, "node_modules", "package"), { recursive: true });
+			await mkdir(join(tempDir, ".venv", "lib"), { recursive: true });
+			await mkdir(join(tempDir, "debug"), { recursive: true });
+			await mkdir(join(tempDir, "projects"), { recursive: true });
+
+			// Create files inside excluded dirs
+			await writeFile(join(tempDir, "node_modules", "package", "index.js"), "module");
+			await writeFile(join(tempDir, ".venv", "lib", "python.py"), "venv file");
+			await writeFile(join(tempDir, "debug", "log.txt"), "debug log");
+			await writeFile(join(tempDir, "projects", "data.json"), "project data");
+
+			// Create a legitimate file that should be included
+			await writeFile(join(tempDir, "legit-file.txt"), "real content");
+
+			const files = await LegacyMigration.scanFiles(tempDir);
+
+			expect(files.length).toBe(1);
+			expect(files[0]).toContain("legit-file.txt");
+			expect(files.some((f) => f.includes("node_modules"))).toBe(false);
+			expect(files.some((f) => f.includes(".venv"))).toBe(false);
+			expect(files.some((f) => f.includes("debug"))).toBe(false);
+			expect(files.some((f) => f.includes("projects"))).toBe(false);
+		});
+
+		test("skips nested runtime dependency directories inside skills", async () => {
+			await mkdir(join(tempDir, "skills", "mcp-management", "scripts", "node_modules", "ajv"), {
+				recursive: true,
+			});
+			await mkdir(join(tempDir, "skills", ".venv", "Lib", "site-packages", "pytz"), {
+				recursive: true,
+			});
+			await writeFile(join(tempDir, "skills", "custom-skill.md"), "# custom");
+			await writeFile(
+				join(tempDir, "skills", "mcp-management", "scripts", "install.ts"),
+				"console.log('install')",
+			);
+			await writeFile(
+				join(tempDir, "skills", "mcp-management", "scripts", "node_modules", "ajv", "index.js"),
+				"module.exports = {}",
+			);
+			await writeFile(
+				join(tempDir, "skills", ".venv", "Lib", "site-packages", "pytz", "__init__.py"),
+				"# pytz",
+			);
+
+			const files = await LegacyMigration.scanFiles(tempDir);
+			const normalizedFiles = files.map((file) => file.replace(/\\/g, "/"));
+
+			expect(files).toHaveLength(2);
+			expect(normalizedFiles.some((f) => f.endsWith("skills/custom-skill.md"))).toBe(true);
+			expect(
+				normalizedFiles.some((f) => f.endsWith("skills/mcp-management/scripts/install.ts")),
+			).toBe(true);
+			expect(files.some((f) => f.includes("node_modules"))).toBe(false);
+			expect(files.some((f) => f.includes(".venv"))).toBe(false);
+		});
+	});
+
+	describe("classifyFiles", () => {
+		test("classifies pristine CK file", async () => {
+			const testFile = join(tempDir, "test.txt");
+			await writeFile(testFile, "content");
+			const checksum = await OwnershipChecker.calculateChecksum(testFile);
+
+			const manifest = {
+				version: "1.0.0",
+				generatedAt: new Date().toISOString(),
+				files: [{ path: "test.txt", checksum, size: 7 }],
+			};
+
+			const preview = await LegacyMigration.classifyFiles(tempDir, manifest);
+
+			expect(preview.ckPristine).toContain("test.txt");
+			expect(preview.ckModified).toHaveLength(0);
+			expect(preview.userCreated).toHaveLength(0);
+		});
+
+		test("classifies modified CK file", async () => {
+			const testFile = join(tempDir, "test.txt");
+			await writeFile(testFile, "modified content");
+
+			const manifest = {
+				version: "1.0.0",
+				generatedAt: new Date().toISOString(),
+				files: [
+					{
+						path: "test.txt",
+						checksum: "different123different123different123different123different123diff",
+						size: 7,
+					},
+				],
+			};
+
+			const preview = await LegacyMigration.classifyFiles(tempDir, manifest);
+
+			expect(preview.ckModified).toContain("test.txt");
+			expect(preview.ckPristine).toHaveLength(0);
+		});
+
+		test("classifies user-created file", async () => {
+			const testFile = join(tempDir, "custom.txt");
+			await writeFile(testFile, "user content");
+
+			const manifest = {
+				version: "1.0.0",
+				generatedAt: new Date().toISOString(),
+				files: [],
+			};
+
+			const preview = await LegacyMigration.classifyFiles(tempDir, manifest);
+
+			expect(preview.userCreated).toContain("custom.txt");
+		});
+
+		test("ignores nested runtime dependency trees when classifying files", async () => {
+			await mkdir(join(tempDir, "skills", "mcp-management", "scripts", "node_modules", "ajv"), {
+				recursive: true,
+			});
+			await mkdir(join(tempDir, "skills", ".venv", "Lib", "site-packages", "pytz"), {
+				recursive: true,
+			});
+			await writeFile(join(tempDir, "skills", "custom-skill.md"), "# custom");
+			await writeFile(
+				join(tempDir, "skills", "mcp-management", "scripts", "install.ts"),
+				"console.log('install')",
+			);
+			await writeFile(
+				join(tempDir, "skills", "mcp-management", "scripts", "node_modules", "ajv", "index.js"),
+				"module.exports = {}",
+			);
+			await writeFile(
+				join(tempDir, "skills", ".venv", "Lib", "site-packages", "pytz", "__init__.py"),
+				"# pytz",
+			);
+
+			const manifest = {
+				version: "1.0.0",
+				generatedAt: new Date().toISOString(),
+				files: [],
+			};
+
+			const preview = await LegacyMigration.classifyFiles(tempDir, manifest);
+
+			expect(preview.totalFiles).toBe(2);
+			expect(preview.userCreated).toContain("skills/custom-skill.md");
+			expect(preview.userCreated).toContain("skills/mcp-management/scripts/install.ts");
+			expect(preview.userCreated.some((f) => f.includes("node_modules"))).toBe(false);
+			expect(preview.userCreated.some((f) => f.includes(".venv"))).toBe(false);
+		});
+	});
+
+	describe("migrate", () => {
+		test("creates metadata with tracked files", async () => {
+			const testFile = join(tempDir, "test.txt");
+			await writeFile(testFile, "content");
+			const checksum = await OwnershipChecker.calculateChecksum(testFile);
+
+			const manifest = {
+				version: "1.0.0",
+				generatedAt: new Date().toISOString(),
+				files: [{ path: "test.txt", checksum, size: 7 }],
+			};
+
+			await LegacyMigration.migrate(tempDir, manifest, "test-kit", "1.0.0", false);
+
+			const metadata = await ManifestWriter.readManifest(tempDir);
+			expect(metadata).not.toBeNull();
+			expect(metadata?.files).toHaveLength(1);
+			expect(metadata?.files?.[0].ownership).toBe("ck");
+		});
+
+		test("preserves user files during migration", async () => {
+			// Create CK file and user file
+			const ckFile = join(tempDir, "ck-file.txt");
+			const userFile = join(tempDir, "user-file.txt");
+			await writeFile(ckFile, "ck content");
+			await writeFile(userFile, "user content");
+
+			const ckChecksum = await OwnershipChecker.calculateChecksum(ckFile);
+
+			const manifest = {
+				version: "1.0.0",
+				generatedAt: new Date().toISOString(),
+				files: [{ path: "ck-file.txt", checksum: ckChecksum, size: 10 }],
+			};
+
+			await LegacyMigration.migrate(tempDir, manifest, "test-kit", "1.0.0", false);
+
+			const metadata = await ManifestWriter.readManifest(tempDir);
+			expect(metadata?.files).toHaveLength(2);
+
+			const ckTracked = metadata?.files?.find((f) => f.path === "ck-file.txt");
+			const userTracked = metadata?.files?.find((f) => f.path === "user-file.txt");
+
+			expect(ckTracked?.ownership).toBe("ck");
+			expect(userTracked?.ownership).toBe("user");
+		});
+
+		test("does not track nested runtime dependency trees during migration", async () => {
+			const ckFile = join(tempDir, "commands", "plan.md");
+			const userFile = join(tempDir, "skills", "custom-skill.md");
+
+			await mkdir(join(tempDir, "commands"), { recursive: true });
+			await mkdir(join(tempDir, "skills", "mcp-management", "scripts", "node_modules", "ajv"), {
+				recursive: true,
+			});
+			await mkdir(join(tempDir, "skills", ".venv", "Lib", "site-packages", "pytz"), {
+				recursive: true,
+			});
+
+			await writeFile(ckFile, "# plan");
+			await writeFile(userFile, "# custom");
+			await writeFile(
+				join(tempDir, "skills", "mcp-management", "scripts", "node_modules", "ajv", "index.js"),
+				"module.exports = {}",
+			);
+			await writeFile(
+				join(tempDir, "skills", ".venv", "Lib", "site-packages", "pytz", "__init__.py"),
+				"# pytz",
+			);
+
+			const ckChecksum = await OwnershipChecker.calculateChecksum(ckFile);
+			const manifest = {
+				version: "1.0.0",
+				generatedAt: new Date().toISOString(),
+				files: [{ path: "commands/plan.md", checksum: ckChecksum, size: 6 }],
+			};
+
+			await LegacyMigration.migrate(tempDir, manifest, "test-kit", "1.0.0", false);
+
+			const metadata = await ManifestWriter.readManifest(tempDir);
+			const trackedPaths = metadata?.files?.map((file) => file.path) || [];
+
+			expect(trackedPaths).toContain("commands/plan.md");
+			expect(trackedPaths).toContain("skills/custom-skill.md");
+			expect(trackedPaths.some((path) => path.includes("node_modules"))).toBe(false);
+			expect(trackedPaths.some((path) => path.includes(".venv"))).toBe(false);
+		});
+	});
+});

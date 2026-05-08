@@ -1,0 +1,803 @@
+# Project Overview & Product Development Requirements (PDR)
+
+## Project Identity
+
+**Project Name**: ClaudeKit CLI
+
+**Version**: 3.36.0-dev.11
+**Version**: 3.36.0-dev.7 (next stable: 3.36.0)
+
+**Repository**: https://github.com/mrgoonie/claudekit-cli
+
+**NPM Package**: https://www.npmjs.com/package/claudekit-cli
+
+**License**: MIT
+
+**Architecture**: Modular domain-driven with facade patterns + React web dashboard + reconciliation engine
+**Components**: 19 CLI command groups, 17 domain modules, 4 services, 45+ React UI components, 16 backend API routes
+**Codebase Size**: 548 TypeScript files, ~60K LOC, 100+ tests
+
+## Core Mission
+
+**This CLI is the front door to ClaudeKit.** Two imperatives:
+
+1. **Educate** — Users understand what ClaudeKit is, what each kit offers, why it matters
+2. **Install** — Zero friction from discovery to working setup
+
+Design: Show features not marketing copy. Guide users, not gatekeep. Succeed with working config + clear next steps.
+
+## Executive Summary
+
+ClaudeKit CLI (`ck`) is a command-line tool designed to streamline the bootstrapping and updating of ClaudeKit projects from private GitHub repository releases. Built with Bun and TypeScript, it provides developers with a fast, secure, and user-friendly way to create and maintain projects based on premium ClaudeKit starter kits.
+
+### Problem Statement
+
+Developers purchasing ClaudeKit starter kits need an efficient way to:
+- Bootstrap new projects from private GitHub releases
+- Update existing projects with new versions while preserving customizations
+- Manage authentication securely across multiple platforms
+- Handle file conflicts intelligently during updates
+- Work in both interactive and CI/CD environments
+
+### Solution
+
+ClaudeKit CLI provides a comprehensive solution with:
+- Multi-tier authentication fallback system
+- Smart file merging with conflict detection
+- Protected file patterns to preserve user customizations
+- Custom .claude file preservation
+- Streaming downloads with progress tracking
+- Cross-platform binary distribution
+- Flexible exclude patterns for file filtering
+
+## Target Users
+
+### Primary Users
+1. **Professional Developers**: Purchasing ClaudeKit kits for production projects
+2. **Engineering Teams**: Using ClaudeKit for collaborative development
+3. **Solo Developers**: Building projects with Claude Code assistance
+4. **CI/CD Engineers**: Automating project setup in pipelines
+
+### User Personas
+
+#### Persona 1: Professional Full-Stack Developer
+- **Needs**: Fast project setup, version control integration, team collaboration
+- **Pain Points**: Manual project configuration, dependency management
+- **Goals**: Focus on feature development rather than boilerplate setup
+
+#### Persona 2: DevOps Engineer
+- **Needs**: Automated deployment, CI/CD integration, non-interactive mode
+- **Pain Points**: Manual environment setup, inconsistent configurations
+- **Goals**: Streamlined automated project initialization
+
+#### Persona 3: Indie Developer
+- **Needs**: Quick prototyping, latest features, community templates
+- **Pain Points**: Time-consuming setup, outdated templates
+- **Goals**: Launch projects rapidly with best practices
+
+## Core Features
+
+### 1. Project Initialization (`ck new`)
+
+**3-Phase Orchestrator:**
+- Directory setup (validation, conflict detection)
+- Project creation (download, extract, merge)
+- Post-setup (optional packages, skills, cleanup)
+
+#### Functional Requirements
+- Create new projects from GitHub releases
+- Interactive kit selection (engineer, marketing)
+- Directory validation and conflict handling
+- Support for specific version selection
+- Force overwrite option for non-empty directories
+- Exclude pattern support
+- Optional package installation (OpenCode, Gemini)
+- Skills dependencies installation
+
+#### Non-Functional Requirements
+- Response time: <5s for release fetch
+- Download progress visibility
+- Graceful error handling
+- Clear success/failure messaging
+
+#### Acceptance Criteria
+- User can create project in empty directory without confirmation
+- User receives warning for non-empty directories
+- Custom exclude patterns are respected
+- Progress bars display correctly
+- Next steps are shown after successful creation
+
+### 2. Project Updates (`ck init`)
+
+**8-Phase Orchestrator:**
+1. Options resolution (validate & normalize)
+2. Conflict handling (detect global installations)
+3. Selection (kit/directory/version)
+4. Download (fetch & extract release)
+5. Transforms (path transformations & folder config)
+6. Migration (skills structure migration)
+7. Merge (file merge & manifest tracking)
+8. Post-install (cleanup & next steps)
+
+#### Functional Requirements
+- Update existing projects to new versions
+- Preserve custom .claude files
+- Detect and protect user modifications
+- Show file conflict warnings
+- Request user confirmation before overwriting
+- Support version-specific updates
+- Automatic skills directory migration (flat → categorized)
+- Customization detection via SHA-256 hashing
+- Backup creation with rollback capability
+
+#### Non-Functional Requirements
+- Preservation accuracy: 100% for protected patterns
+- Conflict detection: <1s for typical projects
+- Memory efficient merging
+- Safe file operations (no data loss)
+- Migration safety: Backup before migration, rollback on failure
+
+#### Acceptance Criteria
+- Protected files are never overwritten
+- Custom .claude files are preserved
+- User confirms before any overwrites
+- Version information is validated
+- Rollback available on failure
+- Skills migration preserves all customizations
+- Manifest generated after successful migration
+
+### 3. Version Management (`ck versions`)
+
+#### Functional Requirements
+- List all available releases for kits
+- Filter by specific kit type
+- Display release metadata (date, assets, status)
+- Show prerelease and draft releases optionally
+- Configurable result limit
+- Parallel fetching for multiple kits
+
+#### Non-Functional Requirements
+- Fetch time: <3s for 30 releases
+- Formatted output with relative dates
+- Clear release status indicators
+- Responsive pagination
+
+#### Acceptance Criteria
+- All releases are fetched correctly
+- Metadata is displayed accurately
+- Filtering works as expected
+- Performance acceptable for 50+ releases
+
+### 4. Authentication System
+
+#### Functional Requirements
+- Multi-tier authentication fallback:
+  1. GitHub CLI integration
+  2. Environment variable support
+  3. Configuration file storage
+  4. OS keychain integration
+  5. Interactive user prompt
+- Secure token storage
+- Token format validation
+- Token sanitization in logs
+
+#### Non-Functional Requirements
+- Security: No token exposure in logs
+- Reliability: Fallback always available
+- Performance: <1s authentication check
+- Cross-platform keychain support
+
+#### Acceptance Criteria
+- All authentication methods work correctly
+- Tokens are stored securely
+- Fallback chain executes properly
+- Invalid tokens are rejected
+- Logs never expose sensitive data
+
+### 5. Download Management
+
+#### Functional Requirements
+- Streaming downloads with progress tracking
+- Support for TAR.GZ and ZIP archives
+- Authenticated GitHub API requests
+- Asset priority selection:
+  1. Official ClaudeKit packages
+  2. Custom uploaded assets
+  3. GitHub automatic tarballs
+- Automatic fallback on download failure
+- Exclude pattern application
+
+#### Non-Functional Requirements
+- Memory efficiency: Streaming (no buffering)
+- Progress accuracy: ±1% of actual
+- Download speed: Network limited
+- Temporary file cleanup guaranteed
+
+#### Acceptance Criteria
+- Downloads complete successfully
+- Progress bars are accurate
+- Fallbacks work correctly
+- Temporary files are cleaned up
+- Network errors handled gracefully
+
+### 6. Extraction & Merging
+
+#### Functional Requirements
+- Safe archive extraction
+- Path traversal prevention
+- Archive bomb detection
+- Wrapper directory stripping
+- Exclude pattern enforcement
+- Conflict detection
+- Protected file preservation
+
+#### Non-Functional Requirements
+- Security: 100% path traversal prevention
+- Size limit: 500MB extraction maximum
+- Performance: <5s for typical archives
+- Safety: No data loss on errors
+
+#### Acceptance Criteria
+- Archives extract correctly
+- Malicious paths are rejected
+- Size limits are enforced
+- Conflicts are detected accurately
+- Protected files are preserved
+
+### 7. Skills Migration System
+
+#### Functional Requirements
+- Manifest generation with `.skills-manifest.json`
+- Structure detection (flat vs categorized)
+- Manifest-based detection with heuristic fallback
+- SHA-256 hashing for customization detection
+- Interactive migration prompts
+- Category-based skill organization
+- Backup creation before migration
+- Rollback on migration failure
+- Preservation of all customizations
+
+#### Non-Functional Requirements
+- Detection accuracy: 100% via manifest
+- Fallback reliability: Heuristic detection for legacy installs
+- Migration safety: Zero data loss guarantee
+- Performance: <10s for typical migrations
+- Backup compression: Efficient storage
+
+#### Acceptance Criteria
+- Manifest generated after successful update
+- Flat → categorized migration detected correctly
+- User prompted before migration in interactive mode
+- Backup created before any file movement
+- Customized skills preserved during migration
+- Rollback successful on any error
+- New manifest written after successful migration
+- Non-interactive mode works in CI/CD environments
+
+### 8. Interactive Setup Wizard (`ck init` post-install)
+
+#### Functional Requirements
+- Prompt for essential config values after initialization
+- Generate `.env` file with validated inputs
+- Support both global and local installation modes
+- Inherit global values in local mode
+- Skip in non-interactive/CI environments
+- `--skip-setup` flag to bypass wizard
+
+#### Non-Functional Requirements
+- Response time: <60 seconds for complete setup
+- Validation: API key format checking (Gemini, Discord, Telegram)
+- Security: Masked input for sensitive values
+
+#### Acceptance Criteria
+- Wizard runs when `.env` missing and interactive
+- Wizard skips in CI/non-interactive mode
+- Existing `.env` preserves user config
+- Global mode creates `~/.claude/.env`
+- Local mode creates `./.claude/.env`
+- Local mode shows inherited global values
+- `--skip-setup` flag works correctly
+
+### 9. Social Content Daemon (`ck content`)
+
+#### Functional Requirements
+- Start/stop/monitor content generation daemon
+- Discover Git repositories (local, by config)
+- Classify Git events (commits, PRs, merges, tags, releases)
+- Generate social media content via Claude CLI
+- Support multiple publishing platforms (X, Facebook)
+- Review content via auto/manual/hybrid approval modes
+- Track engagement metrics (likes, retweets, shares)
+- Queue management (view, approve, reject pending content)
+- Setup wizard for platform credentials and configuration
+
+#### Non-Functional Requirements
+- Database: SQLite WAL mode for concurrent access
+- Polling: Configurable scan interval (default 60s)
+- Rate limiting: Platform-specific quotas (X: 5/day, Facebook: 3/day)
+- Engagement check: Automatic analytics every 6 hours
+- Memory: <200MB under normal operation
+- Logging: Structured file + console output
+
+#### Acceptance Criteria
+- Daemon starts successfully with valid config
+- Git scanner discovers repos and classifies events
+- Content generation produces valid platform-specific content
+- Review modes work correctly (auto publishes, manual queues, hybrid scores)
+- Engagement metrics tracked and persisted
+- Queue commands display/approve/reject correctly
+- Setup wizard configures credentials securely
+- Graceful shutdown on SIGTERM/SIGINT
+- All state persisted in `.ck.json` under content key
+- Daemon lock file prevents multiple instances
+
+### 10. Onboarding & Kit Selection (`ck setup`)
+
+**New `ck setup` command for user education & guided installation**
+
+#### Functional Requirements
+- `ck setup` command launches interactive onboarding flow
+- Kit comparison: Side-by-side feature matrix (Engineer vs Marketing)
+- Kit features preview: Visual feature cards and descriptions
+- Guided install wizard: Step-by-step kit selection → installation
+- Feature preview: Show concrete capabilities before committing
+- Success screen: Congratulations + clear next steps + quick actions
+
+#### Acceptance Criteria
+- `ck setup` launches onboarding flow
+- Kit comparison displays side-by-side
+- Install wizard guides user to selection
+- Success screen has next steps + quick actions
+- Works in both CLI and web dashboard
+
+### 10. ClaudeKit API Command Group (`ck api`)
+
+**NEW command group for interacting with ClaudeKit.cc backend services via API key authentication.**
+
+#### Functional Requirements
+- `ck api setup` — Configure API key authentication (secure storage)
+- `ck api status` — Validate API key + display rate limit info
+- `ck api services` — List available API services for proxy
+- `ck api proxy <service> <path>` — Generic proxy to any service endpoint
+- **VidCap service**: YouTube video processing (info, search, summary, caption, screenshot, comments, media)
+- **ReviewWeb service**: Website analysis (scrape, summarize, markdown, extract, links, screenshot, seo-traffic, seo-keywords, seo-backlinks)
+- All handlers proxy through `/api/proxy/{service}/{path}`
+- `--json` flag on all commands for machine-readable output
+- API key validation with Bearer token auth
+- Rate limit retry on 429 status code
+
+#### Non-Functional Requirements
+- API client with fetch wrapper, rate limit handling, typed errors
+- Sub-routers for service-specific commands (vidcap, reviewweb)
+- Consistent handler pattern: validate → call client → format output
+- Error handling with CkApiError code mapping
+- Response header parsing for rate limit info
+
+#### Acceptance Criteria
+- API key stored securely (uses existing api-key domain)
+- All subcommands execute successfully with valid key
+- Rate limits respected with automatic retry
+- --json output valid for all commands
+- Error messages user-friendly and actionable
+- Service proxy handles all endpoint patterns
+
+## Technical Requirements
+
+### Platform Support
+- **Operating Systems**: macOS (arm64, x64), Linux (x64), Windows (x64)
+- **Node.js**: Compatible with Node.js LTS
+- **Bun**: >=1.0.0 required for development
+
+### Performance Targets
+- Project creation: <30s for typical kit
+- Update check: <5s
+- Authentication: <1s
+- Version list: <3s for 30 releases
+- Memory usage: <100MB during operations
+
+### Security Requirements
+- Token encryption in keychain
+- Path traversal prevention
+- Archive bomb detection
+- Sensitive data sanitization
+- HTTPS for all network requests
+- Token format validation
+
+### Compatibility Requirements
+- Cross-platform binary support
+- CI/CD environment compatibility
+- Non-TTY environment support
+- npm, yarn, pnpm, bun package manager support
+
+## User Experience Requirements
+
+### Interactive Mode
+- Beautiful CLI interface using @clack/prompts
+- Clear progress indicators
+- Informative error messages
+- Helpful success messages
+- Next steps guidance
+
+### Non-Interactive Mode
+- Full functionality via flags
+- CI/CD environment detection
+- Proper exit codes
+- Structured error output
+- No blocking prompts
+
+### Error Handling
+- User-friendly error messages
+- Actionable error guidance
+- Detailed errors in verbose mode
+- Graceful fallbacks
+- Clear failure reasons
+
+## Quality Standards
+
+### Code Quality
+- TypeScript strict mode
+- 100% type coverage
+- Zod schema validation
+- ESLint/Biome compliance
+- Comprehensive error types
+
+### Testing Requirements
+- Unit test coverage: >80%
+- Integration tests for all commands
+- End-to-end tests for critical flows
+- CI/CD test automation
+- Cross-platform testing
+
+### Documentation Requirements
+- Comprehensive README
+- API documentation
+- Code comments for complex logic
+- Example usage for all commands
+- Troubleshooting guide
+
+## Success Metrics
+
+### Adoption Metrics
+- NPM downloads per month
+- GitHub stars and forks
+- Issue resolution rate
+- Community contributions
+
+### Performance Metrics
+- Average project creation time
+- Download success rate
+- Authentication success rate
+- Error rate by operation type
+
+### Quality Metrics
+- Test coverage percentage
+- Bug report frequency
+- User satisfaction score
+- Time to resolution for issues
+
+## Product Roadmap
+
+### Phase 1: Core Functionality (Completed)
+- ✅ Project creation command
+- ✅ Project update command
+- ✅ Multi-tier authentication
+- ✅ GitHub integration
+- ✅ Download management
+- ✅ Basic documentation
+
+### Phase 2: Enhanced Features (Completed)
+- ✅ Version listing command
+- ✅ Exclude patterns
+- ✅ Custom .claude file preservation
+- ✅ Verbose logging mode
+- ✅ Multi-platform binaries
+- ✅ Skills migration infrastructure
+
+### Phase 3: Quality & Polish (Current)
+- ✅ Comprehensive testing
+- ✅ Security hardening
+- ✅ Performance optimization
+- ✅ Documentation enhancement
+- ✅ Skills migration system
+- ✅ Doctor command with dependency checking and auto-installation
+- 🔄 User feedback integration
+
+### Phase 4: Multi-Kit & Dashboard (Completed)
+- ✅ Marketing kit support (v1.0.0 released)
+- ✅ Web dashboard with React UI (`ck config ui`)
+- ✅ Projects registry (centralized project management)
+- ✅ Configuration management UI
+- ✅ Multi-kit metadata tracking
+- 📋 Diff preview before merge
+- 📋 Plugin system
+- 📋 Template customization
+
+### Phase 5: User Onboarding & Education (In Progress)
+- 🔄 `ck setup` command (interactive onboarding) - Planned
+- 🔄 Kit comparison data & features - Planned
+- 🔄 Dashboard `/onboarding` route - Planned
+- 🔄 Install wizard UI component - Planned
+- 🔄 Feature preview cards - Planned
+- 🔄 Success screen with next steps - Planned
+
+### Phase 6: Idempotent Migration & Reconciliation (Completed)
+- ✅ `ck migrate` command with 3-phase reconciliation pipeline
+- ✅ Registry v3.0 with SHA-256 checksums
+- ✅ Portable manifest for cross-version evolution
+- ✅ Interactive conflict resolution with diff preview
+- ✅ Dashboard UI with plan viewer and conflict resolver
+- ✅ Reconciliation architecture documentation
+
+### Phase 7: Dashboard & Web UI (In Progress)
+- ✅ Express+Vite web server with HMR
+- ✅ 6 main pages (Global Config, Project Config, Migrate, Skills, Onboarding, Project Dashboard)
+- ✅ 45+ React components with Tailwind CSS
+- ✅ WebSocket live updates
+- ✅ 16 backend API routes
+- 🔄 Enhanced migration UI - Completed
+- 🔄 Skills management UI - Completed
+- 🔄 Settings/config editor - Completed
+
+### Phase 8: Skills & API Key Management (In Progress)
+- ✅ agentskills.io integration with `metadata.version` and `metadata.author` support
+- ✅ API key domain for secure storage
+- ✅ Skills dependencies type system
+- 🔄 Skills auto-discovery - In progress
+- 🔄 Gemini MCP support - In progress
+
+### Phase 9: Hooks Migration & Configuration (Completed)
+- ✅ Hooks settings merger with conflict resolution
+- ✅ Hooks migration with settings.json auto-registration
+- ✅ Droid hooks migration support
+- ✅ Explicit hooks capability per provider
+
+### Phase 10: GitHub Issues Auto-Responder (`ck watch`) (In Progress)
+**NEW command for AI-powered GitHub Issues automation.**
+
+#### Functional Requirements
+- Long-running daemon: Poll GitHub Issues at configurable intervals (default: 30s)
+- Issue analysis: Invoke `/ck:brainstorm` skill for issue understanding
+- Plan generation: Invoke `/ck:plan` skill for structured response planning
+- Multi-turn conversations: Support up to 10 turns per issue (configurable)
+- Process locking: Prevent concurrent executions via proper-lockfile
+- Graceful shutdown: Complete current task, save state on SIGINT/SIGTERM
+- Author exclusion: Skip issues from configured bot accounts
+- Rate limiting: Max 10 issues/hour (configurable)
+- Credential scanning: Block posting if credentials detected (9 patterns)
+- Input sanitization: Defend against 6+ prompt injection patterns
+
+#### Non-Functional Requirements
+- Long-running operation: Designed for 6-8+ hours unattended overnight operation
+- Reliability: Process lock with 1-min stale timeout
+- Performance: 30s poll interval with configurable timeouts (brainstorm: 300s, planning: 600s)
+- Logging: Daily rotated logs in ~/.claudekit/logs/
+- State persistence: Track activeIssues, processedIssues, conversationHistory in .ck.json
+
+#### Acceptance Criteria
+- `ck watch` starts daemon and polls issues
+- Claude analysis invoked successfully for each new issue
+- Multi-turn conversations maintained across turns
+- State persisted to .ck.json after each operation
+- Process lock prevents concurrent runs
+- Graceful shutdown completes current task
+- Credential detection blocks unsafe postings
+- `--dry-run` mode detects without posting
+- `--verbose` enables debug logging
+- `--interval` overrides poll timing
+
+## Dependencies & Integrations
+
+### Required Services
+- **GitHub API**: Release and repository management
+- **npm Registry**: Package distribution
+- **GitHub CLI**: Required for authentication
+
+### External Dependencies
+- @octokit/rest: GitHub API client
+- @clack/prompts: Interactive CLI
+- cac: CLI framework
+- zod: Schema validation
+
+### Required Tools
+- GitHub CLI (`gh`): Required for authentication
+- Discord Webhooks: Release notifications
+- Environment variables: Configuration
+
+## Risk Assessment
+
+### Technical Risks
+- **GitHub API rate limits**: Mitigated by caching and efficient requests
+- **Keychain compatibility**: Fallback to file-based storage
+- **Binary distribution size**: Optimized compilation and compression
+- **Cross-platform bugs**: Extensive testing on all platforms
+
+### Operational Risks
+- **Private repository access**: Clear documentation on token requirements
+- **Breaking changes**: Semantic versioning and changelog
+- **Support burden**: Comprehensive documentation and examples
+
+### Security Risks
+- **Token exposure**: Sanitization and secure storage
+- **Path traversal**: Validation and safe path handling
+- **Malicious archives**: Size limits and content validation
+
+## Compliance & Legal
+
+### License
+- MIT License for maximum flexibility
+- No warranty disclaimer
+- Attribution requirements
+- Commercial use allowed
+
+### Data Privacy
+- No personal data collection
+- Tokens stored locally only
+- No telemetry or analytics
+- User control over credentials
+
+### Security Standards
+- OWASP security guidelines
+- Secure coding practices
+- Regular dependency updates
+- Vulnerability disclosure policy
+
+## Support & Maintenance
+
+### User Support
+- GitHub Issues for bug reports
+- GitHub Discussions for questions
+- Documentation for common issues
+- Example repository
+
+### Maintenance Plan
+- Regular dependency updates
+- Security patch releases
+- Feature releases (semantic versioning)
+- Deprecation notices (6-month minimum)
+
+### Community Guidelines
+- Code of conduct
+- Contribution guidelines
+- Issue templates
+- Pull request process
+
+## Constraints & Assumptions
+
+### Constraints
+- Requires GitHub token with repo scope
+- Requires purchased ClaudeKit kit
+- Internet connection required
+- Minimum 100MB free disk space
+
+### Assumptions
+- Users have basic CLI knowledge
+- Users have Git understanding
+- Users have npm/bun installed
+- Users can create GitHub tokens
+
+## Appendices
+
+### Appendix A: Command Reference
+
+#### ck new
+```bash
+ck new [--dir <directory>] [--kit <kit>] [--version <version>] [--force] [--exclude <pattern>] [--verbose]
+```
+
+#### ck update (init)
+```bash
+ck init [--dir <directory>] [--kit <kit>] [--version <version>] [--exclude <pattern>] [--global] [--verbose]
+```
+
+#### ck versions
+```bash
+ck versions [--kit <kit>] [--limit <number>] [--all] [--verbose]
+```
+
+#### ck doctor
+```bash
+ck doctor                    # Interactive mode with auto-installation
+CI=true ck doctor           # Non-interactive mode (CI/CD safe)
+NON_INTERACTIVE=1 ck doctor # Non-interactive mode alternative
+```
+
+**Features:**
+- Checks system dependencies (Claude CLI, Python 3.8+, pip, Node.js 16+, npm)
+- Auto-detects OS and package managers
+- Offers interactive installation with confirmation
+- Shows manual instructions as fallback
+- Displays ClaudeKit setup (global and project)
+- Reports component counts (agents, commands, rules, skills)
+- CI/CD safe (no prompts in non-interactive mode)
+
+#### ck diagnose
+```bash
+ck diagnose [--verbose]     # Check authentication and access
+```
+
+### Appendix B: Configuration File Schema
+
+```json
+{
+  "github": {
+    "token": "stored_in_keychain"
+  },
+  "defaults": {
+    "kit": "engineer",
+    "dir": "."
+  }
+}
+```
+
+### Appendix C: Protected File Patterns
+
+```
+.env, .env.local, .env.*.local
+*.key, *.pem, *.p12
+.gitignore, .repomixignore, .mcp.json
+CLAUDE.md
+node_modules/**, .git/**
+dist/**, build/**
+```
+
+### Appendix D: Available Kits
+
+1. **engineer**: ClaudeKit Engineer - Engineering toolkit for building with Claude (v1.0.0+)
+2. **marketing**: ClaudeKit Marketing - Content automation toolkit (v1.0.0 - AVAILABLE)
+
+### Appendix E: Error Codes
+
+- `AUTH_ERROR` (401): Authentication failed
+- `GITHUB_ERROR`: GitHub API error
+- `DOWNLOAD_ERROR`: Download failed
+- `EXTRACTION_ERROR`: Archive extraction failed
+
+## Version History
+
+### v1.17.0 (Current)
+- Major codebase modularization refactor
+- Facade pattern for all domains
+- Phase handler pattern for complex commands
+- 122 new focused modules (target: <100 lines each)
+- 200-line file size hard limit
+- Self-documenting kebab-case file names
+- Backward compatibility maintained
+
+### v1.16.0
+- Init command (renamed from update with deprecation warning)
+- Fresh installation mode (--fresh flag)
+- Beta version support (--beta flag)
+- Command prefix support (--prefix flag for /ck: namespace)
+- Optional package installation (OpenCode, Gemini)
+- Skills dependencies auto-installation (--install-skills)
+- Update notifications with 7-day caching
+- Release data caching (configurable TTL)
+- Uninstall command
+
+### v1.5.1
+- Fixed Windows compatibility issues
+- Improved CI/CD integration
+- Enhanced error handling
+
+### v1.5.0
+- Added version listing command
+- Improved binary distribution
+- Enhanced documentation
+
+### v1.0.0
+- Initial release
+- Core create and update commands
+- Multi-tier authentication
+- GitHub integration
+
+## Contact & Resources
+
+**Repository**: https://github.com/mrgoonie/claudekit-cli
+
+**Issues**: https://github.com/mrgoonie/claudekit-cli/issues
+
+**NPM**: https://www.npmjs.com/package/claudekit-cli
+
+**Website**: https://claudekit.cc
+
+**Author**: ClaudeKit Team
