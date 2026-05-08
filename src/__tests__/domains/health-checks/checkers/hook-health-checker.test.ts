@@ -37,7 +37,7 @@ describe("checkHookSyntax", () => {
 
 		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 		} else {
 			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
@@ -119,7 +119,7 @@ describe("checkHookDeps", () => {
 
 		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 		} else {
 			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
@@ -241,7 +241,7 @@ describe("checkHookRuntime", () => {
 
 		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 		} else {
 			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
@@ -335,7 +335,7 @@ describe("checkHookConfig", () => {
 
 		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 		} else {
 			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
@@ -429,7 +429,7 @@ describe("checkHookCommandPaths", () => {
 		await rm(tempDir, { recursive: true, force: true });
 
 		if (originalCkTestHome === undefined) {
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 		} else {
 			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
@@ -614,7 +614,7 @@ describe("checkHookLogs", () => {
 
 		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 		} else {
 			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
@@ -740,7 +740,7 @@ describe("checkPythonVenv", () => {
 
 		// Restore original HI_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 		} else {
 			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
@@ -812,7 +812,7 @@ describe("checkHookFileReferences", () => {
 	afterEach(async () => {
 		await rm(tempDir, { recursive: true, force: true });
 		if (originalCkTestHome === undefined) {
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 		} else {
 			process.env.HI_TEST_HOME = originalCkTestHome;
 		}

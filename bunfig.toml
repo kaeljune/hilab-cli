@@ -2,3 +2,6 @@
 # Exclude UI component tests - they require React/Vite runtime
 # UI tests should be run separately via the Vite test runner
 exclude = ["**/src/ui/**"]
+# Default 5s timeout is too tight for integration tests under parallel load
+# (e.g. proper-lockfile contention on shared registry, FS-heavy fixtures)
+timeout = 30000

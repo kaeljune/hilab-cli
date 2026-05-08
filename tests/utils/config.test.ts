@@ -14,6 +14,10 @@ describe("ConfigManager", () => {
 	let testPaths: TestPaths;
 
 	beforeEach(async () => {
+		// Reset ConfigManager state (defends against leaks from prior test files in batch run)
+		(ConfigManager as any).config = null;
+		ConfigManager.setGlobalFlag(false);
+
 		// Setup isolated test paths - PathResolver will use these
 		testPaths = setupTestPaths();
 	});

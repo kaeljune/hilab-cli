@@ -126,7 +126,7 @@ describe("codex-capabilities", () => {
 				);
 			} finally {
 				if (prev === undefined) {
-					process.env.HI_CODEX_COMPAT = undefined;
+					delete process.env.HI_CODEX_COMPAT;
 				} else {
 					process.env.HI_CODEX_COMPAT = prev;
 				}

@@ -24,6 +24,9 @@
 				"noForEach": "off",
 				"noStaticOnlyClass": "off"
 			},
+			"performance": {
+				"noDelete": "off"
+			},
 			"suspicious": {
 				"noExplicitAny": "off",
 				"noImplicitAnyLet": "off",

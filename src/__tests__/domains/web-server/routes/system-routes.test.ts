@@ -35,7 +35,7 @@ async function setupServer(): Promise<TestServer> {
 
 async function teardownServer(ctx: TestServer): Promise<void> {
 	await new Promise<void>((resolveClose) => ctx.server.close(() => resolveClose()));
-	process.env.HI_TEST_HOME = undefined;
+	delete process.env.HI_TEST_HOME;
 	await rm(ctx.testHome, { recursive: true, force: true });
 }
 

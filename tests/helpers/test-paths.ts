@@ -43,7 +43,8 @@ export function setupTestPaths(): TestPaths {
 		} catch (_error) {
 			// Ignore cleanup errors
 		}
-		process.env.HI_TEST_HOME = undefined;
+		// Use `delete` — assigning `undefined` sets env var to literal string "undefined" in Node
+		delete process.env.HI_TEST_HOME;
 	};
 
 	return {

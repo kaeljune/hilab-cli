@@ -65,7 +65,7 @@ describe("PathResolver.getOpenCodeDir", () => {
 	describe("global mode - production", () => {
 		beforeEach(() => {
 			// Ensure test mode is disabled
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 		});
 
 		it("returns ~/.config/opencode for global mode on all platforms (no XDG_CONFIG_HOME)", () => {
@@ -86,7 +86,7 @@ describe("PathResolver.getOpenCodeDir", () => {
 
 	describe("path consistency", () => {
 		it("global path differs from getConfigDir (different directories)", () => {
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 
 			const openCodeDir = PathResolver.getOpenCodeDir(true);
 			const claudeConfigDir = PathResolver.getConfigDir(true);
@@ -100,7 +100,7 @@ describe("PathResolver.getOpenCodeDir", () => {
 		});
 
 		it("local paths are different from global paths", () => {
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 
 			const localPath = PathResolver.getOpenCodeDir(false, "/project");
 			const globalPath = PathResolver.getOpenCodeDir(true);

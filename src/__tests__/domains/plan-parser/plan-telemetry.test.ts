@@ -18,7 +18,7 @@ beforeEach(() => {
 afterEach(() => {
 	process.stderr.write = originalWrite;
 	if (originalTelemetry === undefined) {
-		process.env.HI_TELEMETRY = undefined;
+		delete process.env.HI_TELEMETRY;
 	} else {
 		process.env.HI_TELEMETRY = originalTelemetry;
 	}
@@ -26,7 +26,7 @@ afterEach(() => {
 
 describe("plan-telemetry", () => {
 	test("stays silent when HI_TELEMETRY is disabled", () => {
-		process.env.HI_TELEMETRY = undefined;
+		delete process.env.HI_TELEMETRY;
 		trackPlanCreated("/tmp/demo", "cli");
 		expect(output).toBe("");
 	});

@@ -41,7 +41,7 @@ describe("displayVersion", () => {
 
 	afterEach(async () => {
 		process.chdir(originalCwd);
-		process.env.HI_TEST_HOME = undefined;
+		delete process.env.HI_TEST_HOME;
 		cliCheckSpy?.mockRestore();
 		kitCheckSpy?.mockRestore();
 		displayNotificationSpy?.mockRestore();

@@ -14,11 +14,23 @@ import { computeFileChecksum } from "./checksum-utils.js";
 import { UNKNOWN_CHECKSUM, normalizeChecksum } from "./reconcile-types.js";
 import type { PortableType, ProviderType } from "./types.js";
 
-const home = homedir();
-const REGISTRY_PATH = join(home, ".hilab", "portable-registry.json");
-const REGISTRY_LOCK_PATH = join(home, ".hilab", "portable-registry.lock");
-const LEGACY_REGISTRY_PATH = join(home, ".hilab", "skill-registry.json");
-const MIGRATION_LOCK_PATH = join(home, ".hilab", ".migration.lock");
+// Resolved lazily so HI_TEST_HOME env var (set by tests) is honored even when
+// it is assigned AFTER this module is first imported.
+function getHome(): string {
+	return process.env.HI_TEST_HOME || homedir();
+}
+function registryPath(): string {
+	return join(getHome(), ".hilab", "portable-registry.json");
+}
+function registryLockPath(): string {
+	return join(getHome(), ".hilab", "portable-registry.lock");
+}
+function legacyRegistryPath(): string {
+	return join(getHome(), ".hilab", "skill-registry.json");
+}
+function migrationLockPath(): string {
+	return join(getHome(), ".hilab", ".migration.lock");
+}
 
 // Schema for v2.0 registry entries (with .passthrough() for forward compat)
 const PortableInstallationSchema = z
@@ -137,7 +149,7 @@ function getCliVersion(): string {
  */
 async function migrateLegacyRegistry(): Promise<PortableRegistry | null> {
 	try {
-		const content = await readFile(LEGACY_REGISTRY_PATH, "utf-8");
+		const content = await readFile(legacyRegistryPath(), "utf-8");
 		const data = JSON.parse(content);
 		const legacy = LegacyRegistrySchema.parse(data);
 
@@ -213,7 +225,7 @@ async function migrateRegistryV2ToV3(v2Registry: PortableRegistry): Promise<Port
 async function isMigrationLocked(): Promise<boolean> {
 	try {
 		// Single atomic read avoids existsSync/readFile TOCTOU gap.
-		const lockContent = await readFile(MIGRATION_LOCK_PATH, "utf-8");
+		const lockContent = await readFile(migrationLockPath(), "utf-8");
 		const lockTime = Number.parseInt(lockContent, 10);
 		if (Number.isNaN(lockTime)) {
 			logger.verbose("Migration lock timestamp is invalid, treating lock as active");
@@ -229,7 +241,7 @@ async function isMigrationLocked(): Promise<boolean> {
 
 		// Stale lock — remove it
 		logger.verbose("Removing stale migration lock");
-		await unlink(MIGRATION_LOCK_PATH);
+		await unlink(migrationLockPath());
 		return false;
 	} catch (error) {
 		if (isErrnoCode(error, "ENOENT")) {
@@ -246,11 +258,11 @@ async function isMigrationLocked(): Promise<boolean> {
  * Create migration lock file with current timestamp
  */
 async function createMigrationLock(): Promise<void> {
-	const lockDir = dirname(MIGRATION_LOCK_PATH);
+	const lockDir = dirname(migrationLockPath());
 	if (!existsSync(lockDir)) {
 		await mkdir(lockDir, { recursive: true });
 	}
-	await writeFile(MIGRATION_LOCK_PATH, Date.now().toString(), "utf-8");
+	await writeFile(migrationLockPath(), Date.now().toString(), "utf-8");
 }
 
 /**
@@ -258,7 +270,7 @@ async function createMigrationLock(): Promise<void> {
  */
 async function removeMigrationLock(): Promise<void> {
 	try {
-		await unlink(MIGRATION_LOCK_PATH);
+		await unlink(migrationLockPath());
 	} catch {
 		// Ignore errors — lock may have been cleaned up already
 	}
@@ -269,7 +281,7 @@ async function removeMigrationLock(): Promise<void> {
  */
 export async function readPortableRegistry(): Promise<PortableRegistryV3> {
 	try {
-		const content = await readFile(REGISTRY_PATH, "utf-8");
+		const content = await readFile(registryPath(), "utf-8");
 		let data: unknown;
 		try {
 			data = JSON.parse(content);
@@ -338,15 +350,15 @@ export async function readPortableRegistry(): Promise<PortableRegistryV3> {
  * Write the portable registry (v3.0)
  */
 export async function writePortableRegistry(registry: PortableRegistryV3): Promise<void> {
-	const dir = dirname(REGISTRY_PATH);
+	const dir = dirname(registryPath());
 	if (!existsSync(dir)) {
 		await mkdir(dir, { recursive: true });
 	}
 	const normalizedRegistry = normalizePortableRegistryChecksums(registry);
-	const tempPath = `${REGISTRY_PATH}.tmp-${process.pid}-${Date.now()}`;
+	const tempPath = `${registryPath()}.tmp-${process.pid}-${Date.now()}`;
 	try {
 		await writeFile(tempPath, JSON.stringify(normalizedRegistry, null, 2), "utf-8");
-		await rename(tempPath, REGISTRY_PATH);
+		await rename(tempPath, registryPath());
 	} catch (error) {
 		try {
 			await unlink(tempPath);
@@ -358,15 +370,15 @@ export async function writePortableRegistry(registry: PortableRegistryV3): Promi
 }
 
 async function withRegistryLock<T>(operation: () => Promise<T>): Promise<T> {
-	const lockDir = dirname(REGISTRY_LOCK_PATH);
+	const lockDir = dirname(registryLockPath());
 	if (!existsSync(lockDir)) {
 		await mkdir(lockDir, { recursive: true });
 	}
-	if (!existsSync(REGISTRY_LOCK_PATH)) {
-		await writeFile(REGISTRY_LOCK_PATH, "", "utf-8");
+	if (!existsSync(registryLockPath())) {
+		await writeFile(registryLockPath(), "", "utf-8");
 	}
 
-	const release = await lockfile.lock(REGISTRY_LOCK_PATH, {
+	const release = await lockfile.lock(registryLockPath(), {
 		realpath: false,
 		retries: {
 			retries: 5,

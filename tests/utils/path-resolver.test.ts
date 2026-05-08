@@ -230,7 +230,7 @@ describe("PathResolver", () => {
 			const globalKitDir = PathResolver.getGlobalKitDir();
 			expect(globalKitDir).toBe(join(tmpdir(), ".claude"));
 
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 		});
 	});
 
@@ -351,7 +351,7 @@ describe("PathResolver", () => {
 			if (originalTestHome) {
 				process.env.HI_TEST_HOME = originalTestHome;
 			} else {
-				process.env.HI_TEST_HOME = undefined;
+				delete process.env.HI_TEST_HOME;
 			}
 		});
 
@@ -380,7 +380,7 @@ describe("PathResolver", () => {
 		});
 
 		it("should use real paths when HI_TEST_HOME is not set", () => {
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 
 			const configDir = PathResolver.getConfigDir(false);
 			expect(configDir).toContain(".hilab");
@@ -475,7 +475,7 @@ describe("PathResolver", () => {
 			// When not at test home, local !== global
 			expect(PathResolver.isLocalSameAsGlobal("/other/path")).toBe(false);
 
-			process.env.HI_TEST_HOME = undefined;
+			delete process.env.HI_TEST_HOME;
 		});
 	});
 
