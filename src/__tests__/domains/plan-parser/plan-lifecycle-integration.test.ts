@@ -216,7 +216,7 @@ describe.skipIf(!existsSync(SET_ACTIVE_PLAN_PATH))("set-active-plan.cjs", () => 
 	const SCRIPT_PATH = SET_ACTIVE_PLAN_PATH;
 
 	function getSessionTempPath(sessionId: string) {
-		return join(tmpdir(), `ck-session-${sessionId}.json`);
+		return join(tmpdir(), `hi-session-${sessionId}.json`);
 	}
 
 	function runScript(

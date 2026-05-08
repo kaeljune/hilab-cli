@@ -5,7 +5,7 @@
  */
 import { existsSync, statSync } from "node:fs";
 import { basename, dirname, join, relative, resolve } from "node:path";
-import { CkConfigManager } from "@/domains/config/index.js";
+import { HiConfigManager } from "@/domains/config/index.js";
 import {
 	buildPlanSummary,
 	parsePlanFile,
@@ -166,7 +166,7 @@ export async function handleStatus(
 
 		// Preload config once to avoid N+1 reads during dependency resolution
 		const projectRoot = findProjectRoot(plansDir);
-		const { config: preloadedConfig } = await CkConfigManager.loadFull(projectRoot);
+		const { config: preloadedConfig } = await HiConfigManager.loadFull(projectRoot);
 
 		if (isJsonOutput(options)) {
 			const summaries = planFiles.flatMap((pf) => {

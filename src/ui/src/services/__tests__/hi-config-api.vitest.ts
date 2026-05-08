@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
-	fetchCkConfig,
-	fetchCkConfigSchema,
-	fetchCkConfigScope,
-	saveCkConfig,
+	fetchHiConfig,
+	fetchHiConfigSchema,
+	fetchHiConfigScope,
+	saveHiConfig,
 	updateCkConfigField,
 } from "../hi-config-api";
 
@@ -15,7 +15,7 @@ describe("hi-config-api web mode", () => {
 		vi.stubGlobal("fetch", fetchMock);
 	});
 
-	it("fetchCkConfig calls GET /api/hi-config without projectId", async () => {
+	it("fetchHiConfig calls GET /api/hi-config without projectId", async () => {
 		fetchMock.mockResolvedValueOnce({
 			ok: true,
 			json: async () => ({
@@ -26,14 +26,14 @@ describe("hi-config-api web mode", () => {
 			}),
 		});
 
-		const result = await fetchCkConfig();
+		const result = await fetchHiConfig();
 
 		expect(fetchMock).toHaveBeenCalledWith("/api/hi-config");
 		expect(result.config).toEqual({ privacyBlock: false });
 		expect(result.projectPath).toBeNull();
 	});
 
-	it("fetchCkConfig calls GET /api/hi-config?projectId= when projectId is provided", async () => {
+	it("fetchHiConfig calls GET /api/hi-config?projectId= when projectId is provided", async () => {
 		fetchMock.mockResolvedValueOnce({
 			ok: true,
 			json: async () => ({
@@ -44,19 +44,19 @@ describe("hi-config-api web mode", () => {
 			}),
 		});
 
-		const result = await fetchCkConfig("project-alpha");
+		const result = await fetchHiConfig("project-alpha");
 
 		expect(fetchMock).toHaveBeenCalledWith("/api/hi-config?projectId=project-alpha");
 		expect(result.projectPath).toBe("/tmp/proj/.claude/.hi.json");
 	});
 
-	it("fetchCkConfig throws on non-ok response", async () => {
+	it("fetchHiConfig throws on non-ok response", async () => {
 		fetchMock.mockResolvedValueOnce({ ok: false, status: 500 });
 
-		await expect(fetchCkConfig()).rejects.toThrow("Failed to fetch hi-config: 500");
+		await expect(fetchHiConfig()).rejects.toThrow("Failed to fetch hi-config: 500");
 	});
 
-	it("fetchCkConfigScope passes scope param to GET /api/hi-config", async () => {
+	it("fetchHiConfigScope passes scope param to GET /api/hi-config", async () => {
 		fetchMock.mockResolvedValueOnce({
 			ok: true,
 			json: async () => ({
@@ -67,12 +67,12 @@ describe("hi-config-api web mode", () => {
 			}),
 		});
 
-		await fetchCkConfigScope("global");
+		await fetchHiConfigScope("global");
 
 		expect(fetchMock).toHaveBeenCalledWith("/api/hi-config?scope=global");
 	});
 
-	it("fetchCkConfigScope includes projectId when provided", async () => {
+	it("fetchHiConfigScope includes projectId when provided", async () => {
 		fetchMock.mockResolvedValueOnce({
 			ok: true,
 			json: async () => ({
@@ -83,12 +83,12 @@ describe("hi-config-api web mode", () => {
 			}),
 		});
 
-		await fetchCkConfigScope("project", "project-alpha");
+		await fetchHiConfigScope("project", "project-alpha");
 
 		expect(fetchMock).toHaveBeenCalledWith("/api/hi-config?scope=project&projectId=project-alpha");
 	});
 
-	it("saveCkConfig sends PUT /api/hi-config with request body", async () => {
+	it("saveHiConfig sends PUT /api/hi-config with request body", async () => {
 		fetchMock.mockResolvedValueOnce({
 			ok: true,
 			json: async () => ({
@@ -99,7 +99,7 @@ describe("hi-config-api web mode", () => {
 			}),
 		});
 
-		const result = await saveCkConfig({
+		const result = await saveHiConfig({
 			scope: "global",
 			config: { privacyBlock: false },
 		});
@@ -115,26 +115,26 @@ describe("hi-config-api web mode", () => {
 		expect(result.success).toBe(true);
 	});
 
-	it("saveCkConfig throws with server error message on failure", async () => {
+	it("saveHiConfig throws with server error message on failure", async () => {
 		fetchMock.mockResolvedValueOnce({
 			ok: false,
 			status: 400,
 			json: async () => ({ error: "Validation failed" }),
 		});
 
-		await expect(saveCkConfig({ scope: "global", config: { invalid: true } })).rejects.toThrow(
+		await expect(saveHiConfig({ scope: "global", config: { invalid: true } })).rejects.toThrow(
 			"Validation failed",
 		);
 	});
 
-	it("fetchCkConfigSchema calls GET /api/hi-config/schema", async () => {
+	it("fetchHiConfigSchema calls GET /api/hi-config/schema", async () => {
 		const schema = { $id: "hi-config", properties: { privacyBlock: { type: "boolean" } } };
 		fetchMock.mockResolvedValueOnce({
 			ok: true,
 			json: async () => schema,
 		});
 
-		const result = await fetchCkConfigSchema();
+		const result = await fetchHiConfigSchema();
 
 		expect(fetchMock).toHaveBeenCalledWith("/api/hi-config/schema");
 		expect(result).toHaveProperty("$id");

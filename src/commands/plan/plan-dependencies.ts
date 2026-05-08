@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { CkConfigManager } from "@/domains/config/index.js";
+import { HiConfigManager } from "@/domains/config/index.js";
 import {
 	buildPlanSummary,
 	inferPlanScopeForDir,
@@ -23,8 +23,8 @@ export interface ResolvedPlanDependency {
 }
 
 export interface ResolvePlanDependenciesOptions {
-	/** Pre-loaded CkConfig to avoid N+1 config reads in batch operations */
-	preloadedConfig?: import("@/types").CkConfig;
+	/** Pre-loaded HiConfig to avoid N+1 config reads in batch operations */
+	preloadedConfig?: import("@/types").HiConfig;
 }
 
 export async function resolvePlanDependencies(
@@ -36,7 +36,7 @@ export async function resolvePlanDependencies(
 
 	const currentPlanDir = dirname(currentPlanFile);
 	const projectRoot = findProjectRoot(currentPlanDir);
-	const config = options.preloadedConfig ?? (await CkConfigManager.loadFull(projectRoot)).config;
+	const config = options.preloadedConfig ?? (await HiConfigManager.loadFull(projectRoot)).config;
 	const defaultScope = inferPlanScopeForDir(currentPlanDir, config);
 
 	return references.map((reference) => {

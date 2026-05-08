@@ -1,6 +1,6 @@
 import { homedir } from "node:os";
 import { isAbsolute, join, relative, resolve } from "node:path";
-import type { CkConfig } from "@/types";
+import type { HiConfig } from "@/types";
 import type { PlanScope } from "./plan-types.js";
 
 const DEFAULT_PLANS_DIRNAME = "plans";
@@ -16,18 +16,18 @@ function resolveConfiguredDir(configuredPath: string | undefined, baseDir: strin
 	return isAbsolute(trimmed) ? resolve(trimmed) : resolve(baseDir, trimmed);
 }
 
-export function resolveProjectPlansDir(projectRoot: string, config?: CkConfig): string {
+export function resolveProjectPlansDir(projectRoot: string, config?: HiConfig): string {
 	return resolveConfiguredDir(config?.paths?.plans, projectRoot);
 }
 
-export function resolveGlobalPlansDir(config?: CkConfig): string {
+export function resolveGlobalPlansDir(config?: HiConfig): string {
 	return resolveConfiguredDir(config?.paths?.globalPlans, join(homedir(), ".claude"));
 }
 
 export function resolvePlanDirForScope(
 	scope: PlanScope,
 	projectRoot: string,
-	config?: CkConfig,
+	config?: HiConfig,
 ): string {
 	return scope === "global"
 		? resolveGlobalPlansDir(config)
@@ -47,7 +47,7 @@ export function isWithinDir(targetPath: string, baseDir: string): boolean {
 	);
 }
 
-export function inferPlanScopeForDir(planDir: string, config?: CkConfig): PlanScope {
+export function inferPlanScopeForDir(planDir: string, config?: HiConfig): PlanScope {
 	return isWithinDir(planDir, resolveGlobalPlansDir(config)) ? "global" : "project";
 }
 

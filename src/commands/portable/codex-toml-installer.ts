@@ -296,7 +296,7 @@ export function mergeConfigTomlWithDiagnostics(
 }
 
 function getCodexLockPath(configTomlPath: string): string {
-	return join(dirname(configTomlPath), `.${basename(configTomlPath)}.ck-codex.lock`);
+	return join(dirname(configTomlPath), `.${basename(configTomlPath)}.hi-codex.lock`);
 }
 
 async function withCodexTargetLock<T>(

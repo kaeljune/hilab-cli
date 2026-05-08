@@ -42,7 +42,7 @@ export function isCIEnvironment(): boolean {
 /**
  * Check if tests are running with an isolated home directory (HI_TEST_HOME).
  * HI_TEST_HOME is a path to a temp directory — any non-empty, non-falsy value
- * (e.g. "/tmp/ck-test-home") means tests have their own isolated config space,
+ * (e.g. "/tmp/hi-test-home") means tests have their own isolated config space,
  * so expensive operations (npm queries, network checks) can safely run.
  */
 function isIsolatedTestEnvironment(): boolean {

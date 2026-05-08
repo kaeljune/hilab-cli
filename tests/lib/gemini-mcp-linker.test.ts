@@ -17,7 +17,7 @@ describe("gemini-mcp-linker", () => {
 	const hasGlobalMcpConfig = existsSync(globalMcpPath);
 
 	beforeEach(async () => {
-		tempDir = join(tmpdir(), `ck-gemini-test-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+		tempDir = join(tmpdir(), `hi-gemini-test-${Date.now()}-${Math.random().toString(36).slice(2)}`);
 		await mkdir(tempDir, { recursive: true });
 	});
 

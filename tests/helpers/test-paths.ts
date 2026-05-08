@@ -19,7 +19,7 @@ export interface TestPaths {
 export function setupTestPaths(): TestPaths {
 	const timestamp = Date.now();
 	const random = Math.floor(Math.random() * 10000);
-	const testHome = join(tmpdir(), `ck-test-${timestamp}-${random}`);
+	const testHome = join(tmpdir(), `hi-test-${timestamp}-${random}`);
 
 	// Create base directories for both local and global modes
 	mkdirSync(testHome, { recursive: true });

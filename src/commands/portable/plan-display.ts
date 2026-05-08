@@ -10,7 +10,7 @@ import {
 	formatDisplayPath,
 	renderNextStepsFooter,
 	renderPanel,
-} from "../../ui/ck-cli-design/index.js";
+} from "../../ui/hi-cli-design/index.js";
 import { sanitizeSingleLineTerminalText } from "./output-sanitizer.js";
 import type { ReconcileAction, ReconcilePlan } from "./reconcile-types.js";
 import type {

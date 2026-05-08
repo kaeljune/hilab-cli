@@ -16,7 +16,7 @@ import {
 	formatDisplayPath,
 	renderPreflightRow,
 	renderSourceTargetHeader,
-} from "../../ui/ck-cli-design/index.js";
+} from "../../ui/hi-cli-design/index.js";
 import { discoverAgents, getAgentSourcePath } from "../agents/agents-discovery.js";
 import { discoverCommands, getCommandSourcePath } from "../commands/commands-discovery.js";
 import { cleanupStaleCodexConfigEntries } from "../portable/codex-toml-installer.js";
@@ -724,11 +724,11 @@ export async function migrateCommand(options: MigrateOptions): Promise<void> {
 			}
 		}
 
-		// Load CkConfig for taxonomy overrides and apply before conversion
-		const { CkConfigManager } = await import("../../domains/config/hi-config-manager.js");
-		const ckConfigResult = await CkConfigManager.loadFull(process.cwd());
+		// Load HiConfig for taxonomy overrides and apply before conversion
+		const { HiConfigManager } = await import("../../domains/config/hi-config-manager.js");
+		const hiConfigResult = await HiConfigManager.loadFull(process.cwd());
 		setTaxonomyOverrides(
-			ckConfigResult.config.modelTaxonomy as
+			hiConfigResult.config.modelTaxonomy as
 				| Record<string, Record<string, { model: string; effort?: string }>>
 				| undefined,
 		);

@@ -361,7 +361,7 @@ Detection, analysis, and safe removal with fallback for installations without me
 Detects installed kits, builds kit-specific init commands (e.g., `hi init --kit engineer --yes --install-skills`), performs parallel version checks with non-blocking fallback.
 
 #### config/ - Configuration UI Dashboard
-Express+Vite dashboard server (src/ui/) with WebSocket support. 6 main pages: GlobalConfig, ProjectConfig, Migrate, Skills, Onboarding, ProjectDashboard. 45+ React components with Tailwind CSS. 16 backend API routes (action, migration, project, skill, ck-config, system, session, user, settings, health).
+Express+Vite dashboard server (src/ui/) with WebSocket support. 6 main pages: GlobalConfig, ProjectConfig, Migrate, Skills, Onboarding, ProjectDashboard. 45+ React components with Tailwind CSS. 16 backend API routes (action, migration, project, skill, hi-config, system, session, user, settings, health).
 
 #### content/ - Social Content Daemon (NEW)
 Multi-daemon for monitoring Git repos and publishing social content via Claude CLI:

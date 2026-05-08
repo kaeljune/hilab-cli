@@ -195,7 +195,7 @@ export const PlanValidationSchema = z.object({
 export type PlanValidation = z.infer<typeof PlanValidationSchema>;
 
 // Plan config
-export const CkPlanConfigSchema = z.object({
+export const HiPlanConfigSchema = z.object({
 	namingFormat: z.string().optional(),
 	dateFormat: z.string().optional(),
 	issuePrefix: z.string().optional(),
@@ -203,52 +203,52 @@ export const CkPlanConfigSchema = z.object({
 	resolution: PlanResolutionSchema.optional(),
 	validation: PlanValidationSchema.optional(),
 });
-export type CkPlanConfig = z.infer<typeof CkPlanConfigSchema>;
+export type HiPlanConfig = z.infer<typeof HiPlanConfigSchema>;
 
 // Docs config
-export const CkDocsConfigSchema = z.object({
+export const HiDocsConfigSchema = z.object({
 	maxLoc: z.number().int().min(100).max(5000).optional(),
 });
-export type CkDocsConfig = z.infer<typeof CkDocsConfigSchema>;
+export type HiDocsConfig = z.infer<typeof HiDocsConfigSchema>;
 
 // Paths config
-export const CkPathsConfigSchema = z.object({
+export const HiPathsConfigSchema = z.object({
 	docs: z.string().optional(),
 	plans: z.string().optional(),
 	globalPlans: z.string().optional(),
 });
-export type CkPathsConfig = z.infer<typeof CkPathsConfigSchema>;
+export type HiPathsConfig = z.infer<typeof HiPathsConfigSchema>;
 
 // Locale config
-export const CkLocaleConfigSchema = z.object({
+export const HiLocaleConfigSchema = z.object({
 	thinkingLanguage: z.string().nullable().optional(),
 	responseLanguage: z.string().nullable().optional(),
 });
-export type CkLocaleConfig = z.infer<typeof CkLocaleConfigSchema>;
+export type HiLocaleConfig = z.infer<typeof HiLocaleConfigSchema>;
 
 // Trust config
-export const CkTrustConfigSchema = z.object({
+export const HiTrustConfigSchema = z.object({
 	passphrase: z.string().nullable().optional(),
 	enabled: z.boolean().optional(),
 });
-export type CkTrustConfig = z.infer<typeof CkTrustConfigSchema>;
+export type HiTrustConfig = z.infer<typeof HiTrustConfigSchema>;
 
 // Project detection config
-export const CkProjectConfigSchema = z.object({
+export const HiProjectConfigSchema = z.object({
 	type: ProjectTypeSchema.optional(),
 	packageManager: PackageManagerSchema.optional(),
 	framework: FrameworkSchema.optional(),
 });
-export type CkProjectConfig = z.infer<typeof CkProjectConfigSchema>;
+export type HiProjectConfig = z.infer<typeof HiProjectConfigSchema>;
 
 // Gemini config
-export const CkGeminiConfigSchema = z.object({
+export const HiGeminiConfigSchema = z.object({
 	model: GeminiModelSchema.optional(),
 });
-export type CkGeminiConfig = z.infer<typeof CkGeminiConfigSchema>;
+export type HiGeminiConfig = z.infer<typeof HiGeminiConfigSchema>;
 
 // Skills config (research skill + custom)
-export const CkSkillsConfigSchema = z
+export const HiSkillsConfigSchema = z
 	.object({
 		research: z
 			.object({
@@ -258,7 +258,7 @@ export const CkSkillsConfigSchema = z
 			.optional(),
 	})
 	.passthrough();
-export type CkSkillsConfig = z.infer<typeof CkSkillsConfigSchema>;
+export type HiSkillsConfig = z.infer<typeof HiSkillsConfigSchema>;
 
 // Per-content-type scope for auto-migrate. Each field defaults to true (migrate
 // that type). Setting a field to false emits the corresponding `--skip-<type>`
@@ -411,19 +411,19 @@ export const ModelTierMapSchema = z.object({
 });
 export type ModelTierMap = z.infer<typeof ModelTierMapSchema>;
 
-export const CkModelTaxonomySchema = z.record(z.string(), ModelTierMapSchema);
-export type CkModelTaxonomy = z.infer<typeof CkModelTaxonomySchema>;
+export const HiModelTaxonomySchema = z.record(z.string(), ModelTierMapSchema);
+export type HiModelTaxonomy = z.infer<typeof HiModelTaxonomySchema>;
 
 // Assertion
-export const CkAssertionSchema = z.object({
+export const HiAssertionSchema = z.object({
 	pattern: z.string().optional(),
 	rule: z.string().optional(),
 	message: z.string().optional(),
 });
-export type CkAssertion = z.infer<typeof CkAssertionSchema>;
+export type HiAssertion = z.infer<typeof HiAssertionSchema>;
 
 // SYNC POINT: When adding/removing hooks in hilab-engineer settings.json,
-// update ALL of: CkHooksConfigSchema, DEFAULT_HI_CONFIG.hooks, HI_HOOK_NAMES,
+// update ALL of: HiHooksConfigSchema, DEFAULT_HI_CONFIG.hooks, HI_HOOK_NAMES,
 // src/schemas/hi-config.schema.json, GlobalConfigPage.tsx sections,
 // src/ui/src/services/configFieldDocs.ts, and src/ui/src/i18n/translations.ts (EN + VI)
 //
@@ -431,7 +431,7 @@ export type CkAssertion = z.infer<typeof CkAssertionSchema>;
 // hook keys installed by older or newer kit versions (e.g. post-edit-simplify-reminder).
 // Without passthrough, Zod silently strips unknown keys causing the config panel
 // to appear to lose custom hook settings when round-tripped through the editor.
-export const CkHooksConfigSchema = z
+export const HiHooksConfigSchema = z
 	.object({
 		"session-init": z.boolean().optional(),
 		"subagent-init": z.boolean().optional(),
@@ -444,13 +444,13 @@ export const CkHooksConfigSchema = z
 		"simplify-gate": z.boolean().optional(),
 	})
 	.passthrough();
-export type CkHooksConfig = z.infer<typeof CkHooksConfigSchema>;
+export type HiHooksConfig = z.infer<typeof HiHooksConfigSchema>;
 
 // SYNC POINT: Simplify config block (mirrors hilab-engineer simplify-gate hook).
 // Root .strict() to lock keys; nested blocks .passthrough() for forward-compat.
 // threshold and gate use .default({}) so Zod applies field-level defaults when the
 // sub-object is absent or empty — e.g. `simplify: {}` still yields full defaults.
-export const CkSimplifyConfigSchema = z
+export const HiSimplifyConfigSchema = z
 	.object({
 		threshold: z
 			.object({
@@ -470,10 +470,10 @@ export const CkSimplifyConfigSchema = z
 			.default({}),
 	})
 	.strict();
-export type CkSimplifyConfig = z.infer<typeof CkSimplifyConfigSchema>;
+export type HiSimplifyConfig = z.infer<typeof HiSimplifyConfigSchema>;
 
-// Full CkConfig schema
-export const CkConfigSchema = z
+// Full HiConfig schema
+export const HiConfigSchema = z
 	.object({
 		$schema: z.string().optional(),
 		codingLevel: CodingLevelSchema.optional(),
@@ -483,34 +483,34 @@ export const CkConfigSchema = z
 		/** When both statusline and statuslineLayout.baseMode are set, statuslineLayout takes precedence */
 		statuslineLayout: StatuslineLayoutSchema.optional(),
 		privacyBlock: z.boolean().optional(),
-		docs: CkDocsConfigSchema.optional(),
-		plan: CkPlanConfigSchema.optional(),
-		paths: CkPathsConfigSchema.optional(),
-		locale: CkLocaleConfigSchema.optional(),
-		trust: CkTrustConfigSchema.optional(),
-		project: CkProjectConfigSchema.optional(),
-		gemini: CkGeminiConfigSchema.optional(),
-		skills: CkSkillsConfigSchema.optional(),
-		assertions: z.array(CkAssertionSchema).optional(),
-		hooks: CkHooksConfigSchema.optional(),
-		simplify: CkSimplifyConfigSchema.optional(),
+		docs: HiDocsConfigSchema.optional(),
+		plan: HiPlanConfigSchema.optional(),
+		paths: HiPathsConfigSchema.optional(),
+		locale: HiLocaleConfigSchema.optional(),
+		trust: HiTrustConfigSchema.optional(),
+		project: HiProjectConfigSchema.optional(),
+		gemini: HiGeminiConfigSchema.optional(),
+		skills: HiSkillsConfigSchema.optional(),
+		assertions: z.array(HiAssertionSchema).optional(),
+		hooks: HiHooksConfigSchema.optional(),
+		simplify: HiSimplifyConfigSchema.optional(),
 		updatePipeline: UpdatePipelineSchema.optional(),
-		modelTaxonomy: CkModelTaxonomySchema.optional(),
+		modelTaxonomy: HiModelTaxonomySchema.optional(),
 	})
 	.passthrough();
 
-export type CkConfig = z.infer<typeof CkConfigSchema>;
+export type HiConfig = z.infer<typeof HiConfigSchema>;
 
 // Config with source tracking
-export interface CkConfigWithSources {
-	config: CkConfig;
+export interface HiConfigWithSources {
+	config: HiConfig;
 	sources: Record<string, ConfigSource>;
 	globalPath: string;
 	projectPath: string | null;
 }
 
 // Default values matching schema defaults
-export const DEFAULT_HI_CONFIG: CkConfig = {
+export const DEFAULT_HI_CONFIG: HiConfig = {
 	codingLevel: -1,
 	statusline: "full",
 	statuslineColors: true,
@@ -602,4 +602,4 @@ export const HI_HOOK_NAMES = [
 	"simplify-gate",
 ] as const;
 
-export type CkHookName = (typeof HI_HOOK_NAMES)[number];
+export type HiHookName = (typeof HI_HOOK_NAMES)[number];

@@ -10,7 +10,7 @@ import { registerHookLogRoutes } from "@/domains/web-server/routes/hook-log-rout
 import { PathResolver } from "@/shared/path-resolver.js";
 import express, { type Express } from "express";
 
-const TEST_HOME = join(tmpdir(), `ck-hook-route-test-${Date.now()}-${process.pid}`);
+const TEST_HOME = join(tmpdir(), `hi-hook-route-test-${Date.now()}-${process.pid}`);
 process.env.HI_TEST_HOME = TEST_HOME;
 
 let baseUrl = "";

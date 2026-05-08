@@ -1,9 +1,9 @@
 /**
  * Handler for `hi config set <key> <value>` command
- * Uses CkConfigManager for correct .hi.json config resolution
+ * Uses HiConfigManager for correct .hi.json config resolution
  */
 
-import { CkConfigManager } from "@/domains/config/index.js";
+import { HiConfigManager } from "@/domains/config/index.js";
 import { logger } from "@/shared/logger.js";
 import * as prompts from "@clack/prompts";
 import type { ConfigCommandOptions } from "../types.js";
@@ -60,8 +60,8 @@ export async function handleSet(
 	const lookupProjectDir = scope === "project" ? projectDir : null;
 
 	try {
-		await CkConfigManager.updateField(key, parsedValue, scope, projectDir);
-		const { value: savedValue } = await CkConfigManager.getFieldWithSource(key, lookupProjectDir);
+		await HiConfigManager.updateField(key, parsedValue, scope, projectDir);
+		const { value: savedValue } = await HiConfigManager.getFieldWithSource(key, lookupProjectDir);
 		logger.success(
 			`Set ${key} = ${JSON.stringify(savedValue)} (${scope === "project" ? "local" : "global"})`,
 		);

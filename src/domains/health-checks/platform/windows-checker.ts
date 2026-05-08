@@ -78,8 +78,8 @@ export async function checkSymlinkSupport(): Promise<CheckResult> {
 	}
 
 	const testDir = PathResolver.getGlobalKitDir();
-	const target = join(testDir, ".ck-symlink-test-target");
-	const link = join(testDir, ".ck-symlink-test-link");
+	const target = join(testDir, ".hi-symlink-test-target");
+	const link = join(testDir, ".hi-symlink-test-link");
 
 	try {
 		// Ensure directory exists

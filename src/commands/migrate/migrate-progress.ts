@@ -1,5 +1,5 @@
 import pc from "picocolors";
-import { type CliDesignContext, createCliDesignContext } from "../../ui/ck-cli-design/index.js";
+import { type CliDesignContext, createCliDesignContext } from "../../ui/hi-cli-design/index.js";
 
 export interface ProgressSink {
 	done(message?: string): void;

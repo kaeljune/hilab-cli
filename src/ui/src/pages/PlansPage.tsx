@@ -18,7 +18,7 @@ function isCompletedPlan(plan: PlanListItem): boolean {
 }
 
 function readStoredViewMode(): PlanDashboardViewMode {
-	const stored = localStorage.getItem("ck-plans-view");
+	const stored = localStorage.getItem("hi-plans-view");
 	return stored === "kanban" || stored === "grid" ? stored : "grid";
 }
 
@@ -135,7 +135,7 @@ function PlansPageContent() {
 	};
 
 	const onViewModeChange = (value: PlanDashboardViewMode) => {
-		localStorage.setItem("ck-plans-view", value);
+		localStorage.setItem("hi-plans-view", value);
 		setViewMode(value);
 		const nextSearchParams = new URLSearchParams(searchParams);
 		if (value === "grid") {

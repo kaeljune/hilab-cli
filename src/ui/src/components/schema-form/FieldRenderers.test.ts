@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import ckConfigSchema from "../../../../schemas/hi-config.schema.json" with { type: "json" };
+import hiConfigSchema from "../../../../schemas/hi-config.schema.json" with { type: "json" };
 import { GEMINI_MODEL_VALUES } from "../../../../types/hi-config.js";
 import { CONFIG_FIELD_DOCS } from "../../services/configFieldDocs";
 import {
@@ -9,7 +9,7 @@ import {
 } from "../../utils/config-editor-utils";
 
 function getSchemaValidValues(path: string): string[] | undefined {
-	let current: Record<string, unknown> = ckConfigSchema as Record<string, unknown>;
+	let current: Record<string, unknown> = hiConfigSchema as Record<string, unknown>;
 
 	for (const key of path.split(".")) {
 		const properties = current.properties as Record<string, Record<string, unknown>> | undefined;

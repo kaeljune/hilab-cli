@@ -2,7 +2,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, test } from "bun:test
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { registerCkConfigRoutes } from "@/domains/web-server/routes/hi-config-routes.js";
+import { registerHiConfigRoutes } from "@/domains/web-server/routes/hi-config-routes.js";
 import express, { type Express } from "express";
 
 let baseUrl = "";
@@ -12,7 +12,7 @@ const tempDirs: string[] = [];
 beforeAll(() => {
 	const app = express();
 	app.use(express.json());
-	registerCkConfigRoutes(app);
+	registerHiConfigRoutes(app);
 	server = app.listen(0);
 	const address = server.address();
 	if (!address || typeof address === "string") {

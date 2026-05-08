@@ -285,7 +285,7 @@ Tracks shared files, enables cross-kit file checking via `setMultiKitContext()`.
 - **migration-routes** — Migration status & conflict resolution
 - **project-routes** — Project discovery & management
 - **skill-routes** — Skill installation/uninstall status
-- **ck-config-routes** — Global configuration endpoints
+- **hi-config-routes** — Global configuration endpoints
 - **system-routes** — System diagnostics
 - **session-routes** — Session management
 - **user-routes** — User data endpoints

@@ -17,7 +17,7 @@ import { useConfigEditor } from "../hooks/use-config-editor";
 import { usePanelSizes } from "../hooks/use-panel-sizes-for-resizable-columns";
 import { useI18n } from "../i18n";
 import { type Project, fetchProjects } from "../services/api";
-import { fetchCkConfigSchema, fetchCkConfigScope, saveCkConfig } from "../services/hi-config-api";
+import { fetchHiConfigSchema, fetchHiConfigScope, saveHiConfig } from "../services/hi-config-api";
 import { getNestedValue } from "../utils/config-editor-utils";
 
 const ProjectConfigPage: React.FC = () => {
@@ -39,8 +39,8 @@ const ProjectConfigPage: React.FC = () => {
 	const fetchConfig = useCallback(async () => {
 		if (!projectId) throw new Error("No project ID");
 		const [configData, globalData, projects] = await Promise.all([
-			fetchCkConfigScope("project", projectId),
-			fetchCkConfigScope("global"),
+			fetchHiConfigScope("project", projectId),
+			fetchHiConfigScope("global"),
 			fetchProjects(),
 		]);
 
@@ -59,7 +59,7 @@ const ProjectConfigPage: React.FC = () => {
 	const saveConfig = useCallback(
 		async (config: Record<string, unknown>) => {
 			if (!projectId) return;
-			const result = await saveCkConfig({ scope: "project", projectId, config });
+			const result = await saveHiConfig({ scope: "project", projectId, config });
 			return result.config;
 		},
 		[projectId],
@@ -69,7 +69,7 @@ const ProjectConfigPage: React.FC = () => {
 		scope: "project",
 		projectId,
 		fetchConfig,
-		fetchSchema: fetchCkConfigSchema,
+		fetchSchema: fetchHiConfigSchema,
 		saveConfig,
 	});
 

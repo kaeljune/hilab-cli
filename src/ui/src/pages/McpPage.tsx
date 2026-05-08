@@ -187,7 +187,7 @@ const McpPage: React.FC = () => {
 	const [selectedKey, setSelectedKey] = useState<string | null>(null);
 
 	const { size, isDragging, startDrag } = useResizable({
-		storageKey: "ck-mcp-panel-width",
+		storageKey: "hi-mcp-panel-width",
 		defaultSize: 380,
 		minSize: 260,
 		maxSize: 650,

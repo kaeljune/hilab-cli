@@ -1,9 +1,9 @@
 /**
  * Handler for `hi config get <key>` command
- * Uses CkConfigManager for correct .hi.json config resolution
+ * Uses HiConfigManager for correct .hi.json config resolution
  */
 
-import { CkConfigManager } from "@/domains/config/index.js";
+import { HiConfigManager } from "@/domains/config/index.js";
 import type { ConfigCommandOptions } from "../types.js";
 
 export async function handleGet(key: string, options: ConfigCommandOptions): Promise<void> {
@@ -14,10 +14,10 @@ export async function handleGet(key: string, options: ConfigCommandOptions): Pro
 
 	try {
 		if (globalOnly) {
-			const scoped = await CkConfigManager.loadScope("global", projectDir);
+			const scoped = await HiConfigManager.loadScope("global", projectDir);
 			value = scoped ? getNestedValue(scoped as Record<string, unknown>, key) : undefined;
 		} else {
-			const { value: v } = await CkConfigManager.getFieldWithSource(key, projectDir);
+			const { value: v } = await HiConfigManager.getFieldWithSource(key, projectDir);
 			value = v;
 		}
 	} catch (error) {

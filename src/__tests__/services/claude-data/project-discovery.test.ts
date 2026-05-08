@@ -14,7 +14,7 @@ import type { HistoryEntry } from "@/services/claude-data/types.js";
  * Uses temp files in tmpdir with unique names for isolation.
  */
 
-const TEST_DIR = join(tmpdir(), `ck-project-discovery-test-${Date.now()}-${process.pid}`);
+const TEST_DIR = join(tmpdir(), `hi-project-discovery-test-${Date.now()}-${process.pid}`);
 
 // Helper to create test history file
 async function createHistoryFile(path: string, entries: HistoryEntry[]): Promise<void> {

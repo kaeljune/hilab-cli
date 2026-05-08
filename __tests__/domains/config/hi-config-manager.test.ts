@@ -4,16 +4,16 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { CkConfigManager } from "../../../src/domains/config/hi-config-manager.js";
+import { HiConfigManager } from "../../../src/domains/config/hi-config-manager.js";
 import {
-	type CkConfig,
-	CkConfigSchema,
 	DEFAULT_HI_CONFIG,
 	HI_HOOK_NAMES,
+	type HiConfig,
+	HiConfigSchema,
 } from "../../../src/types/hi-config.js";
-// CkSimplifyConfigSchema is validated via CkConfigSchema.parse({ simplify: {...} })
+// HiSimplifyConfigSchema is validated via HiConfigSchema.parse({ simplify: {...} })
 
-describe("CkConfigManager", () => {
+describe("HiConfigManager", () => {
 	let tempDir: string;
 
 	beforeEach(async () => {
@@ -34,7 +34,7 @@ describe("CkConfigManager", () => {
 			await mkdir(claudeDir, { recursive: true });
 			await writeFile(configPath, JSON.stringify({}));
 
-			const exists = CkConfigManager.projectConfigExists(projectDir, false);
+			const exists = HiConfigManager.projectConfigExists(projectDir, false);
 			expect(exists).toBe(true);
 		});
 
@@ -43,19 +43,19 @@ describe("CkConfigManager", () => {
 			const globalPath = join(tempDir, ".hi.json");
 			await writeFile(globalPath, JSON.stringify({}));
 
-			const exists = CkConfigManager.projectConfigExists(tempDir, true);
+			const exists = HiConfigManager.projectConfigExists(tempDir, true);
 			expect(exists).toBe(true);
 		});
 
 		it("should return false when project config doesn't exist (isGlobal=false)", async () => {
 			const projectDir = join(tempDir, "nonexistent-project");
 
-			const exists = CkConfigManager.projectConfigExists(projectDir, false);
+			const exists = HiConfigManager.projectConfigExists(projectDir, false);
 			expect(exists).toBe(false);
 		});
 
 		it("should return false when global config doesn't exist (isGlobal=true)", async () => {
-			const exists = CkConfigManager.projectConfigExists(tempDir, true);
+			const exists = HiConfigManager.projectConfigExists(tempDir, true);
 			expect(exists).toBe(false);
 		});
 
@@ -69,7 +69,7 @@ describe("CkConfigManager", () => {
 			await writeFile(configPath, JSON.stringify({}));
 
 			// Call without isGlobal - should default to false (project config)
-			const exists = CkConfigManager.projectConfigExists(projectDir);
+			const exists = HiConfigManager.projectConfigExists(projectDir);
 			expect(exists).toBe(true);
 		});
 
@@ -81,7 +81,7 @@ describe("CkConfigManager", () => {
 			await mkdir(claudeDir, { recursive: true });
 			await writeFile(configPath, JSON.stringify({}));
 
-			const exists = CkConfigManager.projectConfigExists(projectDir, false);
+			const exists = HiConfigManager.projectConfigExists(projectDir, false);
 			expect(exists).toBe(true);
 		});
 	});
@@ -132,24 +132,24 @@ describe("CkConfigManager", () => {
 				"simplify-gate": true,
 			};
 
-			const testConfig: CkConfig = {
+			const testConfig: HiConfig = {
 				...DEFAULT_HI_CONFIG,
 				hooks: hooksConfig,
 			};
 
-			const result = CkConfigSchema.parse(testConfig);
+			const result = HiConfigSchema.parse(testConfig);
 			expect(result.hooks).toEqual(hooksConfig);
 		});
 
 		it("should allow optional hooks in schema (partial config)", async () => {
-			const partialConfig: CkConfig = {
+			const partialConfig: HiConfig = {
 				hooks: {
 					"session-init": false,
 					"privacy-block": true,
 				},
 			};
 
-			const result = CkConfigSchema.parse(partialConfig);
+			const result = HiConfigSchema.parse(partialConfig);
 			expect(result.hooks?.["session-init"]).toBe(false);
 			expect(result.hooks?.["privacy-block"]).toBe(true);
 		});
@@ -211,20 +211,20 @@ describe("CkConfigManager", () => {
 			const claudeDir = join(projectDir, ".claude");
 			await mkdir(claudeDir, { recursive: true });
 
-			const config: CkConfig = {
+			const config: HiConfig = {
 				...DEFAULT_HI_CONFIG,
 				codingLevel: 2,
 			};
 
-			await CkConfigManager.saveFull(config, "project", projectDir);
+			await HiConfigManager.saveFull(config, "project", projectDir);
 
-			const loaded = await CkConfigManager.loadScope("project", projectDir);
+			const loaded = await HiConfigManager.loadScope("project", projectDir);
 			expect(loaded).toBeDefined();
 			expect(loaded?.codingLevel).toBe(2);
 		});
 
 		it("should load global config path correctly", () => {
-			const globalPath = CkConfigManager.getGlobalConfigPath();
+			const globalPath = HiConfigManager.getGlobalConfigPath();
 			expect(globalPath).toContain(".claude");
 			expect(globalPath).toContain(".hi.json");
 			expect(globalPath).toContain(homedir());
@@ -232,23 +232,23 @@ describe("CkConfigManager", () => {
 
 		it("should load project config path correctly", () => {
 			const projectDir = join(tmpdir(), "myproject");
-			const projectPath = CkConfigManager.getProjectConfigPath(projectDir);
+			const projectPath = HiConfigManager.getProjectConfigPath(projectDir);
 			expect(projectPath).toContain(".claude");
 			expect(projectPath).toContain(".hi.json");
 			expect(projectPath).toContain("myproject");
 		});
 
-		it("should validate config on save using CkConfigSchema", async () => {
+		it("should validate config on save using HiConfigSchema", async () => {
 			const projectDir = join(tempDir, "project");
 			const claudeDir = join(projectDir, ".claude");
 			await mkdir(claudeDir, { recursive: true });
 
-			const validConfig: CkConfig = {
+			const validConfig: HiConfig = {
 				codingLevel: 1,
 				hooks: { "session-init": true },
 			};
 
-			const path = await CkConfigManager.saveFull(validConfig, "project", projectDir);
+			const path = await HiConfigManager.saveFull(validConfig, "project", projectDir);
 			expect(existsSync(path)).toBe(true);
 
 			const content = await readFile(path, "utf-8");
@@ -263,16 +263,16 @@ describe("CkConfigManager", () => {
 			const claudeDir = join(projectDir, ".claude");
 			await mkdir(claudeDir, { recursive: true });
 
-			expect(CkConfigManager.configExists("project", projectDir)).toBe(false);
+			expect(HiConfigManager.configExists("project", projectDir)).toBe(false);
 
 			const configPath = join(claudeDir, ".hi.json");
 			await writeFile(configPath, JSON.stringify({}));
 
-			expect(CkConfigManager.configExists("project", projectDir)).toBe(true);
+			expect(HiConfigManager.configExists("project", projectDir)).toBe(true);
 		});
 
 		it("should return false for project scope when projectDir is null", () => {
-			const exists = CkConfigManager.configExists("project", null);
+			const exists = HiConfigManager.configExists("project", null);
 			expect(exists).toBe(false);
 		});
 	});
@@ -282,25 +282,25 @@ describe("CkConfigManager", () => {
 			const projectDir = join(tempDir, "myapp");
 
 			// Initially should not exist
-			expect(CkConfigManager.projectConfigExists(projectDir, false)).toBe(false);
+			expect(HiConfigManager.projectConfigExists(projectDir, false)).toBe(false);
 
 			// Create and save config
 			const claudeDir = join(projectDir, ".claude");
 			await mkdir(claudeDir, { recursive: true });
 
-			const initialConfig: CkConfig = {
+			const initialConfig: HiConfig = {
 				...DEFAULT_HI_CONFIG,
 				codingLevel: 0,
 				statusline: "compact",
 			};
 
-			await CkConfigManager.saveFull(initialConfig, "project", projectDir);
+			await HiConfigManager.saveFull(initialConfig, "project", projectDir);
 
 			// Should now exist
-			expect(CkConfigManager.projectConfigExists(projectDir, false)).toBe(true);
+			expect(HiConfigManager.projectConfigExists(projectDir, false)).toBe(true);
 
 			// Should be loadable
-			const loaded = await CkConfigManager.loadScope("project", projectDir);
+			const loaded = await HiConfigManager.loadScope("project", projectDir);
 			expect(loaded?.codingLevel).toBe(0);
 			expect(loaded?.statusline).toBe("compact");
 		});
@@ -310,7 +310,7 @@ describe("CkConfigManager", () => {
 			const claudeDir = join(projectDir, ".claude");
 			await mkdir(claudeDir, { recursive: true });
 
-			const customConfig: CkConfig = {
+			const customConfig: HiConfig = {
 				...DEFAULT_HI_CONFIG,
 				hooks: {
 					"session-init": true,
@@ -319,9 +319,9 @@ describe("CkConfigManager", () => {
 				},
 			};
 
-			await CkConfigManager.saveFull(customConfig, "project", projectDir);
+			await HiConfigManager.saveFull(customConfig, "project", projectDir);
 
-			const loaded = await CkConfigManager.loadScope("project", projectDir);
+			const loaded = await HiConfigManager.loadScope("project", projectDir);
 			expect(loaded?.hooks?.["session-init"]).toBe(true);
 			expect(loaded?.hooks?.["privacy-block"]).toBe(false);
 			expect(loaded?.hooks?.["scout-block"]).toBe(true);
@@ -331,7 +331,7 @@ describe("CkConfigManager", () => {
 	describe("Edge cases", () => {
 		it("should handle non-existent directory for projectConfigExists", () => {
 			const nonexistentPath = join(tempDir, "this", "does", "not", "exist");
-			const exists = CkConfigManager.projectConfigExists(nonexistentPath, false);
+			const exists = HiConfigManager.projectConfigExists(nonexistentPath, false);
 			expect(exists).toBe(false);
 		});
 
@@ -347,10 +347,10 @@ describe("CkConfigManager", () => {
 			await writeFile(projectPath, JSON.stringify({ codingLevel: 1 }));
 
 			// Check global
-			expect(CkConfigManager.projectConfigExists(tempDir, true)).toBe(true);
+			expect(HiConfigManager.projectConfigExists(tempDir, true)).toBe(true);
 
 			// Check project
-			expect(CkConfigManager.projectConfigExists(projectDir, false)).toBe(true);
+			expect(HiConfigManager.projectConfigExists(projectDir, false)).toBe(true);
 
 			// They should be different files
 			const globalContent = await readFile(globalPath, "utf-8");
@@ -360,9 +360,9 @@ describe("CkConfigManager", () => {
 	});
 });
 
-describe("CkSimplifyConfigSchema", () => {
+describe("HiSimplifyConfigSchema", () => {
 	it("should apply defaults when simplify block is empty", () => {
-		const result = CkConfigSchema.parse({ simplify: {} });
+		const result = HiConfigSchema.parse({ simplify: {} });
 		expect(result.simplify?.threshold?.locDelta).toBe(400);
 		expect(result.simplify?.threshold?.fileCount).toBe(8);
 		expect(result.simplify?.threshold?.singleFileLoc).toBe(200);
@@ -372,11 +372,11 @@ describe("CkSimplifyConfigSchema", () => {
 	});
 
 	it("should reject unknown root keys under simplify (strict)", () => {
-		expect(() => CkConfigSchema.parse({ simplify: { unknownKey: "x" } })).toThrow();
+		expect(() => HiConfigSchema.parse({ simplify: { unknownKey: "x" } })).toThrow();
 	});
 
 	it("should allow unknown nested keys under simplify.threshold and simplify.gate (passthrough)", () => {
-		const result = CkConfigSchema.parse({
+		const result = HiConfigSchema.parse({
 			simplify: {
 				threshold: { locDelta: 500, futureField: "ok" },
 				gate: { enabled: true, futureFlag: 1 },
@@ -386,7 +386,7 @@ describe("CkSimplifyConfigSchema", () => {
 	});
 
 	it("should accept user override of hardVerbs and softVerbs", () => {
-		const result = CkConfigSchema.parse({
+		const result = HiConfigSchema.parse({
 			simplify: {
 				gate: { hardVerbs: ["release"], softVerbs: ["push"] },
 			},

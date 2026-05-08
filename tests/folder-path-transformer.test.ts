@@ -13,7 +13,7 @@ describe("Folder Path Transformer", () => {
 	let testDir: string;
 
 	beforeEach(async () => {
-		testDir = join(tmpdir(), `ck-folder-test-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+		testDir = join(tmpdir(), `hi-folder-test-${Date.now()}-${Math.random().toString(36).slice(2)}`);
 		await mkdir(testDir, { recursive: true });
 	});
 

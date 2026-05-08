@@ -87,7 +87,7 @@ function resolveWorkflows(
 
 /**
  * Build a map to resolve short skill names to actual API skill names.
- * e.g., "plan" -> "hi-plan" (for skills with ck- prefix)
+ * e.g., "plan" -> "hi-plan" (for skills with hi- prefix)
  *
  * IMPORTANT: Some skills have "hi-" prefix in folder names but are invoked
  * without the prefix in commands. This map enables correct URL navigation.

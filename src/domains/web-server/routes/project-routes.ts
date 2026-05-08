@@ -6,7 +6,7 @@ import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { basename, join, resolve } from "node:path";
-import { CkConfigManager } from "@/domains/config/index.js";
+import { HiConfigManager } from "@/domains/config/index.js";
 import { ProjectsRegistryManager, scanClaudeProjects } from "@/domains/hilab-data/index.js";
 import { buildProjectPlanData } from "@/domains/web-server/project-plan-data.js";
 import {
@@ -400,7 +400,7 @@ async function buildProjectInfoFromRegistry(
 	}
 
 	const hasLocalConfig =
-		hasClaudeDir && CkConfigManager.projectConfigExists(registered.path, false);
+		hasClaudeDir && HiConfigManager.projectConfigExists(registered.path, false);
 
 	// Use cached values when available to avoid N+1 reads inside loops
 	const settings = cachedSettings !== undefined ? cachedSettings : await readSettings();
@@ -473,7 +473,7 @@ async function detectAndBuildProjectInfo(
 		// Ignore file read errors
 	}
 
-	const hasLocalConfig = CkConfigManager.projectConfigExists(path, id === "global");
+	const hasLocalConfig = HiConfigManager.projectConfigExists(path, id === "global");
 
 	// Use cached values when available to avoid N+1 reads inside loops
 	const settings = cachedSettings !== undefined ? cachedSettings : await readSettings();

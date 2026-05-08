@@ -60,7 +60,7 @@ function findFileInMetadataForKit(
 
 /**
  * Check if a path should be deleted based on ownership.
- * Returns true if path can be deleted (ck, ck-modified, or not tracked).
+ * Returns true if path can be deleted (hi, hi-modified, or not tracked).
  * Returns false only if ownership is "user".
  */
 function shouldDeletePath(path: string, metadata: Metadata | null, kitType?: KitType): boolean {

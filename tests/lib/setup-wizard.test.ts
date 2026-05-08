@@ -13,8 +13,8 @@ describe("setup-wizard", () => {
 	let globalDir: string;
 
 	beforeEach(async () => {
-		tempDir = join(tmpdir(), `ck-test-${Date.now()}`);
-		globalDir = join(tmpdir(), `ck-global-${Date.now()}`);
+		tempDir = join(tmpdir(), `hi-test-${Date.now()}`);
+		globalDir = join(tmpdir(), `hi-global-${Date.now()}`);
 		await mkdir(tempDir, { recursive: true });
 		await mkdir(globalDir, { recursive: true });
 	});

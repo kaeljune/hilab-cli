@@ -20,7 +20,7 @@ const originalProviders = await import("../../portable/provider-registry.js").th
 );
 
 describe("installSkillDirectories", () => {
-	const testDir = join(tmpdir(), `ck-skill-installer-test-${Date.now()}`);
+	const testDir = join(tmpdir(), `hi-skill-installer-test-${Date.now()}`);
 	const sourceDir = join(testDir, "source");
 	const targetDir = join(testDir, "target");
 

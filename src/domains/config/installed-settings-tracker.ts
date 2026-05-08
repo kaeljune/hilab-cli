@@ -12,7 +12,7 @@ import type { InstalledSettings } from "@/types";
 
 const HI_JSON_FILE = ".hi.json";
 
-interface CkJsonData {
+interface HiJsonData {
 	kits?: Record<string, { installedSettings?: InstalledSettings; [key: string]: unknown }>;
 	[key: string]: unknown;
 }
@@ -52,7 +52,7 @@ export class InstalledSettingsTracker {
 
 		try {
 			const content = await readFile(ckJsonPath, "utf-8");
-			const data: CkJsonData = JSON.parse(content);
+			const data: HiJsonData = JSON.parse(content);
 
 			// Multi-kit format: kits.{kitName}.installedSettings
 			const installed = data.kits?.[this.kitName]?.installedSettings;
@@ -77,7 +77,7 @@ export class InstalledSettingsTracker {
 		const ckJsonPath = this.getCkJsonPath();
 
 		try {
-			let data: CkJsonData = {};
+			let data: HiJsonData = {};
 
 			// Load existing data
 			if (existsSync(ckJsonPath)) {

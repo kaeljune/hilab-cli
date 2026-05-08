@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { CkConfigManager } from "@/domains/config/hi-config-manager.js";
+import { HiConfigManager } from "@/domains/config/hi-config-manager.js";
 
-describe("CkConfigManager", () => {
+describe("HiConfigManager", () => {
 	let testDir: string;
 
 	beforeEach(async () => {
@@ -32,7 +32,7 @@ describe("CkConfigManager", () => {
 			}),
 		);
 
-		const config = await CkConfigManager.loadScope("project", testDir);
+		const config = await HiConfigManager.loadScope("project", testDir);
 
 		expect(config).not.toBeNull();
 		expect(config?.gemini?.model).toBe("gemini-3-flash-preview");
@@ -54,7 +54,7 @@ describe("CkConfigManager", () => {
 			}),
 		);
 
-		const result = await CkConfigManager.loadFull(testDir);
+		const result = await HiConfigManager.loadFull(testDir);
 
 		expect(result.config.gemini?.model).toBe("gemini-3-pro-preview");
 		expect(result.config.skills?.research?.useGemini).toBe(false);
@@ -73,7 +73,7 @@ describe("CkConfigManager", () => {
 			}),
 		);
 
-		await CkConfigManager.saveFull(
+		await HiConfigManager.saveFull(
 			{
 				statusline: "compact",
 			},
@@ -105,7 +105,7 @@ describe("CkConfigManager", () => {
 			}),
 		);
 
-		await CkConfigManager.saveFull(
+		await HiConfigManager.saveFull(
 			{
 				statusline: "compact",
 			},

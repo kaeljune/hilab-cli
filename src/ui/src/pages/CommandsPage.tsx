@@ -325,7 +325,7 @@ const CommandsPage: React.FC = () => {
 	const [selectedPath, setSelectedPath] = useState<string | null>(null);
 
 	const { size, isDragging, startDrag } = useResizable({
-		storageKey: "ck-commands-panel-width",
+		storageKey: "hi-commands-panel-width",
 		defaultSize: 380,
 		minSize: 260,
 		maxSize: 650,

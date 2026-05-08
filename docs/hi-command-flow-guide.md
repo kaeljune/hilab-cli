@@ -14,8 +14,6 @@ HiLab CLI (`ck`) is the primary user interface for bootstrapping and managing Hi
 | `doctor` | Health check of setup | `--fix`, `--json`, `--full` |
 | `update-cli` | Update CLI to latest version | `--yes`, `--beta` |
 | `versions` | List available versions | `--kit`, `--limit` |
-| `content` | Multi-channel content automation | See `docs/ck-content.md` |
-| `watch` | GitHub issue auto-responder | See `docs/ck-watch.md` |
 | `uninstall` | Remove installations | `--yes`, `--global` |
 | `migrate` | Reconcile and preview destination-aware migrations across providers | `-a, --agent`, `--all`, `-g, --global`, `--dry-run` |
 
@@ -327,14 +325,14 @@ Every file in the `.claude` directory is tracked with ownership metadata:
 interface TrackedFile {
   path: string;                    // Relative path from .claude (e.g., "rules/development-rules.md")
   checksum: string;                // SHA-256 hash of file content (hex format, 64 chars)
-  ownership: FileOwnership;        // "ck" | "user" | "ck-modified"
+  ownership: FileOwnership;        // "hi" | "user" | "hi-modified"
   installedVersion: string;        // HiLab version that installed it
   baseChecksum?: string;           // Original checksum at install (for sync detection)
   sourceTimestamp?: string;        // Git commit timestamp from kit repo (ISO 8601)
   installedAt?: string;            // When file was installed locally (ISO 8601)
 }
 
-type FileOwnership = "ck" | "user" | "ck-modified";
+type FileOwnership = "hi" | "user" | "hi-modified";
 ```
 
 ### metadata.json Structure
@@ -351,13 +349,13 @@ The `.claude/metadata.json` file tracks all installed files with multi-kit suppo
         {
           "path": "CLAUDE.md",
           "checksum": "abc123def456...",
-          "ownership": "ck",
+          "ownership": "hi",
           "installedVersion": "0.5.0"
         },
         {
           "path": "rules/development-rules.md",
           "checksum": "fed789abc456...",
-          "ownership": "ck-modified",
+          "ownership": "hi-modified",
           "installedVersion": "0.5.0",
           "baseChecksum": "fed789abc457..."
         }
@@ -390,7 +388,7 @@ flowchart TD
     I -->|Yes| K["Calculate<br/>File Checksum"]
     K --> L{"Checksum<br/>Match?"}
     L -->|Yes| M["ownership: ck<br/>Pristine CK file"]
-    L -->|No| N["ownership: ck-modified<br/>User edited CK file"]
+    L -->|No| N["ownership: hi-modified<br/>User edited CK file"]
     D --> O["Result"]
     H --> O
     J --> O
@@ -399,8 +397,8 @@ flowchart TD
 ```
 
 **Ownership Classes:**
-- **`"ck"`** - HiLab-owned file, unchanged since install (pristine)
-- **`"ck-modified"`** - HiLab-owned file, user has modified
+- **`"hi"`** - HiLab-owned file, unchanged since install (pristine)
+- **`"hi-modified"`** - HiLab-owned file, user has modified
 - **`"user"`** - User-created file, not from HiLab
 
 ---
@@ -766,7 +764,7 @@ After transformation, stats are reported:
 
 **OwnershipChecker**
 - Calculate SHA-256 checksums via streaming (memory efficient)
-- Determine file ownership: ck, ck-modified, or user
+- Determine file ownership: ck, hi-modified, or user
 - Batch check with concurrency limiting for EMFILE prevention
 - Support multi-kit metadata format
 - Located in: `src/services/file-operations/ownership-checker.ts`
@@ -795,5 +793,3 @@ After transformation, stats are reported:
 - **Code Standards**: `./code-standards.md` - Development patterns and conventions
 - **Project Overview**: `./project-overview-pdr.md` - Product requirements
 - **Codebase Summary**: `./codebase-summary.md` - File organization and dependencies
-- **Content Command**: `./ck-content.md` - Multi-channel content automation
-- **Watch Command**: `./ck-watch.md` - GitHub issue auto-responder

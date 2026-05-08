@@ -54,7 +54,7 @@ const CANDIDATES: InstallCandidate[] = [
 	makeCandidate({ item: "planner", type: "agent" }),
 	makeCandidate({ item: "researcher", type: "agent", alreadyInstalled: true }),
 	makeCandidate({ item: "/ck:plan", type: "command" }),
-	makeCandidate({ item: "ck-plan", type: "skill", isDirectoryItem: true }),
+	makeCandidate({ item: "hi-plan", type: "skill", isDirectoryItem: true }),
 ];
 
 function renderPicker(
@@ -107,7 +107,7 @@ describe("InstallPicker — rendering", () => {
 
 	it("shows dir badge for isDirectoryItem candidates", () => {
 		renderPicker();
-		// "dir" badge should appear for ck-plan skill
+		// "dir" badge should appear for hi-plan skill
 		expect(screen.getByText("dir")).toBeInTheDocument();
 	});
 
@@ -267,7 +267,7 @@ describe("buildSyntheticPlan", () => {
 	it("directory items preserve isDirectoryItem flag", () => {
 		const keys = buildDefaultSelectedSet(CANDIDATES);
 		const plan = buildSyntheticPlan(CANDIDATES, keys);
-		const skillAction = plan.actions.find((a) => a.item === "ck-plan");
+		const skillAction = plan.actions.find((a) => a.item === "hi-plan");
 		expect(skillAction?.isDirectoryItem).toBe(true);
 	});
 

@@ -142,7 +142,7 @@ export interface TmpHome {
  * Always call cleanup() in test teardown (afterEach / using fixture).
  */
 export async function makeTmpHome(opts: TmpHomeOptions = {}): Promise<TmpHome> {
-	const homeDir = join(tmpdir(), `ck-e2e-${randomUUID()}`);
+	const homeDir = join(tmpdir(), `hi-e2e-${randomUUID()}`);
 	assertNotRealHome(homeDir);
 
 	// ── Base dirs ────────────────────────────────────────────────────────────

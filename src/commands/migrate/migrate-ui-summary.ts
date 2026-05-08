@@ -1,4 +1,4 @@
-import { formatDisplayPath } from "../../ui/ck-cli-design/index.js";
+import { formatDisplayPath } from "../../ui/hi-cli-design/index.js";
 import { getPortableBasePath, providers } from "../portable/provider-registry.js";
 import type { ReconcileAction, ReconcileBanner } from "../portable/reconcile-types.js";
 import type { ProviderType } from "../portable/types.js";

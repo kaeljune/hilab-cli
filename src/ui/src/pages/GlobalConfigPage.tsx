@@ -17,7 +17,7 @@ import type { SectionConfig } from "../components/schema-form";
 import { useConfigEditor } from "../hooks/use-config-editor";
 import { usePanelSizes } from "../hooks/use-panel-sizes-for-resizable-columns";
 import { useI18n } from "../i18n";
-import { fetchCkConfig, fetchCkConfigSchema, saveCkConfig } from "../services/hi-config-api";
+import { fetchHiConfig, fetchHiConfigSchema, saveHiConfig } from "../services/hi-config-api";
 
 /** Vertical resize between two panels (percentage-based, persisted) */
 function useVerticalResize(
@@ -89,25 +89,25 @@ const GlobalConfigPage: React.FC = () => {
 
 	// Config editor hook with fetch callbacks
 	const fetchConfig = useCallback(async () => {
-		return await fetchCkConfig();
+		return await fetchHiConfig();
 	}, []);
 
 	const saveConfig = useCallback(
 		async (config: Record<string, unknown>): Promise<Record<string, unknown> | undefined> => {
-			await saveCkConfig({ scope: "global", config });
+			await saveHiConfig({ scope: "global", config });
 			return undefined;
 		},
 		[],
 	);
 
 	const onReset = useCallback(async () => {
-		return await fetchCkConfig();
+		return await fetchHiConfig();
 	}, []);
 
 	const editor = useConfigEditor({
 		scope: "global",
 		fetchConfig,
-		fetchSchema: fetchCkConfigSchema,
+		fetchSchema: fetchHiConfigSchema,
 		saveConfig,
 		onReset,
 	});

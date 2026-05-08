@@ -254,7 +254,7 @@ function stripAllManagedBlocks(content: string): { content: string; removed: boo
 
 /** Write file atomically: write to temp file, then rename (POSIX-atomic). */
 async function atomicWrite(filePath: string, content: string): Promise<void> {
-	const tempPath = `${filePath}.ck-tmp`;
+	const tempPath = `${filePath}.hi-tmp`;
 	try {
 		await writeFile(tempPath, content, "utf8");
 		await rename(tempPath, filePath);

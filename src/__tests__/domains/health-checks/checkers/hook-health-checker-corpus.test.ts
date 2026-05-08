@@ -42,7 +42,7 @@ interface TestContext {
 }
 
 async function setupCtx(): Promise<TestContext> {
-	const tempDir = join(tmpdir(), `ck-corpus-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+	const tempDir = join(tmpdir(), `hi-corpus-${Date.now()}-${Math.random().toString(36).slice(2)}`);
 	const projectDir = join(tempDir, "project");
 	await mkdir(projectDir, { recursive: true });
 	const originalCkTestHome = process.env.HI_TEST_HOME;

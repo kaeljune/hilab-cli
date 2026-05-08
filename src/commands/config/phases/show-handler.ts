@@ -1,9 +1,9 @@
 /**
  * Handler for `hi config show` command
- * Uses CkConfigManager for correct .hi.json config resolution
+ * Uses HiConfigManager for correct .hi.json config resolution
  */
 
-import { CkConfigManager } from "@/domains/config/index.js";
+import { HiConfigManager } from "@/domains/config/index.js";
 import type { ConfigCommandOptions } from "../types.js";
 
 export async function handleShow(options: ConfigCommandOptions): Promise<void> {
@@ -21,16 +21,16 @@ export async function handleShow(options: ConfigCommandOptions): Promise<void> {
 	let label: string;
 
 	if (globalOnly) {
-		const scoped = await CkConfigManager.loadScope("global", projectDir);
+		const scoped = await HiConfigManager.loadScope("global", projectDir);
 		config = (scoped as Record<string, unknown>) || {};
 		label = "Global config";
 	} else if (localOnly) {
-		const scoped = await CkConfigManager.loadScope("project", projectDir);
+		const scoped = await HiConfigManager.loadScope("project", projectDir);
 		config = (scoped as Record<string, unknown>) || {};
 		label = "Local config";
 	} else {
 		// Merged: defaults + global + local
-		const { config: merged } = await CkConfigManager.loadFull(projectDir);
+		const { config: merged } = await HiConfigManager.loadFull(projectDir);
 		config = merged as Record<string, unknown>;
 		label = "Merged config";
 	}

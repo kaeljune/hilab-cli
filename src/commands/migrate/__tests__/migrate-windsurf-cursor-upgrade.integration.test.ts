@@ -158,7 +158,7 @@ function restoreWindsurfPaths() {
 // ---------------------------------------------------------------------------
 
 beforeAll(() => {
-	sandboxRoot = join(tmpdir(), `ck-migration-integ-${Date.now()}`);
+	sandboxRoot = join(tmpdir(), `hi-migration-integ-${Date.now()}`);
 	mkdirSync(sandboxRoot, { recursive: true });
 	// Redirect ~/.hilab registry writes into sandbox so we don't contend with other
 	// parallel test files for proper-lockfile on the real user registry.

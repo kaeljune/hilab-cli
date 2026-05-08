@@ -6,20 +6,20 @@ import type { ConfigSource } from "../components/schema-form";
 
 const API_BASE = "/api";
 
-export interface CkConfigResponse {
+export interface HiConfigResponse {
 	config: Record<string, unknown>;
 	sources: Record<string, ConfigSource>;
 	globalPath: string;
 	projectPath: string | null;
 }
 
-export interface CkConfigSaveRequest {
+export interface HiConfigSaveRequest {
 	scope: "global" | "project";
 	projectId?: string;
 	config: Record<string, unknown>;
 }
 
-export interface CkConfigSaveResponse {
+export interface HiConfigSaveResponse {
 	success: boolean;
 	path: string;
 	scope: string;
@@ -29,7 +29,7 @@ export interface CkConfigSaveResponse {
 /**
  * Fetch full .hi.json config with source tracking
  */
-export async function fetchCkConfig(projectId?: string): Promise<CkConfigResponse> {
+export async function fetchHiConfig(projectId?: string): Promise<HiConfigResponse> {
 	const url = projectId
 		? `${API_BASE}/hi-config?projectId=${encodeURIComponent(projectId)}`
 		: `${API_BASE}/hi-config`;
@@ -44,10 +44,10 @@ export async function fetchCkConfig(projectId?: string): Promise<CkConfigRespons
 /**
  * Fetch config for a specific scope only (no merge)
  */
-export async function fetchCkConfigScope(
+export async function fetchHiConfigScope(
 	scope: "global" | "project",
 	projectId?: string,
-): Promise<CkConfigResponse> {
+): Promise<HiConfigResponse> {
 	const params = new URLSearchParams({ scope });
 	if (projectId) {
 		params.set("projectId", projectId);
@@ -63,7 +63,7 @@ export async function fetchCkConfigScope(
 /**
  * Save .hi.json config to specified scope
  */
-export async function saveCkConfig(request: CkConfigSaveRequest): Promise<CkConfigSaveResponse> {
+export async function saveHiConfig(request: HiConfigSaveRequest): Promise<HiConfigSaveResponse> {
 	const res = await fetch(`${API_BASE}/hi-config`, {
 		method: "PUT",
 		headers: { "Content-Type": "application/json" },
@@ -81,7 +81,7 @@ export async function saveCkConfig(request: CkConfigSaveRequest): Promise<CkConf
 /**
  * Fetch the JSON Schema for .hi.json
  */
-export async function fetchCkConfigSchema(): Promise<Record<string, unknown>> {
+export async function fetchHiConfigSchema(): Promise<Record<string, unknown>> {
 	const res = await fetch(`${API_BASE}/hi-config/schema`);
 	if (!res.ok) {
 		throw new Error(`Failed to fetch schema: ${res.status}`);

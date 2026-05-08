@@ -84,7 +84,7 @@ Check disk space and directory permissions.`,
 		}
 
 		// Create unique temp directory for this clone
-		const tempDir = await fs.promises.mkdtemp(path.join(this.tempBaseDir, `ck-git-${kit.repo}-`));
+		const tempDir = await fs.promises.mkdtemp(path.join(this.tempBaseDir, `hi-git-${kit.repo}-`));
 
 		// Build clone URL
 		const url = preferSsh

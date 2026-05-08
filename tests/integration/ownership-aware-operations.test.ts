@@ -13,7 +13,7 @@ describe("Ownership-Aware Operations", () => {
 	let commandsDir: string;
 
 	beforeEach(async () => {
-		tempDir = join(tmpdir(), `ck-test-${Date.now()}`);
+		tempDir = join(tmpdir(), `hi-test-${Date.now()}`);
 		claudeDir = join(tempDir, ".claude");
 		commandsDir = join(claudeDir, "commands");
 		await mkdir(commandsDir, { recursive: true });
@@ -201,7 +201,7 @@ describe("Ownership-Aware Operations", () => {
 
 		test("works in global mode", async () => {
 			// Setup for global mode (claudeDir at targetDir level)
-			const globalDir = join(tmpdir(), `ck-global-test-${Date.now()}`);
+			const globalDir = join(tmpdir(), `hi-global-test-${Date.now()}`);
 			const globalCommandsDir = join(globalDir, "commands");
 			await mkdir(globalCommandsDir, { recursive: true });
 

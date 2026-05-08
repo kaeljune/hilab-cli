@@ -8,7 +8,7 @@ import { registerAgentsBrowserRoutes } from "./agents-routes.js";
 import { registerCommandRoutes } from "./command-routes.js";
 import { registerDashboardRoutes } from "./dashboard-routes.js";
 import { registerHealthRoutes } from "./health-routes.js";
-import { registerCkConfigRoutes } from "./hi-config-routes.js";
+import { registerHiConfigRoutes } from "./hi-config-routes.js";
 import { registerHookLogRoutes } from "./hook-log-routes.js";
 import { registerMcpRoutes } from "./mcp-routes.js";
 import { registerMigrationRoutes } from "./migration-routes.js";
@@ -26,7 +26,7 @@ export function registerRoutes(app: Express): void {
 	registerHookLogRoutes(app);
 	registerActionRoutes(app);
 	registerAgentsBrowserRoutes(app);
-	registerCkConfigRoutes(app);
+	registerHiConfigRoutes(app);
 	registerCommandRoutes(app);
 	registerDashboardRoutes(app);
 	registerMcpRoutes(app);

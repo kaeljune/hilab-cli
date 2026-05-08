@@ -10,7 +10,7 @@ describe("LegacyMigration", () => {
 	let tempDir: string;
 
 	beforeEach(async () => {
-		tempDir = join(tmpdir(), `ck-migration-test-${Date.now()}`);
+		tempDir = join(tmpdir(), `hi-migration-test-${Date.now()}`);
 		await mkdir(tempDir, { recursive: true });
 	});
 

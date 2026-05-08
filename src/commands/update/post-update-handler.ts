@@ -8,7 +8,7 @@
 import { exec, spawn } from "node:child_process";
 import { join } from "node:path";
 import { promisify } from "node:util";
-import { CkConfigManager } from "@/domains/config/hi-config-manager.js";
+import { HiConfigManager } from "@/domains/config/hi-config-manager.js";
 import { getInstalledKits } from "@/domains/migration/metadata-migration.js";
 import { versionsMatch } from "@/domains/versioning/checking/version-utils.js";
 import { getHiLabSetup } from "@/services/file-operations/hilab-scanner.js";
@@ -179,7 +179,7 @@ export async function promptKitUpdate(
 ): Promise<void> {
 	try {
 		const execFn = deps?.execAsyncFn ?? (execAsync as ExecAsyncFn);
-		const loadFullConfigFn = deps?.loadFullConfigFn ?? CkConfigManager.loadFull;
+		const loadFullConfigFn = deps?.loadFullConfigFn ?? HiConfigManager.loadFull;
 		const confirmFn = deps?.confirmFn ?? confirm;
 		const isCancelFn = deps?.isCancelFn ?? isCancel;
 		const getSetupFn = deps?.getSetupFn ?? getHiLabSetup;
@@ -357,7 +357,7 @@ export async function promptMigrateUpdate(deps?: PromptMigrateUpdateDeps): Promi
 			deps?.getProviderConfigFn ??
 			(providerRegistry?.getProviderConfig as (p: string) => { displayName: string });
 		const getSetupFn = deps?.getSetupFn ?? getHiLabSetup;
-		const loadFullConfigFn = deps?.loadFullConfigFn ?? CkConfigManager.loadFull;
+		const loadFullConfigFn = deps?.loadFullConfigFn ?? HiConfigManager.loadFull;
 		const execFn = deps?.execAsyncFn ?? (execAsync as ExecAsyncFn);
 
 		if (!detectFn || !getConfigFn) return;

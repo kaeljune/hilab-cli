@@ -7,7 +7,7 @@
  *
  * Lock coordination: all Codex-directory writes share a single lock keyed on
  * the ~/.codex/ (or project .codex/) directory.  The lock file is
- * `.config.toml.ck-codex.lock` — the same one codex-toml-installer.ts uses —
+ * `.config.toml.hi-codex.lock` — the same one codex-toml-installer.ts uses —
  * so concurrent runs of any of the three writers serialize correctly.
  */
 import { existsSync } from "node:fs";
@@ -56,7 +56,7 @@ export async function isCanonicalPathWithinBoundary(
 
 /** Returns the canonical lock file path for a given Codex target file. */
 function getCodexLockPath(targetFilePath: string): string {
-	return join(dirname(resolve(targetFilePath)), ".config.toml.ck-codex.lock");
+	return join(dirname(resolve(targetFilePath)), ".config.toml.hi-codex.lock");
 }
 
 /**

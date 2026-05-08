@@ -9,7 +9,7 @@ import {
 import { readHookDiagnostics } from "@/services/claude-data/hook-log-reader.js";
 import { PathResolver } from "@/shared/path-resolver.js";
 
-const TEST_HOME = join(tmpdir(), `ck-hook-diagnostics-${Date.now()}-${process.pid}`);
+const TEST_HOME = join(tmpdir(), `hi-hook-diagnostics-${Date.now()}-${process.pid}`);
 process.env.HI_TEST_HOME = TEST_HOME;
 
 async function writeHookLog(filePath: string, lines: string[]): Promise<void> {
@@ -116,7 +116,7 @@ describe("readHookDiagnostics", () => {
 		const discoveredDir = join(
 			PathResolver.getGlobalKitDir(),
 			"projects",
-			`ck-hook-discovered-${Date.now()}-${process.pid}`,
+			`hi-hook-discovered-${Date.now()}-${process.pid}`,
 		);
 		const projectId = `discovered-${Buffer.from(projectDir).toString("base64url")}`;
 

@@ -71,7 +71,7 @@ export async function installSkillDirectories(
 				// Detect existing skill directory and warn about overwrite
 				const alreadyExists = existsSync(targetDir);
 				const backupDir = alreadyExists
-					? `${targetDir}.ck-backup-${process.pid}-${Date.now()}`
+					? `${targetDir}.hi-backup-${process.pid}-${Date.now()}`
 					: null;
 				let copied = false;
 

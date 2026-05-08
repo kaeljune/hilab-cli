@@ -22,7 +22,7 @@ describe("PackageManagerDetector", () => {
 
 	beforeEach(() => {
 		// Create isolated test directory
-		testHomeDir = join(tmpdir(), `ck-test-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+		testHomeDir = join(tmpdir(), `hi-test-${Date.now()}-${Math.random().toString(36).slice(2)}`);
 		mkdirSync(testHomeDir, { recursive: true });
 		process.env.HI_TEST_HOME = testHomeDir;
 

@@ -1,5 +1,5 @@
 /**
- * CkConfigManager - Full .hi.json config management with source tracking
+ * HiConfigManager - Full .hi.json config management with source tracking
  * Handles global (~/.claude/.hi.json) and project (.claude/.hi.json) configs
  */
 
@@ -9,11 +9,11 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 import { logger } from "@/shared/logger.js";
 import {
-	type CkConfig,
-	CkConfigSchema,
-	type CkConfigWithSources,
 	type ConfigSource,
 	DEFAULT_HI_CONFIG,
+	type HiConfig,
+	HiConfigSchema,
+	type HiConfigWithSources,
 	normalizeCkConfigInput,
 } from "@/types";
 
@@ -112,7 +112,7 @@ function valuesEqual(a: unknown, b: unknown): boolean {
 	return keysA.every((key) => valuesEqual(objA[key], objB[key]));
 }
 
-export class CkConfigManager {
+export class HiConfigManager {
 	/**
 	 * Get the global config directory (~/.claude)
 	 */
@@ -124,7 +124,7 @@ export class CkConfigManager {
 	 * Get the global config file path (~/.claude/.hi.json)
 	 */
 	static getGlobalConfigPath(): string {
-		return join(CkConfigManager.getGlobalConfigDir(), HI_CONFIG_FILE);
+		return join(HiConfigManager.getGlobalConfigDir(), HI_CONFIG_FILE);
 	}
 
 	/**
@@ -138,18 +138,18 @@ export class CkConfigManager {
 	 * Get the project config file path (projectDir/.claude/.hi.json)
 	 */
 	static getProjectConfigPath(projectDir: string): string {
-		return join(CkConfigManager.getProjectConfigDir(projectDir), HI_CONFIG_FILE);
+		return join(HiConfigManager.getProjectConfigDir(projectDir), HI_CONFIG_FILE);
 	}
 
 	/**
 	 * Load raw config from a file path
 	 */
-	private static async loadConfigFile(configPath: string): Promise<CkConfig | null> {
+	private static async loadConfigFile(configPath: string): Promise<HiConfig | null> {
 		try {
 			if (!existsSync(configPath)) return null;
 			const content = await readFile(configPath, "utf-8");
 			const data = normalizeCkConfigInput(JSON.parse(content));
-			return CkConfigSchema.parse(data);
+			return HiConfigSchema.parse(data);
 		} catch (error) {
 			logger.warning(
 				`Failed to load config from ${configPath}: ${error instanceof Error ? error.message : "Unknown"}`,
@@ -162,9 +162,9 @@ export class CkConfigManager {
 	 * Compute source for each config field by comparing against global and project configs
 	 */
 	private static computeSources(
-		mergedConfig: CkConfig,
-		globalConfig: CkConfig | null,
-		projectConfig: CkConfig | null,
+		mergedConfig: HiConfig,
+		globalConfig: HiConfig | null,
+		projectConfig: HiConfig | null,
 		prefix = "",
 	): Record<string, ConfigSource> {
 		const sources: Record<string, ConfigSource> = {};
@@ -204,31 +204,31 @@ export class CkConfigManager {
 	 * Load full config with source tracking
 	 * Merges: defaults <- global <- project
 	 */
-	static async loadFull(projectDir: string | null): Promise<CkConfigWithSources> {
-		const globalPath = CkConfigManager.getGlobalConfigPath();
-		const projectPath = projectDir ? CkConfigManager.getProjectConfigPath(projectDir) : null;
+	static async loadFull(projectDir: string | null): Promise<HiConfigWithSources> {
+		const globalPath = HiConfigManager.getGlobalConfigPath();
+		const projectPath = projectDir ? HiConfigManager.getProjectConfigPath(projectDir) : null;
 
 		// Load configs
-		const globalConfig = await CkConfigManager.loadConfigFile(globalPath);
-		const projectConfig = projectPath ? await CkConfigManager.loadConfigFile(projectPath) : null;
+		const globalConfig = await HiConfigManager.loadConfigFile(globalPath);
+		const projectConfig = projectPath ? await HiConfigManager.loadConfigFile(projectPath) : null;
 
 		// Merge: defaults <- global <- project
-		let merged: CkConfig = { ...DEFAULT_HI_CONFIG };
+		let merged: HiConfig = { ...DEFAULT_HI_CONFIG };
 		if (globalConfig) {
 			merged = deepMerge(
 				merged as Record<string, unknown>,
 				globalConfig as Record<string, unknown>,
-			) as CkConfig;
+			) as HiConfig;
 		}
 		if (projectConfig) {
 			merged = deepMerge(
 				merged as Record<string, unknown>,
 				projectConfig as Record<string, unknown>,
-			) as CkConfig;
+			) as HiConfig;
 		}
 
 		// Compute sources
-		const sources = CkConfigManager.computeSources(merged, globalConfig, projectConfig);
+		const sources = HiConfigManager.computeSources(merged, globalConfig, projectConfig);
 
 		return {
 			config: merged,
@@ -243,18 +243,18 @@ export class CkConfigManager {
 	 * Only writes fields that differ from inherited values (selective save)
 	 */
 	static async saveFull(
-		config: CkConfig,
+		config: HiConfig,
 		scope: "global" | "project",
 		projectDir: string | null,
 	): Promise<string> {
 		// Validate config
-		const validConfig = CkConfigSchema.parse(normalizeCkConfigInput(config));
+		const validConfig = HiConfigSchema.parse(normalizeCkConfigInput(config));
 
 		const configPath =
 			scope === "global"
-				? CkConfigManager.getGlobalConfigPath()
+				? HiConfigManager.getGlobalConfigPath()
 				: projectDir
-					? CkConfigManager.getProjectConfigPath(projectDir)
+					? HiConfigManager.getProjectConfigPath(projectDir)
 					: null;
 
 		if (!configPath) {
@@ -264,8 +264,8 @@ export class CkConfigManager {
 		// projectDir is guaranteed non-null here since we checked configPath above
 		const configDir =
 			scope === "global"
-				? CkConfigManager.getGlobalConfigDir()
-				: CkConfigManager.getProjectConfigDir(projectDir as string);
+				? HiConfigManager.getGlobalConfigDir()
+				: HiConfigManager.getProjectConfigDir(projectDir as string);
 
 		// Ensure directory exists
 		if (!existsSync(configDir)) {
@@ -276,7 +276,7 @@ export class CkConfigManager {
 		// legacy aliases and drop unsupported keys. If the current file no longer
 		// parses under the latest schema, fall back to normalized raw JSON so a
 		// partial save does not wipe unrelated settings.
-		let existingConfig = (await CkConfigManager.loadScope(scope, projectDir)) as Record<
+		let existingConfig = (await HiConfigManager.loadScope(scope, projectDir)) as Record<
 			string,
 			unknown
 		> | null;
@@ -308,12 +308,12 @@ export class CkConfigManager {
 	static async loadScope(
 		scope: "global" | "project",
 		projectDir: string | null,
-	): Promise<CkConfig | null> {
+	): Promise<HiConfig | null> {
 		if (scope === "global") {
-			return CkConfigManager.loadConfigFile(CkConfigManager.getGlobalConfigPath());
+			return HiConfigManager.loadConfigFile(HiConfigManager.getGlobalConfigPath());
 		}
 		if (!projectDir) return null;
-		return CkConfigManager.loadConfigFile(CkConfigManager.getProjectConfigPath(projectDir));
+		return HiConfigManager.loadConfigFile(HiConfigManager.getProjectConfigPath(projectDir));
 	}
 
 	/**
@@ -324,7 +324,7 @@ export class CkConfigManager {
 	 * @returns true if config file exists
 	 */
 	static projectConfigExists(dir: string, isGlobal?: boolean): boolean {
-		const configPath = isGlobal ? join(dir, ".hi.json") : CkConfigManager.getProjectConfigPath(dir);
+		const configPath = isGlobal ? join(dir, ".hi.json") : HiConfigManager.getProjectConfigPath(dir);
 		return existsSync(configPath);
 	}
 
@@ -333,10 +333,10 @@ export class CkConfigManager {
 	 */
 	static configExists(scope: "global" | "project", projectDir: string | null): boolean {
 		if (scope === "global") {
-			return existsSync(CkConfigManager.getGlobalConfigPath());
+			return existsSync(HiConfigManager.getGlobalConfigPath());
 		}
 		if (!projectDir) return false;
-		return existsSync(CkConfigManager.getProjectConfigPath(projectDir));
+		return existsSync(HiConfigManager.getProjectConfigPath(projectDir));
 	}
 
 	/**
@@ -346,7 +346,7 @@ export class CkConfigManager {
 		fieldPath: string,
 		projectDir: string | null,
 	): Promise<{ value: unknown; source: ConfigSource }> {
-		const { config, sources } = await CkConfigManager.loadFull(projectDir);
+		const { config, sources } = await HiConfigManager.loadFull(projectDir);
 		const value = getNestedValue(config, fieldPath);
 		const source = sources[fieldPath] || "default";
 		return { value, source };
@@ -362,12 +362,12 @@ export class CkConfigManager {
 		projectDir: string | null,
 	): Promise<void> {
 		// Load existing config for scope
-		const existing = (await CkConfigManager.loadScope(scope, projectDir)) || {};
+		const existing = (await HiConfigManager.loadScope(scope, projectDir)) || {};
 
 		// Set the new value
 		setNestedValue(existing as Record<string, unknown>, fieldPath, value);
 
 		// Save back
-		await CkConfigManager.saveFull(existing, scope, projectDir);
+		await HiConfigManager.saveFull(existing, scope, projectDir);
 	}
 }

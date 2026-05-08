@@ -238,7 +238,7 @@ async function copyDirectorySnapshot(
 
 function buildRestoreTempPath(sourcePath: string, suffix: "current" | "restore"): string {
 	const random = Math.random().toString(36).slice(2, 8);
-	return join(dirname(sourcePath), `.ck-${suffix}-${basename(sourcePath)}-${Date.now()}-${random}`);
+	return join(dirname(sourcePath), `.hi-${suffix}-${basename(sourcePath)}-${Date.now()}-${random}`);
 }
 
 async function assertSafeRestoreDestination(targetPath: string, rootDir: string): Promise<void> {

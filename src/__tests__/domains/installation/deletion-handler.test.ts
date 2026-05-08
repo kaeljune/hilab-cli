@@ -11,7 +11,7 @@ describe("deletion-handler", () => {
 	beforeEach(() => {
 		testDir = join(
 			tmpdir(),
-			`ck-deletion-test-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+			`hi-deletion-test-${Date.now()}-${Math.random().toString(36).slice(2)}`,
 		);
 		mkdirSync(testDir, { recursive: true });
 	});

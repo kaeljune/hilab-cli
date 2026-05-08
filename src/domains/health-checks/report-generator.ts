@@ -195,7 +195,7 @@ export class ReportGenerator {
 		}
 
 		// Create temp file and upload using spawnSync to avoid command injection
-		const tmpFile = join(tmpdir(), `ck-report-${Date.now()}.txt`);
+		const tmpFile = join(tmpdir(), `hi-report-${Date.now()}.txt`);
 		writeFileSync(tmpFile, report);
 
 		try {

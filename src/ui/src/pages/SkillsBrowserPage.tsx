@@ -180,16 +180,16 @@ const SkillsBrowserPage: React.FC = () => {
 	const skillItemRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
 
 	// Auto-select skill from URL query param (e.g., /skills?name=plan)
-	// IMPORTANT: Some skills have "ck-" prefix in folder names (e.g., "ck-plan", "ck-debug")
+	// IMPORTANT: Some skills have "hi-" prefix in folder names (e.g., "hi-plan", "hi-debug")
 	// but are invoked without prefix in commands (e.g., "/ck:plan" extracts "plan").
-	// This effect checks both exact match and "ck-{name}" prefixed match.
+	// This effect checks both exact match and "hi-{name}" prefixed match.
 	useEffect(() => {
 		const nameParam = searchParams.get("name");
 		if (nameParam && skills.length > 0) {
 			const nameLower = nameParam.toLowerCase();
-			const ckPrefixedName = `ck-${nameLower}`;
+			const ckPrefixedName = `hi-${nameLower}`;
 
-			// Find skill by exact match, case-insensitive match, or ck-prefixed match
+			// Find skill by exact match, case-insensitive match, or hi-prefixed match
 			const match = skills.find(
 				(s) =>
 					s.name === nameParam ||
@@ -210,7 +210,7 @@ const SkillsBrowserPage: React.FC = () => {
 	}, [searchParams, skills]);
 
 	const { size, isDragging, startDrag } = useResizable({
-		storageKey: "ck-skills-panel-width",
+		storageKey: "hi-skills-panel-width",
 		defaultSize: 380,
 		minSize: 260,
 		maxSize: 650,

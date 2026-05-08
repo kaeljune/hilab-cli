@@ -177,7 +177,7 @@ async function ensureDir(filePath: string): Promise<void> {
 }
 
 function getMergeTargetLockPath(targetPath: string): string {
-	const lockName = `.${basename(targetPath)}.ck-merge.lock`;
+	const lockName = `.${basename(targetPath)}.hi-merge.lock`;
 	return join(dirname(targetPath), lockName);
 }
 

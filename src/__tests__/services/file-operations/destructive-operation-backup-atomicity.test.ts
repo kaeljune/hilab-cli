@@ -50,7 +50,7 @@ describe("destructive operation backup atomicity", () => {
 		await writeFile(join(sourceRoot, "commands", "second.md"), "second-current");
 
 		renameMock.mockImplementation(async (from, to) => {
-			if (String(from).includes(".ck-restore-") && String(to).endsWith("second.md")) {
+			if (String(from).includes(".hi-restore-") && String(to).endsWith("second.md")) {
 				throw new Error("forced second restore swap failure");
 			}
 
@@ -76,7 +76,7 @@ describe("destructive operation backup atomicity", () => {
 		await writeFile(join(sourceRoot, "commands", "first.md"), "first-current");
 
 		renameMock.mockImplementation(async (from, to) => {
-			if (String(from).endsWith("first.md") && String(to).includes(".ck-current-first.md-")) {
+			if (String(from).endsWith("first.md") && String(to).includes(".hi-current-first.md-")) {
 				throw new Error("forced current staging failure");
 			}
 

@@ -415,7 +415,7 @@ export async function handleFreshInstallation(
 
 			if (analysis.hasMetadata) {
 				// Smart removal: ownership-aware
-				// For now, include ck-modified files in removal (they'll be reinstalled)
+				// For now, include hi-modified files in removal (they'll be reinstalled)
 				result = await removeFilesByOwnership(claudeDir, analysis, true);
 
 				spinner.succeed(

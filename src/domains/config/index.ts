@@ -3,7 +3,7 @@
  */
 
 export { ConfigManager } from "./config-manager.js";
-export { CkConfigManager } from "./hi-config-manager.js";
+export { HiConfigManager } from "./hi-config-manager.js";
 export { SettingsMerger, type SettingsJson } from "./settings-merger.js";
 export { generateEnvFile } from "./config-generator.js";
 export { VALIDATION_PATTERNS, validateApiKey } from "./config-validator.js";

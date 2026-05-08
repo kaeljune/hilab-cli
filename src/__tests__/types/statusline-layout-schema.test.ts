@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { CkConfigSchema, StatuslineLayoutSchema } from "@/types/hi-config.js";
+import { HiConfigSchema, StatuslineLayoutSchema } from "@/types/hi-config.js";
 
 describe("StatuslineLayoutSchema", () => {
 	describe("lines validation", () => {
@@ -91,9 +91,9 @@ describe("StatuslineLayoutSchema", () => {
 			}
 		});
 
-		// TDD Red: fields stripped when routed through CkConfigSchema
-		it("preserves quotaLow/quotaHigh through CkConfigSchema parse", () => {
-			const result = CkConfigSchema.safeParse({
+		// TDD Red: fields stripped when routed through HiConfigSchema
+		it("preserves quotaLow/quotaHigh through HiConfigSchema parse", () => {
+			const result = HiConfigSchema.safeParse({
 				statuslineLayout: {
 					theme: { quotaLow: "cyan", quotaHigh: "red" },
 				},
@@ -123,14 +123,14 @@ describe("StatuslineLayoutSchema", () => {
 	});
 });
 
-describe("CkConfigSchema statuslineLayout", () => {
+describe("HiConfigSchema statuslineLayout", () => {
 	it("accepts undefined statuslineLayout (backward compat)", () => {
-		const result = CkConfigSchema.safeParse({});
+		const result = HiConfigSchema.safeParse({});
 		expect(result.success).toBe(true);
 	});
 
 	it("accepts valid statuslineLayout with lines", () => {
-		const result = CkConfigSchema.safeParse({
+		const result = HiConfigSchema.safeParse({
 			statuslineLayout: {
 				lines: [["model", "context", "quota"]],
 				sectionConfig: { model: { icon: "🤖" } },
@@ -140,7 +140,7 @@ describe("CkConfigSchema statuslineLayout", () => {
 	});
 
 	it("rejects invalid section ID in lines", () => {
-		const result = CkConfigSchema.safeParse({
+		const result = HiConfigSchema.safeParse({
 			statuslineLayout: {
 				lines: [["model", "bogus"]],
 			},

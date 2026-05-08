@@ -12,7 +12,7 @@ interface I18nContextType {
 
 export const I18nContext = createContext<I18nContextType | null>(null);
 
-const STORAGE_KEY = "ck-dashboard-lang";
+const STORAGE_KEY = "hi-dashboard-lang";
 
 function detectLanguage(): Language {
 	const stored = localStorage.getItem(STORAGE_KEY);

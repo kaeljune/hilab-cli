@@ -4,7 +4,7 @@
 import { existsSync, readFileSync, realpathSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
-import { CkConfigManager } from "@/domains/config/index.js";
+import { HiConfigManager } from "@/domains/config/index.js";
 import { ProjectsRegistryManager } from "@/domains/hilab-data/index.js";
 import { scanClaudeProjects } from "@/domains/hilab-data/index.js";
 import { executeAction } from "@/domains/plan-actions/action-executor.js";
@@ -30,7 +30,7 @@ import type {
 	ProjectPlanListItem,
 	ProjectPlansEntry,
 } from "@/domains/plan-parser/plan-types.js";
-import { CkConfigSchema, normalizeCkConfigInput } from "@/types";
+import { HiConfigSchema, normalizeCkConfigInput } from "@/types";
 import type { Express, Request, Response } from "express";
 import matter from "gray-matter";
 import pLimit from "p-limit";
@@ -112,12 +112,12 @@ function getGlobalPlanRoot(): string {
 
 	let value: string;
 	try {
-		const configPath = CkConfigManager.getGlobalConfigPath();
+		const configPath = HiConfigManager.getGlobalConfigPath();
 		if (!existsSync(configPath)) {
 			value = resolveGlobalPlansDir();
 		} else {
 			const raw = JSON.parse(readFileSync(configPath, "utf8"));
-			const parsed = CkConfigSchema.parse(normalizeCkConfigInput(raw));
+			const parsed = HiConfigSchema.parse(normalizeCkConfigInput(raw));
 			value = resolveGlobalPlansDir(parsed);
 		}
 	} catch {
@@ -167,7 +167,7 @@ async function getAllowedRoots(projectId?: string): Promise<string[]> {
 	if (!projectPath) return roots;
 
 	try {
-		const { config } = await CkConfigManager.loadFull(projectPath);
+		const { config } = await HiConfigManager.loadFull(projectPath);
 		const projectPlansDir = projectId?.startsWith("discovered-")
 			? resolveSafeDiscoveredProjectPlansDir(projectPath, config)
 			: resolveProjectPlansDir(projectPath, config);
@@ -255,7 +255,7 @@ function toProjectPlanListItem(summary: PlanSummary, plansDir: string): ProjectP
 
 async function buildProjectPlansEntry(target: ProjectScanTarget): Promise<ProjectPlansEntry> {
 	const projectPath = toProjectPathKey(target.path);
-	const { config } = await CkConfigManager.loadFull(projectPath);
+	const { config } = await HiConfigManager.loadFull(projectPath);
 	const plansDir = target.id.startsWith("discovered-")
 		? resolveSafeDiscoveredProjectPlansDir(projectPath, config)
 		: resolveProjectPlansDir(projectPath, config);
@@ -302,7 +302,7 @@ function isCurrentProjectFallbackCandidate(currentPath: string, globalProjectKey
 	if (toProjectPathKey(currentPath) === toProjectPathKey(homedir())) return false;
 	return (
 		existsSync(join(currentPath, ".git")) ||
-		existsSync(CkConfigManager.getProjectConfigPath(currentPath)) ||
+		existsSync(HiConfigManager.getProjectConfigPath(currentPath)) ||
 		existsSync(join(currentPath, "plans"))
 	);
 }

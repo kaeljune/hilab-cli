@@ -17,7 +17,7 @@ import {
  * Uses temp files in tmpdir with unique names for isolation.
  */
 
-const TEST_DIR = join(tmpdir(), `ck-prefs-test-${Date.now()}-${process.pid}`);
+const TEST_DIR = join(tmpdir(), `hi-prefs-test-${Date.now()}-${process.pid}`);
 
 // Helper to create test preferences file
 async function createPrefsFile(path: string, data: Record<string, unknown>): Promise<void> {

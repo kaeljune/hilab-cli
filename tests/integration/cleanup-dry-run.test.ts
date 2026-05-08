@@ -13,7 +13,7 @@ describe("Cleanup Dry-Run Mode", () => {
 	let commandsDir: string;
 
 	beforeEach(async () => {
-		tempDir = join(tmpdir(), `ck-dryrun-test-${Date.now()}`);
+		tempDir = join(tmpdir(), `hi-dryrun-test-${Date.now()}`);
 		claudeDir = join(tempDir, ".claude");
 		commandsDir = join(claudeDir, "commands");
 		await mkdir(commandsDir, { recursive: true });

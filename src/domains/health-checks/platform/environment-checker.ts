@@ -131,7 +131,7 @@ export async function checkGlobalDirAccess(): Promise<CheckResult> {
 		};
 	}
 
-	const testFile = join(globalDir, ".ck-doctor-access-test");
+	const testFile = join(globalDir, ".hi-doctor-access-test");
 
 	try {
 		// Ensure directory exists

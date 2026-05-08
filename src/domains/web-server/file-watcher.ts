@@ -4,7 +4,7 @@
 
 import { homedir } from "node:os";
 import { join } from "node:path";
-import { CkConfigManager } from "@/domains/config/index.js";
+import { HiConfigManager } from "@/domains/config/index.js";
 import { logger } from "@/shared/logger.js";
 import chokidar, { type FSWatcher } from "chokidar";
 import type { WebSocketManager } from "./websocket-manager.js";
@@ -95,10 +95,10 @@ export class FileWatcher {
 			try {
 				const scope = this.getConfigScope(path);
 
-				// Reload and broadcast config via CkConfigManager
+				// Reload and broadcast config via HiConfigManager
 				const ckScope = scope === "global" ? "global" : "project";
 				const projectDir = scope === "global" ? null : process.cwd();
-				const config = await CkConfigManager.loadScope(ckScope, projectDir);
+				const config = await HiConfigManager.loadScope(ckScope, projectDir);
 
 				this.wsManager.broadcast({
 					type: "config:updated",

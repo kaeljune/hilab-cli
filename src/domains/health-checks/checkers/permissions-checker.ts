@@ -77,7 +77,7 @@ export async function checkGlobalDirWritable(): Promise<CheckResult> {
 	// Generate unique filename to avoid race conditions
 	const timestamp = Date.now();
 	const random = Math.random().toString(36).substring(2);
-	const testFile = join(globalDir, `.ck-write-test-${timestamp}-${random}`);
+	const testFile = join(globalDir, `.hi-write-test-${timestamp}-${random}`);
 
 	try {
 		// Use atomic writeFile with 'wx' flag to fail if file exists

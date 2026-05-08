@@ -10,7 +10,7 @@ describe("OwnershipChecker", () => {
 	let tempDir: string;
 
 	beforeEach(() => {
-		tempDir = join(tmpdir(), `ck-test-${Date.now()}`);
+		tempDir = join(tmpdir(), `hi-test-${Date.now()}`);
 		mkdirSync(tempDir, { recursive: true });
 	});
 
@@ -81,7 +81,7 @@ describe("OwnershipChecker", () => {
 			expect(result.actualChecksum).toBe(checksum);
 		});
 
-		test("returns 'ck-modified' when checksum differs", async () => {
+		test("returns 'hi-modified' when checksum differs", async () => {
 			const testFile = join(tempDir, "test.txt");
 			await writeFile(testFile, "original");
 			const originalChecksum = await OwnershipChecker.calculateChecksum(testFile);

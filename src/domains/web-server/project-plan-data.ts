@@ -1,4 +1,4 @@
-import { CkConfigManager } from "@/domains/config/index.js";
+import { HiConfigManager } from "@/domains/config/index.js";
 import {
 	buildPlanSummaries,
 	resolvePlanDirForScope,
@@ -44,7 +44,7 @@ export async function buildProjectPlanData(
 	activePlans: ProjectActivePlan[];
 }> {
 	try {
-		const { config } = await CkConfigManager.loadFull(scope === "global" ? null : projectPath);
+		const { config } = await HiConfigManager.loadFull(scope === "global" ? null : projectPath);
 		const plansDir = resolvePlanDirForScope(scope, projectPath ?? process.cwd(), config);
 		const allPlans = buildPlanSummaries(scanPlanDir(plansDir));
 		const activePlans = allPlans

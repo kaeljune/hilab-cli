@@ -5,10 +5,10 @@ import {
 	resolvePlanDirForScope,
 	resolveProjectPlansDir,
 } from "@/domains/plan-parser/plan-scope.js";
-import type { CkConfig } from "@/types";
+import type { HiConfig } from "@/types";
 
 describe("plan-scope", () => {
-	const config: CkConfig = {
+	const config: HiConfig = {
 		paths: {
 			plans: "plans/project",
 			globalPlans: "plans/global",

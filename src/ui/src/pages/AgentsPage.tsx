@@ -245,7 +245,7 @@ const AgentsPage: React.FC = () => {
 	const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
 
 	const { size, isDragging, startDrag } = useResizable({
-		storageKey: "ck-agents-panel-width",
+		storageKey: "hi-agents-panel-width",
 		defaultSize: 380,
 		minSize: 260,
 		maxSize: 650,

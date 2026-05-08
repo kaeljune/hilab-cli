@@ -18,7 +18,7 @@ import { ProjectsRegistryManager } from "@/domains/hilab-data/projects-registry.
  */
 
 // Set up shared test environment once
-const TEST_HOME = join(tmpdir(), `ck-registry-test-${Date.now()}-${process.pid}`);
+const TEST_HOME = join(tmpdir(), `hi-registry-test-${Date.now()}-${process.pid}`);
 process.env.HI_TEST_HOME = TEST_HOME;
 
 describe("ProjectsRegistryManager", () => {

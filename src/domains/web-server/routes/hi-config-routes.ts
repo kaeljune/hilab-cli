@@ -11,11 +11,11 @@
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { CkConfigManager } from "@/domains/config/index.js";
-import ckConfigSchema from "@/schemas/hi-config.schema.json" with { type: "json" };
+import { HiConfigManager } from "@/domains/config/index.js";
+import hiConfigSchema from "@/schemas/hi-config.schema.json" with { type: "json" };
 import { logger } from "@/shared/logger.js";
 import { PathResolver } from "@/shared/path-resolver.js";
-import { type CkConfig, CkConfigSchema, normalizeCkConfigInput } from "@/types";
+import { type HiConfig, HiConfigSchema, normalizeCkConfigInput } from "@/types";
 import type { Express, Request, Response } from "express";
 import { ZodError } from "zod";
 
@@ -38,7 +38,7 @@ async function resolveProjectDir(projectId: string | undefined): Promise<string 
 	return project?.path ?? null;
 }
 
-export function registerCkConfigRoutes(app: Express): void {
+export function registerHiConfigRoutes(app: Express): void {
 	/**
 	 * GET /api/hi-config
 	 * Load full .hi.json config with source tracking
@@ -57,11 +57,11 @@ export function registerCkConfigRoutes(app: Express): void {
 			const projectDir = await resolveProjectDir(projectId);
 
 			if (scope === "global") {
-				const config = await CkConfigManager.loadScope("global", null);
+				const config = await HiConfigManager.loadScope("global", null);
 				res.json({
 					config: config || {},
 					sources: {},
-					globalPath: CkConfigManager.getGlobalConfigPath(),
+					globalPath: HiConfigManager.getGlobalConfigPath(),
 					projectPath: null,
 				});
 				return;
@@ -72,18 +72,18 @@ export function registerCkConfigRoutes(app: Express): void {
 					res.status(400).json({ error: "projectId required for project scope" });
 					return;
 				}
-				const config = await CkConfigManager.loadScope("project", projectDir);
+				const config = await HiConfigManager.loadScope("project", projectDir);
 				res.json({
 					config: config || {},
 					sources: {},
-					globalPath: CkConfigManager.getGlobalConfigPath(),
-					projectPath: CkConfigManager.getProjectConfigPath(projectDir),
+					globalPath: HiConfigManager.getGlobalConfigPath(),
+					projectPath: HiConfigManager.getProjectConfigPath(projectDir),
 				});
 				return;
 			}
 
 			// Default: merged with source tracking
-			const result = await CkConfigManager.loadFull(projectDir);
+			const result = await HiConfigManager.loadFull(projectDir);
 			res.json(result);
 		} catch (error) {
 			logger.error(`Failed to load hi-config: ${error}`);
@@ -98,14 +98,14 @@ export function registerCkConfigRoutes(app: Express): void {
 	 * Request body:
 	 * - scope: "global" | "project"
 	 * - projectId: string (required for project scope)
-	 * - config: CkConfig object
+	 * - config: HiConfig object
 	 */
 	app.put("/api/hi-config", async (req: Request, res: Response) => {
 		try {
 			const { scope, projectId, config } = req.body as {
 				scope: "global" | "project";
 				projectId?: string;
-				config: CkConfig;
+				config: HiConfig;
 			};
 
 			// Validate scope
@@ -121,7 +121,7 @@ export function registerCkConfigRoutes(app: Express): void {
 			}
 
 			// Validate against schema
-			const parseResult = CkConfigSchema.safeParse(normalizeCkConfigInput(config));
+			const parseResult = HiConfigSchema.safeParse(normalizeCkConfigInput(config));
 			if (!parseResult.success) {
 				res.status(400).json({
 					error: "Config validation failed",
@@ -145,8 +145,8 @@ export function registerCkConfigRoutes(app: Express): void {
 			}
 
 			// Save config
-			const savedPath = await CkConfigManager.saveFull(parseResult.data, scope, projectDir);
-			let savedConfig = (await CkConfigManager.loadScope(scope, projectDir)) as Record<
+			const savedPath = await HiConfigManager.saveFull(parseResult.data, scope, projectDir);
+			let savedConfig = (await HiConfigManager.loadScope(scope, projectDir)) as Record<
 				string,
 				unknown
 			> | null;
@@ -179,7 +179,7 @@ export function registerCkConfigRoutes(app: Express): void {
 	 * Return the JSON Schema for .hi.json
 	 */
 	app.get("/api/hi-config/schema", (_req: Request, res: Response) => {
-		res.json(ckConfigSchema);
+		res.json(hiConfigSchema);
 	});
 
 	/**
@@ -227,7 +227,7 @@ export function registerCkConfigRoutes(app: Express): void {
 			}
 
 			// Update field
-			await CkConfigManager.updateField(fieldPath, value, scope, projectDir);
+			await HiConfigManager.updateField(fieldPath, value, scope, projectDir);
 
 			res.json({ success: true, fieldPath, value, scope });
 		} catch (error) {

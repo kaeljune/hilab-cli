@@ -8,7 +8,7 @@ import {
 /**
  * StatuslineBuilderPage — visual drag-and-drop builder for Claude Code status-line.
  * URL: /statusline
- * Loads/saves statuslineLayout within .hi.json via existing /api/ck-config endpoint.
+ * Loads/saves statuslineLayout within .hi.json via existing /api/hi-config endpoint.
  * Uses lines-based layout model: lines: string[][], sectionConfig: Record<string, SectionConfig>
  */
 import type React from "react";
@@ -20,8 +20,8 @@ import { StatuslineThemePicker } from "../components/statusline-builder/statusli
 import { useResizable } from "../hooks/useResizable";
 import { useI18n } from "../i18n";
 import {
-	type CkConfigResponse,
-	fetchCkConfigScope,
+	type HiConfigResponse,
+	fetchHiConfigScope,
 	updateCkConfigField,
 } from "../services/hi-config-api";
 
@@ -67,7 +67,7 @@ const StatuslineBuilderPage: React.FC = () => {
 		isDragging,
 		startDrag,
 	} = useResizable({
-		storageKey: "ck-statusline-preview-width",
+		storageKey: "hi-statusline-preview-width",
 		defaultSize: 500,
 		minSize: 300,
 		maxSize: 900,
@@ -78,8 +78,8 @@ const StatuslineBuilderPage: React.FC = () => {
 	// Load existing config on mount
 	useEffect(() => {
 		let cancelled = false;
-		void fetchCkConfigScope("global")
-			.then((res: CkConfigResponse) => {
+		void fetchHiConfigScope("global")
+			.then((res: HiConfigResponse) => {
 				if (cancelled) return;
 				const raw = res.config.statuslineLayout as RawStatuslineLayout | undefined;
 				if (raw) setLayout(parseLayout(raw));

@@ -124,7 +124,7 @@ const NAMED_FILES = NAMED_FILE_CANDIDATES.map((candidates) =>
 
 // ─── Extraction helpers ───────────────────────────────────────────────────────
 
-interface CkPlanInvocation {
+interface HiPlanInvocation {
 	file: string;
 	line: number;
 	raw: string;
@@ -142,7 +142,7 @@ interface CkPlanInvocation {
  * Strips angle-bracket placeholders (<id>, <phase-id>, <name>) before extraction.
  * Skips slash-joined subcommand lists like check/uncheck/add-phase (prose enumerations).
  */
-function extractInvocations(filePath: string): CkPlanInvocation[] {
+function extractInvocations(filePath: string): HiPlanInvocation[] {
 	let content: string;
 	try {
 		content = readFileSync(filePath, "utf8");
@@ -150,7 +150,7 @@ function extractInvocations(filePath: string): CkPlanInvocation[] {
 		return [];
 	}
 
-	const results: CkPlanInvocation[] = [];
+	const results: HiPlanInvocation[] = [];
 	const lines = content.split("\n");
 	let inCodeBlock = false;
 
@@ -224,7 +224,7 @@ function extractInvocations(filePath: string): CkPlanInvocation[] {
 /**
  * Collect all `hi plan` invocations from a list of file paths.
  */
-function collectFromFiles(filePaths: string[]): CkPlanInvocation[] {
+function collectFromFiles(filePaths: string[]): HiPlanInvocation[] {
 	return filePaths.flatMap(extractInvocations);
 }
 

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import {
-	CkConfigSchema,
+	HiConfigSchema,
 	normalizeCkConfigInput,
 	normalizeMigrateProvidersInput,
 } from "./hi-config.js";
@@ -14,7 +14,7 @@ const LEGACY_GEMINI_MODEL_CASES = [
 
 describe("normalizeCkConfigInput", () => {
 	test("preserves semantic statusline quota config", () => {
-		const parsed = CkConfigSchema.parse({
+		const parsed = HiConfigSchema.parse({
 			statuslineQuota: false,
 			hooks: {
 				"usage-context-awareness": true,
@@ -35,7 +35,7 @@ describe("normalizeCkConfigInput", () => {
 			}) as { gemini: { model: string } };
 
 			expect(normalized.gemini.model).toBe(expectedModel);
-			expect(CkConfigSchema.parse(normalized).gemini?.model).toBe(expectedModel);
+			expect(HiConfigSchema.parse(normalized).gemini?.model).toBe(expectedModel);
 		},
 	);
 
@@ -47,7 +47,7 @@ describe("normalizeCkConfigInput", () => {
 		}) as { updatePipeline: { migrateProviders: string[] } };
 
 		expect(normalized.updatePipeline.migrateProviders).toEqual(["codex"]);
-		expect(CkConfigSchema.parse(normalized).updatePipeline?.migrateProviders).toEqual(["codex"]);
+		expect(HiConfigSchema.parse(normalized).updatePipeline?.migrateProviders).toEqual(["codex"]);
 	});
 
 	test("normalizes comma-separated providers and removes duplicates", () => {
@@ -68,7 +68,7 @@ describe("normalizeCkConfigInput", () => {
 		}) as { updatePipeline: { migrateProviders: string } };
 
 		expect(normalized.updatePipeline.migrateProviders).toBe("auto");
-		expect(CkConfigSchema.parse(normalized).updatePipeline?.migrateProviders).toBe("auto");
+		expect(HiConfigSchema.parse(normalized).updatePipeline?.migrateProviders).toBe("auto");
 	});
 
 	test("self-heals a pasted JSON array string", () => {
@@ -79,7 +79,7 @@ describe("normalizeCkConfigInput", () => {
 		}) as { updatePipeline: { migrateProviders: string[] } };
 
 		expect(normalized.updatePipeline.migrateProviders).toEqual(["codex", "cursor"]);
-		expect(CkConfigSchema.parse(normalized).updatePipeline?.migrateProviders).toEqual([
+		expect(HiConfigSchema.parse(normalized).updatePipeline?.migrateProviders).toEqual([
 			"codex",
 			"cursor",
 		]);
