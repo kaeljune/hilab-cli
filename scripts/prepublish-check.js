@@ -384,7 +384,7 @@ async function smokeDashboardRuntime({ label, command, args, cwd, env }) {
 }
 
 async function verifyInstalledCli({ logger, tarballPath, expectedVersion }) {
-	const installRoot = mkdtempSync(join(tmpdir(), "ck-install-"));
+	const installRoot = mkdtempSync(join(tmpdir(), "hi-install-"));
 	const prefixDir = join(installRoot, "prefix");
 
 	try {
@@ -395,7 +395,7 @@ async function verifyInstalledCli({ logger, tarballPath, expectedVersion }) {
 		);
 
 		const cliPath =
-			process.platform === "win32" ? join(prefixDir, "ck.cmd") : join(prefixDir, "bin", "ck");
+			process.platform === "win32" ? join(prefixDir, "hi.cmd") : join(prefixDir, "bin", "hi");
 		if (!existsSync(cliPath)) {
 			throw new Error(`Installed CLI entry point not found at ${cliPath}`);
 		}
