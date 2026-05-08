@@ -13,7 +13,7 @@ import { setTimeout as delay } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
 
 const REQUIRED_PACK_FILES = [
-	"package/bin/ck.js",
+	"package/bin/hi.js",
 	"package/dist/index.js",
 	"package/dist/ui/index.html",
 ];
@@ -138,7 +138,7 @@ function validateBuildArtifacts({ logger }) {
 	const requiredFiles = [
 		{ path: cliBundle, label: "CLI bundle" },
 		{ path: indexHtml, label: "UI bundle entry" },
-		{ path: join(process.cwd(), "bin", "ck.js"), label: "Wrapper entry point" },
+		{ path: join(process.cwd(), "bin", "hi.js"), label: "Wrapper entry point" },
 	];
 
 	const errors = requiredFiles.filter((file) => !existsSync(file.path));
@@ -405,7 +405,7 @@ async function verifyInstalledCli({ logger, tarballPath, expectedVersion }) {
 			NO_COLOR: "1",
 		};
 		const packageRoot = getInstalledPackageRoot(prefixDir);
-		const wrapperPath = join(packageRoot, "bin", "ck.js");
+		const wrapperPath = join(packageRoot, "bin", "hi.js");
 		if (!existsSync(wrapperPath)) {
 			throw new Error(`Installed wrapper entry point not found at ${wrapperPath}`);
 		}

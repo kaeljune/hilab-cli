@@ -392,45 +392,45 @@ describe("PackageManagerDetector", () => {
 
 	describe("detectFromBinaryPath", () => {
 		test("detects bun from bun install path", () => {
-			process.argv[1] = "/Users/user/.bun/install/global/node_modules/hilab-cli/bin/ck.js";
+			process.argv[1] = "/Users/user/.bun/install/global/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("bun");
 		});
 
 		test("detects bun from .bun path on Windows-style", () => {
 			// On Windows with forward slashes after normalization
-			process.argv[1] = "C:/Users/user/.bun/install/global/node_modules/hilab-cli/bin/ck.js";
+			process.argv[1] = "C:/Users/user/.bun/install/global/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("bun");
 		});
 
 		test("detects npm from /usr/local/lib/node_modules path", () => {
-			process.argv[1] = "/usr/local/lib/node_modules/hilab-cli/bin/ck.js";
+			process.argv[1] = "/usr/local/lib/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("npm");
 		});
 
 		test("detects npm from Windows AppData npm path", () => {
-			process.argv[1] = "C:/Users/user/AppData/Roaming/npm/node_modules/hilab-cli/bin/ck.js";
+			process.argv[1] = "C:/Users/user/AppData/Roaming/npm/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("npm");
 		});
 
 		test("detects pnpm from pnpm global path", () => {
-			process.argv[1] = "/Users/user/.local/share/pnpm/global/5/node_modules/hilab-cli/bin/ck.js";
+			process.argv[1] = "/Users/user/.local/share/pnpm/global/5/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("pnpm");
 		});
 
 		test("detects yarn from yarn global path", () => {
-			process.argv[1] = "/Users/user/.config/yarn/global/node_modules/hilab-cli/bin/ck.js";
+			process.argv[1] = "/Users/user/.config/yarn/global/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("yarn");
 		});
 
 		test("detects yarn from Windows AppData Local path", () => {
 			process.argv[1] =
-				"C:/Users/user/AppData/Local/Yarn/Data/global/node_modules/hilab-cli/bin/ck.js";
+				"C:/Users/user/AppData/Local/Yarn/Data/global/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("yarn");
 		});
 
 		test("detects yarn from Windows AppData Local path with backslashes", () => {
 			process.argv[1] =
-				"C:\\Users\\user\\AppData\\Local\\Yarn\\Data\\global\\node_modules\\hilab-cli\\bin\\ck.js";
+				"C:\\Users\\user\\AppData\\Local\\Yarn\\Data\\global\\node_modules\\hilab-cli\\bin\\hi.js";
 			expect(detectFromBinaryPath()).toBe("yarn");
 		});
 
@@ -447,26 +447,26 @@ describe("PackageManagerDetector", () => {
 		test("resolves symlink to detect bun", () => {
 			const targetDir = join(testHomeDir, ".bun", "install", "global", "node_modules", "hi", "bin");
 			mkdirSync(targetDir, { recursive: true });
-			writeFileSync(join(targetDir, "ck.js"), "// stub");
+			writeFileSync(join(targetDir, "hi.js"), "// stub");
 			const symlinkPath = join(testHomeDir, "hi-link");
-			symlinkSync(join(targetDir, "ck.js"), symlinkPath);
+			symlinkSync(join(targetDir, "hi.js"), symlinkPath);
 			process.argv[1] = symlinkPath;
 			expect(detectFromBinaryPath()).toBe("bun");
 		});
 
 		test("detects npm from nvm path", () => {
 			process.argv[1] =
-				"/Users/user/.nvm/versions/node/v22.14.0/lib/node_modules/hilab-cli/bin/ck.js";
+				"/Users/user/.nvm/versions/node/v22.14.0/lib/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("npm");
 		});
 
 		test("detects npm from Homebrew path", () => {
-			process.argv[1] = "/opt/homebrew/lib/node_modules/hilab-cli/bin/ck.js";
+			process.argv[1] = "/opt/homebrew/lib/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("npm");
 		});
 
 		test("detects npm from Debian /usr/lib path", () => {
-			process.argv[1] = "/usr/lib/node_modules/hilab-cli/bin/ck.js";
+			process.argv[1] = "/usr/lib/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("npm");
 		});
 
@@ -476,18 +476,18 @@ describe("PackageManagerDetector", () => {
 		});
 
 		test("detects npm from n version manager path", () => {
-			process.argv[1] = "/usr/local/n/versions/node/22.0.0/lib/node_modules/hilab-cli/bin/ck.js";
+			process.argv[1] = "/usr/local/n/versions/node/22.0.0/lib/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("npm");
 		});
 
 		test("detects npm from Windows nvm path", () => {
 			process.argv[1] =
-				"C:/Users/user/AppData/Roaming/nvm/v22.15.0/node_modules/hilab-cli/bin/ck.js";
+				"C:/Users/user/AppData/Roaming/nvm/v22.15.0/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("npm");
 		});
 
 		test("falls back to npm for generic node_modules hilab-cli path", () => {
-			process.argv[1] = "C:/Tools/custom-prefix/node_modules/hilab-cli/bin/ck.js";
+			process.argv[1] = "C:/Tools/custom-prefix/node_modules/hilab-cli/bin/hi.js";
 			expect(detectFromBinaryPath()).toBe("npm");
 		});
 	});
@@ -553,7 +553,7 @@ describe("PackageManagerDetector", () => {
 			);
 
 			// Binary path → bun
-			process.argv[1] = "/Users/user/.bun/install/global/node_modules/ck/bin/ck.js";
+			process.argv[1] = "/Users/user/.bun/install/global/node_modules/ck/bin/hi.js";
 
 			const pm = await PackageManagerDetector.detect();
 			expect(pm).toBe("bun");
@@ -564,7 +564,7 @@ describe("PackageManagerDetector", () => {
 		});
 
 		test("binary path takes precedence over env var", async () => {
-			process.argv[1] = "/Users/user/.bun/install/global/node_modules/ck/bin/ck.js";
+			process.argv[1] = "/Users/user/.bun/install/global/node_modules/ck/bin/hi.js";
 			process.env.npm_config_user_agent = "npm/10.0.0 node/v20.9.0 linux x64";
 			const pm = await PackageManagerDetector.detect();
 			expect(pm).toBe("bun");

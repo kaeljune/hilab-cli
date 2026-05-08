@@ -5,7 +5,7 @@
  *
  * Runs `npm pack --dry-run --json` to validate what would be published without
  * creating a tarball or requiring npm credentials. Catches common release issues:
- * - Missing critical files (bin/ck.js, dist/index.js, dist/ui/)
+ * - Missing critical files (bin/hi.js, dist/index.js, dist/ui/)
  * - Accidentally included source or sensitive files
  * - Broken bin field pointing to non-existent file
  * - Misconfigured package.json files field
@@ -20,7 +20,7 @@ import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // Files that MUST be present in the published package
-const REQUIRED_FILES = ["package/bin/ck.js", "package/dist/index.js", "package/dist/ui/index.html"];
+const REQUIRED_FILES = ["package/bin/hi.js", "package/dist/index.js", "package/dist/ui/index.html"];
 
 // Paths that must NOT appear in the published package (security / cleanliness)
 const FORBIDDEN_PATTERNS = [
