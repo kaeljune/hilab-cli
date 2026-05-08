@@ -202,7 +202,7 @@ export class ReportGenerator {
 			// Use spawnSync with array args to avoid shell interpolation (command injection safe)
 			const result = spawnSync(
 				"gh",
-				["gist", "create", tmpFile, "--desc", "ClaudeKit Diagnostic Report"],
+				["gist", "create", tmpFile, "--desc", "HiLab Diagnostic Report"],
 				{
 					encoding: "utf-8",
 				},

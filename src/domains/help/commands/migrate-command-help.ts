@@ -10,18 +10,18 @@ export const migrateCommandHelp: CommandHelp = {
 	name: "migrate",
 	description:
 		"Migrate Claude Code agents, commands, skills, config, rules, and hooks to other providers",
-	usage: "ck migrate [options]",
+	usage: "hi migrate [options]",
 	examples: [
 		{
-			command: "ck migrate --install",
+			command: "hi migrate --install",
 			description: "Pick items to install interactively (install picker mode)",
 		},
 		{
-			command: "ck migrate --agent codex --dry-run",
+			command: "hi migrate --agent codex --dry-run",
 			description: "Preview the destination-aware reconcile plan before writing files",
 		},
 		{
-			command: "ck migrate --respect-deletions",
+			command: "hi migrate --respect-deletions",
 			description: "Preserve empty directories — do not auto-reinstall deleted items",
 		},
 	],

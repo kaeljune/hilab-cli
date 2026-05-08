@@ -38,8 +38,8 @@ export const KitLayoutSchema = z.object({
 });
 export type KitLayout = z.infer<typeof KitLayoutSchema>;
 
-export const ClaudeKitPackageMetadataSchema = z.object({
-	claudekit: KitLayoutSchema.partial().optional(),
+export const HiLabPackageMetadataSchema = z.object({
+	hilab: KitLayoutSchema.partial().optional(),
 });
 
 export const DEFAULT_KIT_LAYOUT: KitLayout = {
@@ -50,15 +50,15 @@ export const DEFAULT_KIT_LAYOUT: KitLayout = {
 // Available kits
 export const AVAILABLE_KITS: Record<KitType, KitConfig> = {
 	engineer: {
-		name: "ClaudeKit Engineer",
-		repo: "claudekit-engineer",
-		owner: "claudekit",
+		name: "HiLab Coding",
+		repo: "hilab-coding",
+		owner: "kaeljune",
 		description: "Engineering toolkit for building with Claude",
 	},
 	marketing: {
-		name: "ClaudeKit Marketing",
-		repo: "claudekit-marketing",
-		owner: "claudekit",
+		name: "HiLab Marketing",
+		repo: "hilab-marketing",
+		owner: "kaeljune",
 		description: "Content automation: campaigns, social media, analytics workflows",
 	},
 };
@@ -96,7 +96,7 @@ export const USER_CONFIG_PATTERNS = [
 	".repomixignore",
 	".mcp.json",
 	".ckignore",
-	".ck.json",
+	".hi.json",
 	"CLAUDE.md",
 ];
 

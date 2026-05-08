@@ -109,7 +109,7 @@ function renderCommandSection(cmd: CommandHelp, level: number): string {
  * Generate the full CLI reference Markdown string.
  *
  * Structure:
- *   # ClaudeKit CLI Reference
+ *   # HiLab CLI Reference
  *   ## Table of Contents
  *   ## ck <command>   (one per HELP_REGISTRY entry, alpha-sorted)
  *     ### <subcommand>
@@ -120,7 +120,7 @@ export function generateReference(): string {
 	const parts: string[] = [];
 
 	// H1 title
-	parts.push("# ClaudeKit CLI Reference");
+	parts.push("# HiLab CLI Reference");
 	parts.push("");
 	parts.push("Complete reference for all `ck` commands, auto-generated from the help registry.");
 	parts.push("");

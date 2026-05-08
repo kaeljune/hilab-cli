@@ -1,4 +1,4 @@
-# ClaudeKit Watch Command (`ck watch`)
+# HiLab Watch Command (`ck watch`)
 
 ## Overview
 
@@ -43,9 +43,9 @@ ck watch --verbose
 ```mermaid
 flowchart TD
     A["Start Daemon<br/>ck watch"] --> B["Discover Repos<br/>Single or multi-repo mode"]
-    B --> C["Load Config<br/>from .ck.json watch key"]
+    B --> C["Load Config<br/>from .hi.json watch key"]
     C --> D["Validate Setup<br/>GitHub token, repo access"]
-    D --> E["Write PID Lock<br/>~/.claudekit/locks/ck-watch.lock"]
+    D --> E["Write PID Lock<br/>~/.hilab/locks/ck-watch.lock"]
     E --> F["Register Signal Handlers<br/>SIGINT, SIGTERM"]
     F --> G["Main Loop"]
     G --> H["Per-repo Poll Cycle"]
@@ -83,7 +83,7 @@ Each poll cycle follows this sequence:
    - Dequeue next issue
    - Run full implementation (clone, code, commit, PR)
    - Mark `completed` or `error`/`timeout`
-6. **Save State** — Persist all changes to `.ck.json` under `watch.state`
+6. **Save State** — Persist all changes to `.hi.json` under `watch.state`
 7. **Sleep** — Wait `pollIntervalMs`, then repeat
 
 The daemon never modifies the main git checkout; it uses worktrees (if enabled) or creates/deletes branches cleanly.
@@ -122,7 +122,7 @@ Useful for monorepos or managing multiple projects overnight.
 
 ## Configuration
 
-Watch is configured via `.ck.json` in project root:
+Watch is configured via `.hi.json` in project root:
 
 ```json
 {
@@ -358,7 +358,7 @@ gh api rate_limit
 
 ## State Management
 
-Runtime state persisted in `.ck.json` under `watch.state`:
+Runtime state persisted in `.hi.json` under `watch.state`:
 
 ```typescript
 interface WatchState {
@@ -430,7 +430,7 @@ Watch uses process locking to prevent multiple instances:
 
 ```bash
 # Lock file location
-~/.claudekit/locks/ck-watch.lock
+~/.hilab/locks/ck-watch.lock
 
 # Contents: process ID
 12345
@@ -455,7 +455,7 @@ ck watch --force
 
 ## Logging
 
-Watch logs to `~/.claudekit/logs/watch-YYYYMMDD.log`:
+Watch logs to `~/.hilab/logs/watch-YYYYMMDD.log`:
 
 ### Log Levels
 
@@ -489,7 +489,7 @@ Includes:
 
 ```bash
 # Check for stale lock
-ls ~/.claudekit/locks/ck-watch.lock
+ls ~/.hilab/locks/ck-watch.lock
 
 # Check GitHub credentials
 gh auth status

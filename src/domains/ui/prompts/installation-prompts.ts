@@ -78,7 +78,7 @@ export async function promptFreshConfirmation(
 ): Promise<boolean> {
 	const backupRoot = join(PathResolver.getConfigDir(false), "backups");
 
-	logger.warning("[!] Fresh installation will remove ClaudeKit files:");
+	logger.warning("[!] Fresh installation will remove HiLab files:");
 	logger.info(`Path: ${targetPath}`);
 	logger.info(`Recovery backup: ${backupRoot}`);
 

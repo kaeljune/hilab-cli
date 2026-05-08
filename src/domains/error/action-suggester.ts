@@ -92,7 +92,7 @@ export function suggestActions(category: ErrorCategory): SuggestedAction[] {
 		UNKNOWN: [
 			{
 				title: "Get more details",
-				commands: ["ck <command> --verbose"],
+				commands: ["hi <command> --verbose"],
 				notes: ["Run the command with --verbose flag to see detailed error information"],
 			},
 		],

@@ -37,8 +37,8 @@ describe("applyPrefix", () => {
 
 			await applyPrefix(tempDir);
 
-			expect(await pathExists(join(commandsDir, "ck", "plan.md"))).toBe(true);
-			expect(await pathExists(join(commandsDir, "ck", "fix.md"))).toBe(true);
+			expect(await pathExists(join(commandsDir, "hi", "plan.md"))).toBe(true);
+			expect(await pathExists(join(commandsDir, "hi", "fix.md"))).toBe(true);
 			// Originals gone
 			expect(await pathExists(join(commandsDir, "plan.md"))).toBe(false);
 		});
@@ -54,8 +54,8 @@ describe("applyPrefix", () => {
 			await applyPrefix(tempDir);
 
 			// mkt/ should be inside ck/
-			expect(await pathExists(join(commandsDir, "ck", "mkt", "email.md"))).toBe(true);
-			expect(await pathExists(join(commandsDir, "ck", "mkt", "campaign.md"))).toBe(true);
+			expect(await pathExists(join(commandsDir, "hi", "mkt", "email.md"))).toBe(true);
+			expect(await pathExists(join(commandsDir, "hi", "mkt", "campaign.md"))).toBe(true);
 			// Top-level mkt/ should be gone
 			expect(await pathExists(join(commandsDir, "mkt"))).toBe(false);
 		});
@@ -68,7 +68,7 @@ describe("applyPrefix", () => {
 
 			await applyPrefix(tempDir);
 
-			expect(await pathExists(join(commandsDir, "ck", "bootstrap", "auto.md"))).toBe(true);
+			expect(await pathExists(join(commandsDir, "hi", "bootstrap", "auto.md"))).toBe(true);
 		});
 
 		it("wraps mixed files and mkt/ together under ck/", async () => {
@@ -81,12 +81,12 @@ describe("applyPrefix", () => {
 			await applyPrefix(tempDir);
 
 			// Both under ck/
-			expect(await pathExists(join(commandsDir, "ck", "plan.md"))).toBe(true);
-			expect(await pathExists(join(commandsDir, "ck", "mkt", "email.md"))).toBe(true);
+			expect(await pathExists(join(commandsDir, "hi", "plan.md"))).toBe(true);
+			expect(await pathExists(join(commandsDir, "hi", "mkt", "email.md"))).toBe(true);
 
 			// Only ck/ at top level
 			const entries = await readdir(commandsDir);
-			expect(entries).toEqual(["ck"]);
+			expect(entries).toEqual(["hi"]);
 		});
 	});
 
@@ -99,21 +99,21 @@ describe("applyPrefix", () => {
 			await applyPrefix(tempDir);
 			await applyPrefix(tempDir);
 
-			expect(await pathExists(join(commandsDir, "ck", "plan.md"))).toBe(true);
-			expect(await pathExists(join(commandsDir, "ck", "ck", "plan.md"))).toBe(false);
+			expect(await pathExists(join(commandsDir, "hi", "plan.md"))).toBe(true);
+			expect(await pathExists(join(commandsDir, "hi", "hi", "plan.md"))).toBe(false);
 		});
 
 		it("detects already-prefixed state (only ck/ exists)", async () => {
 			const commandsDir = join(tempDir, ".claude", "commands");
-			const ckDir = join(commandsDir, "ck");
+			const ckDir = join(commandsDir, "hi");
 			await mkdir(ckDir, { recursive: true });
 			await writeFile(join(ckDir, "plan.md"), "# Plan");
 
 			// Should be a no-op
 			await applyPrefix(tempDir);
 
-			expect(await pathExists(join(commandsDir, "ck", "plan.md"))).toBe(true);
-			expect(await pathExists(join(commandsDir, "ck", "ck"))).toBe(false);
+			expect(await pathExists(join(commandsDir, "hi", "plan.md"))).toBe(true);
+			expect(await pathExists(join(commandsDir, "hi", "hi"))).toBe(false);
 		});
 	});
 

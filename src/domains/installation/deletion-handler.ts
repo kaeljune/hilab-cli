@@ -9,7 +9,7 @@ import { readManifest } from "@/services/file-operations/manifest/manifest-reade
 import { expandDeletionPatterns } from "@/shared/deletion-pattern-expander.js";
 import { logger } from "@/shared/logger.js";
 import { PathResolver } from "@/shared/path-resolver.js";
-import type { ClaudeKitMetadata, KitType, Metadata, TrackedFile } from "@/types";
+import type { HiLabMetadata, KitType, Metadata, TrackedFile } from "@/types";
 import { pathExists, readFile, writeFile } from "fs-extra";
 import picomatch from "picomatch";
 
@@ -264,7 +264,7 @@ async function updateMetadataAfterDeletion(
  * @returns Deletion result with lists of deleted, preserved, and errored paths
  */
 export async function handleDeletions(
-	sourceMetadata: ClaudeKitMetadata,
+	sourceMetadata: HiLabMetadata,
 	claudeDir: string,
 	kitType?: KitType,
 ): Promise<DeletionResult> {

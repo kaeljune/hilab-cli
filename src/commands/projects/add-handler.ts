@@ -1,10 +1,10 @@
 /**
- * Handler for `ck projects add <path>` command
+ * Handler for `hi projects add <path>` command
  */
 
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
-import { ProjectsRegistryManager } from "@/domains/claudekit-data/index.js";
+import { ProjectsRegistryManager } from "@/domains/hilab-data/index.js";
 import { logger } from "@/shared/logger.js";
 import { intro, log, outro } from "@/shared/safe-prompts.js";
 import picocolors from "picocolors";

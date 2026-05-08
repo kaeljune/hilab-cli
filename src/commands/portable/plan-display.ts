@@ -302,7 +302,7 @@ export function buildCompletionFooter(
 			label: "ISSUES",
 			lines: [
 				`${issuesCount} item(s) failed`,
-				"Re-run ck migrate after fixing the reported errors.",
+				"Re-run hi migrate after fixing the reported errors.",
 			],
 		});
 	}
@@ -442,13 +442,13 @@ function buildNextCommands(
 	typeCounts: Map<PortableItemType, number>,
 ): string[] {
 	const firstProvider = providersInRun[0];
-	const commands = ["ck doctor"];
+	const commands = ["hi doctor"];
 	if (!firstProvider) return commands;
 
 	const preferredChecks: Array<{ flag: PortableItemType; command: string }> = [
-		{ flag: "skill", command: `ck skills --installed --agent ${firstProvider}` },
-		{ flag: "agent", command: `ck agents --installed --agent ${firstProvider}` },
-		{ flag: "command", command: `ck commands --installed --agent ${firstProvider}` },
+		{ flag: "skill", command: `hi skills --installed --agent ${firstProvider}` },
+		{ flag: "agent", command: `hi agents --installed --agent ${firstProvider}` },
+		{ flag: "command", command: `hi commands --installed --agent ${firstProvider}` },
 	];
 
 	for (const check of preferredChecks) {

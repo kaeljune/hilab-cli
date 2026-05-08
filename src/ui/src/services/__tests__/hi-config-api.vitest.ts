@@ -5,9 +5,9 @@ import {
 	fetchCkConfigScope,
 	saveCkConfig,
 	updateCkConfigField,
-} from "../ck-config-api";
+} from "../hi-config-api";
 
-describe("ck-config-api web mode", () => {
+describe("hi-config-api web mode", () => {
 	const fetchMock = vi.fn();
 
 	beforeEach(() => {
@@ -15,61 +15,61 @@ describe("ck-config-api web mode", () => {
 		vi.stubGlobal("fetch", fetchMock);
 	});
 
-	it("fetchCkConfig calls GET /api/ck-config without projectId", async () => {
+	it("fetchCkConfig calls GET /api/hi-config without projectId", async () => {
 		fetchMock.mockResolvedValueOnce({
 			ok: true,
 			json: async () => ({
 				config: { privacyBlock: false },
 				sources: { privacyBlock: "global" },
-				globalPath: "/Users/test/.claude/.ck.json",
+				globalPath: "/Users/test/.claude/.hi.json",
 				projectPath: null,
 			}),
 		});
 
 		const result = await fetchCkConfig();
 
-		expect(fetchMock).toHaveBeenCalledWith("/api/ck-config");
+		expect(fetchMock).toHaveBeenCalledWith("/api/hi-config");
 		expect(result.config).toEqual({ privacyBlock: false });
 		expect(result.projectPath).toBeNull();
 	});
 
-	it("fetchCkConfig calls GET /api/ck-config?projectId= when projectId is provided", async () => {
+	it("fetchCkConfig calls GET /api/hi-config?projectId= when projectId is provided", async () => {
 		fetchMock.mockResolvedValueOnce({
 			ok: true,
 			json: async () => ({
 				config: { privacyBlock: true },
 				sources: { privacyBlock: "project" },
-				globalPath: "/Users/test/.claude/.ck.json",
-				projectPath: "/tmp/proj/.claude/.ck.json",
+				globalPath: "/Users/test/.claude/.hi.json",
+				projectPath: "/tmp/proj/.claude/.hi.json",
 			}),
 		});
 
 		const result = await fetchCkConfig("project-alpha");
 
-		expect(fetchMock).toHaveBeenCalledWith("/api/ck-config?projectId=project-alpha");
-		expect(result.projectPath).toBe("/tmp/proj/.claude/.ck.json");
+		expect(fetchMock).toHaveBeenCalledWith("/api/hi-config?projectId=project-alpha");
+		expect(result.projectPath).toBe("/tmp/proj/.claude/.hi.json");
 	});
 
 	it("fetchCkConfig throws on non-ok response", async () => {
 		fetchMock.mockResolvedValueOnce({ ok: false, status: 500 });
 
-		await expect(fetchCkConfig()).rejects.toThrow("Failed to fetch ck-config: 500");
+		await expect(fetchCkConfig()).rejects.toThrow("Failed to fetch hi-config: 500");
 	});
 
-	it("fetchCkConfigScope passes scope param to GET /api/ck-config", async () => {
+	it("fetchCkConfigScope passes scope param to GET /api/hi-config", async () => {
 		fetchMock.mockResolvedValueOnce({
 			ok: true,
 			json: async () => ({
 				config: {},
 				sources: {},
-				globalPath: "/Users/test/.claude/.ck.json",
+				globalPath: "/Users/test/.claude/.hi.json",
 				projectPath: null,
 			}),
 		});
 
 		await fetchCkConfigScope("global");
 
-		expect(fetchMock).toHaveBeenCalledWith("/api/ck-config?scope=global");
+		expect(fetchMock).toHaveBeenCalledWith("/api/hi-config?scope=global");
 	});
 
 	it("fetchCkConfigScope includes projectId when provided", async () => {
@@ -79,21 +79,21 @@ describe("ck-config-api web mode", () => {
 				config: {},
 				sources: {},
 				globalPath: "",
-				projectPath: "/tmp/proj/.claude/.ck.json",
+				projectPath: "/tmp/proj/.claude/.hi.json",
 			}),
 		});
 
 		await fetchCkConfigScope("project", "project-alpha");
 
-		expect(fetchMock).toHaveBeenCalledWith("/api/ck-config?scope=project&projectId=project-alpha");
+		expect(fetchMock).toHaveBeenCalledWith("/api/hi-config?scope=project&projectId=project-alpha");
 	});
 
-	it("saveCkConfig sends PUT /api/ck-config with request body", async () => {
+	it("saveCkConfig sends PUT /api/hi-config with request body", async () => {
 		fetchMock.mockResolvedValueOnce({
 			ok: true,
 			json: async () => ({
 				success: true,
-				path: "/Users/test/.claude/.ck.json",
+				path: "/Users/test/.claude/.hi.json",
 				scope: "global",
 				config: { privacyBlock: false },
 			}),
@@ -105,7 +105,7 @@ describe("ck-config-api web mode", () => {
 		});
 
 		expect(fetchMock).toHaveBeenCalledWith(
-			"/api/ck-config",
+			"/api/hi-config",
 			expect.objectContaining({
 				method: "PUT",
 				headers: { "Content-Type": "application/json" },
@@ -127,8 +127,8 @@ describe("ck-config-api web mode", () => {
 		);
 	});
 
-	it("fetchCkConfigSchema calls GET /api/ck-config/schema", async () => {
-		const schema = { $id: "ck-config", properties: { privacyBlock: { type: "boolean" } } };
+	it("fetchCkConfigSchema calls GET /api/hi-config/schema", async () => {
+		const schema = { $id: "hi-config", properties: { privacyBlock: { type: "boolean" } } };
 		fetchMock.mockResolvedValueOnce({
 			ok: true,
 			json: async () => schema,
@@ -136,18 +136,18 @@ describe("ck-config-api web mode", () => {
 
 		const result = await fetchCkConfigSchema();
 
-		expect(fetchMock).toHaveBeenCalledWith("/api/ck-config/schema");
+		expect(fetchMock).toHaveBeenCalledWith("/api/hi-config/schema");
 		expect(result).toHaveProperty("$id");
 		expect(result).toHaveProperty("properties");
 	});
 
-	it("updateCkConfigField sends PATCH /api/ck-config/field", async () => {
+	it("updateCkConfigField sends PATCH /api/hi-config/field", async () => {
 		fetchMock.mockResolvedValueOnce({ ok: true });
 
 		await updateCkConfigField("privacyBlock", false, "global");
 
 		expect(fetchMock).toHaveBeenCalledWith(
-			"/api/ck-config/field",
+			"/api/hi-config/field",
 			expect.objectContaining({
 				method: "PATCH",
 				body: JSON.stringify({

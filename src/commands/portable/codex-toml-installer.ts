@@ -694,7 +694,7 @@ export async function cleanupStaleCodexConfigEntries(options: {
 	if (!existsSync(configTomlPath)) return [];
 
 	try {
-		// Read + write inside lock to prevent TOCTOU race with concurrent ck migrate
+		// Read + write inside lock to prevent TOCTOU race with concurrent hi migrate
 		return await withCodexTargetLock(configTomlPath, async () => {
 			let content = await readFile(configTomlPath, "utf-8");
 			const allStaleSlugs: string[] = [];
@@ -735,7 +735,7 @@ export async function cleanupStaleCodexConfigEntries(options: {
 			}
 
 			// Phase 2: Clean legacy entries outside sentinel blocks.
-			// Older ck migrate versions wrote [agents.X] entries directly into config.toml
+			// Older hi migrate versions wrote [agents.X] entries directly into config.toml
 			// without sentinel markers. These must also be cleaned when .toml files are missing.
 			const analysis = analyzeConfigToml(content);
 			const unmanagedSlugs = extractUnmanagedAgentSlugs(analysis.unmanagedContent);

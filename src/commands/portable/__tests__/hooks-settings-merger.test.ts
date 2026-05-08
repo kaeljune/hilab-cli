@@ -12,7 +12,7 @@ import {
 } from "../hooks-settings-merger.js";
 import type { ProviderType } from "../types.js";
 
-const testDir = join(tmpdir(), "claudekit-hooks-merger-test");
+const testDir = join(tmpdir(), "hilab-hooks-merger-test");
 const normalizePathForAssert = (value: string | null | undefined) =>
 	(value ?? "").replaceAll("\\", "/");
 

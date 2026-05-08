@@ -1,12 +1,12 @@
-# ClaudeKit CLI
+# HiLab CLI
 
 ## 🎯 Core Mission
 
-**This CLI is the front door to ClaudeKit.** Every command, prompt, and message serves one purpose: **empower users to understand and adopt the CK stack.**
+**This CLI is the front door to HiLab.** Every command, prompt, and message serves one purpose: **empower users to understand and adopt the CK stack.**
 
 ### The Two Imperatives
 
-1. **Educate** — Users must understand what ClaudeKit is, what each kit offers, and why it matters to their workflow. No blind installation. Informed adoption.
+1. **Educate** — Users must understand what HiLab is, what each kit offers, and why it matters to their workflow. No blind installation. Informed adoption.
 
 2. **Install** — Zero friction from discovery to working setup. Whether Engineer, Marketing, or both — the path must be clear, fast, and successful.
 
@@ -24,15 +24,15 @@
 | **Engineer** | AI-powered coding: skills, hooks, multi-agent workflows | Developers building with Claude |
 | **Marketing** | Content automation: campaigns, social, analytics | Marketers leveraging AI |
 
-Both kits share the ClaudeKit foundation. Users can install one or both.
+Both kits share the HiLab foundation. Users can install one or both.
 
 ---
 
-CLI tool (`ck`) for bootstrapping/updating ClaudeKit projects from GitHub releases.
+CLI tool (`ck`) for bootstrapping/updating HiLab projects from GitHub releases.
 
 ## 🎯 Core Principle
 
-**User experience is paramount.** The CLI is users' first touchpoint with ClaudeKit. Prioritize clarity over cleverness: intuitive commands, helpful errors, minimal friction from install to daily use.
+**User experience is paramount.** The CLI is users' first touchpoint with HiLab. Prioritize clarity over cleverness: intuitive commands, helpful errors, minimal friction from install to daily use.
 
 ---
 
@@ -249,8 +249,8 @@ Machine-readable CLI manifest: [`cli-manifest.json`](./cli-manifest.json)
 Human/LLM reference: [`docs/cli-reference.md`](./docs/cli-reference.md)
 
 Top-level commands (all support `ck <cmd> --help`):
-- `ck new` — bootstrap a new ClaudeKit project
-- `ck init` — initialize/update a ClaudeKit project
+- `ck new` — bootstrap a new HiLab project
+- `ck init` — initialize/update a HiLab project
 - `ck update` — update the CLI itself
 - `ck doctor` — health check
 - `ck uninstall`, `ck backups`, `ck versions`, `ck setup`

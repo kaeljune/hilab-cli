@@ -22,32 +22,32 @@ describe("update-cli", () => {
 	describe("buildInitCommand", () => {
 		it("builds local command without --yes by default", () => {
 			const result = buildInitCommand(false);
-			expect(result).toBe("ck init --install-skills");
+			expect(result).toBe("hi init --install-skills");
 		});
 
 		it("builds global command without --yes by default", () => {
 			const result = buildInitCommand(true);
-			expect(result).toBe("ck init -g --install-skills");
+			expect(result).toBe("hi init -g --install-skills");
 		});
 
 		it("builds local command with engineer kit", () => {
 			const result = buildInitCommand(false, "engineer");
-			expect(result).toBe("ck init --kit engineer --install-skills");
+			expect(result).toBe("hi init --kit engineer --install-skills");
 		});
 
 		it("builds local command with marketing kit", () => {
 			const result = buildInitCommand(false, "marketing");
-			expect(result).toBe("ck init --kit marketing --install-skills");
+			expect(result).toBe("hi init --kit marketing --install-skills");
 		});
 
 		it("builds global command with engineer kit", () => {
 			const result = buildInitCommand(true, "engineer");
-			expect(result).toBe("ck init -g --kit engineer --install-skills");
+			expect(result).toBe("hi init -g --kit engineer --install-skills");
 		});
 
 		it("builds global command with marketing kit", () => {
 			const result = buildInitCommand(true, "marketing");
-			expect(result).toBe("ck init -g --kit marketing --install-skills");
+			expect(result).toBe("hi init -g --kit marketing --install-skills");
 		});
 
 		it("places -g flag before --kit flag", () => {
@@ -83,22 +83,22 @@ describe("update-cli", () => {
 
 		it("includes --beta flag when beta is true", () => {
 			const result = buildInitCommand(false, undefined, true);
-			expect(result).toBe("ck init --install-skills --beta");
+			expect(result).toBe("hi init --install-skills --beta");
 		});
 
 		it("includes --beta flag with kit and global and yes", () => {
 			const result = buildInitCommand(true, "engineer", true, true);
-			expect(result).toBe("ck init -g --kit engineer --yes --install-skills --beta");
+			expect(result).toBe("hi init -g --kit engineer --yes --install-skills --beta");
 		});
 
 		it("does not include --beta flag when beta is false", () => {
 			const result = buildInitCommand(false, "engineer", false);
-			expect(result).toBe("ck init --kit engineer --install-skills");
+			expect(result).toBe("hi init --kit engineer --install-skills");
 		});
 
 		it("does not include --beta flag when beta is undefined", () => {
 			const result = buildInitCommand(false, "engineer");
-			expect(result).toBe("ck init --kit engineer --install-skills");
+			expect(result).toBe("hi init --kit engineer --install-skills");
 		});
 	});
 
@@ -106,7 +106,7 @@ describe("update-cli", () => {
 		let tempDir: string;
 
 		beforeEach(async () => {
-			tempDir = await mkdtemp(join(tmpdir(), "ck-test-"));
+			tempDir = await mkdtemp(join(tmpdir(), "hi-test-"));
 		});
 
 		afterEach(async () => {
@@ -222,7 +222,7 @@ describe("update-cli", () => {
 				expect(result).not.toBeNull();
 				expect(result?.isGlobal).toBe(true);
 				expect(result?.kit).toBeUndefined();
-				expect(result?.promptMessage).toBe("Update global ClaudeKit content?");
+				expect(result?.promptMessage).toBe("Update global HiLab content?");
 			});
 		});
 
@@ -256,7 +256,7 @@ describe("update-cli", () => {
 				expect(result).not.toBeNull();
 				expect(result?.isGlobal).toBe(false);
 				expect(result?.kit).toBeUndefined();
-				expect(result?.promptMessage).toBe("Update local project ClaudeKit content?");
+				expect(result?.promptMessage).toBe("Update local project HiLab content?");
 			});
 		});
 
@@ -317,7 +317,7 @@ describe("update-cli", () => {
 					globalKits: ["engineer"],
 				};
 				const result = selectKitForUpdate(params);
-				expect(result?.promptMessage).toBe("Update global ClaudeKit content (engineer)?");
+				expect(result?.promptMessage).toBe("Update global HiLab content (engineer)?");
 			});
 
 			it("excludes parentheses when kit is undefined", () => {
@@ -328,7 +328,7 @@ describe("update-cli", () => {
 					globalKits: [],
 				};
 				const result = selectKitForUpdate(params);
-				expect(result?.promptMessage).toBe("Update global ClaudeKit content?");
+				expect(result?.promptMessage).toBe("Update global HiLab content?");
 			});
 
 			it("shows 'local project' for local-only installation", () => {
@@ -339,7 +339,7 @@ describe("update-cli", () => {
 					globalKits: [],
 				};
 				const result = selectKitForUpdate(params);
-				expect(result?.promptMessage).toBe("Update local project ClaudeKit content (engineer)?");
+				expect(result?.promptMessage).toBe("Update local project HiLab content (engineer)?");
 			});
 		});
 
@@ -660,7 +660,7 @@ describe("update-cli", () => {
 
 			// Verify the call includes all arguments including registryUrl for passthrough
 			expect(source).toContain("packageManagerDetector.getUpdateCommand(");
-			expect(source).toContain("CLAUDEKIT_CLI_NPM_PACKAGE_NAME");
+			expect(source).toContain("HILAB_CLI_NPM_PACKAGE_NAME");
 			expect(source).toContain("targetVersion");
 			expect(source).toContain("registryUrl");
 		});
@@ -703,11 +703,11 @@ describe("update-cli", () => {
 			return {
 				currentVersion,
 				execAsyncFn: mock(async (command: string) => {
-					if (command.startsWith("npm install -g claudekit-cli@")) {
+					if (command.startsWith("npm install -g hilab-cli@")) {
 						return { stdout: "", stderr: "" };
 					}
 
-					if (command === "ck --version") {
+					if (command === "hi --version") {
 						return {
 							stdout: `CLI Version: ${activeVersion}\nGlobal Kit Version: engineer@v2.12.0`,
 							stderr: "",
@@ -721,7 +721,7 @@ describe("update-cli", () => {
 					getVersion: mock(async () => "10.9.0"),
 					getDisplayName: mock(() => "npm"),
 					getNpmRegistryUrl: mock(async () => null),
-					getUpdateCommand: mock((_pm, _pkg, version) => `npm install -g claudekit-cli@${version}`),
+					getUpdateCommand: mock((_pm, _pkg, version) => `npm install -g hilab-cli@${version}`),
 				},
 				npmRegistryClient: {
 					versionExists: mock(async () => true),
@@ -746,7 +746,7 @@ describe("update-cli", () => {
 			expect(deps.npmRegistryClient.getDevVersion).not.toHaveBeenCalled();
 			expect(deps.npmRegistryClient.getLatestVersion).toHaveBeenCalledTimes(1);
 			expect(deps.execAsyncFn).toHaveBeenCalledWith(
-				"npm install -g claudekit-cli@3.36.1",
+				"npm install -g hilab-cli@3.36.1",
 				expect.any(Object),
 			);
 			expect(deps.promptKitUpdateFn).toHaveBeenCalledWith(false, true);
@@ -765,7 +765,7 @@ describe("update-cli", () => {
 			expect(deps.npmRegistryClient.getDevVersion).toHaveBeenCalledTimes(1);
 			expect(deps.npmRegistryClient.getLatestVersion).not.toHaveBeenCalled();
 			expect(deps.execAsyncFn).toHaveBeenCalledWith(
-				"npm install -g claudekit-cli@3.36.0-dev.37",
+				"npm install -g hilab-cli@3.36.0-dev.37",
 				expect.any(Object),
 			);
 			expect(deps.promptKitUpdateFn).toHaveBeenCalledWith(true, true);
@@ -784,7 +784,7 @@ describe("update-cli", () => {
 			expect(deps.npmRegistryClient.getDevVersion).toHaveBeenCalledTimes(1);
 			expect(deps.npmRegistryClient.getLatestVersion).toHaveBeenCalledTimes(1);
 			expect(deps.execAsyncFn).toHaveBeenCalledWith(
-				"npm install -g claudekit-cli@3.36.1",
+				"npm install -g hilab-cli@3.36.1",
 				expect.any(Object),
 			);
 			expect(deps.promptKitUpdateFn).toHaveBeenCalledWith(false, true);
@@ -794,7 +794,7 @@ describe("update-cli", () => {
 	describe("redactCommandForLog", () => {
 		it("redacts registry credentials in --registry argument", () => {
 			const command =
-				"npm install -g claudekit-cli@1.2.3 --registry https://user:pass@registry.example.com/npm";
+				"npm install -g hilab-cli@1.2.3 --registry https://user:pass@registry.example.com/npm";
 			const redacted = redactCommandForLog(command);
 
 			expect(redacted).not.toContain("user:pass");
@@ -803,7 +803,7 @@ describe("update-cli", () => {
 
 		it("supports --registry=<url> argument style", () => {
 			const command =
-				"npm install -g claudekit-cli@1.2.3 --registry=https://user:pass@registry.example.com/npm";
+				"npm install -g hilab-cli@1.2.3 --registry=https://user:pass@registry.example.com/npm";
 			const redacted = redactCommandForLog(command);
 
 			expect(redacted).not.toContain("user:pass");

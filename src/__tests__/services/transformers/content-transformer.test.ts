@@ -14,66 +14,66 @@ describe("transformCommandContent", () => {
 	// ============================================================================
 
 	describe("basic command transformations", () => {
-		it("transforms /plan: to /ck:plan:", () => {
+		it("transforms /plan: to /hi:plan:", () => {
 			const input = "Execute `/plan:fast` to create a plan";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Execute `/ck:plan:fast` to create a plan");
+			expect(transformed).toBe("Execute `/hi:plan:fast` to create a plan");
 			expect(changes).toBe(1);
 		});
 
-		it("transforms /review: to /ck:review:", () => {
+		it("transforms /review: to /hi:review:", () => {
 			const input = "Use `/review:codebase` for analysis";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Use `/ck:review:codebase` for analysis");
+			expect(transformed).toBe("Use `/hi:review:codebase` for analysis");
 			expect(changes).toBe(1);
 		});
 
-		it("transforms /test to /ck:test", () => {
+		it("transforms /test to /hi:test", () => {
 			const input = "Run `/test` to verify";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Run `/ck:test` to verify");
+			expect(transformed).toBe("Run `/hi:test` to verify");
 			expect(changes).toBe(1);
 		});
 
-		it("transforms /preview to /ck:preview", () => {
+		it("transforms /preview to /hi:preview", () => {
 			const input = "Use `/preview` to see changes";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Use `/ck:preview` to see changes");
+			expect(transformed).toBe("Use `/hi:preview` to see changes");
 			expect(changes).toBe(1);
 		});
 
-		it("transforms /journal to /ck:journal", () => {
+		it("transforms /journal to /hi:journal", () => {
 			const input = "Open `/journal` dashboard";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Open `/ck:journal` dashboard");
+			expect(transformed).toBe("Open `/hi:journal` dashboard");
 			expect(changes).toBe(1);
 		});
 
-		it("transforms /journal to /ck:journal", () => {
+		it("transforms /journal to /hi:journal", () => {
 			const input = "Write with `/journal`";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Write with `/ck:journal`");
+			expect(transformed).toBe("Write with `/hi:journal`");
 			expect(changes).toBe(1);
 		});
 
-		it("transforms /watzup to /ck:watzup", () => {
+		it("transforms /watzup to /hi:watzup", () => {
 			const input = "Check `/watzup` for changes";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Check `/ck:watzup` for changes");
+			expect(transformed).toBe("Check `/hi:watzup` for changes");
 			expect(changes).toBe(1);
 		});
 
-		it("transforms /bootstrap to /ck:bootstrap", () => {
+		it("transforms /bootstrap to /hi:bootstrap", () => {
 			const input = "Use `/bootstrap` to initialize";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Use `/ck:bootstrap` to initialize");
+			expect(transformed).toBe("Use `/hi:bootstrap` to initialize");
 			expect(changes).toBe(1);
 		});
 
-		it("transforms /worktree to /ck:worktree", () => {
+		it("transforms /worktree to /hi:worktree", () => {
 			const input = "Create `/worktree` for feature";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Create `/ck:worktree` for feature");
+			expect(transformed).toBe("Create `/hi:worktree` for feature");
 			expect(changes).toBe(1);
 		});
 	});
@@ -82,62 +82,62 @@ describe("transformCommandContent", () => {
 		it("transforms command at start of line", () => {
 			const input = "/plan:fast is the command";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("/ck:plan:fast is the command");
+			expect(transformed).toBe("/hi:plan:fast is the command");
 			expect(changes).toBe(1);
 		});
 
 		it("transforms command at end of line", () => {
 			const input = "Use this command: /journal";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Use this command: /ck:journal");
+			expect(transformed).toBe("Use this command: /hi:journal");
 			expect(changes).toBe(1);
 		});
 
 		it("transforms command after whitespace", () => {
 			const input = "The planning process uses /plan:fast";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("The planning process uses /ck:plan:fast");
+			expect(transformed).toBe("The planning process uses /hi:plan:fast");
 			expect(changes).toBe(1);
 		});
 
 		it("transforms command after tab character", () => {
 			const input = "Command:\t/plan:fast";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Command:\t/ck:plan:fast");
+			expect(transformed).toBe("Command:\t/hi:plan:fast");
 			expect(changes).toBe(1);
 		});
 
 		it("transforms command after newline", () => {
 			const input = "Instructions:\n/plan:fast to start";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Instructions:\n/ck:plan:fast to start");
+			expect(transformed).toBe("Instructions:\n/hi:plan:fast to start");
 			expect(changes).toBe(1);
 		});
 
 		it("transforms command inside backticks", () => {
 			const input = "Run `/plan:fast` command";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Run `/ck:plan:fast` command");
+			expect(transformed).toBe("Run `/hi:plan:fast` command");
 			expect(changes).toBe(1);
 		});
 
 		it("transforms command inside double backticks", () => {
 			const input = "Run ``/plan:fast`` command";
 			const { transformed } = transformCommandContent(input);
-			expect(transformed).toContain("/ck:plan:fast");
+			expect(transformed).toContain("/hi:plan:fast");
 		});
 
 		it("transforms command that is only content", () => {
 			const input = "/journal";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("/ck:journal");
+			expect(transformed).toBe("/hi:journal");
 			expect(changes).toBe(1);
 		});
 
 		it("transforms command with subcommand that is only content", () => {
 			const input = "/plan:fast";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("/ck:plan:fast");
+			expect(transformed).toBe("/hi:plan:fast");
 			expect(changes).toBe(1);
 		});
 	});
@@ -146,7 +146,7 @@ describe("transformCommandContent", () => {
 		it("transforms multiple commands in same content", () => {
 			const input = "Use `/plan:fast` then `/review:codebase` then `/test`";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Use `/ck:plan:fast` then `/ck:review:codebase` then `/ck:test`");
+			expect(transformed).toBe("Use `/hi:plan:fast` then `/hi:review:codebase` then `/hi:test`");
 			expect(changes).toBe(3);
 		});
 
@@ -155,16 +155,16 @@ describe("transformCommandContent", () => {
 2. Execute /bootstrap
 3. Verify with /review:codebase`;
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe(`1. Run /ck:plan:hard
-2. Execute /ck:bootstrap
-3. Verify with /ck:review:codebase`);
+			expect(transformed).toBe(`1. Run /hi:plan:hard
+2. Execute /hi:bootstrap
+3. Verify with /hi:review:codebase`);
 			expect(changes).toBe(3);
 		});
 
 		it("transforms mixed commands with and without subcommands", () => {
 			const input = "Run /watzup then /plan:fast then /journal";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Run /ck:watzup then /ck:plan:fast then /ck:journal");
+			expect(transformed).toBe("Run /hi:watzup then /hi:plan:fast then /hi:journal");
 			expect(changes).toBe(3);
 		});
 
@@ -173,11 +173,11 @@ describe("transformCommandContent", () => {
 				"Start with /watzup to explore, then /plan:fast to create plan, /bootstrap to init, /test for errors, and /review:codebase to verify";
 			const { transformed, changes } = transformCommandContent(input);
 			expect(changes).toBe(5);
-			expect(transformed).toContain("/ck:watzup");
-			expect(transformed).toContain("/ck:plan:fast");
-			expect(transformed).toContain("/ck:bootstrap");
-			expect(transformed).toContain("/ck:test");
-			expect(transformed).toContain("/ck:review:codebase");
+			expect(transformed).toContain("/hi:watzup");
+			expect(transformed).toContain("/hi:plan:fast");
+			expect(transformed).toContain("/hi:bootstrap");
+			expect(transformed).toContain("/hi:test");
+			expect(transformed).toContain("/hi:review:codebase");
 		});
 	});
 
@@ -186,8 +186,8 @@ describe("transformCommandContent", () => {
 			const input = `- /plan:fast for quick planning
 - /plan:hard for thorough planning`;
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe(`- /ck:plan:fast for quick planning
-- /ck:plan:hard for thorough planning`);
+			expect(transformed).toBe(`- /hi:plan:fast for quick planning
+- /hi:plan:hard for thorough planning`);
 			expect(changes).toBe(2);
 		});
 
@@ -196,42 +196,42 @@ describe("transformCommandContent", () => {
 2. /review:codebase
 3. /bootstrap`;
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe(`1. /ck:plan:fast
-2. /ck:review:codebase
-3. /ck:bootstrap`);
+			expect(transformed).toBe(`1. /hi:plan:fast
+2. /hi:review:codebase
+3. /hi:bootstrap`);
 			expect(changes).toBe(3);
 		});
 
 		it("transforms commands in markdown headers", () => {
 			const input = "## Using /plan:fast\n\nThis command...";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("## Using /ck:plan:fast\n\nThis command...");
+			expect(transformed).toBe("## Using /hi:plan:fast\n\nThis command...");
 			expect(changes).toBe(1);
 		});
 
 		it("transforms commands in bold text", () => {
 			const input = "**Important:** Use `/plan:hard` for complex issues";
 			const { transformed } = transformCommandContent(input);
-			expect(transformed).toBe("**Important:** Use `/ck:plan:hard` for complex issues");
+			expect(transformed).toBe("**Important:** Use `/hi:plan:hard` for complex issues");
 		});
 
 		it("transforms commands in italic text", () => {
 			const input = "*Try `/journal` first*";
 			const { transformed } = transformCommandContent(input);
-			expect(transformed).toBe("*Try `/ck:journal` first*");
+			expect(transformed).toBe("*Try `/hi:journal` first*");
 		});
 
 		it("transforms commands after markdown link syntax", () => {
 			const input = "[docs](link) then /plan:fast";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("[docs](link) then /ck:plan:fast");
+			expect(transformed).toBe("[docs](link) then /hi:plan:fast");
 			expect(changes).toBe(1);
 		});
 
 		it("transforms commands in blockquotes", () => {
 			const input = "> Use /plan:fast for quick results";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("> Use /ck:plan:fast for quick results");
+			expect(transformed).toBe("> Use /hi:plan:fast for quick results");
 			expect(changes).toBe(1);
 		});
 	});
@@ -244,8 +244,8 @@ describe("transformCommandContent", () => {
 - Execute SlashCommand: \`/plan:fast <detailed-instructions-prompt>\` or \`/plan:hard <detailed-instructions-prompt>\``;
 
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toContain("/ck:plan:fast");
-			expect(transformed).toContain("/ck:plan:hard");
+			expect(transformed).toContain("/hi:plan:fast");
+			expect(transformed).toContain("/hi:plan:hard");
 			expect(changes).toBe(4);
 		});
 
@@ -255,7 +255,7 @@ describe("transformCommandContent", () => {
 
 			const { transformed, changes } = transformCommandContent(input);
 			expect(transformed).toBe(
-				"Use the **Skill tool** to invoke `/ck:plan:fast` or `/ck:plan:hard` SlashCommand based on complexity.",
+				"Use the **Skill tool** to invoke `/hi:plan:fast` or `/hi:plan:hard` SlashCommand based on complexity.",
 			);
 			expect(changes).toBe(2);
 		});
@@ -270,11 +270,11 @@ describe("transformCommandContent", () => {
 
 			const { transformed, changes } = transformCommandContent(input);
 			expect(changes).toBe(5);
-			expect(transformed).toContain("/ck:watzup");
-			expect(transformed).toContain("/ck:plan:fast");
-			expect(transformed).toContain("/ck:plan:hard");
-			expect(transformed).toContain("/ck:bootstrap");
-			expect(transformed).toContain("/ck:review:codebase");
+			expect(transformed).toContain("/hi:watzup");
+			expect(transformed).toContain("/hi:plan:fast");
+			expect(transformed).toContain("/hi:plan:hard");
+			expect(transformed).toContain("/hi:bootstrap");
+			expect(transformed).toContain("/hi:review:codebase");
 		});
 
 		it("transforms YAML command description", () => {
@@ -283,7 +283,7 @@ describe("transformCommandContent", () => {
     description: Quick planning command`;
 
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toContain("/ck:plan:fast");
+			expect(transformed).toContain("/hi:plan:fast");
 			expect(changes).toBe(1);
 		});
 	});
@@ -466,21 +466,21 @@ describe("transformCommandContent", () => {
 
 	describe("already prefixed commands - should NOT transform", () => {
 		it("does not transform already-prefixed commands", () => {
-			const input = "Use `/ck:plan:fast` (already prefixed)";
+			const input = "Use `/hi:plan:fast` (already prefixed)";
 			const { transformed, changes } = transformCommandContent(input);
 			expect(transformed).toBe(input);
 			expect(changes).toBe(0);
 		});
 
 		it("does not double-transform commands", () => {
-			const input = "/ck:plan:fast";
+			const input = "/hi:plan:fast";
 			const { transformed, changes } = transformCommandContent(input);
 			expect(transformed).toBe(input);
 			expect(changes).toBe(0);
 		});
 
 		it("does not transform already-prefixed commands without subcommand", () => {
-			const input = "Run `/ck:brainstorm` first";
+			const input = "Run `/hi:brainstorm` first";
 			const { transformed, changes } = transformCommandContent(input);
 			expect(transformed).toBe(input);
 			expect(changes).toBe(0);
@@ -750,14 +750,14 @@ export default function handler(req, res) {}`;
 		it("handles unicode content around commands", () => {
 			const input = "使用 `/plan:fast` 进行规划";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("使用 `/ck:plan:fast` 进行规划");
+			expect(transformed).toBe("使用 `/hi:plan:fast` 进行规划");
 			expect(changes).toBe(1);
 		});
 
 		it("handles emoji around commands", () => {
 			const input = "🚀 Run /plan:fast 🎉";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("🚀 Run /ck:plan:fast 🎉");
+			expect(transformed).toBe("🚀 Run /hi:plan:fast 🎉");
 			expect(changes).toBe(1);
 		});
 	});
@@ -769,8 +769,8 @@ Code: const url = '/journal';
 More docs: try /watzup next.`;
 			const { transformed, changes } = transformCommandContent(input);
 			expect(changes).toBe(2);
-			expect(transformed).toContain("/ck:plan:fast");
-			expect(transformed).toContain("/ck:watzup");
+			expect(transformed).toContain("/hi:plan:fast");
+			expect(transformed).toContain("/hi:watzup");
 			expect(transformed).toContain("'/journal'"); // unchanged
 		});
 
@@ -786,8 +786,8 @@ const route = '/journal';
 Then run /watzup for status.`;
 			const { transformed, changes } = transformCommandContent(input);
 			expect(changes).toBe(2);
-			expect(transformed).toContain("/ck:plan:fast");
-			expect(transformed).toContain("/ck:watzup");
+			expect(transformed).toContain("/hi:plan:fast");
+			expect(transformed).toContain("/hi:watzup");
 			expect(transformed).toContain("'/journal'"); // unchanged in code block
 		});
 
@@ -801,8 +801,8 @@ routes:
   preview: '/preview'`;
 			const { transformed, changes } = transformCommandContent(input);
 			expect(changes).toBe(2);
-			expect(transformed).toContain("/ck:plan:fast");
-			expect(transformed).toContain("/ck:bootstrap");
+			expect(transformed).toContain("/hi:plan:fast");
+			expect(transformed).toContain("/hi:bootstrap");
 			expect(transformed).toContain("'/journal'"); // unchanged
 			expect(transformed).toContain("'/preview'"); // unchanged
 		});
@@ -819,21 +819,21 @@ routes:
 		it("handles commands in parentheses", () => {
 			const input = "(use /plan:fast)";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("(use /ck:plan:fast)");
+			expect(transformed).toBe("(use /hi:plan:fast)");
 			expect(changes).toBe(1);
 		});
 
 		it("handles commands in square brackets", () => {
 			const input = "[see /journal]";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("[see /ck:journal]");
+			expect(transformed).toBe("[see /hi:journal]");
 			expect(changes).toBe(1);
 		});
 
 		it("handles commands with trailing punctuation in markdown", () => {
 			const input = "Run `/plan:fast`.";
 			const { transformed, changes } = transformCommandContent(input);
-			expect(transformed).toBe("Run `/ck:plan:fast`.");
+			expect(transformed).toBe("Run `/hi:plan:fast`.");
 			expect(changes).toBe(1);
 		});
 	});
@@ -842,13 +842,13 @@ routes:
 		it("preserves backtick wrapping", () => {
 			const input = "Run ``/plan:fast`` command";
 			const { transformed } = transformCommandContent(input);
-			expect(transformed).toContain("/ck:plan:fast");
+			expect(transformed).toContain("/hi:plan:fast");
 		});
 
 		it("preserves markdown formatting", () => {
 			const input = "**Important:** Use `/plan:hard` for complex issues";
 			const { transformed } = transformCommandContent(input);
-			expect(transformed).toBe("**Important:** Use `/ck:plan:hard` for complex issues");
+			expect(transformed).toBe("**Important:** Use `/hi:plan:hard` for complex issues");
 		});
 
 		it("preserves line structure", () => {
@@ -858,17 +858,17 @@ Line 3: /bootstrap`;
 			const { transformed } = transformCommandContent(input);
 			const lines = transformed.split("\n");
 			expect(lines).toHaveLength(3);
-			expect(lines[0]).toContain("/ck:plan:fast");
-			expect(lines[1]).toContain("/ck:review:codebase");
-			expect(lines[2]).toContain("/ck:bootstrap");
+			expect(lines[0]).toContain("/hi:plan:fast");
+			expect(lines[1]).toContain("/hi:review:codebase");
+			expect(lines[2]).toContain("/hi:bootstrap");
 		});
 
 		it("preserves indentation", () => {
 			const input = `  - /plan:fast
     - /review:codebase`;
 			const { transformed } = transformCommandContent(input);
-			expect(transformed).toBe(`  - /ck:plan:fast
-    - /ck:review:codebase`);
+			expect(transformed).toBe(`  - /hi:plan:fast
+    - /hi:review:codebase`);
 		});
 	});
 });

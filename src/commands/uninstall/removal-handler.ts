@@ -1,7 +1,7 @@
 /**
  * Removal Handler
  *
- * Handles the actual removal of ClaudeKit installations.
+ * Handles the actual removal of HiLab installations.
  * Supports both tracked (metadata.json) and legacy (no metadata) installs.
  */
 
@@ -166,7 +166,7 @@ export async function removeInstallations(
 			const kitLabel = options.kit ? ` ${options.kit} kit` : "";
 			const legacyLabel = !installation.hasMetadata ? " (legacy)" : "";
 			const spinner = createSpinner(
-				`Removing ${installation.type}${kitLabel}${legacyLabel} ClaudeKit files...`,
+				`Removing ${installation.type}${kitLabel}${legacyLabel} HiLab files...`,
 			).start();
 
 			try {
@@ -244,7 +244,7 @@ export async function removeInstallations(
 
 				if (analysis.protectedTrackedPaths.length > 0) {
 					log.warn(
-						"Protected ClaudeKit files were preserved. Metadata was retained so this installation does not fall back to legacy detection.",
+						"Protected HiLab files were preserved. Metadata was retained so this installation does not fall back to legacy detection.",
 					);
 					log.info("Use --force-overwrite to remove those files on the next uninstall run.");
 				}

@@ -28,8 +28,8 @@ describe("checkHookSyntax", () => {
 		await mkdir(projectDir, { recursive: true });
 
 		// Set CK_TEST_HOME to isolate from global .claude directory
-		originalCkTestHome = process.env.CK_TEST_HOME;
-		process.env.CK_TEST_HOME = tempDir;
+		originalCkTestHome = process.env.HI_TEST_HOME;
+		process.env.HI_TEST_HOME = tempDir;
 	});
 
 	afterEach(async () => {
@@ -37,9 +37,9 @@ describe("checkHookSyntax", () => {
 
 		// Restore original CK_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.CK_TEST_HOME = undefined;
+			process.env.HI_TEST_HOME = undefined;
 		} else {
-			process.env.CK_TEST_HOME = originalCkTestHome;
+			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
 	});
 
@@ -92,7 +92,7 @@ describe("checkHookSyntax", () => {
 		expect(result.message).toBe("1 hook(s) with syntax errors");
 		expect(result.details).toContain("broken-hook.cjs");
 		expect(result.autoFixable).toBe(true);
-		expect(result.suggestion).toBe("Run: ck init");
+		expect(result.suggestion).toBe("Run: hi init");
 	});
 });
 
@@ -110,8 +110,8 @@ describe("checkHookDeps", () => {
 		await mkdir(projectDir, { recursive: true });
 
 		// Set CK_TEST_HOME to isolate from global .claude directory
-		originalCkTestHome = process.env.CK_TEST_HOME;
-		process.env.CK_TEST_HOME = tempDir;
+		originalCkTestHome = process.env.HI_TEST_HOME;
+		process.env.HI_TEST_HOME = tempDir;
 	});
 
 	afterEach(async () => {
@@ -119,9 +119,9 @@ describe("checkHookDeps", () => {
 
 		// Restore original CK_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.CK_TEST_HOME = undefined;
+			process.env.HI_TEST_HOME = undefined;
 		} else {
-			process.env.CK_TEST_HOME = originalCkTestHome;
+			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
 	});
 
@@ -232,8 +232,8 @@ describe("checkHookRuntime", () => {
 		await mkdir(projectDir, { recursive: true });
 
 		// Set CK_TEST_HOME to isolate from global .claude directory
-		originalCkTestHome = process.env.CK_TEST_HOME;
-		process.env.CK_TEST_HOME = tempDir;
+		originalCkTestHome = process.env.HI_TEST_HOME;
+		process.env.HI_TEST_HOME = tempDir;
 	});
 
 	afterEach(async () => {
@@ -241,9 +241,9 @@ describe("checkHookRuntime", () => {
 
 		// Restore original CK_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.CK_TEST_HOME = undefined;
+			process.env.HI_TEST_HOME = undefined;
 		} else {
-			process.env.CK_TEST_HOME = originalCkTestHome;
+			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
 	});
 
@@ -326,8 +326,8 @@ describe("checkHookConfig", () => {
 		await mkdir(projectDir, { recursive: true });
 
 		// Set CK_TEST_HOME to isolate from global .claude directory
-		originalCkTestHome = process.env.CK_TEST_HOME;
-		process.env.CK_TEST_HOME = tempDir;
+		originalCkTestHome = process.env.HI_TEST_HOME;
+		process.env.HI_TEST_HOME = tempDir;
 	});
 
 	afterEach(async () => {
@@ -335,18 +335,18 @@ describe("checkHookConfig", () => {
 
 		// Restore original CK_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.CK_TEST_HOME = undefined;
+			process.env.HI_TEST_HOME = undefined;
 		} else {
-			process.env.CK_TEST_HOME = originalCkTestHome;
+			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
 	});
 
-	test("returns info status when no .ck.json exists", async () => {
+	test("returns info status when no .hi.json exists", async () => {
 		const result = await checkHookConfig(projectDir);
 
 		expect(result.id).toBe("hook-config");
 		expect(result.status).toBe("info");
-		expect(result.message).toBe("No .ck.json config");
+		expect(result.message).toBe("No .hi.json config");
 	});
 
 	test("returns pass status when config hooks match actual files", async () => {
@@ -356,7 +356,7 @@ describe("checkHookConfig", () => {
 			"console.log('test');",
 		);
 		await writeFile(
-			join(projectDir, ".claude", ".ck.json"),
+			join(projectDir, ".claude", ".hi.json"),
 			JSON.stringify({
 				hooks: {
 					"session-init": { enabled: true },
@@ -377,7 +377,7 @@ describe("checkHookConfig", () => {
 			"console.log('test');",
 		);
 		await writeFile(
-			join(projectDir, ".claude", ".ck.json"),
+			join(projectDir, ".claude", ".hi.json"),
 			JSON.stringify({
 				hooks: {
 					"existing-hook": { enabled: true },
@@ -394,12 +394,12 @@ describe("checkHookConfig", () => {
 		expect(result.details).toContain("orphaned-hook");
 		expect(result.details).toContain("another-orphan");
 		expect(result.autoFixable).toBe(true);
-		expect(result.suggestion).toBe("Remove orphaned entries from .ck.json");
+		expect(result.suggestion).toBe("Remove orphaned entries from .hi.json");
 	});
 
 	test("returns pass status when no hooks configured", async () => {
 		await mkdir(join(projectDir, ".claude", "hooks"), { recursive: true });
-		await writeFile(join(projectDir, ".claude", ".ck.json"), JSON.stringify({ version: "1.0.0" }));
+		await writeFile(join(projectDir, ".claude", ".hi.json"), JSON.stringify({ version: "1.0.0" }));
 
 		const result = await checkHookConfig(projectDir);
 
@@ -421,17 +421,17 @@ describe("checkHookCommandPaths", () => {
 		projectDir = join(tempDir, "project");
 		await mkdir(projectDir, { recursive: true });
 
-		originalCkTestHome = process.env.CK_TEST_HOME;
-		process.env.CK_TEST_HOME = tempDir;
+		originalCkTestHome = process.env.HI_TEST_HOME;
+		process.env.HI_TEST_HOME = tempDir;
 	});
 
 	afterEach(async () => {
 		await rm(tempDir, { recursive: true, force: true });
 
 		if (originalCkTestHome === undefined) {
-			process.env.CK_TEST_HOME = undefined;
+			process.env.HI_TEST_HOME = undefined;
 		} else {
-			process.env.CK_TEST_HOME = originalCkTestHome;
+			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
 	});
 
@@ -605,8 +605,8 @@ describe("checkHookLogs", () => {
 		await mkdir(projectDir, { recursive: true });
 
 		// Set CK_TEST_HOME to isolate from global .claude directory
-		originalCkTestHome = process.env.CK_TEST_HOME;
-		process.env.CK_TEST_HOME = tempDir;
+		originalCkTestHome = process.env.HI_TEST_HOME;
+		process.env.HI_TEST_HOME = tempDir;
 	});
 
 	afterEach(async () => {
@@ -614,9 +614,9 @@ describe("checkHookLogs", () => {
 
 		// Restore original CK_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.CK_TEST_HOME = undefined;
+			process.env.HI_TEST_HOME = undefined;
 		} else {
-			process.env.CK_TEST_HOME = originalCkTestHome;
+			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
 	});
 
@@ -731,8 +731,8 @@ describe("checkPythonVenv", () => {
 		await mkdir(projectDir, { recursive: true });
 
 		// Set CK_TEST_HOME to isolate from global .claude directory
-		originalCkTestHome = process.env.CK_TEST_HOME;
-		process.env.CK_TEST_HOME = tempDir;
+		originalCkTestHome = process.env.HI_TEST_HOME;
+		process.env.HI_TEST_HOME = tempDir;
 	});
 
 	afterEach(async () => {
@@ -740,9 +740,9 @@ describe("checkPythonVenv", () => {
 
 		// Restore original CK_TEST_HOME
 		if (originalCkTestHome === undefined) {
-			process.env.CK_TEST_HOME = undefined;
+			process.env.HI_TEST_HOME = undefined;
 		} else {
-			process.env.CK_TEST_HOME = originalCkTestHome;
+			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
 	});
 
@@ -805,16 +805,16 @@ describe("checkHookFileReferences", () => {
 		);
 		projectDir = join(tempDir, "project");
 		await mkdir(projectDir, { recursive: true });
-		originalCkTestHome = process.env.CK_TEST_HOME;
-		process.env.CK_TEST_HOME = tempDir;
+		originalCkTestHome = process.env.HI_TEST_HOME;
+		process.env.HI_TEST_HOME = tempDir;
 	});
 
 	afterEach(async () => {
 		await rm(tempDir, { recursive: true, force: true });
 		if (originalCkTestHome === undefined) {
-			process.env.CK_TEST_HOME = undefined;
+			process.env.HI_TEST_HOME = undefined;
 		} else {
-			process.env.CK_TEST_HOME = originalCkTestHome;
+			process.env.HI_TEST_HOME = originalCkTestHome;
 		}
 	});
 

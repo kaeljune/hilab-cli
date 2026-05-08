@@ -1,23 +1,23 @@
 import { existsSync, statSync } from "node:fs";
 import { join } from "node:path";
-import type { ClaudeKitSetup } from "@/types";
+import type { HiLabSetup } from "@/types";
 import type { CheckResult } from "../types.js";
 
 /**
  * Check CLAUDE.md existence and health (global + project)
  */
-export function checkClaudeMd(setup: ClaudeKitSetup, projectDir: string): CheckResult[] {
+export function checkClaudeMd(setup: HiLabSetup, projectDir: string): CheckResult[] {
 	const results: CheckResult[] = [];
 
 	// Global CLAUDE.md
 	if (setup.global.path) {
 		const globalClaudeMd = join(setup.global.path, "CLAUDE.md");
-		results.push(checkClaudeMdFile(globalClaudeMd, "Global CLAUDE.md", "ck-global-claude-md"));
+		results.push(checkClaudeMdFile(globalClaudeMd, "Global CLAUDE.md", "hi-global-claude-md"));
 	}
 
 	// Project CLAUDE.md - check in .claude directory
 	const projectClaudeMd = join(projectDir, ".claude", "CLAUDE.md");
-	results.push(checkClaudeMdFile(projectClaudeMd, "Project CLAUDE.md", "ck-project-claude-md"));
+	results.push(checkClaudeMdFile(projectClaudeMd, "Project CLAUDE.md", "hi-project-claude-md"));
 
 	return results;
 }
@@ -30,7 +30,7 @@ export function checkClaudeMdFile(path: string, name: string, id: string): Check
 		return {
 			id,
 			name,
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "warn",
 			message: "Missing",
@@ -47,7 +47,7 @@ export function checkClaudeMdFile(path: string, name: string, id: string): Check
 			return {
 				id,
 				name,
-				group: "claudekit",
+				group: "hilab",
 				priority: "standard",
 				status: "warn",
 				message: "Empty (0 bytes)",
@@ -60,7 +60,7 @@ export function checkClaudeMdFile(path: string, name: string, id: string): Check
 		return {
 			id,
 			name,
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "pass",
 			message: `Found (${sizeKB}KB)`,
@@ -71,7 +71,7 @@ export function checkClaudeMdFile(path: string, name: string, id: string): Check
 		return {
 			id,
 			name,
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "warn",
 			message: "Unreadable",

@@ -1,8 +1,8 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
-	ClaudeKitPackageMetadataSchema,
 	DEFAULT_KIT_LAYOUT,
+	HiLabPackageMetadataSchema,
 	type KitLayout,
 	KitLayoutSchema,
 } from "@/types";
@@ -28,12 +28,12 @@ export function resolveKitLayout(projectRoot: string): KitLayout {
 	}
 
 	try {
-		const parsed = ClaudeKitPackageMetadataSchema.parse(
+		const parsed = HiLabPackageMetadataSchema.parse(
 			JSON.parse(readFileSync(packageJsonPath, "utf8")),
 		);
 		return KitLayoutSchema.parse({
 			...DEFAULT_KIT_LAYOUT,
-			...(parsed.claudekit ?? {}),
+			...(parsed.hilab ?? {}),
 		});
 	} catch {
 		return DEFAULT_KIT_LAYOUT;

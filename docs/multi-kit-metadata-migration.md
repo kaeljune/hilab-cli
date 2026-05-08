@@ -2,7 +2,7 @@
 
 ## Overview
 
-ClaudeKit CLI v1.17+ supports multiple kits (engineer, marketing) in a single installation. This document explains the automatic migration process, user experience, and rollback strategies.
+HiLab CLI v1.17+ supports multiple kits (engineer, marketing) in a single installation. This document explains the automatic migration process, user experience, and rollback strategies.
 
 ## Auto-Migration Process
 
@@ -17,7 +17,7 @@ Migration happens automatically during:
 Legacy single-kit metadata:
 ```json
 {
-  "name": "ClaudeKit Engineer",
+  "name": "HiLab Engineer",
   "version": "v1.16.0",
   "installedAt": "2024-01-01T00:00:00.000Z",
   "scope": "local",
@@ -36,7 +36,7 @@ Becomes multi-kit format:
     }
   },
   "scope": "local",
-  "name": "ClaudeKit Engineer",
+  "name": "HiLab Engineer",
   "version": "v1.16.0",
   "installedAt": "2024-01-01T00:00:00.000Z",
   "files": [...]

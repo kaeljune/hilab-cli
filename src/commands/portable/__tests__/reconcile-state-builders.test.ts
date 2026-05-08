@@ -61,7 +61,7 @@ describe("reconcile state builders", () => {
 	});
 
 	it("buildTargetStates indexes managed section checksums for merge-single paths", async () => {
-		const tempDir = await mkdtemp(join(tmpdir(), "ck-reconcile-state-builders-"));
+		const tempDir = await mkdtemp(join(tmpdir(), "hi-reconcile-state-builders-"));
 		tempDirs.push(tempDir);
 
 		const mergedFile = join(tempDir, "AGENTS.md");
@@ -149,7 +149,7 @@ describe("buildTypeDirectoryStates", () => {
 	});
 
 	it("existing directory with .md files → isEmpty: false, fileCount matches", async () => {
-		const tempDir = await mkdtemp(join(tmpdir(), "ck-dir-state-"));
+		const tempDir = await mkdtemp(join(tmpdir(), "hi-dir-state-"));
 		tempDirs.push(tempDir);
 
 		// Write two .md files into a sub-directory simulating a skills dir
@@ -185,7 +185,7 @@ describe("buildTypeDirectoryStates", () => {
 	});
 
 	it("directory with only non-.md files (no CK-managed files) → isEmpty: true", async () => {
-		const tempDir = await mkdtemp(join(tmpdir(), "ck-dir-state-non-ck-"));
+		const tempDir = await mkdtemp(join(tmpdir(), "hi-dir-state-non-ck-"));
 		tempDirs.push(tempDir);
 
 		// Write only .txt files — not CK-managed for skills (.md expected)

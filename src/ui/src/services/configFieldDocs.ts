@@ -651,9 +651,9 @@ export const CONFIG_FIELD_DOCS: Record<string, FieldDoc> = {
 		type: "boolean",
 		default: "false",
 		description:
-			"Automatically runs `ck init` after `ck update` when the installed kit content has a newer version.",
+			"Automatically runs `hi init` after `hi update` when the installed kit content has a newer version.",
 		descriptionVi:
-			"Tự động chạy `ck init` sau `ck update` khi nội dung kit đã cài có phiên bản mới hơn.",
+			"Tự động chạy `hi init` sau `hi update` khi nội dung kit đã cài có phiên bản mới hơn.",
 		effect:
 			"Power users can reduce the update flow to one command. This setting is read from global config for update runs.",
 		effectVi:
@@ -666,9 +666,9 @@ export const CONFIG_FIELD_DOCS: Record<string, FieldDoc> = {
 		type: "boolean",
 		default: "false",
 		description:
-			"Automatically runs `ck migrate` as an independent step after `ck update` for detected or configured providers.",
+			"Automatically runs `hi migrate` as an independent step after `hi update` for detected or configured providers.",
 		descriptionVi:
-			"Tự động chạy `ck migrate` như bước độc lập sau `ck update` cho các provider được phát hiện hoặc đã cấu hình.",
+			"Tự động chạy `hi migrate` như bước độc lập sau `hi update` cho các provider được phát hiện hoặc đã cấu hình.",
 		effect:
 			"Runs independently of kit init — even if kit is already at latest, providers can still be synced.",
 		effectVi:
@@ -701,9 +701,9 @@ export const CONFIG_FIELD_DOCS: Record<string, FieldDoc> = {
 		descriptionVi:
 			"Tùy chọn loại trừ theo loại nội dung cho auto-migrate. Mỗi trường là tùy chọn; bỏ trống hoặc để `true` để migrate loại đó, đặt `false` để bỏ qua. Hữu ích khi một loại nội dung được quản lý thủ công (ví dụ thư mục `skills/` đã symlink) và không nên bị auto-migrate ghi đè.",
 		effect:
-			"Each `false` field translates into a `--skip-<type>` flag when post-update-handler invokes `ck migrate`. Only honored when `autoMigrateAfterUpdate` is true.",
+			"Each `false` field translates into a `--skip-<type>` flag when post-update-handler invokes `hi migrate`. Only honored when `autoMigrateAfterUpdate` is true.",
 		effectVi:
-			"Mỗi trường `false` sẽ được chuyển thành cờ `--skip-<type>` khi post-update-handler chạy `ck migrate`. Chỉ có hiệu lực khi `autoMigrateAfterUpdate` là true.",
+			"Mỗi trường `false` sẽ được chuyển thành cờ `--skip-<type>` khi post-update-handler chạy `hi migrate`. Chỉ có hiệu lực khi `autoMigrateAfterUpdate` là true.",
 		example:
 			'{\n  "updatePipeline": {\n    "autoMigrateAfterUpdate": true,\n    "migrateScope": {\n      "skills": false\n    }\n  }\n}',
 	},

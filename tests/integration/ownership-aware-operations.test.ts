@@ -26,7 +26,7 @@ describe("Ownership-Aware Operations", () => {
 	describe("cleanupCommandsDirectory", () => {
 		test("deletes CK-owned pristine files", async () => {
 			// Create CK file
-			const ckFile = join(commandsDir, "ck-plan.md");
+			const ckFile = join(commandsDir, "hi-plan.md");
 			await writeFile(ckFile, "# Plan");
 			const checksum = await OwnershipChecker.calculateChecksum(ckFile);
 
@@ -40,7 +40,7 @@ describe("Ownership-Aware Operations", () => {
 					{
 						path: "commands/ck-plan.md",
 						checksum,
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],
@@ -75,7 +75,7 @@ describe("Ownership-Aware Operations", () => {
 					{
 						path: "commands/plan.md",
 						checksum: ckChecksum,
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],
@@ -113,7 +113,7 @@ describe("Ownership-Aware Operations", () => {
 					{
 						path: "commands/plan.md",
 						checksum: originalChecksum,
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],
@@ -160,7 +160,7 @@ describe("Ownership-Aware Operations", () => {
 
 		test("handles nested directories correctly", async () => {
 			// Create nested structure
-			const nestedDir = join(commandsDir, "ck");
+			const nestedDir = join(commandsDir, "hi");
 			await mkdir(nestedDir, { recursive: true });
 
 			const nestedCkFile = join(nestedDir, "plan.md");
@@ -180,7 +180,7 @@ describe("Ownership-Aware Operations", () => {
 					{
 						path: "commands/ck/plan.md",
 						checksum: nestedChecksum,
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],
@@ -219,7 +219,7 @@ describe("Ownership-Aware Operations", () => {
 					{
 						path: "commands/plan.md",
 						checksum,
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],

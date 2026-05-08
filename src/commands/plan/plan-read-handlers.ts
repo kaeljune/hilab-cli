@@ -314,7 +314,7 @@ export async function handleKanban(
 		return;
 	}
 
-	logger.info("Starting ClaudeKit Dashboard (Plans kanban view)...");
+	logger.info("Starting HiLab Dashboard (Plans kanban view)...");
 
 	const { port, dev = false } = options;
 	const noOpen = options.open === false;
@@ -333,7 +333,7 @@ export async function handleKanban(
 	const url = `http://localhost:${server.port}${route}`;
 
 	console.log();
-	console.log(pc.bold("  ClaudeKit Dashboard — Plans"));
+	console.log(pc.bold("  HiLab Dashboard — Plans"));
 	console.log(pc.dim("  ──────────────────────────────"));
 	console.log(`  Local:  ${pc.cyan(url)}`);
 	console.log(`  File:   ${planFile}`);

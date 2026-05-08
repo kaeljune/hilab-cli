@@ -10,7 +10,7 @@ import { existsSync } from "node:fs";
 import { readFile, readdir, stat } from "node:fs/promises";
 import { homedir } from "node:os";
 import { basename, join } from "node:path";
-import { ProjectsRegistryManager } from "@/domains/claudekit-data/index.js";
+import { ProjectsRegistryManager } from "@/domains/hilab-data/index.js";
 import { getProjectSessions } from "@/services/claude-data/index.js";
 import { decodePath, encodePath } from "@/services/claude-data/project-scanner.js";
 import type { Express, Request, Response } from "express";

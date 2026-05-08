@@ -46,12 +46,12 @@ describe("Folder Path Transformer", () => {
 			await writeFile(join(testDir, "docs", "readme.md"), "# Documentation");
 
 			const result = await transformFolderPaths(testDir, {
-				docs: "ck-docs",
+				docs: "hi-docs",
 				plans: "plans", // Keep default
 			});
 
 			expect(result.foldersRenamed).toBe(1);
-			expect(await pathExists(join(testDir, "ck-docs"))).toBe(true);
+			expect(await pathExists(join(testDir, "hi-docs"))).toBe(true);
 			expect(await pathExists(join(testDir, "docs"))).toBe(false);
 		});
 
@@ -62,11 +62,11 @@ describe("Folder Path Transformer", () => {
 
 			const result = await transformFolderPaths(testDir, {
 				docs: "docs", // Keep default
-				plans: "ck-plans",
+				plans: "hi-plans",
 			});
 
 			expect(result.foldersRenamed).toBe(1);
-			expect(await pathExists(join(testDir, "ck-plans"))).toBe(true);
+			expect(await pathExists(join(testDir, "hi-plans"))).toBe(true);
 			expect(await pathExists(join(testDir, "plans"))).toBe(false);
 		});
 
@@ -99,7 +99,7 @@ Link: [docs](docs/)
 			await writeFile(join(testDir, "README.md"), content);
 
 			const result = await transformFolderPaths(testDir, {
-				docs: "ck-docs",
+				docs: "hi-docs",
 				plans: "plans",
 			});
 
@@ -108,7 +108,7 @@ Link: [docs](docs/)
 
 			// Check content was transformed
 			const newContent = await readFile(join(testDir, "README.md"), "utf-8");
-			expect(newContent).toContain("ck-docs/");
+			expect(newContent).toContain("hi-docs/");
 			expect(newContent).toContain("./ck-docs");
 		});
 
@@ -118,11 +118,11 @@ Link: [docs](docs/)
 			await writeFile(join(testDir, ".claude", "docs", "test.md"), "# Test");
 
 			await transformFolderPaths(testDir, {
-				docs: "ck-docs",
+				docs: "hi-docs",
 				plans: "plans",
 			});
 
-			expect(await pathExists(join(testDir, ".claude", "ck-docs"))).toBe(true);
+			expect(await pathExists(join(testDir, ".claude", "hi-docs"))).toBe(true);
 			expect(await pathExists(join(testDir, ".claude", "docs"))).toBe(false);
 		});
 
@@ -133,7 +133,7 @@ Link: [docs](docs/)
 			await transformFolderPaths(
 				testDir,
 				{
-					docs: "ck-docs",
+					docs: "hi-docs",
 					plans: "plans",
 				},
 				{ dryRun: true },
@@ -141,7 +141,7 @@ Link: [docs](docs/)
 
 			// Dry run should not actually rename
 			expect(await pathExists(join(testDir, "docs"))).toBe(true);
-			expect(await pathExists(join(testDir, "ck-docs"))).toBe(false);
+			expect(await pathExists(join(testDir, "hi-docs"))).toBe(false);
 		});
 
 		test("should handle target folder already exists (EEXIST scenario)", async () => {
@@ -150,12 +150,12 @@ Link: [docs](docs/)
 			await writeFile(join(testDir, "docs", "source.md"), "# Source");
 
 			// Create target folder that already exists
-			await mkdir(join(testDir, "ck-docs"), { recursive: true });
-			await writeFile(join(testDir, "ck-docs", "existing.md"), "# Existing");
+			await mkdir(join(testDir, "hi-docs"), { recursive: true });
+			await writeFile(join(testDir, "hi-docs", "existing.md"), "# Existing");
 
 			// Should handle gracefully (log warning, not crash)
 			const result = await transformFolderPaths(testDir, {
-				docs: "ck-docs",
+				docs: "hi-docs",
 				plans: "plans",
 			});
 
@@ -164,7 +164,7 @@ Link: [docs](docs/)
 			// Source folder should still exist (rename failed)
 			expect(await pathExists(join(testDir, "docs"))).toBe(true);
 			// Target folder with existing content should be preserved
-			expect(await pathExists(join(testDir, "ck-docs", "existing.md"))).toBe(true);
+			expect(await pathExists(join(testDir, "hi-docs", "existing.md"))).toBe(true);
 		});
 
 		test("should skip binary files during transformation", async () => {
@@ -178,7 +178,7 @@ Link: [docs](docs/)
 			await writeFile(join(testDir, "README.md"), "See docs/ for more info");
 
 			const result = await transformFolderPaths(testDir, {
-				docs: "ck-docs",
+				docs: "hi-docs",
 				plans: "plans",
 			});
 
@@ -193,8 +193,8 @@ Link: [docs](docs/)
 			// Don't create any folders - they don't exist
 
 			const result = await transformFolderPaths(testDir, {
-				docs: "ck-docs",
-				plans: "ck-plans",
+				docs: "hi-docs",
+				plans: "hi-plans",
 			});
 
 			// Should not crash, just report 0 renames
@@ -214,12 +214,12 @@ const jsonPath = {"path": "docs"};
 			await writeFile(join(testDir, "config.ts"), content);
 
 			await transformFolderPaths(testDir, {
-				docs: "ck-docs",
+				docs: "hi-docs",
 				plans: "plans",
 			});
 
 			const newContent = await readFile(join(testDir, "config.ts"), "utf-8");
-			expect(newContent).toContain('"ck-docs"');
+			expect(newContent).toContain('"hi-docs"');
 			expect(newContent).toContain("'ck-docs'");
 		});
 	});
@@ -227,7 +227,7 @@ const jsonPath = {"path": "docs"};
 	describe("validateFolderName", () => {
 		test("should accept valid folder names", () => {
 			expect(validateFolderName("docs")).toBeNull();
-			expect(validateFolderName("ck-docs")).toBeNull();
+			expect(validateFolderName("hi-docs")).toBeNull();
 			expect(validateFolderName("my_plans")).toBeNull();
 			expect(validateFolderName("MyDocs123")).toBeNull();
 			expect(validateFolderName(".hidden-docs")).toBeNull();

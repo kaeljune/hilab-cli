@@ -13,7 +13,7 @@ import { useSkillsBrowser } from "./use-skills-browser";
  * Build a lookup map from skill name to its primary trigger command.
  * Uses triggers[0] as the canonical invocation command.
  *
- * IMPORTANT: Some skills have "ck-" prefix in folder names (e.g., "ck-plan", "ck-debug")
+ * IMPORTANT: Some skills have "hi-" prefix in folder names (e.g., "hi-plan", "hi-debug")
  * but workflows reference them without prefix (e.g., "plan", "debug").
  * This function creates aliases for both forms to ensure lookups work either way.
  */
@@ -25,9 +25,9 @@ function buildSkillCommandMap(skills: SkillBrowserItem[]): Map<string, string> {
 			// Map the actual skill name
 			map.set(skill.name, trigger);
 
-			// Create alias without "ck-" prefix for skills that have it
-			// e.g., "ck-plan" -> also accessible as "plan"
-			if (skill.name.startsWith("ck-")) {
+			// Create alias without "hi-" prefix for skills that have it
+			// e.g., "hi-plan" -> also accessible as "plan"
+			if (skill.name.startsWith("hi-")) {
 				const shortName = skill.name.slice(3);
 				if (!map.has(shortName)) {
 					map.set(shortName, trigger);
@@ -40,14 +40,14 @@ function buildSkillCommandMap(skills: SkillBrowserItem[]): Map<string, string> {
 
 /**
  * Resolve a workflow's steps by looking up commands from the skills API.
- * Falls back to "/ck:{skill}" if skill not found in API.
+ * Falls back to "/hi:{skill}" if skill not found in API.
  */
 function resolveWorkflowSteps(
 	workflow: Workflow,
 	skillCommandMap: Map<string, string>,
 ): ResolvedWorkflowStep[] {
 	return workflow.steps.map((step) => {
-		// If step already has a command with args (e.g., "/ck:cook @plan.md"), preserve it
+		// If step already has a command with args (e.g., "/hi:cook @plan.md"), preserve it
 		const existingCommand = step.command;
 		if (existingCommand?.includes(" ")) {
 			return { ...step, command: existingCommand };
@@ -67,7 +67,7 @@ function resolveWorkflowSteps(
 		// Fallback: use existing command or generate default
 		return {
 			...step,
-			command: existingCommand || `/ck:${step.skill}`,
+			command: existingCommand || `/hi:${step.skill}`,
 		};
 	});
 }
@@ -87,9 +87,9 @@ function resolveWorkflows(
 
 /**
  * Build a map to resolve short skill names to actual API skill names.
- * e.g., "plan" -> "ck-plan" (for skills with ck- prefix)
+ * e.g., "plan" -> "hi-plan" (for skills with ck- prefix)
  *
- * IMPORTANT: Some skills have "ck-" prefix in folder names but are invoked
+ * IMPORTANT: Some skills have "hi-" prefix in folder names but are invoked
  * without the prefix in commands. This map enables correct URL navigation.
  */
 function buildSkillNameResolver(skills: SkillBrowserItem[]): Map<string, string> {
@@ -99,8 +99,8 @@ function buildSkillNameResolver(skills: SkillBrowserItem[]): Map<string, string>
 		map.set(skill.name, skill.name);
 
 		// Create alias: short name -> actual name
-		// e.g., "plan" -> "ck-plan"
-		if (skill.name.startsWith("ck-")) {
+		// e.g., "plan" -> "hi-plan"
+		if (skill.name.startsWith("hi-")) {
 			const shortName = skill.name.slice(3);
 			if (!map.has(shortName)) {
 				map.set(shortName, skill.name);
@@ -114,7 +114,7 @@ export interface UseWorkflowsEnhancedResult {
 	workflows: ResolvedWorkflow[];
 	loading: boolean;
 	error: string | null;
-	/** Resolve short skill name to actual API skill name (e.g., "plan" -> "ck-plan") */
+	/** Resolve short skill name to actual API skill name (e.g., "plan" -> "hi-plan") */
 	resolveSkillName: (shortName: string) => string;
 }
 

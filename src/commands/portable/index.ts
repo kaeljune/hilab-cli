@@ -1,5 +1,5 @@
 /**
- * Portable module — shared infrastructure for ck agents, ck commands, ck skills
+ * Portable module — shared infrastructure for hi agents, hi commands, hi skills
  */
 
 // Types

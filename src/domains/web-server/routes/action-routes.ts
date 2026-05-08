@@ -6,8 +6,8 @@ import { spawn, spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { homedir } from "node:os";
 import { join, resolve, sep } from "node:path";
-import { ProjectsRegistryManager } from "@/domains/claudekit-data/index.js";
 import { ConfigManager } from "@/domains/config/config-manager.js";
+import { ProjectsRegistryManager } from "@/domains/hilab-data/index.js";
 import { isMacOS, isWindows } from "@/shared/environment.js";
 import { logger } from "@/shared/logger.js";
 import type { Config } from "@/types";
@@ -18,7 +18,7 @@ const VALID_ACTIONS = ["terminal", "editor", "launch"] as const;
 const GLOBAL_PREFERENCE_SENTINEL = "__global__";
 const DEFAULT_DETECTION_CACHE_TTL_MS = 30_000;
 const DETECTION_CACHE_TTL_MS = (() => {
-	const raw = process.env.CK_ACTION_CACHE_TTL_MS || process.env.CK_ACTION_CACHE_TTL;
+	const raw = process.env.HI_ACTION_CACHE_TTL_MS || process.env.HI_ACTION_CACHE_TTL;
 	if (!raw) return DEFAULT_DETECTION_CACHE_TTL_MS;
 	const parsed = Number(raw);
 	if (!Number.isFinite(parsed) || parsed <= 0) return DEFAULT_DETECTION_CACHE_TTL_MS;

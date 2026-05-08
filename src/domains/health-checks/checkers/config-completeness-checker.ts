@@ -1,22 +1,22 @@
 import { existsSync } from "node:fs";
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
-import type { ClaudeKitSetup } from "@/types";
+import type { HiLabSetup } from "@/types";
 import type { CheckResult } from "../types.js";
 
 /**
  * Check if project configuration is complete (not just CLAUDE.md)
  */
 export async function checkProjectConfigCompleteness(
-	setup: ClaudeKitSetup,
+	setup: HiLabSetup,
 	projectDir: string,
 ): Promise<CheckResult> {
 	// Only check if we're in a project directory
 	if (setup.project.path === setup.global.path) {
 		return {
-			id: "ck-project-config-complete",
+			id: "hi-project-config-complete",
 			name: "Project Config Completeness",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "info",
 			message: "Not in a project directory",
@@ -52,36 +52,36 @@ export async function checkProjectConfigCompleteness(
 	const totalRequired = requiredDirs.length + 1; // +1 for rules/workflows
 	if (hasOnlyClaudeMd || missingDirs.length === totalRequired) {
 		return {
-			id: "ck-project-config-complete",
+			id: "hi-project-config-complete",
 			name: "Project Config Completeness",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "fail",
 			message: "Incomplete configuration",
 			details: "Only CLAUDE.md found - missing agents, commands, rules, skills",
-			suggestion: "Run 'ck init' to install complete ClaudeKit in project",
+			suggestion: "Run 'hi init' to install complete HiLab in project",
 			autoFixable: false,
 		};
 	}
 
 	if (missingDirs.length > 0) {
 		return {
-			id: "ck-project-config-complete",
+			id: "hi-project-config-complete",
 			name: "Project Config Completeness",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "warn",
 			message: `Missing ${missingDirs.length} directories`,
 			details: `Missing: ${missingDirs.join(", ")}`,
-			suggestion: "Run 'ck init' to update project configuration",
+			suggestion: "Run 'hi init' to update project configuration",
 			autoFixable: false,
 		};
 	}
 
 	return {
-		id: "ck-project-config-complete",
+		id: "hi-project-config-complete",
 		name: "Project Config Completeness",
-		group: "claudekit",
+		group: "hilab",
 		priority: "standard",
 		status: "pass",
 		message: "Complete configuration",

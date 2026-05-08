@@ -1,5 +1,5 @@
 /**
- * Skills command - install ClaudeKit skills to other coding agents
+ * Skills command - install HiLab skills to other coding agents
  */
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
@@ -113,7 +113,7 @@ async function handleSearch(
 
 	if (catalog.skillCount === 0) {
 		spinner.stop("No results");
-		p.log.warn("No skills installed. Run: ck init");
+		p.log.warn("No skills installed. Run: hi init");
 		return;
 	}
 
@@ -203,7 +203,7 @@ async function listSkills(showInstalled: boolean): Promise<void> {
 		// Show installed skills from registry
 		const installations = await getInstalledSkills();
 		if (installations.length === 0) {
-			p.log.warn("No skills installed via ck skills.");
+			p.log.warn("No skills installed via hi skills.");
 			return;
 		}
 
@@ -237,7 +237,7 @@ async function listSkills(showInstalled: boolean): Promise<void> {
 
 	const sourcePath = getSkillSourcePath();
 	if (!sourcePath) {
-		logger.error("No skills found. Install ClaudeKit Engineer first.");
+		logger.error("No skills found. Install HiLab Engineer first.");
 		process.exit(1);
 	}
 
@@ -270,7 +270,7 @@ async function handleUninstall(options: SkillCommandOptions): Promise<void> {
 		// Interactive: show installed skills and let user pick
 		const installations = await getInstalledSkills();
 		if (installations.length === 0) {
-			p.log.warn("No skills installed via ck skills.");
+			p.log.warn("No skills installed via hi skills.");
 			return;
 		}
 
@@ -401,7 +401,7 @@ async function handleUninstall(options: SkillCommandOptions): Promise<void> {
  */
 export async function skillsCommand(options: SkillCommandOptionsExtended): Promise<void> {
 	console.log();
-	p.intro(pc.bgCyan(pc.black(" ck skills ")));
+	p.intro(pc.bgCyan(pc.black(" hi skills ")));
 
 	try {
 		// Validate base options (extended fields pass through as-is)
@@ -442,7 +442,7 @@ export async function skillsCommand(options: SkillCommandOptionsExtended): Promi
 		// Handle --search <query>
 		if (validOptions.search) {
 			if (!sourcePath) {
-				p.log.error("No skills found. Install ClaudeKit Engineer first.");
+				p.log.error("No skills found. Install HiLab Engineer first.");
 				p.outro(pc.red("Search failed"));
 				process.exit(1);
 			}
@@ -457,7 +457,7 @@ export async function skillsCommand(options: SkillCommandOptionsExtended): Promi
 		// Handle --catalog
 		if (validOptions.catalog) {
 			if (!sourcePath) {
-				p.log.error("No skills found. Install ClaudeKit Engineer first.");
+				p.log.error("No skills found. Install HiLab Engineer first.");
 				p.outro(pc.red("Catalog unavailable"));
 				process.exit(1);
 			}
@@ -469,7 +469,7 @@ export async function skillsCommand(options: SkillCommandOptionsExtended): Promi
 		// Handle --validate
 		if (validOptions.validate) {
 			if (!sourcePath) {
-				p.log.error("No skills found. Install ClaudeKit Engineer first.");
+				p.log.error("No skills found. Install HiLab Engineer first.");
 				p.outro(pc.red("Validation failed"));
 				process.exit(1);
 			}
@@ -509,7 +509,7 @@ export async function skillsCommand(options: SkillCommandOptionsExtended): Promi
 
 		// Check skill source exists (sourcePath already resolved above)
 		if (!sourcePath) {
-			p.log.error("No skills found. Install ClaudeKit Engineer first.");
+			p.log.error("No skills found. Install HiLab Engineer first.");
 			p.outro(pc.red("Installation failed"));
 			process.exit(1);
 		}

@@ -2,7 +2,6 @@ import { describe, expect, test } from "bun:test";
 import {
 	AVAILABLE_KITS,
 	AuthenticationError,
-	ClaudeKitError,
 	ConfigSchema,
 	DownloadError,
 	ExcludePatternSchema,
@@ -10,6 +9,7 @@ import {
 	GitHubError,
 	GitHubReleaseAssetSchema,
 	GitHubReleaseSchema,
+	HiLabError,
 	KitConfigSchema,
 	KitType,
 	NewCommandOptionsSchema,
@@ -349,24 +349,24 @@ describe("Types and Schemas", () => {
 	describe("AVAILABLE_KITS", () => {
 		test("should have engineer kit", () => {
 			expect(AVAILABLE_KITS.engineer).toBeDefined();
-			expect(AVAILABLE_KITS.engineer.name).toBe("ClaudeKit Engineer");
-			expect(AVAILABLE_KITS.engineer.repo).toBe("claudekit-engineer");
+			expect(AVAILABLE_KITS.engineer.name).toBe("HiLab Engineer");
+			expect(AVAILABLE_KITS.engineer.repo).toBe("hilab-engineer");
 		});
 
 		test("should have marketing kit", () => {
 			expect(AVAILABLE_KITS.marketing).toBeDefined();
-			expect(AVAILABLE_KITS.marketing.name).toBe("ClaudeKit Marketing");
-			expect(AVAILABLE_KITS.marketing.repo).toBe("claudekit-marketing");
+			expect(AVAILABLE_KITS.marketing.name).toBe("HiLab Marketing");
+			expect(AVAILABLE_KITS.marketing.repo).toBe("hilab-marketing");
 		});
 	});
 
 	describe("Custom Error Classes", () => {
-		test("ClaudeKitError should store code and statusCode", () => {
-			const error = new ClaudeKitError("Test error", "TEST_CODE", 500);
+		test("HiLabError should store code and statusCode", () => {
+			const error = new HiLabError("Test error", "TEST_CODE", 500);
 			expect(error.message).toBe("Test error");
 			expect(error.code).toBe("TEST_CODE");
 			expect(error.statusCode).toBe(500);
-			expect(error.name).toBe("ClaudeKitError");
+			expect(error.name).toBe("HiLabError");
 		});
 
 		test("AuthenticationError should set correct defaults", () => {

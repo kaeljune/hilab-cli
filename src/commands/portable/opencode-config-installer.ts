@@ -8,7 +8,7 @@
  * `model` when missing or invalid.
  *
  * UX scope:
- * - `.ck.json` taxonomy override (`opencode.default.model`) always wins.
+ * - `.hi.json` taxonomy override (`opencode.default.model`) always wins.
  * - Auth-first: reads ~/.local/share/opencode/auth.json, resolves model via
  *   models.dev catalog (#771). Non-interactive with no auth → fail-fast with hint.
  * - Existing valid model (passes catalog check) → preserved untouched.
@@ -54,9 +54,9 @@ export class OpenCodeAuthRequiredError extends Error {
 function messageForReason(reason: DiscoveryFailureReason): string {
 	switch (reason) {
 		case "no-auth":
-			return "opencode has no authenticated providers. Run `opencode auth login` first, then re-run `ck migrate`.";
+			return "opencode has no authenticated providers. Run `opencode auth login` first, then re-run `hi migrate`.";
 		case "catalog-unavailable":
-			return "Cannot reach models.dev to pick a default model. Check your network, then re-run `ck migrate` — or set `model` in opencode.json manually.";
+			return "Cannot reach models.dev to pick a default model. Check your network, then re-run `hi migrate` — or set `model` in opencode.json manually.";
 		case "no-usable-model":
 			return "None of your authenticated opencode providers have a tool-capable model in the models.dev catalog. Set `model` in opencode.json manually.";
 	}
@@ -166,7 +166,7 @@ type SuggestionResult = SuggestionSuccess | SuggestionFailure;
 
 /**
  * Suggest a default model to write based on (in priority order):
- * 1. `.ck.json` taxonomy override (`opencode.default.model`) — always wins.
+ * 1. `.hi.json` taxonomy override (`opencode.default.model`) — always wins.
  * 2. Auth-first dynamic resolver via models.dev catalog (discriminated result).
  *
  * On failure, the discriminated `failure` field tells callers WHY (no-auth vs
@@ -177,7 +177,7 @@ async function suggestModel(options: EnsureOpenCodeModelOptions): Promise<Sugges
 	const override = getOpenCodeDefaultModelOverride();
 	if (override) {
 		// Override path doesn't query auth; surface empty list (caller treats as opaque).
-		return { ok: true, model: override, reason: ".ck.json override", authedProviders: [] };
+		return { ok: true, model: override, reason: ".hi.json override", authedProviders: [] };
 	}
 
 	const result = await resolveOpenCodeDefaultModel({
@@ -272,7 +272,7 @@ const makeInvalidModelPrompter =
  * - "skipped": user declined the prompt in interactive mode
  *
  * Throws OpenCodeAuthRequiredError in non-interactive mode when no auth is detected
- * and no .ck.json override is set.
+ * and no .hi.json override is set.
  */
 export async function ensureOpenCodeModel(
 	options: EnsureOpenCodeModelOptions,
@@ -322,7 +322,7 @@ export async function ensureOpenCodeModel(
 			// Non-interactive: keep as-is with loud warning
 			logger.warning(
 				`ensureOpenCodeModel: existing model "${existingModel}" is not found in the models.dev catalog. ` +
-					`Run \`ck migrate --agent opencode\` interactively to update it, or edit ${configPath} manually.`,
+					`Run \`hi migrate --agent opencode\` interactively to update it, or edit ${configPath} manually.`,
 			);
 			return { path: configPath, action: "existing", model: existingModel };
 		}

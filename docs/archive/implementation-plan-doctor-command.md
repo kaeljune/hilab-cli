@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-The `ck doctor` command is **largely complete** and functional. Current implementation successfully checks system dependencies (claude, python, pip, nodejs, npm), detects OS/package managers, offers interactive installation, shows manual instructions, displays ClaudeKit setup overview, and supports non-interactive mode for CI/CD.
+The `ck doctor` command is **largely complete** and functional. Current implementation successfully checks system dependencies (claude, python, pip, nodejs, npm), detects OS/package managers, offers interactive installation, shows manual instructions, displays HiLab setup overview, and supports non-interactive mode for CI/CD.
 
 **Key Finding**: Installation URLs verified against official docs (code.claude.com). Core functionality working as designed. Recommended action: **Minor improvements** rather than major refactoring.
 
@@ -401,7 +401,7 @@ The `ck doctor` command is **largely complete** and functional. Current implemen
 
 Successful run shows:
 ```
-🩺 ClaudeKit Setup Overview
+🩺 HiLab Setup Overview
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 System Dependencies
@@ -430,7 +430,7 @@ System Dependencies
 ## FAQ
 
 **Q: Do I need all dependencies?**
-A: Claude CLI optional. Python and Node.js required for ClaudeKit skills.
+A: Claude CLI optional. Python and Node.js required for HiLab skills.
 
 **Q: Can I skip installation prompts?**
 A: Yes. Set `CI=true` or `NON_INTERACTIVE=true` environment variable.
@@ -551,7 +551,7 @@ A: Restart terminal or manually add to PATH in shell config (.bashrc, .zshrc, pr
 - [x] ✅ Offer interactive installation
 - [x] ✅ Show manual installation instructions
 - [ ] 🔄 Enhanced error messages (network, permissions, partial installs)
-- [x] ✅ Display ClaudeKit setup overview
+- [x] ✅ Display HiLab setup overview
 - [x] ✅ Support non-interactive mode (CI/CD)
 - [ ] 📋 Comprehensive troubleshooting documentation
 
@@ -948,7 +948,7 @@ A: Restart terminal or manually add to PATH in shell config (.bashrc, .zshrc, pr
    - `ck init/update`: Update existing project
    - `ck versions`: List available releases
    - `ck diagnose`: Check auth and GitHub access
-   - `ck doctor`: Check system dependencies and ClaudeKit setup
+   - `ck doctor`: Check system dependencies and HiLab setup
    ```
 
 **Testing**:
@@ -1092,7 +1092,7 @@ A: Restart terminal or manually add to PATH in shell config (.bashrc, .zshrc, pr
 - `src/commands/doctor.ts` - Main doctor command
 - `src/utils/dependency-checker.ts` - Dependency detection
 - `src/utils/dependency-installer.ts` - Installation logic
-- `src/utils/claudekit-scanner.ts` - Setup overview
+- `src/utils/hilab-scanner.ts` - Setup overview
 
 **Tests**:
 - `tests/commands/doctor.test.ts`

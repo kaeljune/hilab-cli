@@ -34,7 +34,7 @@ describe("promptKitUpdate auto-init behavior", () => {
 	let tempDir: string;
 
 	beforeEach(async () => {
-		tempDir = await mkdtemp(join(tmpdir(), "ck-auto-init-"));
+		tempDir = await mkdtemp(join(tmpdir(), "hi-auto-init-"));
 		await writeMetadata(tempDir);
 		confirmMock.mockReset();
 		confirmMock.mockResolvedValue(true);
@@ -70,7 +70,7 @@ describe("promptKitUpdate auto-init behavior", () => {
 					path: tempDir,
 					metadata: {
 						version: "1.0.0",
-						name: "ClaudeKit",
+						name: "HiLab",
 						description: "test install",
 						kits: { engineer: { version: "1.0.0" } },
 					},
@@ -120,7 +120,7 @@ describe("promptKitUpdate auto-init behavior", () => {
 		expect(capturedSpawnArgs()).not.toContain("--yes");
 	});
 
-	test("interactive mode does NOT pass --kit, letting ck init show kit picker", async () => {
+	test("interactive mode does NOT pass --kit, letting hi init show kit picker", async () => {
 		const { deps, capturedSpawnArgs } = makeDeps();
 		await promptKitUpdate(false, false, deps);
 		expect(capturedSpawnArgs()).not.toContain("--kit");
@@ -167,7 +167,7 @@ describe("promptKitUpdate auto-init behavior", () => {
 	test("-y flag overrides autoInit: uses exec even when autoInitAfterUpdate is enabled", async () => {
 		// When both -y and autoInit are set, -y wins: fully non-interactive via exec.
 		// autoInit only matters when yes=false (it skips the confirmation prompt
-		// but keeps ck init interactive via spawn). With yes=true, exec handles everything.
+		// but keeps hi init interactive via spawn). With yes=true, exec handles everything.
 		loadFullConfigMock.mockResolvedValue({
 			config: { updatePipeline: { autoInitAfterUpdate: true } },
 		});
@@ -187,7 +187,7 @@ describe("promptKitUpdate auto-init behavior", () => {
 		await promptKitUpdate(false, false, deps);
 		expect(confirmMock).toHaveBeenCalledWith(
 			expect.objectContaining({
-				message: expect.stringContaining("Update global ClaudeKit content"),
+				message: expect.stringContaining("Update global HiLab content"),
 			}),
 		);
 		expect(spawnCount()).toBe(1);

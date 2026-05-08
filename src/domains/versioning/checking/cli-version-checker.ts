@@ -3,10 +3,7 @@
  * Checks for CLI package updates from npm registry
  */
 import { NpmRegistryClient } from "@/domains/github/npm-registry.js";
-import {
-	CLAUDEKIT_CLI_NPM_PACKAGE_NAME,
-	CLAUDEKIT_CLI_NPM_PACKAGE_URL,
-} from "@/shared/claudekit-constants.js";
+import { HILAB_CLI_NPM_PACKAGE_NAME, HILAB_CLI_NPM_PACKAGE_URL } from "@/shared/hilab-constants.js";
 import { logger } from "@/shared/logger.js";
 import { compareVersions } from "compare-versions";
 import {
@@ -31,9 +28,7 @@ export class CliVersionChecker {
 
 		try {
 			// Passive notifications should track the stable channel by default.
-			const latestVersion = await NpmRegistryClient.getLatestVersion(
-				CLAUDEKIT_CLI_NPM_PACKAGE_NAME,
-			);
+			const latestVersion = await NpmRegistryClient.getLatestVersion(HILAB_CLI_NPM_PACKAGE_NAME);
 
 			if (!latestVersion) {
 				logger.debug("Failed to fetch latest CLI version from npm");
@@ -62,7 +57,7 @@ export class CliVersionChecker {
 				currentVersion: current,
 				latestVersion: latest,
 				updateAvailable,
-				releaseUrl: CLAUDEKIT_CLI_NPM_PACKAGE_URL,
+				releaseUrl: HILAB_CLI_NPM_PACKAGE_URL,
 			};
 		} catch (error) {
 			logger.debug(`CLI version check failed: ${error}`);

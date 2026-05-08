@@ -1,6 +1,6 @@
 /**
  * Update CLI Command
- * Updates the ClaudeKit CLI package to the latest version.
+ * Updates the HiLab CLI package to the latest version.
  *
  * This file is the thin orchestrator and public API surface.
  * Implementation is split across src/commands/update/:
@@ -15,7 +15,7 @@
 
 import { NpmRegistryClient } from "@/domains/github/npm-registry.js";
 import { PackageManagerDetector } from "@/domains/installation/package-manager-detector.js";
-import { CLAUDEKIT_CLI_NPM_PACKAGE_NAME } from "@/shared/claudekit-constants.js";
+import { HILAB_CLI_NPM_PACKAGE_NAME } from "@/shared/hilab-constants.js";
 import { logger } from "@/shared/logger.js";
 import { confirm, intro, isCancel, note, outro, spinner } from "@/shared/safe-prompts.js";
 import { type UpdateCliOptions, UpdateCliOptionsSchema } from "@/types";
@@ -90,7 +90,7 @@ function getDefaultUpdateCliCommandDeps(): UpdateCliCommandDeps {
 // ─── Main orchestrator ────────────────────────────────────────────────────────
 
 /**
- * Update CLI command — updates the ClaudeKit CLI package itself.
+ * Update CLI command — updates the HiLab CLI package itself.
  * Orchestrates: channel resolution → version compare → pm update → verification → post-update steps.
  */
 export async function updateCliCommand(
@@ -99,7 +99,7 @@ export async function updateCliCommand(
 ): Promise<void> {
 	const s = spinner();
 
-	intro("[>] ClaudeKit CLI - Update");
+	intro("[>] HiLab CLI - Update");
 
 	try {
 		const {
@@ -169,7 +169,7 @@ export async function updateCliCommand(
 		// ── Check flag: just display and exit ───────────────────────────────
 		if (opts.check) {
 			note(
-				`CLI update available: ${currentVersion} -> ${targetVersion}\n\nRun 'ck update' to install`,
+				`CLI update available: ${currentVersion} -> ${targetVersion}\n\nRun 'hi update' to install`,
 				"Update Check",
 			);
 			await promptKitUpdateFn(targetIsPrerelease, opts.yes);
@@ -192,7 +192,7 @@ export async function updateCliCommand(
 		// ── Execute update ──────────────────────────────────────────────────
 		const updateCmd = packageManagerDetector.getUpdateCommand(
 			pm,
-			CLAUDEKIT_CLI_NPM_PACKAGE_NAME,
+			HILAB_CLI_NPM_PACKAGE_NAME,
 			targetVersion,
 			registryUrl,
 		);
@@ -211,7 +211,7 @@ export async function updateCliCommand(
 			spinnerStop: (msg) => s.stop(msg),
 		});
 
-		outro(`[+] Successfully updated ClaudeKit CLI to ${activeVersion}`);
+		outro(`[+] Successfully updated HiLab CLI to ${activeVersion}`);
 		await promptKitUpdateFn(targetIsPrerelease, opts.yes);
 		await promptMigrateUpdateFn();
 	} catch (error) {

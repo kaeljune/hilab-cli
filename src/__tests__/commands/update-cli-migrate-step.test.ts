@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:
 import type { PromptMigrateUpdateDeps } from "@/commands/update-cli.js";
 import { promptMigrateUpdate } from "@/commands/update-cli.js";
 import { logger } from "@/shared/logger.js";
-import type { MigrateScopeConfig } from "@/types/ck-config.js";
+import type { MigrateScopeConfig } from "@/types/hi-config.js";
 
 const detectInstalledProvidersMock = mock(async () => [] as string[]);
 const getProviderConfigMock = mock((provider: string) => ({ displayName: provider }));
@@ -102,7 +102,7 @@ describe("promptMigrateUpdate (step 3 of update pipeline)", () => {
 			config: { updatePipeline: { autoMigrateAfterUpdate: true, migrateProviders: "auto" } },
 		});
 		await promptMigrateUpdate(makeDeps());
-		expect(execCalls).toEqual(["ck migrate --agent codex --agent gemini-cli --yes"]);
+		expect(execCalls).toEqual(["hi migrate --agent codex --agent gemini-cli --yes"]);
 	});
 
 	test("filters to configured providers only", async () => {
@@ -119,7 +119,7 @@ describe("promptMigrateUpdate (step 3 of update pipeline)", () => {
 		expect(logger.warning).toHaveBeenCalledWith(
 			expect.stringContaining("Unknown/uninstalled providers in migrateProviders: cursor"),
 		);
-		expect(execCalls).toEqual(["ck migrate --agent gemini-cli --yes"]);
+		expect(execCalls).toEqual(["hi migrate --agent gemini-cli --yes"]);
 	});
 
 	test("adds -g flag when global install is detected", async () => {
@@ -141,7 +141,7 @@ describe("promptMigrateUpdate (step 3 of update pipeline)", () => {
 			},
 		});
 		await promptMigrateUpdate(deps);
-		expect(execCalls).toEqual(["ck migrate -g --agent codex --yes"]);
+		expect(execCalls).toEqual(["hi migrate -g --agent codex --yes"]);
 	});
 
 	test("skips unsafe provider names", async () => {
@@ -153,7 +153,7 @@ describe("promptMigrateUpdate (step 3 of update pipeline)", () => {
 		expect(logger.warning).toHaveBeenCalledWith(
 			"Some provider names contain invalid characters and were skipped",
 		);
-		expect(execCalls).toEqual(["ck migrate --agent codex --yes"]);
+		expect(execCalls).toEqual(["hi migrate --agent codex --yes"]);
 	});
 
 	test("emits --skip-skills when migrateScope.skills is false (symlink scenario)", async () => {
@@ -167,7 +167,7 @@ describe("promptMigrateUpdate (step 3 of update pipeline)", () => {
 			},
 		});
 		await promptMigrateUpdate(makeDeps());
-		expect(execCalls).toEqual(["ck migrate --agent codex --skip-skills --yes"]);
+		expect(execCalls).toEqual(["hi migrate --agent codex --skip-skills --yes"]);
 	});
 
 	test("emits multiple --skip-X flags in deterministic order", async () => {
@@ -182,7 +182,7 @@ describe("promptMigrateUpdate (step 3 of update pipeline)", () => {
 		});
 		await promptMigrateUpdate(makeDeps());
 		expect(execCalls).toEqual([
-			"ck migrate --agent codex --skip-skills --skip-config --skip-rules --yes",
+			"hi migrate --agent codex --skip-skills --skip-config --skip-rules --yes",
 		]);
 	});
 
@@ -192,7 +192,7 @@ describe("promptMigrateUpdate (step 3 of update pipeline)", () => {
 			config: { updatePipeline: { autoMigrateAfterUpdate: true } },
 		});
 		await promptMigrateUpdate(makeDeps());
-		expect(execCalls).toEqual(["ck migrate --agent codex --yes"]);
+		expect(execCalls).toEqual(["hi migrate --agent codex --yes"]);
 	});
 
 	test("does not emit --skip-X when all migrateScope fields are true", async () => {
@@ -206,7 +206,7 @@ describe("promptMigrateUpdate (step 3 of update pipeline)", () => {
 			},
 		});
 		await promptMigrateUpdate(makeDeps());
-		expect(execCalls).toEqual(["ck migrate --agent codex --yes"]);
+		expect(execCalls).toEqual(["hi migrate --agent codex --yes"]);
 	});
 
 	test("ignores migrateScope entirely when autoMigrateAfterUpdate is false", async () => {

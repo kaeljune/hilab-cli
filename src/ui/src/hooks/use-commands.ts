@@ -64,7 +64,7 @@ export function useCommandDetail(commandPath: string | undefined) {
 		try {
 			setLoading(true);
 			setError(null);
-			// Encode path separators: "ck/plan" → "ck--plan"
+			// Encode path separators: "ck/plan" → "hi--plan"
 			const slug = commandPath.replace(/\//g, "--");
 			const res = await fetch(`/api/commands/detail/${encodeURIComponent(slug)}`);
 			if (!res.ok) throw new Error(`HTTP ${res.status}`);

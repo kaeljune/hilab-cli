@@ -13,10 +13,7 @@ import {
 	isPrereleaseVersion,
 	normalizeVersion,
 } from "@/domains/versioning/checking/version-utils.js";
-import {
-	CLAUDEKIT_CLI_NPM_PACKAGE_NAME,
-	CLAUDEKIT_CLI_NPM_PACKAGE_URL,
-} from "@/shared/claudekit-constants.js";
+import { HILAB_CLI_NPM_PACKAGE_NAME, HILAB_CLI_NPM_PACKAGE_URL } from "@/shared/hilab-constants.js";
 import { logger } from "@/shared/logger.js";
 import { PathResolver } from "@/shared/path-resolver.js";
 import type { KitType } from "@/types/index.js";
@@ -132,9 +129,9 @@ export function registerSystemRoutes(app: Express): void {
 				// Use beta/dev version for beta channel
 				let latestVersion: string | null = null;
 				if (cliChannel === "beta") {
-					latestVersion = await NpmRegistryClient.getDevVersion(CLAUDEKIT_CLI_NPM_PACKAGE_NAME);
+					latestVersion = await NpmRegistryClient.getDevVersion(HILAB_CLI_NPM_PACKAGE_NAME);
 				} else {
-					latestVersion = await NpmRegistryClient.getLatestVersion(CLAUDEKIT_CLI_NPM_PACKAGE_NAME);
+					latestVersion = await NpmRegistryClient.getLatestVersion(HILAB_CLI_NPM_PACKAGE_NAME);
 				}
 
 				const updateAvailable = hasCliUpdate(currentVersion, latestVersion);
@@ -143,7 +140,7 @@ export function registerSystemRoutes(app: Express): void {
 					current: currentVersion,
 					latest: latestVersion,
 					updateAvailable,
-					releaseUrl: CLAUDEKIT_CLI_NPM_PACKAGE_URL,
+					releaseUrl: HILAB_CLI_NPM_PACKAGE_URL,
 				};
 				res.json(response);
 			} else {
@@ -204,7 +201,7 @@ export function registerSystemRoutes(app: Express): void {
 
 			if (target === "cli") {
 				// Fetch from npm registry
-				const packageInfo = await NpmRegistryClient.getPackageInfo(CLAUDEKIT_CLI_NPM_PACKAGE_NAME);
+				const packageInfo = await NpmRegistryClient.getPackageInfo(HILAB_CLI_NPM_PACKAGE_NAME);
 				if (packageInfo) {
 					const allVersions = Object.keys(packageInfo.versions);
 					const latestStable = packageInfo["dist-tags"]?.latest;
@@ -255,7 +252,7 @@ export function registerSystemRoutes(app: Express): void {
 		try {
 			const [packageJson, installLocation, gitVersion, ghVersion] = await Promise.all([
 				getPackageJson(),
-				runCommand("which", ["ck"], "not found"),
+				runCommand("which", ["hi"], "not found"),
 				runCommand("git", ["--version"], "unknown"),
 				runCommand("gh", ["--version"], "unknown").then((out) => out.split("\n")[0] ?? "unknown"),
 			]);
@@ -322,7 +319,7 @@ export function registerSystemRoutes(app: Express): void {
 			const targetVersion = (version as string) || "latest";
 			commandLine = PackageManagerDetector.getUpdateCommand(
 				pm,
-				CLAUDEKIT_CLI_NPM_PACKAGE_NAME,
+				HILAB_CLI_NPM_PACKAGE_NAME,
 				targetVersion,
 			);
 			res.write(`data: ${JSON.stringify({ type: "phase", name: "downloading" })}\n\n`);

@@ -1,7 +1,7 @@
 /**
  * Help System Type Definitions
  *
- * Foundation types for claudekit-cli custom help system.
+ * Foundation types for hilab-cli custom help system.
  * Used by help-colors.ts, help-renderer.ts, help-commands.ts, and help-interactive.ts.
  */
 
@@ -48,7 +48,7 @@ export interface OptionGroup {
  * Limited to 2 per command for conciseness
  */
 export interface HelpExample {
-	/** Example command (e.g., "ck new --kit engineer") */
+	/** Example command (e.g., "hi new --kit engineer") */
 	command: string;
 	/** Brief explanation of what this example does */
 	description: string;
@@ -74,7 +74,7 @@ export interface CommandHelp {
 	name: string;
 	/** Brief command description (shown in command list) */
 	description: string;
-	/** Usage syntax (e.g., "ck new [options]") */
+	/** Usage syntax (e.g., "hi new [options]") */
 	usage: string;
 	/** Usage examples (max 2 recommended) */
 	examples: HelpExample[];
@@ -84,7 +84,7 @@ export interface CommandHelp {
 	sections?: HelpSection[];
 	/** Command aliases (e.g., ["i"] for init) */
 	aliases?: string[];
-	/** Nested subcommands (e.g., `ck config ui`, `ck skills install`) */
+	/** Nested subcommands (e.g., `hi config ui`, `hi skills install`) */
 	subcommands?: CommandHelp[];
 	/** Command deprecation info */
 	deprecated?: DeprecatedInfo;
@@ -158,7 +158,7 @@ export interface HelpRenderContext {
 	globalHelp: boolean;
 	/** Renderer options */
 	options: HelpOptions;
-	/** Parent command name — when set, overrides usage line prefix to "ck <parent> <name>" */
+	/** Parent command name — when set, overrides usage line prefix to "hi <parent> <name>" */
 	parentName?: string;
 }
 
@@ -175,7 +175,7 @@ export type CommandRegistry = Record<string, CommandHelp>;
 export type HelpFormatter = (help: CommandHelp, context: HelpRenderContext) => string;
 
 /**
- * Global help data (shown with `ck --help`)
+ * Global help data (shown with `hi --help`)
  */
 export interface GlobalHelp {
 	/** CLI name */

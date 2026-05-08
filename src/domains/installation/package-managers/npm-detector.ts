@@ -1,5 +1,5 @@
-import { CLAUDEKIT_CLI_NPM_PACKAGE_NAME } from "@/shared/claudekit-constants.js";
 import { isWindows } from "@/shared/environment.js";
+import { HILAB_CLI_NPM_PACKAGE_NAME } from "@/shared/hilab-constants.js";
 import { getPmVersionCommandTimeoutMs } from "./constants.js";
 import type { PmQuery } from "./detector-base.js";
 import { execAsync, isValidPackageName, isValidVersion } from "./detector-base.js";
@@ -11,15 +11,15 @@ export function getNpmQuery(): PmQuery {
 	return {
 		pm: "npm",
 		cmd: isWindows()
-			? `npm.cmd ls -g ${CLAUDEKIT_CLI_NPM_PACKAGE_NAME} --depth=0 --json`
-			: `npm ls -g ${CLAUDEKIT_CLI_NPM_PACKAGE_NAME} --depth=0 --json`,
+			? `npm.cmd ls -g ${HILAB_CLI_NPM_PACKAGE_NAME} --depth=0 --json`
+			: `npm ls -g ${HILAB_CLI_NPM_PACKAGE_NAME} --depth=0 --json`,
 		checkFn: (stdout) => {
 			try {
 				const data = JSON.parse(stdout);
 				// npm ls -g --json returns dependencies object with package name as key
-				return !!data.dependencies?.["claudekit-cli"];
+				return !!data.dependencies?.["hilab-cli"];
 			} catch {
-				return /"claudekit-cli"\s*:/.test(stdout) || /(?:^|[^a-z0-9-])claudekit-cli@/m.test(stdout);
+				return /"hilab-cli"\s*:/.test(stdout) || /(?:^|[^a-z0-9-])hilab-cli@/m.test(stdout);
 			}
 		},
 	};

@@ -208,7 +208,7 @@ export class SyncEngine {
 			}
 
 			// Kit-owned files always auto-update
-			if (file.ownership === "ck") {
+			if (file.ownership === "hi") {
 				plan.autoUpdate.push(file);
 				continue;
 			}

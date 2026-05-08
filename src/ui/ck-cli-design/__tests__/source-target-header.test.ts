@@ -9,7 +9,7 @@ describe("renderSourceTargetHeader", () => {
 			sourceLines: ["14 agents · 82 skills", "from ~/.claude/agents · ~/.claude/skills"],
 			subtitle: "Codex -> project",
 			targetLines: [".codex/agents", ".agents/skills"],
-			title: "ck migrate",
+			title: "hi migrate",
 		}).join("\n");
 
 		expect(output).toContain("SOURCE");

@@ -148,7 +148,7 @@ function makeInstallation(path: string, type: "skill" | "command") {
 }
 
 async function setupServer(): Promise<TestServer> {
-	const testHome = await mkdtemp(join(tmpdir(), "ck-migration-routes-"));
+	const testHome = await mkdtemp(join(tmpdir(), "hi-migration-routes-"));
 
 	const app = express();
 	app.use(express.json());

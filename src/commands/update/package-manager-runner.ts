@@ -67,7 +67,7 @@ export async function runPackageManagerUpdate(
 }
 
 /**
- * Verify the installed CLI version by running `ck --version`.
+ * Verify the installed CLI version by running `hi --version`.
  * Throws CliUpdateError with diagnostic guidance on mismatch or parse failure.
  */
 export async function verifyInstalledVersion(
@@ -79,14 +79,14 @@ export async function verifyInstalledVersion(
 
 	spinnerStart("Verifying installation...");
 	try {
-		const versionResult = await execAsyncFn("ck --version", { timeout: 5000 });
+		const versionResult = await execAsyncFn("hi --version", { timeout: 5000 });
 		const stdout = extractCommandStdout(versionResult);
 		const activeVersion = parseCliVersionFromOutput(stdout);
 
 		if (!activeVersion) {
 			spinnerStop("Verification failed");
-			const message = `Update completed but could not parse 'ck --version' output.
-Please restart your terminal and run 'ck --version'. Expected: ${targetVersion}
+			const message = `Update completed but could not parse 'hi --version' output.
+Please restart your terminal and run 'hi --version'. Expected: ${targetVersion}
 
 Manual update: ${redactCommandForLog(updateCmd)}`;
 			logger.error(message);
@@ -114,7 +114,7 @@ Run '${redactCommandForLog(updateCmd)}' manually, restart terminal, then check c
 
 		spinnerStop("Verification failed");
 		const message = `Update completed but automatic verification failed.
-Please restart your terminal and run 'ck --version'. Expected: ${targetVersion}
+Please restart your terminal and run 'hi --version'. Expected: ${targetVersion}
 
 Manual update: ${redactCommandForLog(updateCmd)}`;
 		logger.error(message);

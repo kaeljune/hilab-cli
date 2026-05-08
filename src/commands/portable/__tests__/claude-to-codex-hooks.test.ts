@@ -426,7 +426,7 @@ describe("rewriteCommandPath — commandSubstitutions (GH-730 N1 fix)", () => {
 		const wrapperPath = join(home, ".codex", "hooks", "deadbeef-session-init.cjs");
 		const subs = new Map([[originalPath, wrapperPath]]);
 
-		// Command uses $HOME prefix (common form written by ClaudeKit settings.json)
+		// Command uses $HOME prefix (common form written by HiLab settings.json)
 		const cmdDollarHome = `node "$HOME/.claude/hooks/session-init.cjs"`;
 		const result = rewriteCommandPath(cmdDollarHome, {
 			sourceDir: "$HOME/.claude/hooks",

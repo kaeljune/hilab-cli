@@ -55,7 +55,7 @@ function renderCommandHeader(help: CommandHelp, theme: ColorTheme): string {
 
 /**
  * Render usage section.
- * Subcommand `usage` fields are fully qualified (e.g. "ck plan parse [target] [--json]"),
+ * Subcommand `usage` fields are fully qualified (e.g. "hi plan parse [target] [--json]"),
  * so we always use `help.usage` directly. `parentName` is accepted for symmetry with the
  * context chain but no longer overrides — trusting the registry preserves per-subcommand
  * argument syntax.
@@ -222,8 +222,8 @@ export function renderGlobalHelp(
 
 	const lines = [
 		renderBanner(options),
-		theme.heading("ClaudeKit CLI"),
-		theme.description("Bootstrap and manage ClaudeKit projects"),
+		theme.heading("HiLab CLI"),
+		theme.description("Bootstrap and manage HiLab projects"),
 		"",
 		theme.heading("Commands:"),
 	];
@@ -244,16 +244,16 @@ export function renderGlobalHelp(
 	lines.push("");
 	lines.push(theme.heading("Quick Start:"));
 	lines.push(
-		`  ${padEnd(theme.example("ck config"), 24)}${theme.description("Open the config dashboard")}`,
+		`  ${padEnd(theme.example("hi config"), 24)}${theme.description("Open the config dashboard")}`,
 	);
 	lines.push(
-		`  ${padEnd(theme.example("ck config --help"), 24)}${theme.description("See config actions and dashboard flags")}`,
+		`  ${padEnd(theme.example("hi config --help"), 24)}${theme.description("See config actions and dashboard flags")}`,
 	);
 	lines.push(
-		`  ${padEnd(theme.example("ck skills --help"), 24)}${theme.description("Discover skill installation workflows")}`,
+		`  ${padEnd(theme.example("hi skills --help"), 24)}${theme.description("Discover skill installation workflows")}`,
 	);
 	lines.push(
-		`  ${padEnd(theme.example("ck migrate --help"), 24)}${theme.description("Migrate agents/commands/skills across providers")}`,
+		`  ${padEnd(theme.example("hi migrate --help"), 24)}${theme.description("Migrate agents/commands/skills across providers")}`,
 	);
 
 	lines.push("");
@@ -284,7 +284,7 @@ export function renderGlobalHelp(
 	lines.push("");
 	lines.push(
 		theme.muted(
-			"Run 'ck <command> --help' for details. Start with 'ck skills --help' and 'ck config --help'.",
+			"Run 'hi <command> --help' for details. Start with 'hi skills --help' and 'hi config --help'.",
 		),
 	);
 

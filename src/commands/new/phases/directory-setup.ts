@@ -133,7 +133,7 @@ export async function directorySetup(
 		if (!isNonInteractive) {
 			const choice = await prompts.selectScope();
 			if (choice === "cancel" || choice === "different") {
-				logger.info("Please run 'ck new' from or specify a different directory.");
+				logger.info("Please run 'hi new' from or specify a different directory.");
 				return null;
 			}
 			// choice === "global": user confirmed, continue

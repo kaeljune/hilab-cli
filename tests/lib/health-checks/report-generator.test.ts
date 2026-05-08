@@ -47,9 +47,9 @@ describe("ReportGenerator", () => {
 				autoFixable: false,
 			},
 			{
-				id: "claudekit-global",
-				name: "ClaudeKit Global",
-				group: "claudekit",
+				id: "hilab-global",
+				name: "HiLab Global",
+				group: "hilab",
 				status: "fail",
 				message: "Not installed",
 				suggestion: "Run: ck init --global",
@@ -89,7 +89,7 @@ describe("ReportGenerator", () => {
 			// Check individual items
 			expect(report).toContain("Node.js Version");
 			expect(report).toContain("GitHub Auth");
-			expect(report).toContain("ClaudeKit Global");
+			expect(report).toContain("HiLab Global");
 		});
 
 		test("includes status symbols", () => {
@@ -106,7 +106,7 @@ describe("ReportGenerator", () => {
 			const report = generator.generateTextReport(createMockSummary());
 
 			expect(report).toContain("ISSUES FOUND");
-			expect(report).toContain("ClaudeKit Global");
+			expect(report).toContain("HiLab Global");
 			expect(report).toContain("Not installed");
 		});
 
@@ -231,8 +231,8 @@ describe("ReportGenerator", () => {
 			const json = JSON.parse(generator.generateJsonReport(createMockSummary()));
 
 			expect(json.errors).toHaveLength(1);
-			expect(json.errors[0].checkId).toBe("claudekit-global");
-			expect(json.errors[0].checkName).toBe("ClaudeKit Global");
+			expect(json.errors[0].checkId).toBe("hilab-global");
+			expect(json.errors[0].checkName).toBe("HiLab Global");
 			expect(json.errors[0].message).toBe("Not installed");
 			expect(json.errors[0].suggestion).toBe("Run: ck init --global");
 		});

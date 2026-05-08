@@ -1,21 +1,21 @@
 {
-	"name": "claudekit-cli",
+	"name": "hilab-cli",
 	"version": "4.0.0",
-	"description": "CLI tool for bootstrapping and updating ClaudeKit projects",
+	"description": "CLI tool for bootstrapping and updating HiLab projects",
 	"type": "module",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/mrgoonie/claudekit-cli.git"
+		"url": "git+https://github.com/kaeljune/hilab-cli.git"
 	},
 	"publishConfig": {
 		"access": "public",
 		"registry": "https://registry.npmjs.org"
 	},
 	"bin": {
-		"ck": "bin/ck.js"
+		"hi": "bin/hi.js"
 	},
 	"files": [
-		"bin/ck.js",
+		"bin/hi.js",
 		"dist/index.js",
 		"dist/ui/",
 		"cli-manifest.json"
@@ -53,12 +53,12 @@
 	},
 	"keywords": [
 		"cli",
-		"claudekit",
+		"hilab",
 		"boilerplate",
 		"bootstrap",
 		"template"
 	],
-	"author": "ClaudeKit",
+	"author": "HiLab",
 	"license": "MIT",
 	"engines": {
 		"node": ">=18.0.0"

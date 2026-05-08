@@ -73,7 +73,7 @@ export async function resolveOptions(ctx: InitContext): Promise<InitContext> {
 		throw new Error(
 			"--use-git requires --release <tag> to specify the version.\n\n" +
 				"Git clone mode cannot list versions without GitHub API access.\n" +
-				"Example: ck init --use-git --release v2.1.0",
+				"Example: hi init --use-git --release v2.1.0",
 		);
 	}
 
@@ -94,7 +94,7 @@ export async function resolveOptions(ctx: InitContext): Promise<InitContext> {
 	if (validOptions.fresh && validOptions.sync) {
 		throw new Error(
 			"--fresh and --sync are mutually exclusive.\n\n" +
-				"--fresh: Removes all ClaudeKit files and reinstalls from scratch\n" +
+				"--fresh: Removes all HiLab files and reinstalls from scratch\n" +
 				"--sync: Updates to match the version in metadata.json\n\n" +
 				"Choose one approach.",
 		);

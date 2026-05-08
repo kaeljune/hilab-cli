@@ -14,9 +14,9 @@ export async function checkGlobalDirReadable(): Promise<CheckResult> {
 	// Skip file system checks in CI to prevent hangs (but not in isolated unit tests)
 	if (shouldSkipExpensiveOperations()) {
 		return {
-			id: "ck-global-dir-readable",
+			id: "hi-global-dir-readable",
 			name: "Global Dir Readable",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "info",
 			message: "Skipped in CI/test environment",
@@ -30,9 +30,9 @@ export async function checkGlobalDirReadable(): Promise<CheckResult> {
 		await access(globalDir, constants.R_OK);
 
 		return {
-			id: "ck-global-dir-readable",
+			id: "hi-global-dir-readable",
 			name: "Global Dir Readable",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "pass",
 			message: "Read access OK",
@@ -41,9 +41,9 @@ export async function checkGlobalDirReadable(): Promise<CheckResult> {
 		};
 	} catch (error) {
 		return {
-			id: "ck-global-dir-readable",
+			id: "hi-global-dir-readable",
 			name: "Global Dir Readable",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "fail",
 			message: "Read access denied",
@@ -63,9 +63,9 @@ export async function checkGlobalDirWritable(): Promise<CheckResult> {
 	// Skip file system operations in CI/test to prevent hangs
 	if (shouldSkipExpensiveOperations()) {
 		return {
-			id: "ck-global-dir-writable",
+			id: "hi-global-dir-writable",
 			name: "Global Dir Writable",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "info",
 			message: "Skipped in CI/test environment",
@@ -86,9 +86,9 @@ export async function checkGlobalDirWritable(): Promise<CheckResult> {
 	} catch (error) {
 		// If write fails, directory is not writable or file already exists
 		return {
-			id: "ck-global-dir-writable",
+			id: "hi-global-dir-writable",
 			name: "Global Dir Writable",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "fail",
 			message: "Write access denied",
@@ -108,9 +108,9 @@ export async function checkGlobalDirWritable(): Promise<CheckResult> {
 
 	// Write succeeded, directory is writable
 	return {
-		id: "ck-global-dir-writable",
+		id: "hi-global-dir-writable",
 		name: "Global Dir Writable",
-		group: "claudekit",
+		group: "hilab",
 		priority: "standard",
 		status: "pass",
 		message: "Write access OK",

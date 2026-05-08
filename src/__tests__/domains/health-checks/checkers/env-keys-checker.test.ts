@@ -3,7 +3,7 @@ import { mkdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { checkEnvKeys } from "@/domains/health-checks/checkers/env-keys-checker.js";
-import type { ClaudeKitSetup } from "@/types";
+import type { HiLabSetup } from "@/types";
 
 const VALID_GEMINI_KEY = `AIza${"A".repeat(35)}`;
 const VALID_OPENROUTER_KEY = "sk-or-v1-abcdefghijklmnopqrstuvwxyz123456";
@@ -31,7 +31,7 @@ describe("checkEnvKeys", () => {
 	function createSetup(options: {
 		hasGlobal?: boolean;
 		hasProjectMetadata?: boolean;
-	}): ClaudeKitSetup {
+	}): HiLabSetup {
 		return {
 			global: {
 				path: options.hasGlobal ? globalDir : null,
@@ -42,7 +42,7 @@ describe("checkEnvKeys", () => {
 				metadata: options.hasProjectMetadata ? { version: "1.0.0", kit: "engineer" } : null,
 				components: { agents: 0, commands: 0, rules: 0, skills: 0 },
 			},
-		} as ClaudeKitSetup;
+		} as HiLabSetup;
 	}
 
 	test("returns empty array when no global path and no project metadata", async () => {
@@ -57,11 +57,11 @@ describe("checkEnvKeys", () => {
 		const results = await checkEnvKeys(setup);
 
 		expect(results.length).toBe(1);
-		expect(results[0].id).toBe("ck-global-env-keys");
+		expect(results[0].id).toBe("hi-global-env-keys");
 		expect(results[0].status).toBe("warn");
 		expect(results[0].message).toBe(".env file not found");
 		expect(results[0].suggestion).toBe(
-			"Run: ck init --global (configure Gemini, OpenRouter, or MiniMax)",
+			"Run: hi init --global (configure Gemini, OpenRouter, or MiniMax)",
 		);
 	});
 
@@ -115,10 +115,10 @@ describe("checkEnvKeys", () => {
 		const results = await checkEnvKeys(setup);
 
 		expect(results.length).toBe(1);
-		expect(results[0].id).toBe("ck-project-env-keys");
+		expect(results[0].id).toBe("hi-project-env-keys");
 		expect(results[0].status).toBe("warn");
 		expect(results[0].message).toBe(".env file not found");
-		expect(results[0].suggestion).toBe("Run: ck init (configure Gemini, OpenRouter, or MiniMax)");
+		expect(results[0].suggestion).toBe("Run: hi init (configure Gemini, OpenRouter, or MiniMax)");
 	});
 
 	test("returns pass status when project .env has required key", async () => {
@@ -137,9 +137,9 @@ describe("checkEnvKeys", () => {
 		const results = await checkEnvKeys(setup);
 
 		expect(results.length).toBe(2);
-		expect(results[0].id).toBe("ck-global-env-keys");
+		expect(results[0].id).toBe("hi-global-env-keys");
 		expect(results[0].status).toBe("pass");
-		expect(results[1].id).toBe("ck-project-env-keys");
+		expect(results[1].id).toBe("hi-project-env-keys");
 		expect(results[1].status).toBe("warn");
 	});
 });

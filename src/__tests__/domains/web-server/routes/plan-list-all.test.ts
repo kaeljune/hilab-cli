@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
 import { mkdirSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import * as ClaudeKitData from "@/domains/claudekit-data/index.js";
+import * as HiLabData from "@/domains/hilab-data/index.js";
 import {
 	clearPlanRouteCaches,
 	registerPlanRoutes,
@@ -53,11 +53,10 @@ describe("GET /api/plan/list-all", () => {
 		clearPlanRouteCaches();
 		rmSync(TMP, { recursive: true, force: true });
 		mkdirSync(TMP, { recursive: true });
-		listProjectsSpy = spyOn(
-			ClaudeKitData.ProjectsRegistryManager,
-			"listProjects",
-		).mockResolvedValue([] as RegisteredProject[]);
-		scanClaudeProjectsSpy = spyOn(ClaudeKitData, "scanClaudeProjects").mockReturnValue([]);
+		listProjectsSpy = spyOn(HiLabData.ProjectsRegistryManager, "listProjects").mockResolvedValue(
+			[] as RegisteredProject[],
+		);
+		scanClaudeProjectsSpy = spyOn(HiLabData, "scanClaudeProjects").mockReturnValue([]);
 
 		const app = express();
 		app.use(express.json());
@@ -164,7 +163,7 @@ describe("GET /api/plan/list-all", () => {
 		mkdirSync(join(projectDir, ".claude"), { recursive: true });
 		mkdirSync(externalPlansDir, { recursive: true });
 		writeFileSync(
-			join(projectDir, ".claude", ".ck.json"),
+			join(projectDir, ".claude", ".hi.json"),
 			JSON.stringify({ paths: { plans: externalPlansDir } }, null, 2),
 			"utf8",
 		);
@@ -321,7 +320,7 @@ describe("GET /api/plan/list-all", () => {
 		mkdirSync(join(discoveredProject, ".claude"), { recursive: true });
 		mkdirSync(externalPlansDir, { recursive: true });
 		writeFileSync(
-			join(discoveredProject, ".claude", ".ck.json"),
+			join(discoveredProject, ".claude", ".hi.json"),
 			JSON.stringify({ paths: { plans: externalPlansDir } }, null, 2),
 			"utf8",
 		);

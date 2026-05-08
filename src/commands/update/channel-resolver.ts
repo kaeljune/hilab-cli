@@ -6,7 +6,7 @@
 
 import { NpmRegistryClient, redactRegistryUrlForLog } from "@/domains/github/npm-registry.js";
 import { isPrereleaseVersion } from "@/domains/versioning/checking/version-utils.js";
-import { CLAUDEKIT_CLI_NPM_PACKAGE_NAME } from "@/shared/claudekit-constants.js";
+import { HILAB_CLI_NPM_PACKAGE_NAME } from "@/shared/hilab-constants.js";
 import { logger } from "@/shared/logger.js";
 import type { UpdateCliOptions } from "@/types";
 import { CliUpdateError } from "./error.js";
@@ -44,11 +44,7 @@ export async function resolveTargetVersion(
 	if (opts.release && opts.release !== "latest") {
 		let exists: boolean;
 		try {
-			exists = await client.versionExists(
-				CLAUDEKIT_CLI_NPM_PACKAGE_NAME,
-				opts.release,
-				registryUrl,
-			);
+			exists = await client.versionExists(HILAB_CLI_NPM_PACKAGE_NAME, opts.release, registryUrl);
 		} catch (error) {
 			spinnerStop("Version check failed");
 			const message = error instanceof Error ? error.message : "Unknown error";
@@ -64,7 +60,7 @@ export async function resolveTargetVersion(
 		if (!exists) {
 			spinnerStop("Version not found");
 			throw new CliUpdateError(
-				`Version ${opts.release} does not exist on npm registry. Run 'ck versions' to see available versions.`,
+				`Version ${opts.release} does not exist on npm registry. Run 'hi versions' to see available versions.`,
 			);
 		}
 
@@ -76,11 +72,11 @@ export async function resolveTargetVersion(
 	// ── Path 2: prerelease channel ───────────────────────────────────────────
 	const usePrereleaseChannel = opts.dev || opts.beta;
 	if (usePrereleaseChannel) {
-		let targetVersion = await client.getDevVersion(CLAUDEKIT_CLI_NPM_PACKAGE_NAME, registryUrl);
+		let targetVersion = await client.getDevVersion(HILAB_CLI_NPM_PACKAGE_NAME, registryUrl);
 		if (!targetVersion) {
 			spinnerStop("No dev version available");
 			logger.warning("No dev version found. Using latest stable version instead.");
-			targetVersion = await client.getLatestVersion(CLAUDEKIT_CLI_NPM_PACKAGE_NAME, registryUrl);
+			targetVersion = await client.getLatestVersion(HILAB_CLI_NPM_PACKAGE_NAME, registryUrl);
 		} else {
 			spinnerStop(`Latest dev version: ${targetVersion}`);
 			return { targetVersion, targetIsPrerelease: isPrereleaseVersion(targetVersion) };
@@ -96,7 +92,7 @@ export async function resolveTargetVersion(
 	}
 
 	// ── Path 3: latest stable ────────────────────────────────────────────────
-	const targetVersion = await client.getLatestVersion(CLAUDEKIT_CLI_NPM_PACKAGE_NAME, registryUrl);
+	const targetVersion = await client.getLatestVersion(HILAB_CLI_NPM_PACKAGE_NAME, registryUrl);
 	spinnerStop(`Latest version: ${targetVersion || "unknown"}`);
 
 	if (!targetVersion) {

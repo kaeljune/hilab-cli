@@ -4,7 +4,7 @@ import os from "node:os";
 import { join } from "node:path";
 import { getLockPaths, withProcessLock } from "@/shared/process-lock";
 
-const LOCKS_DIR = join(os.homedir(), ".claudekit", "locks");
+const LOCKS_DIR = join(os.homedir(), ".hilab", "locks");
 
 describe("withProcessLock", () => {
 	beforeEach(async () => {
@@ -54,7 +54,7 @@ describe("withProcessLock", () => {
 
 		// Try concurrent access
 		await expect(withProcessLock("test-4", async () => "fast")).rejects.toThrow(
-			/Another ClaudeKit process is running/,
+			/Another HiLab process is running/,
 		);
 
 		await p1; // Wait for slow to complete
@@ -117,9 +117,9 @@ describe("withProcessLock", () => {
 
 describe("getLockPaths", () => {
 	it("should return resource and lockfile paths", () => {
-		const paths = getLockPaths("ck-watch");
-		expect(paths.resource).toBe(join(LOCKS_DIR, "ck-watch.lock"));
-		expect(paths.lockfile).toBe(join(LOCKS_DIR, "ck-watch.lock.lock"));
+		const paths = getLockPaths("hi-watch");
+		expect(paths.resource).toBe(join(LOCKS_DIR, "hi-watch.lock"));
+		expect(paths.lockfile).toBe(join(LOCKS_DIR, "hi-watch.lock.lock"));
 	});
 
 	it("should handle arbitrary lock names", () => {

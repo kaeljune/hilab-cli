@@ -98,7 +98,7 @@ function makeOkFetcher(catalog: ModelsDevCatalog): FetchFn {
 // ---- Helpers ----
 
 async function makeTmpHome(): Promise<string> {
-	return mkdtemp(join(tmpdir(), "ck-model-discovery-test-"));
+	return mkdtemp(join(tmpdir(), "hi-model-discovery-test-"));
 }
 
 async function writeAuthJson(homeDir: string, providers: Record<string, unknown>): Promise<void> {
@@ -115,7 +115,7 @@ describe("resolveOpenCodeDefaultModel", () => {
 
 	beforeEach(async () => {
 		homeDir = await makeTmpHome();
-		cacheDir = await mkdtemp(join(tmpdir(), "ck-model-discovery-cache-"));
+		cacheDir = await mkdtemp(join(tmpdir(), "hi-model-discovery-cache-"));
 	});
 
 	afterEach(async () => {

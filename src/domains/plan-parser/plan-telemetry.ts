@@ -1,6 +1,6 @@
 /**
  * Plan Telemetry Stub
- * Future: Send anonymous usage analytics to ClaudeKit backend
+ * Future: Send anonymous usage analytics to HiLab backend
  * Current: No-op, debug logging only when CK_TELEMETRY=1
  */
 
@@ -19,13 +19,13 @@ export interface PlanEvent {
 export function trackPlanEvent(event: PlanEvent): void {
 	try {
 		// Debug mode: log to stderr when enabled so JSON stdout output stays valid.
-		if (process.env.CK_TELEMETRY === "1") {
+		if (process.env.HI_TELEMETRY === "1") {
 			process.stderr.write(`[telemetry] ${JSON.stringify(event)}\n`);
 		}
 
 		// TODO: Future implementation
-		// if (process.env.CK_TELEMETRY_ENDPOINT) {
-		//   fetch(process.env.CK_TELEMETRY_ENDPOINT, {
+		// if (process.env.HI_TELEMETRY_ENDPOINT) {
+		//   fetch(process.env.HI_TELEMETRY_ENDPOINT, {
 		//     method: "POST",
 		//     body: JSON.stringify(event),
 		//   }).catch(() => {}); // Fire and forget

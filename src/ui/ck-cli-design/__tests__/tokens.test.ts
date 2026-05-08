@@ -7,7 +7,7 @@ import {
 	truncateMiddle,
 } from "../tokens.js";
 
-describe("ck-cli-design tokens", () => {
+describe("hi-cli-design tokens", () => {
 	it("forces ASCII when CK_FORCE_ASCII is enabled", () => {
 		const context = createCliDesignContext({
 			columns: 72,

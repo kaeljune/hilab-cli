@@ -1,6 +1,6 @@
 /**
  * Shared types for portable items (agents, commands, skills)
- * Used across all three CLI commands: ck agents, ck commands, ck skills
+ * Used across all three CLI commands: hi agents, hi commands, hi skills
  */
 import { z } from "zod";
 
@@ -142,7 +142,7 @@ export interface PortableInstallResult {
 	collidingProviders?: ProviderType[];
 }
 
-/** Command options schema for ck agents / ck commands */
+/** Command options schema for hi agents / hi commands */
 export const PortableCommandOptionsSchema = z.object({
 	name: z.string().optional(),
 	agent: z.array(z.string()).optional(),

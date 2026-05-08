@@ -17,7 +17,7 @@ import {
 import { CommandsPrefix } from "@/services/transformers/commands-prefix.js";
 import { logger } from "@/shared/logger.js";
 import { output } from "@/shared/output-manager.js";
-import type { ClaudeKitMetadata } from "@/types";
+import type { HiLabMetadata } from "@/types";
 import { pathExists, readFile } from "fs-extra";
 import type { InitContext } from "../types.js";
 
@@ -152,11 +152,11 @@ export async function handleMerge(ctx: InitContext): Promise<InitContext> {
 	const sourceMetadataPath = ctx.options.global
 		? join(sourceDir, "metadata.json")
 		: join(sourceDir, ".claude", "metadata.json");
-	let sourceMetadata: ClaudeKitMetadata | null = null;
+	let sourceMetadata: HiLabMetadata | null = null;
 	try {
 		if (await pathExists(sourceMetadataPath)) {
 			const metadataContent = await readFile(sourceMetadataPath, "utf-8");
-			sourceMetadata = JSON.parse(metadataContent) as ClaudeKitMetadata;
+			sourceMetadata = JSON.parse(metadataContent) as HiLabMetadata;
 		}
 	} catch (error) {
 		logger.debug(`Failed to load source metadata: ${error}`);

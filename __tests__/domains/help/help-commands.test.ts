@@ -49,7 +49,7 @@ describe("help-commands", () => {
 				expect(typeof command.description).toBe("string");
 				expect(command.description.length).toBeGreaterThan(0);
 				expect(typeof command.usage).toBe("string");
-				expect(command.usage).toContain("ck");
+				expect(command.usage).toContain("hi");
 				expect(Array.isArray(command.examples)).toBe(true);
 				expect(Array.isArray(command.optionGroups)).toBe(true);
 			}
@@ -67,7 +67,7 @@ describe("help-commands", () => {
 				for (const example of command.examples) {
 					expect(typeof example.command).toBe("string");
 					expect(example.command.length).toBeGreaterThan(0);
-					expect(example.command).toContain("ck");
+					expect(example.command).toContain("hi");
 					expect(typeof example.description).toBe("string");
 					expect(example.description.length).toBeGreaterThan(0);
 				}
@@ -140,7 +140,7 @@ describe("help-commands", () => {
 		test("has correct structure", () => {
 			const help = HELP_REGISTRY.update;
 			expect(help.name).toBe("update");
-			expect(help.description).toContain("Update ClaudeKit CLI");
+			expect(help.description).toContain("Update HiLab CLI");
 			expect(help.usage).toBe("ck update [options]");
 			expect(help.examples).toHaveLength(2);
 		});

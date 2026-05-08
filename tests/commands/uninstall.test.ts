@@ -42,7 +42,7 @@ describe("uninstall command integration", () => {
 	});
 
 	function getBackupDirs(): string[] {
-		const backupRoot = join(testPaths.testHome, ".claudekit", "backups");
+		const backupRoot = join(testPaths.testHome, ".hilab", "backups");
 		if (!existsSync(backupRoot)) {
 			return [];
 		}
@@ -162,7 +162,7 @@ describe("uninstall command integration", () => {
 									{
 										path: "skills/customized-skill/SKILL.md",
 										checksum,
-										ownership: "ck",
+										ownership: "hi",
 										installedVersion: "1.0.0",
 									},
 								],
@@ -228,7 +228,7 @@ describe("uninstall command integration", () => {
 									{
 										path: "skills\\windows-skill\\SKILL.md",
 										checksum,
-										ownership: "ck",
+										ownership: "hi",
 										installedVersion: "1.0.0",
 									},
 								],
@@ -293,7 +293,7 @@ describe("uninstall command integration", () => {
 									{
 										path: "skills\\windows-force\\SKILL.md",
 										checksum,
-										ownership: "ck",
+										ownership: "hi",
 										installedVersion: "1.0.0",
 									},
 								],
@@ -350,7 +350,7 @@ describe("uninstall command integration", () => {
 									{
 										path: "commands/engineer.md",
 										checksum: engineerChecksum,
-										ownership: "ck",
+										ownership: "hi",
 										installedVersion: "1.0.0",
 									},
 								],
@@ -362,7 +362,7 @@ describe("uninstall command integration", () => {
 									{
 										path: "skills/missing-skill/SKILL.md",
 										checksum: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-										ownership: "ck",
+										ownership: "hi",
 										installedVersion: "1.0.0",
 									},
 								],
@@ -373,13 +373,13 @@ describe("uninstall command integration", () => {
 							{
 								path: "commands/engineer.md",
 								checksum: engineerChecksum,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "skills/missing-skill/SKILL.md",
 								checksum: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -434,7 +434,7 @@ describe("uninstall command integration", () => {
 									{
 										path: "commands\\shared.md",
 										checksum: sharedChecksum,
-										ownership: "ck",
+										ownership: "hi",
 										installedVersion: "1.0.0",
 									},
 								],
@@ -446,7 +446,7 @@ describe("uninstall command integration", () => {
 									{
 										path: "commands/shared.md",
 										checksum: sharedChecksum,
-										ownership: "ck",
+										ownership: "hi",
 										installedVersion: "1.0.0",
 									},
 								],
@@ -457,13 +457,13 @@ describe("uninstall command integration", () => {
 							{
 								path: "commands\\shared.md",
 								checksum: sharedChecksum,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "commands/shared.md",
 								checksum: sharedChecksum,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -508,7 +508,7 @@ describe("uninstall command integration", () => {
 							{
 								path: "commands/test.md",
 								checksum: "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -704,7 +704,7 @@ describe("uninstall command integration", () => {
 							{
 								path: "commands/engineer.md",
 								checksum: "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -716,7 +716,7 @@ describe("uninstall command integration", () => {
 							{
 								path: "skills/marketing.md",
 								checksum: "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3",
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -764,7 +764,7 @@ describe("uninstall command integration", () => {
 							{
 								path: "commands/engineer.md",
 								checksum: "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -776,7 +776,7 @@ describe("uninstall command integration", () => {
 							{
 								path: "skills/marketing.md",
 								checksum: "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3",
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -845,13 +845,13 @@ describe("uninstall command integration", () => {
 							{
 								path: "commands/target.md",
 								checksum: "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "commands/alias.md",
 								checksum: "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3",
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -1692,7 +1692,7 @@ describe("uninstall command integration", () => {
 		});
 
 		test("should handle .claude with only user config files", async () => {
-			// Only user config files, no ClaudeKit components
+			// Only user config files, no HiLab components
 			await writeFile(join(testLocalClaudeDir, ".gitignore"), "*.log");
 			await writeFile(join(testLocalClaudeDir, ".mcp.json"), "{}");
 			await writeFile(join(testLocalClaudeDir, "CLAUDE.md"), "# User config");
@@ -1746,7 +1746,7 @@ describe("uninstall command integration", () => {
 	});
 
 	describe("detection fallback logic robustness", () => {
-		test("should detect installation when hasClaudeKitComponents but no metadata", async () => {
+		test("should detect installation when hasHiLabComponents but no metadata", async () => {
 			// This tests the specific fallback logic in detectInstallations
 			await mkdir(join(testLocalClaudeDir, "agents"), { recursive: true });
 			await mkdir(join(testLocalClaudeDir, "commands"), { recursive: true });

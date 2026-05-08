@@ -8,19 +8,19 @@ import type { CommandHelp } from "../help-types.js";
 
 export const doctorCommandHelp: CommandHelp = {
 	name: "doctor",
-	description: "Comprehensive health check for ClaudeKit",
-	usage: "ck doctor [options]",
+	description: "Comprehensive health check for HiLab",
+	usage: "hi doctor [options]",
 	examples: [
 		{
-			command: "ck doctor",
+			command: "hi doctor",
 			description: "Run full health check interactively",
 		},
 		{
-			command: "ck doctor --fix",
+			command: "hi doctor --fix",
 			description: "Auto-fix all fixable issues",
 		},
 		{
-			command: "ck doctor --check-only",
+			command: "hi doctor --check-only",
 			description: "CI mode: exit 1 on failures, no prompts",
 		},
 	],

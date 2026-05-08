@@ -11,14 +11,14 @@ export {
 	shouldSkipExpensiveOperations,
 } from "./environment.js";
 export {
-	CLAUDEKIT_CLI_GLOBAL_INSTALL_COMMAND,
-	CLAUDEKIT_CLI_INSTALL_COMMANDS,
-	CLAUDEKIT_CLI_NPM_PACKAGE_NAME,
-	CLAUDEKIT_CLI_NPM_PACKAGE_URL,
+	HILAB_CLI_GLOBAL_INSTALL_COMMAND,
+	HILAB_CLI_INSTALL_COMMANDS,
+	HILAB_CLI_NPM_PACKAGE_NAME,
+	HILAB_CLI_NPM_PACKAGE_URL,
 	getCliUserAgent,
 	getCliVersion,
 	DEFAULT_NETWORK_TIMEOUT_MS,
-} from "./claudekit-constants.js";
+} from "./hilab-constants.js";
 export {
 	supportsUnicode,
 	getStatusSymbols,

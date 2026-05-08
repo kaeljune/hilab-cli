@@ -1,14 +1,14 @@
-# Project Roadmap: ClaudeKit CLI
+# Project Roadmap: HiLab CLI
 
 **Last Updated**: 2026-04-16
 **Version**: 3.41.4-dev.26
-**Repository**: https://github.com/mrgoonie/claudekit-cli
+**Repository**: https://github.com/kaeljune/hilab-cli
 
 ---
 
 ## Project Overview
 
-ClaudeKit CLI (`ck`) is a command-line tool for bootstrapping and updating ClaudeKit projects from private GitHub releases. Built with Bun and TypeScript, provides fast, secure project setup and maintenance with cross-platform support.
+HiLab CLI (`ck`) is a command-line tool for bootstrapping and updating HiLab projects from private GitHub releases. Built with Bun and TypeScript, provides fast, secure project setup and maintenance with cross-platform support.
 
 **Current Status**: Active Development / Maintenance Phase
 
@@ -29,7 +29,7 @@ ClaudeKit CLI (`ck`) is a command-line tool for bootstrapping and updating Claud
   - ✅ Platform adapters: X (Twitter) via xurl CLI, Facebook via Graph API v21.0
   - ✅ Engagement tracking and performance analytics
   - ✅ Interactive setup wizard with @clack/prompts
-  - ✅ State persistence in `.ck.json` under content key
+  - ✅ State persistence in `.hi.json` under content key
   - ✅ Graceful signal handling and lock file management
   - ✅ Security: credential sanitization, stdin-based prompts
 
@@ -49,12 +49,12 @@ ClaudeKit CLI (`ck`) is a command-line tool for bootstrapping and updating Claud
   - Credential scanning (9 patterns, blocks unsafe posting)
   - Input sanitization against 6+ prompt injection patterns
   - Graceful SIGINT/SIGTERM shutdown with state persistence
-  - Daily rotated logging in ~/.claudekit/logs/
+  - Daily rotated logging in ~/.hilab/logs/
   - CLI flags: --interval, --dry-run, --verbose
-  - Configuration in .ck.json with timeouts, author exclusions, branding
+  - Configuration in .hi.json with timeouts, author exclusions, branding
   - 73 tests across 7 test files
   - Designed for 6-8+ hour unattended overnight operation
-- **ck api Command Group (d06dbb3)**: 20+ subcommands for ClaudeKit.cc backend API interaction
+- **ck api Command Group (d06dbb3)**: 20+ subcommands for HiLab.cc backend API interaction
   - Core: `api status`, `api services`, `api setup`, `api proxy`
   - VidCap: `api vidcap {info,search,summary,caption,screenshot,comments,media}`
   - ReviewWeb: `api reviewweb {scrape,summarize,markdown,extract,links,screenshot,seo-*}`
@@ -105,7 +105,7 @@ ClaudeKit CLI (`ck`) is a command-line tool for bootstrapping and updating Claud
 - `new.ts` → `new/` (5 modules: orchestrator + 3 phase handlers)
 - `uninstall.ts` → `uninstall/` (5 modules: command + handlers)
 - `download-manager.ts` → `download/`, `extraction/`, `utils/` (12 modules)
-- `claudekit-checker.ts` → `checkers/`, `utils/` (14 modules)
+- `hilab-checker.ts` → `checkers/`, `utils/` (14 modules)
 - `github-client.ts` → `client/` (6 modules)
 - `settings-merger.ts` → `merger/` (6 modules)
 - `version-selector.ts` → `selection/` (3 modules)
@@ -306,7 +306,7 @@ Global Mode (Kit Installation):
 - ✅ Manual installation instructions
 - ✅ Non-interactive mode (CI/CD compatible)
 - ✅ Cross-platform support (Windows, macOS, Linux, WSL)
-- ✅ Displays ClaudeKit setup (global & project)
+- ✅ Displays HiLab setup (global & project)
 - ✅ Reports component counts (agents, commands, rules, skills)
 
 **Platform Support**:
@@ -489,10 +489,10 @@ Global Mode (Kit Installation):
 
 ## Contact & Support
 
-- **Repository**: https://github.com/mrgoonie/claudekit-cli
-- **NPM Package**: https://www.npmjs.com/package/claudekit-cli
+- **Repository**: https://github.com/kaeljune/hilab-cli
+- **NPM Package**: https://www.npmjs.com/package/hilab-cli
 - **Issues**: GitHub Issues
-- **Documentation**: https://github.com/mrgoonie/claudekit-cli/tree/main/docs
+- **Documentation**: https://github.com/kaeljune/hilab-cli/tree/main/docs
 
 ---
 

@@ -11,14 +11,14 @@ export const planCommandHelp: CommandHelp = {
 	name: "plan",
 	description:
 		"Plan management: parse, validate, status, kanban, create, check, uncheck, add-phase",
-	usage: "ck plan [action] [target] [options]",
+	usage: "hi plan [action] [target] [options]",
 	examples: [
 		{
-			command: "ck plan status",
+			command: "hi plan status",
 			description: "Show progress summary for all plans in the current project",
 		},
 		{
-			command: "ck plan create --title 'Auth feature' --phases setup,api,ui",
+			command: "hi plan create --title 'Auth feature' --phases setup,api,ui",
 			description: "Scaffold a new plan directory with three phases",
 		},
 	],
@@ -44,7 +44,7 @@ export const planCommandHelp: CommandHelp = {
 		{
 			name: "parse",
 			description: "Parse a plan.md and output an ASCII table or JSON of all phases",
-			usage: "ck plan parse [target] [--json]",
+			usage: "hi plan parse [target] [--json]",
 			examples: [],
 			optionGroups: [
 				{
@@ -56,7 +56,7 @@ export const planCommandHelp: CommandHelp = {
 		{
 			name: "validate",
 			description: "Validate plan.md syntax and structure",
-			usage: "ck plan validate [target] [--strict] [--json]",
+			usage: "hi plan validate [target] [--strict] [--json]",
 			examples: [],
 			optionGroups: [
 				{
@@ -71,7 +71,7 @@ export const planCommandHelp: CommandHelp = {
 		{
 			name: "status",
 			description: "Show progress for plans in scope",
-			usage: "ck plan status [--json] [-g]",
+			usage: "hi plan status [--json] [-g]",
 			examples: [],
 			optionGroups: [
 				{
@@ -87,7 +87,7 @@ export const planCommandHelp: CommandHelp = {
 		{
 			name: "kanban",
 			description: "Launch interactive Kanban dashboard in the browser",
-			usage: "ck plan kanban [--port <port>] [--no-open] [--dev]",
+			usage: "hi plan kanban [--port <port>] [--no-open] [--dev]",
 			examples: [],
 			optionGroups: [
 				{
@@ -103,7 +103,7 @@ export const planCommandHelp: CommandHelp = {
 		{
 			name: "create",
 			description: "Scaffold a new plan directory with phase files",
-			usage: "ck plan create [--title <title>] [--phases <phases>] [options]",
+			usage: "hi plan create [--title <title>] [--phases <phases>] [options]",
 			examples: [],
 			optionGroups: [
 				{
@@ -139,7 +139,7 @@ export const planCommandHelp: CommandHelp = {
 		{
 			name: "check",
 			description: "Mark a phase as completed (or in-progress with --start)",
-			usage: "ck plan check <id> [--start]",
+			usage: "hi plan check <id> [--start]",
 			examples: [],
 			optionGroups: [
 				{
@@ -156,14 +156,14 @@ export const planCommandHelp: CommandHelp = {
 		{
 			name: "uncheck",
 			description: "Reset a phase back to pending status",
-			usage: "ck plan uncheck <id>",
+			usage: "hi plan uncheck <id>",
 			examples: [],
 			optionGroups: [],
 		},
 		{
 			name: "add-phase",
 			description: "Append a new phase to an existing plan",
-			usage: "ck plan add-phase [target] [--after <id>]",
+			usage: "hi plan add-phase [target] [--after <id>]",
 			examples: [],
 			optionGroups: [
 				{

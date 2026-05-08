@@ -21,9 +21,9 @@ export async function checkPathRefsValid(projectDir: string): Promise<CheckResul
 
 	if (!claudeMdPath) {
 		return {
-			id: "ck-path-refs-valid",
+			id: "hi-path-refs-valid",
 			name: "Path References",
-			group: "claudekit",
+			group: "hilab",
 			priority: "extended",
 			status: "info",
 			message: "No CLAUDE.md found",
@@ -40,9 +40,9 @@ export async function checkPathRefsValid(projectDir: string): Promise<CheckResul
 
 		if (refs.length === 0) {
 			return {
-				id: "ck-path-refs-valid",
+				id: "hi-path-refs-valid",
 				name: "Path References",
-				group: "claudekit",
+				group: "hilab",
 				priority: "extended",
 				status: "info",
 				message: "No @path references found",
@@ -113,9 +113,9 @@ export async function checkPathRefsValid(projectDir: string): Promise<CheckResul
 
 		if (broken.length > 0) {
 			return {
-				id: "ck-path-refs-valid",
+				id: "hi-path-refs-valid",
 				name: "Path References",
-				group: "claudekit",
+				group: "hilab",
 				priority: "extended",
 				status: "warn",
 				message: `${broken.length}/${refs.length} broken`,
@@ -126,9 +126,9 @@ export async function checkPathRefsValid(projectDir: string): Promise<CheckResul
 		}
 
 		return {
-			id: "ck-path-refs-valid",
+			id: "hi-path-refs-valid",
 			name: "Path References",
-			group: "claudekit",
+			group: "hilab",
 			priority: "extended",
 			status: "pass",
 			message: `${refs.length} valid`,
@@ -136,9 +136,9 @@ export async function checkPathRefsValid(projectDir: string): Promise<CheckResul
 		};
 	} catch (error) {
 		return {
-			id: "ck-path-refs-valid",
+			id: "hi-path-refs-valid",
 			name: "Path References",
-			group: "claudekit",
+			group: "hilab",
 			priority: "extended",
 			status: "info",
 			message: "Could not parse CLAUDE.md",

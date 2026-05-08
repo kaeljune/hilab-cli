@@ -153,7 +153,7 @@ export async function handleCheck(
 	options: PlanCommandOptions,
 ): Promise<void> {
 	if (!target) {
-		output.error("[X] Phase ID required: ck plan check <id>");
+		output.error("[X] Phase ID required: hi plan check <id>");
 		process.exitCode = 1;
 		return;
 	}
@@ -225,7 +225,7 @@ export async function handleUncheck(
 	options: PlanCommandOptions,
 ): Promise<void> {
 	if (!target) {
-		output.error("[X] Phase ID required: ck plan uncheck <id>");
+		output.error("[X] Phase ID required: hi plan uncheck <id>");
 		process.exitCode = 1;
 		return;
 	}
@@ -290,7 +290,7 @@ export async function handleAddPhase(
 	options: PlanCommandOptions,
 ): Promise<void> {
 	if (!target) {
-		output.error("[X] Phase name required: ck plan add-phase <name>");
+		output.error("[X] Phase name required: hi plan add-phase <name>");
 		process.exitCode = 1;
 		return;
 	}

@@ -14,7 +14,7 @@ describe("promptKitUpdate version display", () => {
 	let tempDir: string;
 
 	beforeEach(async () => {
-		tempDir = await mkdtemp(join(tmpdir(), "ck-prompt-kit-"));
+		tempDir = await mkdtemp(join(tmpdir(), "hi-prompt-kit-"));
 	});
 
 	afterEach(async () => {

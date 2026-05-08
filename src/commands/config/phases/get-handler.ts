@@ -1,6 +1,6 @@
 /**
- * Handler for `ck config get <key>` command
- * Uses CkConfigManager for correct .ck.json config resolution
+ * Handler for `hi config get <key>` command
+ * Uses CkConfigManager for correct .hi.json config resolution
  */
 
 import { CkConfigManager } from "@/domains/config/index.js";
@@ -30,7 +30,7 @@ export async function handleGet(key: string, options: ConfigCommandOptions): Pro
 
 	if (value === undefined) {
 		console.error(`Key not found: ${key}`);
-		console.error(`Run: ck config show --json | jq 'keys'`);
+		console.error(`Run: hi config show --json | jq 'keys'`);
 		process.exitCode = 1;
 		return;
 	}

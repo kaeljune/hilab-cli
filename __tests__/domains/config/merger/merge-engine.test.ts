@@ -114,11 +114,11 @@ describe("merge-engine deprecation removal", () => {
 
 		it("should preserve user-added server not in installed", () => {
 			const sourceMcp: SettingsJson["mcp"] = {
-				servers: { "ck-server": { command: "npx ck" } },
+				servers: { "hi-server": { command: "npx ck" } },
 			};
 			const destMcp: SettingsJson["mcp"] = {
 				servers: {
-					"ck-server": { command: "npx ck" },
+					"hi-server": { command: "npx ck" },
 					"user-server": { command: "npx user" },
 				},
 			};
@@ -126,11 +126,11 @@ describe("merge-engine deprecation removal", () => {
 
 			const merged = mergeMcp(sourceMcp, destMcp, result, {
 				installedSettings: {
-					mcpServers: ["ck-server"], // user-server not in installed
+					mcpServers: ["hi-server"], // user-server not in installed
 				},
 			});
 
-			expect(merged?.servers).toHaveProperty("ck-server");
+			expect(merged?.servers).toHaveProperty("hi-server");
 			expect(merged?.servers).toHaveProperty("user-server");
 			expect(result.mcpServersRemoved).toBe(0);
 		});

@@ -141,8 +141,8 @@ describe("SelectiveMerger", () => {
 
 			test("returns changed=false for identical file in nested path", async () => {
 				const content = "nested file content";
-				const nestedSrc = join(sourceDir, "commands", "ck");
-				const nestedDest = join(destDir, "commands", "ck");
+				const nestedSrc = join(sourceDir, "commands", "hi");
+				const nestedDest = join(destDir, "commands", "hi");
 				await mkdir(nestedSrc, { recursive: true });
 				await mkdir(nestedDest, { recursive: true });
 
@@ -785,7 +785,7 @@ describe("SelectiveMerger - Multi-Kit", () => {
 						{
 							path: "skills/shared.md",
 							checksum,
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "1.0.0",
 						},
 					],
@@ -823,7 +823,7 @@ describe("SelectiveMerger - Multi-Kit", () => {
 						{
 							path: "skills/shared.md",
 							checksum: checksum1,
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "2.0.0",
 						},
 					],
@@ -862,7 +862,7 @@ describe("SelectiveMerger - Multi-Kit", () => {
 						{
 							path: "skills/shared.md",
 							checksum: checksum1,
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "1.0.0",
 						},
 					],
@@ -909,7 +909,7 @@ describe("SelectiveMerger - Multi-Kit", () => {
 						{
 							path: "skills/shared.md",
 							checksum: actualChecksum,
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "1.0.0",
 						},
 					],

@@ -3,7 +3,7 @@
 ## Problem
 
 Users experienced a version discrepancy where:
-- `npm show claudekit-cli version` showed `1.9.2`
+- `npm show hilab-cli version` showed `1.9.2`
 - But `ck --version` showed `1.9.1`
 
 ## Root Cause

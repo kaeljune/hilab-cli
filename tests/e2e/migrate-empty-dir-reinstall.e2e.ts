@@ -94,7 +94,7 @@ const MOCK_DISCOVERY = {
 		agents: null,
 		commands: null,
 		skills: null,
-		hooks: "/opt/claudekit/.codex/hooks",
+		hooks: "/opt/hilab/.codex/hooks",
 		config: null,
 		rules: null,
 	},

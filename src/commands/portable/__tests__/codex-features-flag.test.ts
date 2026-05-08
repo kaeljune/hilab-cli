@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { ensureCodexHooksFeatureFlag } from "../codex-features-flag.js";
 
-const testDir = join(tmpdir(), "ck-codex-features-flag-test");
+const testDir = join(tmpdir(), "hi-codex-features-flag-test");
 
 beforeAll(() => {
 	mkdirSync(testDir, { recursive: true });
@@ -62,7 +62,7 @@ codex_hooks = true
 
 		// File should be unchanged
 		const content = readFileSync(configPath, "utf8");
-		expect(content).not.toContain("ck-managed-features-start");
+		expect(content).not.toContain("hi-managed-features-start");
 	});
 
 	it("appends managed block without disturbing existing unrelated content", async () => {
@@ -158,7 +158,7 @@ hide_full_access_warning = true
 		expect(content).toContain("[model_providers.cliproxy]");
 		expect(content).toContain("[notice]");
 		// No managed block should be written since we merged into the user's section
-		expect(content).not.toContain("ck-managed-features-start");
+		expect(content).not.toContain("hi-managed-features-start");
 		// Insertion position: codex_hooks goes at the END of the user's section,
 		// not the top — preserves the user's flag ordering.
 		const featuresBlock = content.match(/\[features\][\s\S]*?(?=\n\[|$)/)?.[0] ?? "";
@@ -200,8 +200,8 @@ codex_hooks = true
 		const featuresHeaderCount = (content.match(/^\[features\]\s*$/gm) || []).length;
 		expect(featuresHeaderCount).toBe(1);
 		// Managed block removed
-		expect(content).not.toContain("ck-managed-features-start");
-		expect(content).not.toContain("ck-managed-features-end");
+		expect(content).not.toContain("hi-managed-features-start");
+		expect(content).not.toContain("hi-managed-features-end");
 		// codex_hooks now lives in user section
 		expect(content).toContain("codex_hooks = true");
 		// User flags preserved

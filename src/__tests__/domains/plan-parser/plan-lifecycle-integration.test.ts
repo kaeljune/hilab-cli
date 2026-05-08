@@ -32,7 +32,7 @@ function getPlanFrontmatter(planFile: string) {
 }
 
 beforeEach(() => {
-	testDir = mkdtempSync(join(tmpdir(), "ck-lifecycle-"));
+	testDir = mkdtempSync(join(tmpdir(), "hi-lifecycle-"));
 });
 
 afterEach(() => {
@@ -209,7 +209,7 @@ describe("Sub-phase chain ordering", () => {
 const SET_ACTIVE_PLAN_PATH = resolve(
 	dirname(new URL(import.meta.url).pathname),
 	"../../../../..",
-	"claudekit-engineer/.claude/scripts/set-active-plan.cjs",
+	"hilab-engineer/.claude/scripts/set-active-plan.cjs",
 );
 
 describe.skipIf(!existsSync(SET_ACTIVE_PLAN_PATH))("set-active-plan.cjs", () => {
@@ -308,7 +308,7 @@ describe("resolvePlanFile walk-up", () => {
 
 	beforeEach(() => {
 		originalCwd = process.cwd();
-		walkDir = mkdtempSync(join(tmpdir(), "ck-walkup-"));
+		walkDir = mkdtempSync(join(tmpdir(), "hi-walkup-"));
 	});
 
 	afterEach(() => {

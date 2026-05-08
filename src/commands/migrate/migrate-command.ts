@@ -11,7 +11,7 @@ import pc from "picocolors";
 import { handleDeletions } from "../../domains/installation/deletion-handler.js";
 import { logger } from "../../shared/logger.js";
 import type { KitType } from "../../types/kit.js";
-import type { ClaudeKitMetadata } from "../../types/metadata.js";
+import type { HiLabMetadata } from "../../types/metadata.js";
 import {
 	formatDisplayPath,
 	renderPreflightRow,
@@ -88,7 +88,7 @@ import {
 } from "./migrate-ui-summary.js";
 import { installSkillDirectories } from "./skill-directory-installer.js";
 
-/** Options for ck migrate */
+/** Options for hi migrate */
 export interface MigrateOptions {
 	agent?: string[];
 	global?: boolean;
@@ -422,10 +422,10 @@ async function processMetadataDeletions(
 
 	if (!existsSync(sourceMetadataPath)) return;
 
-	let sourceMetadata: ClaudeKitMetadata;
+	let sourceMetadata: HiLabMetadata;
 	try {
 		const content = await readFile(sourceMetadataPath, "utf-8");
-		sourceMetadata = JSON.parse(content) as ClaudeKitMetadata;
+		sourceMetadata = JSON.parse(content) as HiLabMetadata;
 	} catch (error) {
 		logger.debug(`[migrate] Failed to parse source metadata.json: ${error}`);
 		return;
@@ -454,9 +454,9 @@ async function processMetadataDeletions(
 	}
 }
 
-function inferKitTypeFromSourceMetadata(sourceMetadata: ClaudeKitMetadata): KitType | undefined {
+function inferKitTypeFromSourceMetadata(sourceMetadata: HiLabMetadata): KitType | undefined {
 	// NOTE: This relies on the source metadata name following the current
-	// claudekit-{kitType} naming convention used by published kits.
+	// hilab-{kitType} naming convention used by published kits.
 	if (sourceMetadata.name?.includes("marketing")) return "marketing";
 	if (sourceMetadata.name?.includes("engineer")) return "engineer";
 	return undefined;
@@ -706,7 +706,7 @@ export async function migrateCommand(options: MigrateOptions): Promise<void> {
 				sourceLines: buildSourceSummaryLines(sourceCounts, sourceOrigins),
 				subtitle: buildProviderScopeSubtitle(selectedProviders, requestedGlobal, sourceCounts),
 				targetLines: buildTargetSummaryLines(preflightRows),
-				title: "ck migrate",
+				title: "hi migrate",
 			}).join("\n"),
 		);
 		p.log.info(pc.dim(`  CWD: ${process.cwd()}`));
@@ -725,7 +725,7 @@ export async function migrateCommand(options: MigrateOptions): Promise<void> {
 		}
 
 		// Load CkConfig for taxonomy overrides and apply before conversion
-		const { CkConfigManager } = await import("../../domains/config/ck-config-manager.js");
+		const { CkConfigManager } = await import("../../domains/config/hi-config-manager.js");
 		const ckConfigResult = await CkConfigManager.loadFull(process.cwd());
 		setTaxonomyOverrides(
 			ckConfigResult.config.modelTaxonomy as

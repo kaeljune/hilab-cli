@@ -1,5 +1,5 @@
 /**
- * Skill discovery - finds available skills from ClaudeKit source
+ * Skill discovery - finds available skills from HiLab source
  */
 import { readFile, readdir, stat } from "node:fs/promises";
 import { homedir } from "node:os";
@@ -20,7 +20,7 @@ const SKIP_DIRS = ["node_modules", ".git", "dist", "build", ".venv", "__pycache_
  * Priority: bundled with engineer package > global ~/.claude/skills
  */
 export function getSkillSourcePath(): string | null {
-	const bundledRoot = join(process.cwd(), "node_modules", "claudekit-engineer");
+	const bundledRoot = join(process.cwd(), "node_modules", "hilab-engineer");
 	return findFirstExistingPath([
 		join(bundledRoot, "skills"),
 		...getProjectLayoutCandidates(bundledRoot, "skills"),
@@ -134,14 +134,14 @@ function toStringArray(v: unknown): string[] | undefined {
 }
 
 /**
- * Extract /ck:command-name cross-references from markdown body
+ * Extract /hi:command-name cross-references from markdown body
  * Skips code fences to avoid false positives
  */
 function extractCrossRefs(body: string): string[] {
 	// Remove code fences before scanning
 	const stripped = body.replace(/```[\s\S]*?```/g, "").replace(/`[^`]*`/g, "");
 	const refs = new Set<string>();
-	const pattern = /\/ck:([a-z0-9-]+)/g;
+	const pattern = /\/hi:([a-z0-9-]+)/g;
 	for (const match of stripped.matchAll(pattern)) {
 		refs.add(match[1]);
 	}

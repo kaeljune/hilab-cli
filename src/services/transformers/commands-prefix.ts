@@ -1,13 +1,13 @@
 /**
  * Commands Prefix - Facade Module
  *
- * Reorganizes .claude/commands directory to add /ck: prefix.
+ * Reorganizes .claude/commands directory to add /hi: prefix.
  * Moves all command files from `.claude/commands/**\/*` to `.claude/commands/ck/**\/*`
- * This enables all slash commands to have a /ck: prefix (e.g., /ck:plan, /ck:fix)
+ * This enables all slash commands to have a /hi: prefix (e.g., /hi:plan, /hi:fix)
  *
  * Also transforms command references in file contents:
- * - `/plan:fast` → `/ck:plan:fast`
- * - `/fix:types` → `/ck:fix:types`
+ * - `/plan:fast` → `/hi:plan:fast`
+ * - `/fix:types` → `/hi:fix:types`
  * - etc.
  *
  * This file re-exports all public APIs from the modular implementation.
@@ -27,17 +27,17 @@ import { cleanupCommandsDirectory } from "./commands-prefix/prefix-cleaner.js";
 import { shouldApplyPrefix } from "./commands-prefix/prefix-utils.js";
 
 /**
- * CommandsPrefix - Reorganizes .claude/commands directory to add /ck: prefix
+ * CommandsPrefix - Reorganizes .claude/commands directory to add /hi: prefix
  *
  * Moves all command files from `.claude/commands/**\/*` to `.claude/commands/ck/**\/*`
- * This enables all slash commands to have a /ck: prefix (e.g., /ck:plan, /ck:fix)
+ * This enables all slash commands to have a /hi: prefix (e.g., /hi:plan, /hi:fix)
  */
 export class CommandsPrefix {
 	/**
 	 * Apply prefix reorganization to commands directory
 	 *
 	 * Moves all files from .claude/commands/ to .claude/commands/ck/
-	 * This enables slash commands to have /ck: prefix (e.g., /ck:plan)
+	 * This enables slash commands to have /hi: prefix (e.g., /hi:plan)
 	 *
 	 * @param extractDir - Temporary extraction directory containing .claude folder
 	 *                     Must be absolute path, no path traversal allowed

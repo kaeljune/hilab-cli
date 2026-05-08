@@ -83,7 +83,7 @@ describe("Fixture: clean install (no existing settings.json)", () => {
 			},
 			mcp: {
 				servers: {
-					"ck-server": { command: "node", args: [".claude/mcp/ck.js"] },
+					"hi-server": { command: "node", args: [".claude/mcp/ck.js"] },
 				},
 			},
 		};
@@ -112,7 +112,7 @@ describe("Fixture: clean install (no existing settings.json)", () => {
 		// MCP server should be preserved
 		const mcp = result.mcp as Record<string, unknown>;
 		const servers = mcp.servers as Record<string, unknown>;
-		expect(servers["ck-server"]).toBeDefined();
+		expect(servers["hi-server"]).toBeDefined();
 	});
 
 	it("writes kit defaults when dest does not exist (local)", async () => {
@@ -393,7 +393,7 @@ describe("Fixture: multi-provider merge, no false conflicts (#520)", () => {
 		const commands = collectHookCommands(result);
 		expect(commands.some((c) => c.includes("windsurf"))).toBe(true);
 		expect(commands.some((c) => c.includes("copilot"))).toBe(true);
-		expect(commands.some((c) => c.includes("ck-session-start"))).toBe(true);
+		expect(commands.some((c) => c.includes("hi-session-start"))).toBe(true);
 	});
 
 	it("deduplicates CK hooks across providers but does not remove user hooks", async () => {

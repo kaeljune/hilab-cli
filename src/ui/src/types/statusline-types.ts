@@ -1,5 +1,5 @@
 /**
- * Statusline UI types — mirrors src/types/ck-config.ts StatuslineLayout schema.
+ * Statusline UI types — mirrors src/types/hi-config.ts StatuslineLayout schema.
  * Kept as plain TypeScript interfaces (no Zod) for UI bundle size.
  */
 
@@ -48,7 +48,7 @@ export interface StatuslineTheme {
 	quotaHigh: string;
 }
 
-/** Full layout shape used by the builder and persisted to .ck.json */
+/** Full layout shape used by the builder and persisted to .hi.json */
 export interface StatuslineBuilderLayout {
 	baseMode: StatuslineMode;
 	lines: string[][];

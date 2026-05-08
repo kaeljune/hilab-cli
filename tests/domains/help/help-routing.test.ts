@@ -145,7 +145,7 @@ describe("help-routing: subcommand renderer", () => {
 
 describe("help-routing: interceptor resolution", () => {
 	test("argv [node, ck, parent, list, --help] renders subcommand help with parent prefix in usage", () => {
-		const output = resolveHelpOutput(["node", "ck", "parent", "list", "--help"]);
+		const output = resolveHelpOutput(["node", "hi", "parent", "list", "--help"]);
 
 		// Usage line should use the subcommand's usage (which contains parent prefix)
 		expect(output).toContain("list");
@@ -153,7 +153,7 @@ describe("help-routing: interceptor resolution", () => {
 	});
 
 	test("argv [node, ck, parent, unknown-sub, --help] falls back to parent help without crash", () => {
-		const output = resolveHelpOutput(["node", "ck", "parent", "unknown-sub", "--help"]);
+		const output = resolveHelpOutput(["node", "hi", "parent", "unknown-sub", "--help"]);
 
 		// Should fall back to parent and include Subcommands section
 		expect(output).toContain("parent");
@@ -162,7 +162,7 @@ describe("help-routing: interceptor resolution", () => {
 	});
 
 	test("argv [node, ck, parent, --help] renders parent help", () => {
-		const output = resolveHelpOutput(["node", "ck", "parent", "--help"]);
+		const output = resolveHelpOutput(["node", "hi", "parent", "--help"]);
 
 		expect(output).toContain("parent");
 		expect(output).toContain("Subcommands:");

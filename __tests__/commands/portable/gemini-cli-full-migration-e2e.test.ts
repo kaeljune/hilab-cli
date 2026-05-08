@@ -27,7 +27,7 @@ import {
 import { providers } from "../../../src/commands/portable/provider-registry.js";
 import type { PortableItem } from "../../../src/commands/portable/types.js";
 
-const testDir = join(tmpdir(), "ck-gemini-e2e-test");
+const testDir = join(tmpdir(), "hi-gemini-e2e-test");
 
 /** Helper to create a PortableItem */
 function makeItem(overrides: Partial<PortableItem> = {}): PortableItem {

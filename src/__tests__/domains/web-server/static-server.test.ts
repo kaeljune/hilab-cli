@@ -18,7 +18,7 @@ describe("resolveUiDistPath", () => {
 	});
 
 	function createPackagedUiLayout(): string {
-		const packageRoot = mkdtempSync(join(tmpdir(), "ck-static-ui-"));
+		const packageRoot = mkdtempSync(join(tmpdir(), "hi-static-ui-"));
 		tempDirs.push(packageRoot);
 		mkdirSync(join(packageRoot, "bin"), { recursive: true });
 		mkdirSync(join(packageRoot, "dist", "ui"), { recursive: true });

@@ -25,9 +25,9 @@ export async function handleBackupsList(options: BackupsListOptions): Promise<vo
 
 	if (backups.length === 0) {
 		console.log();
-		console.log(pc.yellow("No ClaudeKit recovery backups found."));
+		console.log(pc.yellow("No HiLab recovery backups found."));
 		console.log();
-		console.log(pc.dim("  Backups are stored under: ~/.claudekit/backups/"));
+		console.log(pc.dim("  Backups are stored under: ~/.hilab/backups/"));
 		console.log();
 		return;
 	}
@@ -39,7 +39,7 @@ export async function handleBackupsList(options: BackupsListOptions): Promise<vo
 	);
 
 	console.log();
-	console.log(pc.bold(`ClaudeKit Recovery Backups (${backups.length})`));
+	console.log(pc.bold(`HiLab Recovery Backups (${backups.length})`));
 	console.log();
 	console.log(pc.dim(headers.map((header, index) => header.padEnd(widths[index])).join("  ")));
 	console.log(pc.dim(widths.map((width) => "-".repeat(width)).join("  ")));

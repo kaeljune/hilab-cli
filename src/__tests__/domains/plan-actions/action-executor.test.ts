@@ -43,12 +43,12 @@ function createTrackedPlan() {
 
 beforeEach(() => {
 	originalCwd = process.cwd();
-	testRoot = mkdtempSync(join(tmpdir(), "ck-plan-actions-"));
+	testRoot = mkdtempSync(join(tmpdir(), "hi-plan-actions-"));
 	mkdirSync(join(testRoot, ".claude"), { recursive: true });
 	// Global path isolation — writes go to CK_TEST_HOME/.claude/plans-registries/
-	testHome = mkdtempSync(join(tmpdir(), "ck-plan-home-"));
+	testHome = mkdtempSync(join(tmpdir(), "hi-plan-home-"));
 	mkdirSync(join(testHome, ".claude"), { recursive: true });
-	process.env.CK_TEST_HOME = testHome;
+	process.env.HI_TEST_HOME = testHome;
 	process.chdir(testRoot);
 });
 

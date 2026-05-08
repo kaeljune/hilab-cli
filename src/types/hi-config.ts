@@ -1,6 +1,6 @@
 /**
- * TypeScript types for .ck.json configuration
- * Generated from ck-config.schema.json
+ * TypeScript types for .hi.json configuration
+ * Generated from hi-config.schema.json
  */
 
 import { z } from "zod";
@@ -262,7 +262,7 @@ export type CkSkillsConfig = z.infer<typeof CkSkillsConfigSchema>;
 
 // Per-content-type scope for auto-migrate. Each field defaults to true (migrate
 // that type). Setting a field to false emits the corresponding `--skip-<type>`
-// flag when post-update-handler invokes `ck migrate`. Only consumed when
+// flag when post-update-handler invokes `hi migrate`. Only consumed when
 // `autoMigrateAfterUpdate: true` — opt-out has no effect for users who haven't
 // opted into auto-migrate.
 export const MigrateScopeConfigSchema = z.object({
@@ -422,12 +422,12 @@ export const CkAssertionSchema = z.object({
 });
 export type CkAssertion = z.infer<typeof CkAssertionSchema>;
 
-// SYNC POINT: When adding/removing hooks in claudekit-engineer settings.json,
+// SYNC POINT: When adding/removing hooks in hilab-engineer settings.json,
 // update ALL of: CkHooksConfigSchema, DEFAULT_CK_CONFIG.hooks, CK_HOOK_NAMES,
-// src/schemas/ck-config.schema.json, GlobalConfigPage.tsx sections,
+// src/schemas/hi-config.schema.json, GlobalConfigPage.tsx sections,
 // src/ui/src/services/configFieldDocs.ts, and src/ui/src/i18n/translations.ts (EN + VI)
 //
-// NOTE: .passthrough() is intentional — user .ck.json files may contain
+// NOTE: .passthrough() is intentional — user .hi.json files may contain
 // hook keys installed by older or newer kit versions (e.g. post-edit-simplify-reminder).
 // Without passthrough, Zod silently strips unknown keys causing the config panel
 // to appear to lose custom hook settings when round-tripped through the editor.
@@ -446,7 +446,7 @@ export const CkHooksConfigSchema = z
 	.passthrough();
 export type CkHooksConfig = z.infer<typeof CkHooksConfigSchema>;
 
-// SYNC POINT: Simplify config block (mirrors claudekit-engineer simplify-gate hook).
+// SYNC POINT: Simplify config block (mirrors hilab-engineer simplify-gate hook).
 // Root .strict() to lock keys; nested blocks .passthrough() for forward-compat.
 // threshold and gate use .default({}) so Zod applies field-level defaults when the
 // sub-object is absent or empty — e.g. `simplify: {}` still yields full defaults.

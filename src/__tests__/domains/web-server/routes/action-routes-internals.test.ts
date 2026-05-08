@@ -117,7 +117,7 @@ describe("action routes internals", () => {
 	});
 
 	test("isPathInsideBase compares normalized paths", () => {
-		const base = join("/tmp", "ck-path-base");
+		const base = join("/tmp", "hi-path-base");
 		const inside = join(base, "folder", "..", "project");
 		const outside = join(base, "..", "outside");
 

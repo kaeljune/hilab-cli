@@ -208,7 +208,7 @@ export async function installSkillsDependencies(
 					logger.info("  • imagemagick - Image editing & conversion");
 					logger.info("");
 					logger.info("To include system packages, run with --with-sudo flag:");
-					logger.info("  ck init -g -y --install-skills --with-sudo");
+					logger.info("  hi init -g -y --install-skills --with-sudo");
 					logger.info("");
 					logger.info("Or install manually:");
 					logger.info("  sudo apt-get install -y ffmpeg imagemagick");

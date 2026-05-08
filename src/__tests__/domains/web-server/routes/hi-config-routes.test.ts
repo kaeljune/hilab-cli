@@ -2,7 +2,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, test } from "bun:test
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { registerCkConfigRoutes } from "@/domains/web-server/routes/ck-config-routes.js";
+import { registerCkConfigRoutes } from "@/domains/web-server/routes/hi-config-routes.js";
 import express, { type Express } from "express";
 
 let baseUrl = "";
@@ -16,7 +16,7 @@ beforeAll(() => {
 	server = app.listen(0);
 	const address = server.address();
 	if (!address || typeof address === "string") {
-		throw new Error("Failed to start ck-config route test server");
+		throw new Error("Failed to start hi-config route test server");
 	}
 	baseUrl = `http://127.0.0.1:${address.port}`;
 });
@@ -29,15 +29,15 @@ afterAll(() => {
 	server.close();
 });
 
-describe("PUT /api/ck-config", () => {
+describe("PUT /api/hi-config", () => {
 	test("returns the persisted project scope after partial saves", async () => {
 		const projectDir = join(
 			tmpdir(),
-			`ck-config-route-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+			`hi-config-route-${Date.now()}-${Math.random().toString(36).slice(2)}`,
 		);
 		tempDirs.push(projectDir);
 
-		const configPath = join(projectDir, ".claude", ".ck.json");
+		const configPath = join(projectDir, ".claude", ".hi.json");
 		await mkdir(join(projectDir, ".claude"), { recursive: true });
 		await writeFile(
 			configPath,
@@ -57,7 +57,7 @@ describe("PUT /api/ck-config", () => {
 		);
 
 		const projectId = `discovered-${Buffer.from(projectDir).toString("base64url")}`;
-		const response = await fetch(`${baseUrl}/api/ck-config`, {
+		const response = await fetch(`${baseUrl}/api/hi-config`, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
@@ -94,11 +94,11 @@ describe("PUT /api/ck-config", () => {
 	test("preserves and returns raw scope fields when the existing file no longer matches schema", async () => {
 		const projectDir = join(
 			tmpdir(),
-			`ck-config-route-invalid-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+			`hi-config-route-invalid-${Date.now()}-${Math.random().toString(36).slice(2)}`,
 		);
 		tempDirs.push(projectDir);
 
-		const configPath = join(projectDir, ".claude", ".ck.json");
+		const configPath = join(projectDir, ".claude", ".hi.json");
 		await mkdir(join(projectDir, ".claude"), { recursive: true });
 		await writeFile(
 			configPath,
@@ -113,7 +113,7 @@ describe("PUT /api/ck-config", () => {
 		);
 
 		const projectId = `discovered-${Buffer.from(projectDir).toString("base64url")}`;
-		const response = await fetch(`${baseUrl}/api/ck-config`, {
+		const response = await fetch(`${baseUrl}/api/hi-config`, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({

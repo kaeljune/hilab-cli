@@ -22,7 +22,7 @@ import {
 } from "../config-discovery.js";
 
 describe("config-discovery", () => {
-	const testDir = join(tmpdir(), "claudekit-config-discovery-test");
+	const testDir = join(tmpdir(), "hilab-config-discovery-test");
 
 	beforeAll(() => {
 		mkdirSync(testDir, { recursive: true });
@@ -53,7 +53,7 @@ describe("config-discovery", () => {
 			writeFileSync(
 				join(projectDir, "package.json"),
 				JSON.stringify({
-					claudekit: {
+					hilab: {
 						sourceDir: "claude",
 						runtimeDir: ".claude",
 					},
@@ -83,7 +83,7 @@ describe("config-discovery", () => {
 			writeFileSync(
 				join(projectDir, "package.json"),
 				JSON.stringify({
-					claudekit: {
+					hilab: {
 						sourceDir: "claude",
 						runtimeDir: ".claude",
 					},
@@ -112,7 +112,7 @@ describe("config-discovery", () => {
 			writeFileSync(
 				join(projectDir, "package.json"),
 				JSON.stringify({
-					claudekit: {
+					hilab: {
 						sourceDir: "claude",
 						runtimeDir: ".claude",
 					},
@@ -506,7 +506,7 @@ describe("config-discovery", () => {
 
 		it("is idempotent — calling twice produces the same result with no errors", async () => {
 			// Second invocation on same src/dst should be a no-op overwrite.
-			// Users may re-run `ck migrate` repeatedly; companion copy must be safe.
+			// Users may re-run `hi migrate` repeatedly; companion copy must be safe.
 			const providerSrcRoot = join(testDir, "companion-idempotent-src");
 			const providerDstRoot = join(testDir, "companion-idempotent-dst");
 			const src = join(providerSrcRoot, "hooks");

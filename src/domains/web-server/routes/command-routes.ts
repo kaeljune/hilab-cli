@@ -92,9 +92,9 @@ export function registerCommandRoutes(app: Express): void {
 		}
 	});
 
-	// GET /api/commands/detail/:slug — single command detail by slug (e.g., "ck/plan" encoded as "ck--plan")
+	// GET /api/commands/detail/:slug — single command detail by slug (e.g., "ck/plan" encoded as "hi--plan")
 	app.get("/api/commands/detail/:slug", async (req: Request, res: Response) => {
-		// Slug uses "--" as path separator (e.g., "ck--plan" → "ck/plan.md")
+		// Slug uses "--" as path separator (e.g., "hi--plan" → "ck/plan.md")
 		const slug = String(req.params.slug ?? "");
 		const rawPath = slug.replace(/--/g, "/");
 

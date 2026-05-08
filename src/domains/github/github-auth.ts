@@ -51,13 +51,13 @@ export class AuthManager {
 		if (!AuthManager.isGhCliInstalled()) {
 			throw new AuthenticationError(
 				"No GitHub authentication found.\n\n" +
-					"ClaudeKit supports multiple authentication methods:\n\n" +
+					"HiLab supports multiple authentication methods:\n\n" +
 					"Option 1: Set environment variable (recommended for CI/CD)\n" +
 					"  export GITHUB_TOKEN=ghp_xxxxxxxxxxxx\n" +
 					"  Create token at: github.com/settings/tokens\n" +
 					"  ⚠️  Use Classic PAT with 'repo' scope (fine-grained PATs don't work for collaborator repos)\n\n" +
 					"Option 2: Use git clone with SSH (recommended for security)\n" +
-					"  ck new --use-git\n" +
+					"  hi new --use-git\n" +
 					"  Requires SSH key added to GitHub\n\n" +
 					"Option 3: Install GitHub CLI\n" +
 					"  macOS:   brew install gh\n" +

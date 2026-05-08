@@ -174,7 +174,7 @@ describe("ManifestWriter", () => {
 			expect(metadata.userConfigFiles).toContain(".repomixignore");
 			expect(metadata.userConfigFiles).toContain(".mcp.json");
 			expect(metadata.userConfigFiles).toContain(".ckignore");
-			expect(metadata.userConfigFiles).toContain(".ck.json");
+			expect(metadata.userConfigFiles).toContain(".hi.json");
 			expect(metadata.userConfigFiles).toContain("CLAUDE.md");
 		});
 
@@ -467,13 +467,13 @@ describe("ManifestWriter", () => {
 							{
 								path: "commands/test.md",
 								checksum: "abc123".padEnd(64, "0"),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "skills/skill1.md",
 								checksum: "def456".padEnd(64, "0"),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -505,7 +505,7 @@ describe("ManifestWriter", () => {
 							{
 								path: "commands/test.md",
 								checksum: "abc123".padEnd(64, "0"),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -519,7 +519,7 @@ describe("ManifestWriter", () => {
 					{
 						path: "commands/test.md",
 						checksum: "abc123".padEnd(64, "0"),
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],
@@ -550,7 +550,7 @@ describe("ManifestWriter", () => {
 			const fileInfos = files.map((file) => ({
 				filePath: join(testClaudeDir, file),
 				relativePath: file,
-				ownership: "ck" as const,
+				ownership: "hi" as const,
 				installedVersion: "1.0.0",
 			}));
 
@@ -572,7 +572,7 @@ describe("ManifestWriter", () => {
 			const fileInfos = files.map((file) => ({
 				filePath: join(testClaudeDir, file),
 				relativePath: file,
-				ownership: "ck" as const,
+				ownership: "hi" as const,
 				installedVersion: "1.0.0",
 			}));
 
@@ -600,7 +600,7 @@ describe("ManifestWriter", () => {
 			const fileInfos = files.map((file) => ({
 				filePath: join(testClaudeDir, file),
 				relativePath: file,
-				ownership: "ck" as const,
+				ownership: "hi" as const,
 				installedVersion: "1.0.0",
 			}));
 
@@ -621,13 +621,13 @@ describe("ManifestWriter", () => {
 				{
 					filePath: join(testClaudeDir, "valid.txt"),
 					relativePath: "valid.txt",
-					ownership: "ck" as const,
+					ownership: "hi" as const,
 					installedVersion: "1.0.0",
 				},
 				{
 					filePath: join(testClaudeDir, "nonexistent.txt"), // Does not exist
 					relativePath: "nonexistent.txt",
-					ownership: "ck" as const,
+					ownership: "hi" as const,
 					installedVersion: "1.0.0",
 				},
 			];
@@ -671,7 +671,7 @@ describe("ManifestWriter", () => {
 				{
 					filePath: join(testClaudeDir, "test.txt"),
 					relativePath: "commands\\subdir\\test.txt", // Windows-style
-					ownership: "ck" as const,
+					ownership: "hi" as const,
 					installedVersion: "1.0.0",
 				},
 			];

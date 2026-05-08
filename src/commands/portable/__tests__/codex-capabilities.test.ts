@@ -116,8 +116,8 @@ describe("codex-capabilities", () => {
 		});
 
 		it("returns strict (oldest) capabilities when CK_CODEX_COMPAT=strict", async () => {
-			const prev = process.env.CK_CODEX_COMPAT;
-			process.env.CK_CODEX_COMPAT = "strict";
+			const prev = process.env.HI_CODEX_COMPAT;
+			process.env.HI_CODEX_COMPAT = "strict";
 			try {
 				const caps = await detectCodexCapabilities();
 				// Strict mode returns the last entry (most conservative)
@@ -126,9 +126,9 @@ describe("codex-capabilities", () => {
 				);
 			} finally {
 				if (prev === undefined) {
-					process.env.CK_CODEX_COMPAT = undefined;
+					process.env.HI_CODEX_COMPAT = undefined;
 				} else {
-					process.env.CK_CODEX_COMPAT = prev;
+					process.env.HI_CODEX_COMPAT = prev;
 				}
 			}
 		});

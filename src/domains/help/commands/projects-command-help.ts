@@ -8,15 +8,15 @@ import type { CommandHelp } from "../help-types.js";
 
 export const projectsCommandHelp: CommandHelp = {
 	name: "projects",
-	description: "Manage local ClaudeKit project registry entries",
-	usage: "ck projects <subcommand> [options]",
+	description: "Manage local HiLab project registry entries",
+	usage: "hi projects <subcommand> [options]",
 	examples: [
 		{
-			command: "ck projects list --pinned",
+			command: "hi projects list --pinned",
 			description: "Show only pinned projects",
 		},
 		{
-			command: "ck projects add . --alias engine --pinned",
+			command: "hi projects add . --alias engine --pinned",
 			description: "Add current directory with an alias and pin it",
 		},
 	],
@@ -77,7 +77,7 @@ export const projectsCommandHelp: CommandHelp = {
 		{
 			name: "list",
 			description: "List projects in registry",
-			usage: "ck projects list [--json] [--pinned]",
+			usage: "hi projects list [--json] [--pinned]",
 			examples: [],
 			optionGroups: [],
 			aliases: ["ls"],
@@ -85,14 +85,14 @@ export const projectsCommandHelp: CommandHelp = {
 		{
 			name: "add",
 			description: "Add project path to registry",
-			usage: "ck projects add <path> [--alias <alias>] [--pinned] [--tags <tags>]",
+			usage: "hi projects add <path> [--alias <alias>] [--pinned] [--tags <tags>]",
 			examples: [],
 			optionGroups: [],
 		},
 		{
 			name: "remove",
 			description: "Remove project by alias or ID",
-			usage: "ck projects remove [alias] [--id <id>]",
+			usage: "hi projects remove [alias] [--id <id>]",
 			examples: [],
 			optionGroups: [],
 			aliases: ["rm"],

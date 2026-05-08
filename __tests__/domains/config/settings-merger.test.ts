@@ -70,7 +70,7 @@ describe("SettingsMerger", () => {
 			const source: SettingsJson = {
 				mcp: {
 					servers: {
-						"ck-server": { command: "node", args: ["server.js"] },
+						"hi-server": { command: "node", args: ["server.js"] },
 					},
 				},
 			};
@@ -86,7 +86,7 @@ describe("SettingsMerger", () => {
 			const result = SettingsMerger.merge(source, destination);
 
 			expect(result.merged.mcp?.servers?.["my-server"]).toBeDefined();
-			expect(result.merged.mcp?.servers?.["ck-server"]).toBeDefined();
+			expect(result.merged.mcp?.servers?.["hi-server"]).toBeDefined();
 			expect(result.mcpServersPreserved).toBe(0); // No conflict, just added
 		});
 
@@ -235,7 +235,7 @@ describe("SettingsMerger", () => {
 		it("should preserve user-only keys not present in source", () => {
 			const source: SettingsJson = {
 				hooks: {
-					SessionStart: [{ type: "command", command: "ck-hook.js" }],
+					SessionStart: [{ type: "command", command: "hi-hook.js" }],
 				},
 			};
 
@@ -326,7 +326,7 @@ describe("SettingsMerger", () => {
 		it("should handle empty destination hooks", () => {
 			const source: SettingsJson = {
 				hooks: {
-					SessionStart: [{ type: "command", command: "ck-hook.js" }],
+					SessionStart: [{ type: "command", command: "hi-hook.js" }],
 				},
 			};
 
@@ -514,7 +514,7 @@ describe("SettingsMerger", () => {
 		});
 
 		it("should handle the exact scenario from the issue", () => {
-			// Source - ClaudeKit template
+			// Source - HiLab template
 			const source: SettingsJson = {
 				hooks: {
 					SessionStart: [{ type: "command", command: "node .claude/hooks/session-start.cjs" }],
@@ -634,7 +634,7 @@ describe("SettingsMerger", () => {
 		it("should place user hooks before CK hooks (user priority)", () => {
 			const source: SettingsJson = {
 				hooks: {
-					SessionStart: [{ type: "command", command: "ck-hook.js" }],
+					SessionStart: [{ type: "command", command: "hi-hook.js" }],
 				},
 			};
 
@@ -649,7 +649,7 @@ describe("SettingsMerger", () => {
 			// User hook should be first in the array
 			const hooks = result.merged.hooks?.SessionStart as Array<{ command: string }>;
 			expect(hooks[0].command).toBe("user-hook.sh");
-			expect(hooks[1].command).toBe("ck-hook.js");
+			expect(hooks[1].command).toBe("hi-hook.js");
 		});
 	});
 
@@ -715,7 +715,7 @@ describe("SettingsMerger", () => {
 			const source: SettingsJson = {
 				mcp: {
 					servers: {
-						"ck-server": { command: "node", args: ["server.js"] },
+						"hi-server": { command: "node", args: ["server.js"] },
 						"new-server": { command: "node", args: ["new.js"] },
 					},
 				},
@@ -730,12 +730,12 @@ describe("SettingsMerger", () => {
 
 			const result = SettingsMerger.merge(source, destination, {
 				installedSettings: {
-					mcpServers: ["ck-server"], // ck-server was installed before
+					mcpServers: ["hi-server"], // ck-server was installed before
 				},
 			});
 
 			// Should NOT re-add ck-server, but should add new-server
-			expect(result.merged.mcp?.servers?.["ck-server"]).toBeUndefined();
+			expect(result.merged.mcp?.servers?.["hi-server"]).toBeUndefined();
 			expect(result.merged.mcp?.servers?.["new-server"]).toBeDefined();
 			expect(result.mcpServersSkipped).toBe(1);
 			expect(result.newlyInstalledServers).toContain("new-server");
@@ -762,7 +762,7 @@ describe("SettingsMerger", () => {
 		it("should work without installedSettings (backward compatible)", () => {
 			const source: SettingsJson = {
 				hooks: {
-					SessionStart: [{ type: "command", command: "ck-hook.js" }],
+					SessionStart: [{ type: "command", command: "hi-hook.js" }],
 				},
 			};
 

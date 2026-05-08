@@ -109,7 +109,7 @@ bun add env-paths
 ```typescript
 import envPaths from 'env-paths';
 
-const paths = envPaths('claudekit');
+const paths = envPaths('hilab');
 
 console.log(paths.data);    // Data directory
 console.log(paths.config);  // Config directory
@@ -118,22 +118,22 @@ console.log(paths.log);     // Log directory
 console.log(paths.temp);    // Temp directory
 
 // Disable 'nodejs' suffix
-const cleanPaths = envPaths('claudekit', { suffix: '' });
+const cleanPaths = envPaths('hilab', { suffix: '' });
 ```
 
 **Output by Platform:**
 
 | Platform | Config Path |
 |----------|------------|
-| macOS    | `~/Library/Preferences/claudekit-nodejs` |
-| Windows  | `%APPDATA%\claudekit-nodejs\Config` |
-| Linux    | `~/.config/claudekit-nodejs` |
+| macOS    | `~/Library/Preferences/hilab-nodejs` |
+| Windows  | `%APPDATA%\hilab-nodejs\Config` |
+| Linux    | `~/.config/hilab-nodejs` |
 
 | Platform | Data Path |
 |----------|-----------|
-| macOS    | `~/Library/Application Support/claudekit-nodejs` |
-| Windows  | `%LOCALAPPDATA%\claudekit-nodejs\Data` |
-| Linux    | `~/.local/share/claudekit-nodejs` |
+| macOS    | `~/Library/Application Support/hilab-nodejs` |
+| Windows  | `%LOCALAPPDATA%\hilab-nodejs\Data` |
+| Linux    | `~/.local/share/hilab-nodejs` |
 
 **Note:** `env-paths` generates path strings only—does not create directories.
 
@@ -163,7 +163,7 @@ async function ensureConfigDir(appName: string): Promise<string> {
 }
 
 // Usage
-const configDir = await ensureConfigDir('claudekit');
+const configDir = await ensureConfigDir('hilab');
 console.log(`Config directory: ${configDir}`);
 ```
 
@@ -269,16 +269,16 @@ async function setupSecureConfig(configPath: string): Promise<void> {
 
 ---
 
-## 6. Recommendations for ClaudeKit CLI
+## 6. Recommendations for HiLab CLI
 
 ### Option A: Use env-paths (Recommended)
 ```typescript
 import envPaths from 'env-paths';
 
-const paths = envPaths('claudekit', { suffix: '' });
-// macOS: ~/Library/Preferences/claudekit
-// Windows: %APPDATA%\claudekit\Config
-// Linux: ~/.config/claudekit
+const paths = envPaths('hilab', { suffix: '' });
+// macOS: ~/Library/Preferences/hilab
+// Windows: %APPDATA%\hilab\Config
+// Linux: ~/.config/hilab
 ```
 
 **Pros:**
@@ -311,10 +311,10 @@ function getConfigPath(appName: string): string {
   return join(homedir(), '.config', appName);
 }
 
-const configPath = getConfigPath('claudekit');
-// macOS: ~/.config/claudekit
-// Windows: C:\Users\{user}\AppData\Local\claudekit
-// Linux: ~/.config/claudekit
+const configPath = getConfigPath('hilab');
+// macOS: ~/.config/hilab
+// Windows: C:\Users\{user}\AppData\Local\hilab
+// Linux: ~/.config/hilab
 ```
 
 **Pros:**
@@ -328,8 +328,8 @@ const configPath = getConfigPath('claudekit');
 
 ### Option C: Hybrid Approach
 ```typescript
-function getClaudeKitPaths() {
-  const paths = envPaths('claudekit', { suffix: '' });
+function getHiLabPaths() {
+  const paths = envPaths('hilab', { suffix: '' });
 
   // Override macOS to use XDG-style for CLI consistency
   if (platform() === 'darwin') {
@@ -337,10 +337,10 @@ function getClaudeKitPaths() {
     const xdgConfig = process.env.XDG_CONFIG_HOME || join(home, '.config');
 
     return {
-      config: join(xdgConfig, 'claudekit'),
-      data: join(home, '.local', 'share', 'claudekit'),
-      cache: join(home, '.cache', 'claudekit'),
-      log: join(home, '.local', 'state', 'claudekit'),
+      config: join(xdgConfig, 'hilab'),
+      data: join(home, '.local', 'share', 'hilab'),
+      cache: join(home, '.cache', 'hilab'),
+      log: join(home, '.local', 'state', 'hilab'),
     };
   }
 

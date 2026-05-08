@@ -10,9 +10,9 @@ export function checkActivePlan(projectDir: string): CheckResult {
 
 	if (!existsSync(activePlanPath)) {
 		return {
-			id: "ck-active-plan",
+			id: "hi-active-plan",
 			name: "Active Plan",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "info",
 			message: "None",
@@ -26,9 +26,9 @@ export function checkActivePlan(projectDir: string): CheckResult {
 
 		if (!existsSync(fullPath)) {
 			return {
-				id: "ck-active-plan",
+				id: "hi-active-plan",
 				name: "Active Plan",
-				group: "claudekit",
+				group: "hilab",
 				priority: "standard",
 				status: "warn",
 				message: "Orphaned (target missing)",
@@ -39,9 +39,9 @@ export function checkActivePlan(projectDir: string): CheckResult {
 		}
 
 		return {
-			id: "ck-active-plan",
+			id: "hi-active-plan",
 			name: "Active Plan",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "pass",
 			message: targetPath,
@@ -49,9 +49,9 @@ export function checkActivePlan(projectDir: string): CheckResult {
 		};
 	} catch {
 		return {
-			id: "ck-active-plan",
+			id: "hi-active-plan",
 			name: "Active Plan",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "warn",
 			message: "Unreadable",

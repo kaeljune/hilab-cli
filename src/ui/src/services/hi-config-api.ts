@@ -1,5 +1,5 @@
 /**
- * CK Config API client - Fetches and saves full .ck.json configuration
+ * CK Config API client - Fetches and saves full .hi.json configuration
  */
 
 import type { ConfigSource } from "../components/schema-form";
@@ -27,16 +27,16 @@ export interface CkConfigSaveResponse {
 }
 
 /**
- * Fetch full .ck.json config with source tracking
+ * Fetch full .hi.json config with source tracking
  */
 export async function fetchCkConfig(projectId?: string): Promise<CkConfigResponse> {
 	const url = projectId
-		? `${API_BASE}/ck-config?projectId=${encodeURIComponent(projectId)}`
-		: `${API_BASE}/ck-config`;
+		? `${API_BASE}/hi-config?projectId=${encodeURIComponent(projectId)}`
+		: `${API_BASE}/hi-config`;
 
 	const res = await fetch(url);
 	if (!res.ok) {
-		throw new Error(`Failed to fetch ck-config: ${res.status}`);
+		throw new Error(`Failed to fetch hi-config: ${res.status}`);
 	}
 	return res.json();
 }
@@ -53,18 +53,18 @@ export async function fetchCkConfigScope(
 		params.set("projectId", projectId);
 	}
 
-	const res = await fetch(`${API_BASE}/ck-config?${params}`);
+	const res = await fetch(`${API_BASE}/hi-config?${params}`);
 	if (!res.ok) {
-		throw new Error(`Failed to fetch ck-config: ${res.status}`);
+		throw new Error(`Failed to fetch hi-config: ${res.status}`);
 	}
 	return res.json();
 }
 
 /**
- * Save .ck.json config to specified scope
+ * Save .hi.json config to specified scope
  */
 export async function saveCkConfig(request: CkConfigSaveRequest): Promise<CkConfigSaveResponse> {
-	const res = await fetch(`${API_BASE}/ck-config`, {
+	const res = await fetch(`${API_BASE}/hi-config`, {
 		method: "PUT",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(request),
@@ -72,17 +72,17 @@ export async function saveCkConfig(request: CkConfigSaveRequest): Promise<CkConf
 
 	if (!res.ok) {
 		const error = await res.json().catch(() => ({ error: "Unknown error" }));
-		throw new Error(error.error || `Failed to save ck-config: ${res.status}`);
+		throw new Error(error.error || `Failed to save hi-config: ${res.status}`);
 	}
 
 	return res.json();
 }
 
 /**
- * Fetch the JSON Schema for .ck.json
+ * Fetch the JSON Schema for .hi.json
  */
 export async function fetchCkConfigSchema(): Promise<Record<string, unknown>> {
-	const res = await fetch(`${API_BASE}/ck-config/schema`);
+	const res = await fetch(`${API_BASE}/hi-config/schema`);
 	if (!res.ok) {
 		throw new Error(`Failed to fetch schema: ${res.status}`);
 	}
@@ -98,7 +98,7 @@ export async function updateCkConfigField(
 	scope: "global" | "project",
 	projectId?: string,
 ): Promise<void> {
-	const res = await fetch(`${API_BASE}/ck-config/field`, {
+	const res = await fetch(`${API_BASE}/hi-config/field`, {
 		method: "PATCH",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ scope, projectId, fieldPath, value }),

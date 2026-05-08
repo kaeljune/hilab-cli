@@ -5,13 +5,13 @@ import { dirname, join } from "node:path";
 import {
 	ProjectsRegistryManager,
 	clearDiscoveredProjectsCache,
-} from "@/domains/claudekit-data/index.js";
+} from "@/domains/hilab-data/index.js";
 import { registerHookLogRoutes } from "@/domains/web-server/routes/hook-log-routes.js";
 import { PathResolver } from "@/shared/path-resolver.js";
 import express, { type Express } from "express";
 
 const TEST_HOME = join(tmpdir(), `ck-hook-route-test-${Date.now()}-${process.pid}`);
-process.env.CK_TEST_HOME = TEST_HOME;
+process.env.HI_TEST_HOME = TEST_HOME;
 
 let baseUrl = "";
 let server: ReturnType<Express["listen"]>;

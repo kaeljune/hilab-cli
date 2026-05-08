@@ -1,10 +1,10 @@
 /**
  * Default section registry for the statusline layout config.
- * Used when no statuslineLayout is configured in .ck.json (backward compat).
+ * Used when no statuslineLayout is configured in .hi.json (backward compat).
  * Also consumed by the dashboard UI drag-drop builder.
  */
 
-import type { StatuslineSectionConfig, StatuslineSectionId } from "./ck-config.js";
+import type { StatuslineSectionConfig, StatuslineSectionId } from "./hi-config.js";
 
 // Default line layout — groups sections into terminal rows.
 // Line 0: session info, Line 1: location + stats, Line 2: activity

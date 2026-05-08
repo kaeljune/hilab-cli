@@ -5,12 +5,12 @@ import { dirname, join } from "node:path";
 import {
 	ProjectsRegistryManager,
 	clearDiscoveredProjectsCache,
-} from "@/domains/claudekit-data/index.js";
+} from "@/domains/hilab-data/index.js";
 import { readHookDiagnostics } from "@/services/claude-data/hook-log-reader.js";
 import { PathResolver } from "@/shared/path-resolver.js";
 
 const TEST_HOME = join(tmpdir(), `ck-hook-diagnostics-${Date.now()}-${process.pid}`);
-process.env.CK_TEST_HOME = TEST_HOME;
+process.env.HI_TEST_HOME = TEST_HOME;
 
 async function writeHookLog(filePath: string, lines: string[]): Promise<void> {
 	await mkdir(dirname(filePath), { recursive: true });

@@ -9,7 +9,7 @@ export {
 	type KitConfig,
 	KitLayoutSchema,
 	type KitLayout,
-	ClaudeKitPackageMetadataSchema,
+	HiLabPackageMetadataSchema,
 	DEFAULT_KIT_LAYOUT,
 	AVAILABLE_KITS,
 	NEVER_COPY_PATTERNS,
@@ -66,9 +66,9 @@ export {
 	ConfigSchema,
 	type Config,
 	type ComponentCounts,
-	type ClaudeKitMetadata,
-	type ClaudeKitSetupInfo,
-	type ClaudeKitSetup,
+	type HiLabMetadata,
+	type HiLabSetupInfo,
+	type HiLabSetup,
 } from "./metadata.js";
 
 // Skills types
@@ -87,7 +87,7 @@ export {
 
 // Error types
 export {
-	ClaudeKitError,
+	HiLabError,
 	AuthenticationError,
 	GitHubError,
 	DownloadError,
@@ -107,7 +107,7 @@ export type {
 	InstallResult,
 } from "./common.js";
 
-// ClaudeKit data types
+// HiLab data types
 export {
 	RegisteredProjectSchema,
 	type RegisteredProject,
@@ -116,9 +116,9 @@ export {
 	ProjectsRegistrySchema,
 	type ProjectsRegistry,
 	DEFAULT_PROJECTS_REGISTRY,
-} from "./claudekit-data.js";
+} from "./hilab-data.js";
 
-// CkConfig types (.ck.json schema)
+// CkConfig types (.hi.json schema)
 export {
 	// Enums and primitives
 	PlanValidationModeSchema,
@@ -183,7 +183,7 @@ export {
 	normalizeMigrateProvidersInput,
 	CK_HOOK_NAMES,
 	type CkHookName,
-} from "./ck-config.js";
+} from "./hi-config.js";
 
 // Statusline section defaults (dashboard UI + renderer fallback)
 export {

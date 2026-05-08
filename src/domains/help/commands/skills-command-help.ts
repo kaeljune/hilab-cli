@@ -9,15 +9,15 @@ import type { CommandHelp } from "../help-types.js";
 
 export const skillsCommandHelp: CommandHelp = {
 	name: "skills",
-	description: "Install, uninstall, and manage ClaudeKit skills across coding agents",
-	usage: "ck skills [options]",
+	description: "Install, uninstall, and manage HiLab skills across coding agents",
+	usage: "hi skills [options]",
 	examples: [
 		{
-			command: "ck skills --name frontend-design --agent claude-code -g",
+			command: "hi skills --name frontend-design --agent claude-code -g",
 			description: "Install skill to Claude Code globally",
 		},
 		{
-			command: "ck skills --list --installed",
+			command: "hi skills --list --installed",
 			description: "Show all installed skills with their locations",
 		},
 	],
@@ -27,7 +27,7 @@ export const skillsCommandHelp: CommandHelp = {
 			options: [
 				{
 					flags: "-l, --list",
-					description: "List available skills from ClaudeKit source",
+					description: "List available skills from HiLab source",
 				},
 				{
 					flags: "--installed",
@@ -128,9 +128,9 @@ export const skillsCommandHelp: CommandHelp = {
 		},
 		{
 			title: "Notes",
-			content: `  • Skills are installed from ~/.claude/skills (ClaudeKit Engineer source)
+			content: `  • Skills are installed from ~/.claude/skills (HiLab Engineer source)
   • OpenCode reuses Claude-compatible skill roots (.claude/skills, ~/.claude/skills), so installs may be a no-op
-  • Registry stored at ~/.claudekit/skill-registry.json
+  • Registry stored at ~/.hilab/skill-registry.json
   • Target paths vary by agent; some agents intentionally share a common skills directory`,
 		},
 	],

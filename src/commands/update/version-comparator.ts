@@ -54,7 +54,7 @@ export function isBetaVersion(version: string | undefined): boolean {
 }
 
 /**
- * Parse CLI version from `ck --version` output.
+ * Parse CLI version from `hi --version` output.
  * Returns null when output does not contain a recognizable version line.
  */
 export function parseCliVersionFromOutput(output: string): string | null {

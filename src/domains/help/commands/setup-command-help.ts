@@ -10,18 +10,18 @@ export const setupCommandHelp: CommandHelp = {
 	name: "setup",
 	description:
 		"Run guided setup for provider API keys, preferred image provider, and optional packages",
-	usage: "ck setup [options]",
+	usage: "hi setup [options]",
 	examples: [
 		{
-			command: "ck setup",
+			command: "hi setup",
 			description: "Run setup wizard in current project",
 		},
 		{
-			command: "ck setup --global",
+			command: "hi setup --global",
 			description: "Configure global provider keys and a preferred image-generation path",
 		},
 		{
-			command: "ck setup --global --skip-packages",
+			command: "hi setup --global --skip-packages",
 			description: "Configure global setup without package installation",
 		},
 	],

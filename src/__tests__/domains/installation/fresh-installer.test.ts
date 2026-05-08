@@ -52,7 +52,7 @@ const autoConfirmPrompts = {
 	promptFreshConfirmation: async () => true,
 } as unknown as PromptsManager;
 
-function makeTrackedFile(path: string, ownership: "ck" | "ck-modified" | "user" = "ck") {
+function makeTrackedFile(path: string, ownership: "hi" | "hi-modified" | "user" = "hi") {
 	return {
 		path,
 		checksum: FAKE_CHECKSUM,
@@ -66,7 +66,7 @@ function makeMultiKitMetadata(
 	files: ReturnType<typeof makeTrackedFile>[],
 	selfTrackMetadata = false,
 ) {
-	const fileList = selfTrackMetadata ? [makeTrackedFile("metadata.json", "ck"), ...files] : files;
+	const fileList = selfTrackMetadata ? [makeTrackedFile("metadata.json", "hi"), ...files] : files;
 	return {
 		kits: {
 			engineer: { version: FAKE_VERSION, installedAt: FAKE_DATE, files: fileList },
@@ -78,9 +78,9 @@ function makeLegacyMetadata(
 	files: ReturnType<typeof makeTrackedFile>[],
 	selfTrackMetadata = false,
 ) {
-	const fileList = selfTrackMetadata ? [makeTrackedFile("metadata.json", "ck"), ...files] : files;
+	const fileList = selfTrackMetadata ? [makeTrackedFile("metadata.json", "hi"), ...files] : files;
 	return {
-		name: "claudekit-engineer",
+		name: "hilab-engineer",
 		version: FAKE_VERSION,
 		installedAt: FAKE_DATE,
 		files: fileList,
@@ -111,9 +111,9 @@ async function runFreshInstall(claudeDir: string): Promise<{ success: boolean; e
 
 // ─── Test lifecycle ───────────────────────────────────────────────────────────
 
-// testPaths sets process.env.CK_TEST_HOME so PathResolver roots all directories
+// testPaths sets process.env.HI_TEST_HOME so PathResolver roots all directories
 // (backups, locks, config) under an isolated tmpdir — prevents pollution of the
-// real ~/.claudekit and avoids interference with other test files.
+// real ~/.hilab and avoids interference with other test files.
 let testPaths: TestPaths;
 let claudeDir: string;
 
@@ -141,7 +141,7 @@ describe("Fixture A — metadata.json self-tracked in kits.engineer.files", () =
 		writeMetadata(
 			claudeDir,
 			makeMultiKitMetadata(
-				[makeTrackedFile("commands/test.md", "ck")],
+				[makeTrackedFile("commands/test.md", "hi")],
 				true, // metadata.json listed as ck-owned tracked file
 			),
 		);
@@ -156,7 +156,7 @@ describe("Fixture A — metadata.json self-tracked in kits.engineer.files", () =
 	test("does not emit 'metadata.json is missing' error", async () => {
 		writeMetadata(
 			claudeDir,
-			makeMultiKitMetadata([makeTrackedFile("commands/test.md", "ck")], true),
+			makeMultiKitMetadata([makeTrackedFile("commands/test.md", "hi")], true),
 		);
 		writeTrackedFile(claudeDir, "commands/test.md");
 
@@ -168,7 +168,7 @@ describe("Fixture A — metadata.json self-tracked in kits.engineer.files", () =
 	test("CK-owned tracked files are removed", async () => {
 		writeMetadata(
 			claudeDir,
-			makeMultiKitMetadata([makeTrackedFile("commands/ck-file.md", "ck")], true),
+			makeMultiKitMetadata([makeTrackedFile("commands/ck-file.md", "hi")], true),
 		);
 		writeTrackedFile(claudeDir, "commands/ck-file.md");
 
@@ -196,7 +196,7 @@ describe("Fixture B — metadata.json missing mid-cleanup (race condition)", () 
 
 	test("metadata.json deleted before run still succeeds via fallback", async () => {
 		// Valid metadata written then immediately deleted — simulates worst-case race
-		writeMetadata(claudeDir, makeMultiKitMetadata([makeTrackedFile("commands/a.md", "ck")]));
+		writeMetadata(claudeDir, makeMultiKitMetadata([makeTrackedFile("commands/a.md", "hi")]));
 		writeTrackedFile(claudeDir, "commands/a.md");
 		unlinkSync(join(claudeDir, "metadata.json"));
 
@@ -214,8 +214,8 @@ describe("Fixture C — happy path (metadata.json NOT self-tracked)", () => {
 		writeMetadata(
 			claudeDir,
 			makeMultiKitMetadata([
-				makeTrackedFile("commands/cmd.md", "ck"),
-				makeTrackedFile("rules/rule.md", "ck"),
+				makeTrackedFile("commands/cmd.md", "hi"),
+				makeTrackedFile("rules/rule.md", "hi"),
 			]),
 		);
 		writeTrackedFile(claudeDir, "commands/cmd.md");
@@ -231,7 +231,7 @@ describe("Fixture C — happy path (metadata.json NOT self-tracked)", () => {
 	});
 
 	test("tracked CK files are removed", async () => {
-		writeMetadata(claudeDir, makeMultiKitMetadata([makeTrackedFile("commands/cmd.md", "ck")]));
+		writeMetadata(claudeDir, makeMultiKitMetadata([makeTrackedFile("commands/cmd.md", "hi")]));
 		writeTrackedFile(claudeDir, "commands/cmd.md");
 
 		await runFreshInstall(claudeDir);
@@ -243,7 +243,7 @@ describe("Fixture C — happy path (metadata.json NOT self-tracked)", () => {
 		writeMetadata(
 			claudeDir,
 			makeMultiKitMetadata([
-				makeTrackedFile("commands/ck.md", "ck"),
+				makeTrackedFile("commands/ck.md", "hi"),
 				makeTrackedFile("commands/user.md", "user"),
 			]),
 		);
@@ -259,13 +259,13 @@ describe("Fixture C — happy path (metadata.json NOT self-tracked)", () => {
 // ─── Fixture D: Mixed ownership, metadata.json self-tracked ──────────────────
 
 describe("Fixture D — mixed ownership, metadata.json self-tracked", () => {
-	test("ck and ck-modified removed, user preserved, no throw", async () => {
+	test("hi and ck-modified removed, user preserved, no throw", async () => {
 		writeMetadata(
 			claudeDir,
 			makeMultiKitMetadata(
 				[
-					makeTrackedFile("commands/ck.md", "ck"),
-					makeTrackedFile("commands/modified.md", "ck-modified"),
+					makeTrackedFile("commands/ck.md", "hi"),
+					makeTrackedFile("commands/modified.md", "hi-modified"),
 					makeTrackedFile("commands/user.md", "user"),
 				],
 				true, // metadata.json self-tracked as ck-owned
@@ -279,7 +279,7 @@ describe("Fixture D — mixed ownership, metadata.json self-tracked", () => {
 
 		expect(result.success).toBe(true);
 		expect(result.error).toBeUndefined();
-		// ck + ck-modified removed (handleFreshInstallation passes includeModified=true)
+		// hi + ck-modified removed (handleFreshInstallation passes includeModified=true)
 		expect(existsSync(join(claudeDir, "commands/ck.md"))).toBe(false);
 		expect(existsSync(join(claudeDir, "commands/modified.md"))).toBe(false);
 		// user-owned preserved
@@ -294,7 +294,7 @@ describe("Fixture E — legacy format (no kits), metadata.json self-tracked", ()
 		writeMetadata(
 			claudeDir,
 			makeLegacyMetadata(
-				[makeTrackedFile("commands/legacy.md", "ck")],
+				[makeTrackedFile("commands/legacy.md", "hi")],
 				true, // metadata.json self-tracked in legacy files[]
 			),
 		);
@@ -309,7 +309,7 @@ describe("Fixture E — legacy format (no kits), metadata.json self-tracked", ()
 	test("does not throw 'metadata.json is missing' error", async () => {
 		writeMetadata(
 			claudeDir,
-			makeLegacyMetadata([makeTrackedFile("commands/legacy.md", "ck")], true),
+			makeLegacyMetadata([makeTrackedFile("commands/legacy.md", "hi")], true),
 		);
 		writeTrackedFile(claudeDir, "commands/legacy.md");
 
@@ -321,7 +321,7 @@ describe("Fixture E — legacy format (no kits), metadata.json self-tracked", ()
 	test("CK files removed", async () => {
 		writeMetadata(
 			claudeDir,
-			makeLegacyMetadata([makeTrackedFile("commands/legacy.md", "ck")], true),
+			makeLegacyMetadata([makeTrackedFile("commands/legacy.md", "hi")], true),
 		);
 		writeTrackedFile(claudeDir, "commands/legacy.md");
 

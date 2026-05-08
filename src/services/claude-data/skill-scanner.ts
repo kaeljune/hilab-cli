@@ -88,7 +88,7 @@ async function getCkSkillMetadata(
 			if (!Array.isArray(kit.files)) continue;
 
 			for (const file of kit.files) {
-				if (file.ownership !== "ck") continue;
+				if (file.ownership !== "hi") continue;
 				const parts = file.path.split("/");
 				if (parts.length < 3 || parts[0] !== "skills") continue;
 

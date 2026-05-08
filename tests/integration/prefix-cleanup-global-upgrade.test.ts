@@ -15,7 +15,7 @@ function createLegacyMetadata() {
 	return JSON.stringify(
 		{
 			version: "2.10.1",
-			name: "claudekit-engineer",
+			name: "hilab-engineer",
 			description: "legacy prefixed install",
 			kits: {
 				engineer: {
@@ -25,13 +25,13 @@ function createLegacyMetadata() {
 						{
 							path: "commands/ck/ask.md",
 							checksum: "a".repeat(64),
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "2.10.1",
 						},
 						{
 							path: "commands/ck/coding-level.md",
 							checksum: "b".repeat(64),
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "2.10.1",
 						},
 					],
@@ -47,7 +47,7 @@ function createUpgradeKitMetadata() {
 	return JSON.stringify(
 		{
 			version: "2.16.0",
-			name: "claudekit-engineer",
+			name: "hilab-engineer",
 			description: "reproduction fixture",
 			deletions: ["commands/ask.md", "commands/coding-level.md"],
 		},
@@ -76,17 +76,17 @@ integrationDescribe("global prefixed upgrade cleanup", () => {
 	});
 
 	async function seedLegacyInstall() {
-		tempRoot = await mkdtemp(join(tmpdir(), "ck-prefix-upgrade-"));
+		tempRoot = await mkdtemp(join(tmpdir(), "hi-prefix-upgrade-"));
 		homeDir = join(tempRoot, "home");
 		kitDir = join(tempRoot, "kit-v2.16.0");
 
-		await mkdir(join(homeDir, ".claude", "commands", "ck"), { recursive: true });
+		await mkdir(join(homeDir, ".claude", "commands", "hi"), { recursive: true });
 		await mkdir(join(kitDir, ".claude", "skills", "ask"), { recursive: true });
 		await mkdir(join(kitDir, ".claude", "skills", "coding-level"), { recursive: true });
 
-		await writeFile(join(homeDir, ".claude", "commands", "ck", "ask.md"), "# Old ask command");
+		await writeFile(join(homeDir, ".claude", "commands", "hi", "ask.md"), "# Old ask command");
 		await writeFile(
-			join(homeDir, ".claude", "commands", "ck", "coding-level.md"),
+			join(homeDir, ".claude", "commands", "hi", "coding-level.md"),
 			"# Old coding-level command",
 		);
 		await writeFile(join(homeDir, ".claude", "metadata.json"), createLegacyMetadata());
@@ -125,8 +125,8 @@ integrationDescribe("global prefixed upgrade cleanup", () => {
 
 		runCli(`init -g --kit engineer --kit-path ${kitDir} --yes --install-skills`);
 
-		expect(existsSync(join(homeDir, ".claude", "commands", "ck", "ask.md"))).toBe(false);
-		expect(existsSync(join(homeDir, ".claude", "commands", "ck", "coding-level.md"))).toBe(false);
+		expect(existsSync(join(homeDir, ".claude", "commands", "hi", "ask.md"))).toBe(false);
+		expect(existsSync(join(homeDir, ".claude", "commands", "hi", "coding-level.md"))).toBe(false);
 		expect(existsSync(join(homeDir, ".claude", "skills", "ask", "SKILL.md"))).toBe(true);
 		expect(existsSync(join(homeDir, ".claude", "skills", "coding-level", "SKILL.md"))).toBe(true);
 

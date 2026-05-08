@@ -9,15 +9,15 @@ import { folderOptionsGroup } from "./common-options.js";
 
 export const initCommandHelp: CommandHelp = {
 	name: "init",
-	description: "Initialize or update ClaudeKit project (with interactive version selection)",
-	usage: "ck init [options]",
+	description: "Initialize or update HiLab project (with interactive version selection)",
+	usage: "hi init [options]",
 	examples: [
 		{
-			command: "ck init --kit engineer",
+			command: "hi init --kit engineer",
 			description: "Update local project with latest engineer kit",
 		},
 		{
-			command: "ck init --use-git --release v2.1.0 -y",
+			command: "hi init --use-git --release v2.1.0 -y",
 			description: "Non-interactive with git clone (no GitHub API needed)",
 		},
 	],
@@ -114,7 +114,7 @@ export const initCommandHelp: CommandHelp = {
 				},
 				{
 					flags: "--prefix",
-					description: "Add /ck: prefix to all slash commands",
+					description: "Add /hi: prefix to all slash commands",
 				},
 				{
 					flags: "--skip-setup",

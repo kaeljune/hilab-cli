@@ -13,8 +13,8 @@ interface TestServer {
 }
 
 async function setupServer(): Promise<TestServer> {
-	const testHome = await mkdtemp(join(tmpdir(), "ck-system-routes-"));
-	process.env.CK_TEST_HOME = testHome;
+	const testHome = await mkdtemp(join(tmpdir(), "hi-system-routes-"));
+	process.env.HI_TEST_HOME = testHome;
 
 	const app = express();
 	app.use(express.json());
@@ -35,7 +35,7 @@ async function setupServer(): Promise<TestServer> {
 
 async function teardownServer(ctx: TestServer): Promise<void> {
 	await new Promise<void>((resolveClose) => ctx.server.close(() => resolveClose()));
-	process.env.CK_TEST_HOME = undefined;
+	process.env.HI_TEST_HOME = undefined;
 	await rm(ctx.testHome, { recursive: true, force: true });
 }
 

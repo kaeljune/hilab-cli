@@ -63,11 +63,11 @@ export async function processFileOwnership(
 	const { dryRun = false, forceOverwrite = false } = options;
 	const ownershipResult = await OwnershipChecker.checkOwnership(file, metadata, claudeDir);
 
-	if (ownershipResult.ownership === "ck" && ownershipResult.exists) {
+	if (ownershipResult.ownership === "hi" && ownershipResult.exists) {
 		// CK-owned pristine file -> can be deleted
 		accumulator.results.push({
 			path: relativePath,
-			ownership: "ck",
+			ownership: "hi",
 			action: "delete",
 		});
 
@@ -79,12 +79,12 @@ export async function processFileOwnership(
 		return true; // Can delete
 	}
 
-	if (ownershipResult.ownership === "ck-modified") {
+	if (ownershipResult.ownership === "hi-modified") {
 		// Modified file - check forceOverwrite
 		if (forceOverwrite) {
 			accumulator.results.push({
 				path: relativePath,
-				ownership: "ck-modified",
+				ownership: "hi-modified",
 				action: "delete",
 				reason: "force overwrite",
 			});
@@ -99,7 +99,7 @@ export async function processFileOwnership(
 
 		accumulator.results.push({
 			path: relativePath,
-			ownership: "ck-modified",
+			ownership: "hi-modified",
 			action: "preserve",
 			reason: "modified by user",
 		});

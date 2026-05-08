@@ -1,5 +1,5 @@
 /**
- * Internal types for claudekit-data domain
+ * Internal types for hilab-data domain
  */
 import type { ProjectActionPreferences, RegisteredProject } from "@/types";
 

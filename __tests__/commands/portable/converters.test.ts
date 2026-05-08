@@ -80,7 +80,7 @@ describe("direct-copy converter", () => {
 	});
 
 	it("preserves raw source content when frontmatter is malformed", async () => {
-		const dir = await mkdtemp(join(tmpdir(), "ck-direct-copy-"));
+		const dir = await mkdtemp(join(tmpdir(), "hi-direct-copy-"));
 		const sourcePath = join(dir, "broken-command.md");
 		const rawContent = [
 			"---",

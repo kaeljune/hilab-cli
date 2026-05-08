@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
  *
  * Updated in #771: OPENCODE_DEFAULT_MODEL and suggestOpenCodeDefaultModel are removed.
  * Non-interactive mode without auth now throws OpenCodeAuthRequiredError.
- * Tests that relied on the old hardcoded default are updated to use .ck.json override
+ * Tests that relied on the old hardcoded default are updated to use .hi.json override
  * or interactive mode with a mock prompter.
  */
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
@@ -48,9 +48,9 @@ describe("ensureOpenCodeModel (project scope)", () => {
 	let cacheDir: string;
 
 	beforeEach(async () => {
-		tempDir = await mkdtemp(join(tmpdir(), "ck-opencode-"));
-		tempHome = await mkdtemp(join(tmpdir(), "ck-opencode-home-"));
-		cacheDir = await mkdtemp(join(tmpdir(), "ck-opencode-cache-"));
+		tempDir = await mkdtemp(join(tmpdir(), "hi-opencode-"));
+		tempHome = await mkdtemp(join(tmpdir(), "hi-opencode-home-"));
+		cacheDir = await mkdtemp(join(tmpdir(), "hi-opencode-cache-"));
 	});
 
 	afterEach(async () => {
@@ -160,7 +160,7 @@ describe("ensureOpenCodeModel (project scope)", () => {
 		expect(typeof contents.model).toBe("string");
 	});
 
-	it("honors .ck.json taxonomy override — wins over auth discovery, no auth needed", async () => {
+	it("honors .hi.json taxonomy override — wins over auth discovery, no auth needed", async () => {
 		setTaxonomyOverrides({
 			opencode: { default: { model: "anthropic/claude-opus-4-5" } },
 		});
@@ -242,8 +242,8 @@ describe("ensureOpenCodeModel (global scope)", () => {
 	let cacheDir: string;
 
 	beforeEach(async () => {
-		tempHome = await mkdtemp(join(tmpdir(), "ck-opencode-home-"));
-		cacheDir = await mkdtemp(join(tmpdir(), "ck-opencode-cache-"));
+		tempHome = await mkdtemp(join(tmpdir(), "hi-opencode-home-"));
+		cacheDir = await mkdtemp(join(tmpdir(), "hi-opencode-cache-"));
 	});
 
 	afterEach(async () => {
@@ -269,7 +269,7 @@ describe("ensureOpenCodeModel (global scope)", () => {
 		expect(typeof contents.model).toBe("string");
 	});
 
-	it(".ck.json override takes precedence and includes 'override' in reason", async () => {
+	it(".hi.json override takes precedence and includes 'override' in reason", async () => {
 		setTaxonomyOverrides({
 			opencode: { default: { model: "custom/local-model" } },
 		});

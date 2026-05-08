@@ -28,7 +28,7 @@ import { logger } from "../shared/logger.js";
 export function registerCommands(cli: ReturnType<typeof cac>): void {
 	// New command
 	cli
-		.command("new", "Bootstrap a new ClaudeKit project (with interactive version selection)")
+		.command("new", "Bootstrap a new HiLab project (with interactive version selection)")
 		.option("--dir <dir>", "Target directory (default: .)")
 		.option("--kit <kit>", "Kit to use: engineer, marketing, all, or comma-separated")
 		.option(
@@ -46,7 +46,7 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 		.option("--with-sudo", "Include system packages requiring sudo (Linux: ffmpeg, imagemagick)")
 		.option(
 			"--prefix",
-			"Add /ck: prefix to all slash commands by moving them to commands/ck/ subdirectory",
+			"Add /hi: prefix to all slash commands by moving them to commands/ck/ subdirectory",
 		)
 		.option("--beta", "Show beta versions in selection prompt")
 		.option("--refresh", "Bypass release cache to fetch latest versions from GitHub")
@@ -64,9 +64,9 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 			await newCommand(options);
 		});
 
-	// Init command (for initializing/updating ClaudeKit projects)
+	// Init command (for initializing/updating HiLab projects)
 	cli
-		.command("init", "Initialize or update ClaudeKit project (with interactive version selection)")
+		.command("init", "Initialize or update HiLab project (with interactive version selection)")
 		.option("--dir <dir>", "Target directory (default: .)")
 		.option("--kit <kit>", "Kit to use: engineer, marketing, all, or comma-separated")
 		.option(
@@ -94,7 +94,7 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 		.option("--with-sudo", "Include system packages requiring sudo (Linux: ffmpeg, imagemagick)")
 		.option(
 			"--prefix",
-			"Add /ck: prefix to all slash commands by moving them to commands/ck/ subdirectory",
+			"Add /hi: prefix to all slash commands by moving them to commands/ck/ subdirectory",
 		)
 		.option("--beta", "Show beta versions in selection prompt")
 		.option("--refresh", "Bypass release cache to fetch latest versions from GitHub")
@@ -128,15 +128,15 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 
 	// Update command (for updating the CLI itself)
 	cli
-		.command("update", "Update ClaudeKit CLI to the latest version")
+		.command("update", "Update HiLab CLI to the latest version")
 		.option("-r, --release <version>", "Update to a specific version")
 		.option("--check", "Check for updates without installing")
 		.option("-y, --yes", "Non-interactive mode with sensible defaults (skip all prompts)")
 		.option("-d, --dev", "Update to the latest dev version")
 		.option("--beta", "Alias for --dev (deprecated)")
 		.option("--registry <url>", "Custom npm registry URL")
-		.option("--kit <kit>", "[DEPRECATED] Use 'ck init --kit <kit>' instead")
-		.option("-g, --global", "[DEPRECATED] Use 'ck init --global' instead")
+		.option("--kit <kit>", "[DEPRECATED] Use 'hi init --kit <kit>' instead")
+		.option("-g, --global", "[DEPRECATED] Use 'hi init --global' instead")
 		.action(async (options) => {
 			// Grace handling for deprecated --kit and --global usage
 			if (options.kit || options.global) {
@@ -145,14 +145,14 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 					.filter(Boolean)
 					.join(" and ");
 				logger.warning(
-					`The ${deprecatedFlags} option${options.kit && options.global ? "s are" : " is"} no longer supported with 'ck update'`,
+					`The ${deprecatedFlags} option${options.kit && options.global ? "s are" : " is"} no longer supported with 'hi update'`,
 				);
 				console.log();
-				console.log("  'ck update' now only updates the ClaudeKit CLI itself.");
+				console.log("  'hi update' now only updates the HiLab CLI itself.");
 				console.log();
 				console.log("  To update a kit installation, use:");
 				// Build the suggested command
-				const suggestedCmd = ["ck init"];
+				const suggestedCmd = ["hi init"];
 				if (options.kit) suggestedCmd.push(`--kit ${options.kit}`);
 				if (options.global) suggestedCmd.push("--global");
 				console.log(`    ${suggestedCmd.join(" ")}`);
@@ -170,7 +170,7 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 
 	// Versions command
 	cli
-		.command("versions", "List available versions of ClaudeKit repositories")
+		.command("versions", "List available versions of HiLab repositories")
 		.option("--kit <kit>", "Filter by specific kit (engineer, marketing)")
 		.option("--limit <limit>", "Number of releases to show (default: 30)")
 		.option("--all", "Show all releases including prereleases")
@@ -180,7 +180,7 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 
 	// Doctor command
 	cli
-		.command("doctor", "Comprehensive health check for ClaudeKit")
+		.command("doctor", "Comprehensive health check for HiLab")
 		.option("--report", "Generate shareable diagnostic report")
 		.option("--fix", "Auto-fix all fixable issues")
 		.option("--check-only", "CI mode: no prompts, exit 1 on failures")
@@ -192,7 +192,7 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 
 	// Uninstall command
 	cli
-		.command("uninstall", "Remove ClaudeKit installations")
+		.command("uninstall", "Remove HiLab installations")
 		.option("-y, --yes", "Non-interactive mode with sensible defaults (skip all prompts)")
 		.option("-l, --local", "Uninstall only local installation (current project)")
 		.option("-g, --global", "Uninstall only global installation (~/.claude/)")
@@ -209,9 +209,9 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 
 	// Config command with subcommands
 	cli
-		.command("config [action] [key] [value]", "Manage ClaudeKit configuration")
-		.option("-g, --global", "Use global config (~/.claudekit/config.json)")
-		.option("-l, --local", "Use local config (.claude/.ck.json)")
+		.command("config [action] [key] [value]", "Manage HiLab configuration")
+		.option("-g, --global", "Use global config (~/.hilab/config.json)")
+		.option("-l, --local", "Use local config (.claude/.hi.json)")
 		.option("--json", "Output in JSON format")
 		.option("--port <port>", "Port for UI server (default: auto)")
 		.option("--host <host>", "Bind dashboard host (default: 127.0.0.1)")
@@ -236,7 +236,7 @@ export function registerCommands(cli: ReturnType<typeof cac>): void {
 
 	// Skill command - install skills to other coding agents
 	cli
-		.command("skills", "Install ClaudeKit skills to other coding agents")
+		.command("skills", "Install HiLab skills to other coding agents")
 		.option("-n, --name <skill>", "Skill name to install/uninstall")
 		.option("-a, --agent <agents...>", "Target agents (claude-code, cursor, codex, etc.)")
 		.option("-g, --global", "Install/uninstall globally instead of project-level")

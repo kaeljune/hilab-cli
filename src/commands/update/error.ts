@@ -3,13 +3,13 @@
  * Domain error class for update command failures.
  */
 
-import { ClaudeKitError } from "@/types";
+import { HiLabError } from "@/types";
 
 /**
  * Thrown when the CLI update command fails.
  * Caught and re-thrown by the orchestrator to surface user-facing messages.
  */
-export class CliUpdateError extends ClaudeKitError {
+export class CliUpdateError extends HiLabError {
 	constructor(message: string) {
 		super(message, "CLI_UPDATE_ERROR");
 		this.name = "CliUpdateError";

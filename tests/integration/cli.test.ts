@@ -286,10 +286,10 @@ integrationDescribe("CLI Integration Tests", () => {
 			}
 		});
 
-		test("should show kit version when in ClaudeKit project", async () => {
+		test("should show kit version when in HiLab project", async () => {
 			const projectDir = join(testDir, "test-version-in-project");
 
-			// Create a ClaudeKit project
+			// Create a HiLab project
 			execSync(
 				`node ${cliPath} new --dir ${projectDir} --kit engineer --force --release ${releaseVersion}`,
 				{

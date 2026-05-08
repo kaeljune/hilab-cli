@@ -94,7 +94,7 @@ async function assertManagedBackupDir(backupDir: string): Promise<string> {
 		!resolvedBackupDir.startsWith(`${managedBackupRoot}${sep}`) &&
 		resolvedBackupDir !== managedBackupRoot
 	) {
-		throw new Error(`Backup directory is outside ClaudeKit-managed storage: ${backupDir}`);
+		throw new Error(`Backup directory is outside HiLab-managed storage: ${backupDir}`);
 	}
 
 	return resolvedBackupDir;
@@ -387,7 +387,7 @@ export async function createDestructiveOperationBackup(
 			kit: request.kit,
 			items,
 			restoreNotes: [
-				"Backup was created before ClaudeKit performed a destructive operation.",
+				"Backup was created before HiLab performed a destructive operation.",
 				"Restore the snapshot paths back into sourceRoot to recover the previous state.",
 			],
 		};

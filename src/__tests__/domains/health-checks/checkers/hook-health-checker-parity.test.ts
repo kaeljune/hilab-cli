@@ -3,8 +3,8 @@
  *
  * Checker/fixer parity tests for the hook command path checker.
  *
- * Validates that `ck doctor --fix` fully resolves everything that
- * `ck doctor` flags — the root cause of issue #767 (anhhoangpham report:
+ * Validates that `hi doctor --fix` fully resolves everything that
+ * `hi doctor` flags — the root cause of issue #767 (anhhoangpham report:
  * 16 stale entries remain after --fix).
  *
  * Uses `expectFixerConvergence` from the shared helper to enforce the
@@ -42,8 +42,8 @@ async function setupTestContext(): Promise<TestContext> {
 	);
 	const projectDir = join(tempDir, "project");
 	await mkdir(projectDir, { recursive: true });
-	const originalCkTestHome = process.env.CK_TEST_HOME;
-	process.env.CK_TEST_HOME = tempDir;
+	const originalCkTestHome = process.env.HI_TEST_HOME;
+	process.env.HI_TEST_HOME = tempDir;
 	return { tempDir, projectDir, originalCkTestHome };
 }
 
@@ -54,9 +54,9 @@ async function teardownTestContext(ctx: TestContext): Promise<void> {
 		// the string "undefined", causing test pollution (PathResolver would see
 		// CK_TEST_HOME as a non-empty string instead of unset).
 		// biome-ignore lint/performance/noDelete: process.env semantics require delete to truly unset
-		delete process.env.CK_TEST_HOME;
+		delete process.env.HI_TEST_HOME;
 	} else {
-		process.env.CK_TEST_HOME = ctx.originalCkTestHome;
+		process.env.HI_TEST_HOME = ctx.originalCkTestHome;
 	}
 }
 

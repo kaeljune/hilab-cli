@@ -1,5 +1,5 @@
 /**
- * Dashboard launcher used by `ck config` (default) and `ck config ui` (alias)
+ * Dashboard launcher used by `hi config` (default) and `hi config ui` (alias)
  *
  * DEV QUICK START:
  *   bun run dashboard:dev
@@ -27,13 +27,13 @@ export async function configUICommand(options: ConfigUIOptions = {}): Promise<vo
 			const isAvailable = await checkPort(port, host);
 			if (!isAvailable) {
 				logger.error(`Port ${port} is already in use`);
-				logger.info("Try: ck config (auto-selects available port)");
+				logger.info("Try: hi config (auto-selects available port)");
 				process.exitCode = 1;
 				return;
 			}
 		}
 
-		logger.info("Starting ClaudeKit Dashboard...");
+		logger.info("Starting HiLab Dashboard...");
 
 		// Dynamic import to avoid bundling web-server in main CLI
 		const { startServer } = await import("@/domains/web-server/index.js");
@@ -47,7 +47,7 @@ export async function configUICommand(options: ConfigUIOptions = {}): Promise<vo
 
 		const urls = getDashboardUrls(server.host, server.port);
 		console.log();
-		console.log(pc.bold("  ClaudeKit Dashboard"));
+		console.log(pc.bold("  HiLab Dashboard"));
 		console.log(pc.dim("  ─────────────────────"));
 		if (urls.local) {
 			console.log(`  ${pc.green("➜")} Local: ${pc.cyan(urls.local)}`);

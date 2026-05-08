@@ -16,7 +16,7 @@ const SystemPage: React.FC = () => {
 
 	// Same panel sizing as the original GlobalConfigPage System tab
 	const { sizes, isDragging, startDrag } = usePanelSizes({
-		storageKey: "claudekit-global-system-panels",
+		storageKey: "hilab-global-system-panels",
 		defaultSizes: [70, 30],
 		minSizes: [45, 20],
 	});

@@ -68,7 +68,7 @@ describe("OwnershipChecker", () => {
 					{
 						path: "test.txt",
 						checksum,
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],
@@ -76,7 +76,7 @@ describe("OwnershipChecker", () => {
 
 			const result = await OwnershipChecker.checkOwnership(testFile, metadata, tempDir);
 
-			expect(result.ownership).toBe("ck");
+			expect(result.ownership).toBe("hi");
 			expect(result.expectedChecksum).toBe(checksum);
 			expect(result.actualChecksum).toBe(checksum);
 		});
@@ -92,7 +92,7 @@ describe("OwnershipChecker", () => {
 					{
 						path: "test.txt",
 						checksum: originalChecksum,
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],
@@ -103,7 +103,7 @@ describe("OwnershipChecker", () => {
 
 			const result = await OwnershipChecker.checkOwnership(testFile, metadata, tempDir);
 
-			expect(result.ownership).toBe("ck-modified");
+			expect(result.ownership).toBe("hi-modified");
 			expect(result.expectedChecksum).toBe(originalChecksum);
 			expect(result.actualChecksum).not.toBe(originalChecksum);
 		});
@@ -118,7 +118,7 @@ describe("OwnershipChecker", () => {
 					{
 						path: "other.txt",
 						checksum: "abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd",
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],
@@ -151,7 +151,7 @@ describe("OwnershipChecker", () => {
 					{
 						path: "commands/plan.md",
 						checksum,
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],
@@ -159,7 +159,7 @@ describe("OwnershipChecker", () => {
 
 			const result = await OwnershipChecker.checkOwnership(nestedFile, metadata, tempDir);
 
-			expect(result.ownership).toBe("ck");
+			expect(result.ownership).toBe("hi");
 		});
 	});
 
@@ -178,7 +178,7 @@ describe("OwnershipChecker", () => {
 					{
 						path: "file1.txt",
 						checksum: checksum1,
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],
@@ -187,7 +187,7 @@ describe("OwnershipChecker", () => {
 			const results = await OwnershipChecker.checkBatch([file1, file2], metadata, tempDir);
 
 			expect(results.size).toBe(2);
-			expect(results.get(file1)?.ownership).toBe("ck");
+			expect(results.get(file1)?.ownership).toBe("hi");
 			expect(results.get(file2)?.ownership).toBe("user");
 		});
 

@@ -2,7 +2,7 @@
  * Content Transformer for Command Prefix
  *
  * Transforms slash command references in file contents when --prefix is applied.
- * Changes `/plan:fast` → `/ck:plan:fast`, `/fix:types` → `/ck:fix:types`, etc.
+ * Changes `/plan:fast` → `/hi:plan:fast`, `/fix:types` → `/hi:fix:types`, etc.
  *
  * This complements prefix-applier.ts which only handles directory restructuring.
  */
@@ -45,9 +45,9 @@ const TRANSFORMABLE_EXTENSIONS = new Set([
  *
  * Skills excluded: cook, fix, brainstorm, scout, debug (migrated from commands)
  * Removed: code, integrate (no longer exist), kanban (slash-command retired
- *          in claudekit-engineer#711 — `kanban` still exists as a UI view
- *          mode and `ck plan kanban` subcommand, but is no longer a
- *          slash-command alias of `/ck:plans-kanban`)
+ *          in hilab-engineer#711 — `kanban` still exists as a UI view
+ *          mode and `hi plan kanban` subcommand, but is no longer a
+ *          slash-command alias of `/hi:plans-kanban`)
  */
 const COMMAND_ROOTS = [
 	// Primary workflow commands
@@ -79,7 +79,7 @@ const COMMAND_ROOTS = [
  * - HTML tags: `</code>`, `</test>`
  * - String literals in code: `'/journal'`, `"/journal"`
  * - URL paths: `/journal?dir=`, `/api/journal`
- * - Already prefixed: `/ck:plan:`
+ * - Already prefixed: `/hi:plan:`
  */
 function buildCommandPatterns(): Array<{ regex: RegExp; replacement: string }> {
 	const patterns: Array<{ regex: RegExp; replacement: string }> = [];

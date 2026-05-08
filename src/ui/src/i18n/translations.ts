@@ -99,7 +99,7 @@ export const translations = {
 		discard: "Discard",
 		saveChanges: "Save Changes",
 		mergedView: "Merged View",
-		localConfig: "Local (.ck.json)",
+		localConfig: "Local (.hi.json)",
 		globalConfig: "Global",
 		syntaxValid: "Syntax Valid",
 		configurationHelp: "Configuration Help",
@@ -113,7 +113,7 @@ export const translations = {
 		knowledgeBase: "Knowledge Base",
 		clickToSeeHelp:
 			"Click on any configuration field to see detailed documentation and usage examples.",
-		extractedFrom: "Extracted from ClaudeKit v2.x Specification",
+		extractedFrom: "Extracted from HiLab v2.x Specification",
 		resetToDefault: "Reset",
 		saving: "Saving...",
 		saved: "Saved",
@@ -150,7 +150,7 @@ export const translations = {
 		filesModifiedFromDefaults: "files modified from kit defaults",
 
 		// System dashboard
-		cliCard: "ClaudeKit CLI",
+		cliCard: "HiLab CLI",
 		checkForUpdates: "Check for Updates",
 		checking: "Checking...",
 		upToDate: "Up to date",
@@ -259,7 +259,7 @@ export const translations = {
 
 		// AddProjectModal.tsx
 		addProjectTitle: "Add Project",
-		addProjectDescription: "Add a new ClaudeKit project to the control center",
+		addProjectDescription: "Add a new HiLab project to the control center",
 		projectPath: "Project Path",
 		pathPlaceholder: "/path/to/project",
 		alias: "Alias",
@@ -286,11 +286,11 @@ export const translations = {
 		viewGlobalConfig: "This field inherits from global config. View",
 
 		// Onboarding.tsx - Kit comparison
-		onboardingTitle: "Welcome to ClaudeKit",
+		onboardingTitle: "Welcome to HiLab",
 		onboardingSubtitle: "Choose your kit and get started in minutes",
-		kitEngineerName: "ClaudeKit Engineer",
+		kitEngineerName: "HiLab Engineer",
 		kitEngineerTagline: "AI-powered coding with skills, hooks, and multi-agent workflows",
-		kitMarketingName: "ClaudeKit Marketing",
+		kitMarketingName: "HiLab Marketing",
 		kitMarketingTagline: "Content automation: campaigns, social media, analytics",
 
 		// Kit features
@@ -323,7 +323,7 @@ export const translations = {
 
 		// KitConfigPage.tsx
 		kitConfig: "Kit Config",
-		kitConfigSubtitle: "Configure ClaudeKit Engineer settings",
+		kitConfigSubtitle: "Configure HiLab Engineer settings",
 		scopeGlobal: "Global",
 		scopeProject: "Project",
 
@@ -431,17 +431,17 @@ export const translations = {
 		sectionUpdatePipeline: "Update Pipeline",
 		fieldAutoInitAfterUpdate: "Auto Init After Update",
 		fieldAutoInitAfterUpdateDesc:
-			"Automatically run ck init after ck update when kit has new version",
+			"Automatically run hi init after hi update when kit has new version",
 		fieldAutoMigrateAfterUpdate: "Auto Migrate After Update",
 		fieldAutoMigrateAfterUpdateDesc:
-			"Automatically run ck migrate after ck update (independent of init)",
+			"Automatically run hi migrate after hi update (independent of init)",
 		fieldMigrateProviders: "Migrate Providers",
 		fieldMigrateProvidersDesc:
 			"Which providers to auto-migrate. Use 'auto' to scan filesystem or a comma-separated list.",
 
 		// Skills page
 		skillsPageTitle: "Skills Management",
-		skillsPageDesc: "Install ClaudeKit skills to your coding agents",
+		skillsPageDesc: "Install HiLab skills to your coding agents",
 		availableSkills: "Available Skills",
 		installedSkills: "Installed Skills",
 		noSkillsFound: "No skills found",
@@ -1025,7 +1025,7 @@ export const translations = {
 
 		// Workflows Visualization Page
 		workflowsTitle: "Workflows",
-		workflowsSubtitle: "Learn ClaudeKit through interactive workflow visualization.",
+		workflowsSubtitle: "Learn HiLab through interactive workflow visualization.",
 		workflowsCredit: "Workflows data and visualization layout inspired by",
 		workflowImplementationRecipe: "Implementation Recipe",
 		workflowSearchPlaceholder: "Search workflows...",
@@ -1199,7 +1199,7 @@ export const translations = {
 		discard: "Hủy bỏ",
 		saveChanges: "Lưu thay đổi",
 		mergedView: "Chế độ gộp",
-		localConfig: "Cục bộ (.ck.json)",
+		localConfig: "Cục bộ (.hi.json)",
 		globalConfig: "Toàn cục",
 		syntaxValid: "Cú pháp hợp lệ",
 		configurationHelp: "Hướng dẫn cấu hình",
@@ -1213,7 +1213,7 @@ export const translations = {
 		knowledgeBase: "Cơ sở kiến thức",
 		clickToSeeHelp:
 			"Nhấp vào bất kỳ trường cấu hình nào để xem tài liệu chi tiết và ví dụ sử dụng.",
-		extractedFrom: "Trích xuất từ ClaudeKit v2.x Specification",
+		extractedFrom: "Trích xuất từ HiLab v2.x Specification",
 		resetToDefault: "Đặt lại",
 		saving: "Đang lưu...",
 		saved: "Đã lưu",
@@ -1250,7 +1250,7 @@ export const translations = {
 		filesModifiedFromDefaults: "tệp đã sửa so với mặc định",
 
 		// System dashboard
-		cliCard: "ClaudeKit CLI",
+		cliCard: "HiLab CLI",
 		checkForUpdates: "Kiểm tra cập nhật",
 		checking: "Đang kiểm tra...",
 		upToDate: "Đã cập nhật",
@@ -1357,7 +1357,7 @@ export const translations = {
 
 		// AddProjectModal.tsx
 		addProjectTitle: "Thêm dự án",
-		addProjectDescription: "Thêm dự án ClaudeKit mới vào trung tâm điều khiển",
+		addProjectDescription: "Thêm dự án HiLab mới vào trung tâm điều khiển",
 		projectPath: "Đường dẫn dự án",
 		pathPlaceholder: "/đường/dẫn/dự/án",
 		alias: "Bí danh",
@@ -1384,11 +1384,11 @@ export const translations = {
 		viewGlobalConfig: "Trường này kế thừa từ cấu hình toàn cục. Xem",
 
 		// Onboarding.tsx - Kit comparison
-		onboardingTitle: "Chào mừng đến ClaudeKit",
+		onboardingTitle: "Chào mừng đến HiLab",
 		onboardingSubtitle: "Chọn kit của bạn và bắt đầu trong vài phút",
-		kitEngineerName: "ClaudeKit Engineer",
+		kitEngineerName: "HiLab Engineer",
 		kitEngineerTagline: "Lập trình AI với skills, hooks và multi-agent",
-		kitMarketingName: "ClaudeKit Marketing",
+		kitMarketingName: "HiLab Marketing",
 		kitMarketingTagline: "Tự động hóa nội dung: chiến dịch, mạng xã hội, phân tích",
 
 		// Kit features
@@ -1421,7 +1421,7 @@ export const translations = {
 
 		// KitConfigPage.tsx
 		kitConfig: "Cấu hình Kit",
-		kitConfigSubtitle: "Cấu hình ClaudeKit Engineer",
+		kitConfigSubtitle: "Cấu hình HiLab Engineer",
 		scopeGlobal: "Toàn cục",
 		scopeProject: "Dự án",
 
@@ -1529,16 +1529,16 @@ export const translations = {
 		// Update Pipeline
 		sectionUpdatePipeline: "Pipeline Cập nhật",
 		fieldAutoInitAfterUpdate: "Tự động Init sau Update",
-		fieldAutoInitAfterUpdateDesc: "Tự động chạy ck init sau ck update khi kit có phiên bản mới",
+		fieldAutoInitAfterUpdateDesc: "Tự động chạy hi init sau hi update khi kit có phiên bản mới",
 		fieldAutoMigrateAfterUpdate: "Tự động Migrate sau Update",
-		fieldAutoMigrateAfterUpdateDesc: "Tự động chạy ck migrate sau ck update (độc lập với init)",
+		fieldAutoMigrateAfterUpdateDesc: "Tự động chạy hi migrate sau hi update (độc lập với init)",
 		fieldMigrateProviders: "Provider Migrate",
 		fieldMigrateProvidersDesc:
 			"Provider nào tự động migrate. Dùng 'auto' để quét hệ thống hoặc danh sách phân cách bằng dấu phẩy.",
 
 		// Skills page
 		skillsPageTitle: "Quản lý Kỹ năng",
-		skillsPageDesc: "Cài đặt kỹ năng ClaudeKit cho các agent lập trình",
+		skillsPageDesc: "Cài đặt kỹ năng HiLab cho các agent lập trình",
 		availableSkills: "Kỹ năng có sẵn",
 		installedSkills: "Kỹ năng đã cài",
 		noSkillsFound: "Không tìm thấy kỹ năng",
@@ -2121,7 +2121,7 @@ export const translations = {
 
 		// Workflows Visualization Page
 		workflowsTitle: "Quy trình",
-		workflowsSubtitle: "Tìm hiểu ClaudeKit thông qua hình ảnh hóa quy trình tương tác.",
+		workflowsSubtitle: "Tìm hiểu HiLab thông qua hình ảnh hóa quy trình tương tác.",
 		workflowsCredit: "Dữ liệu quy trình và giao diện được lấy cảm hứng từ",
 		workflowImplementationRecipe: "Công thức triển khai",
 		workflowSearchPlaceholder: "Tìm quy trình...",

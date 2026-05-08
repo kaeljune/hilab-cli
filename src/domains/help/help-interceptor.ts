@@ -69,13 +69,13 @@ export async function handleHelp(_args: readonly string[]): Promise<void> {
 		let output: string;
 
 		if (chain.length === 0) {
-			// Global help: ck --help
+			// Global help: hi --help
 			output = renderGlobalHelp(HELP_REGISTRY, options);
 		} else {
 			const [parentCmd, subCmd] = chain;
 			const parentHelp = HELP_REGISTRY[parentCmd];
 
-			// Attempt subcommand resolution: ck <parent> <sub> --help
+			// Attempt subcommand resolution: hi <parent> <sub> --help
 			if (subCmd && parentHelp.subcommands) {
 				const subHelp = parentHelp.subcommands.find((s) => s.name === subCmd);
 				if (subHelp) {

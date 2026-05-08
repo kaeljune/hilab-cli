@@ -16,7 +16,7 @@ export type WorkflowComplexity = "beginner" | "intermediate" | "advanced";
 export interface WorkflowStep {
 	id: string;
 	skill: string; // "plan", "cook", "test"
-	command?: string; // Resolved from skills API or fallback to "/ck:{skill}"
+	command?: string; // Resolved from skills API or fallback to "/hi:{skill}"
 	description?: string; // What this step does
 	transitionLabel?: string; // Label for edge to next step
 }

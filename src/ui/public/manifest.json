@@ -1,6 +1,6 @@
 {
-	"name": "ClaudeKit Control Center",
-	"short_name": "ClaudeKit",
+	"name": "HiLab Control Center",
+	"short_name": "HiLab",
 	"description": "Manage your Claude Code projects, skills, and configurations",
 	"start_url": "/",
 	"display": "standalone",

@@ -24,7 +24,7 @@ describe("Fresh Installer", () => {
 		claudeDir = join(testDir, ".claude");
 		await mkdir(claudeDir, { recursive: true });
 
-		// Create ClaudeKit-managed subdirectories (should be removed)
+		// Create HiLab-managed subdirectories (should be removed)
 		await mkdir(join(claudeDir, "commands"), { recursive: true });
 		await writeFile(join(claudeDir, "commands", "test.md"), "command");
 		await mkdir(join(claudeDir, "agents"), { recursive: true });
@@ -54,7 +54,7 @@ describe("Fresh Installer", () => {
 	});
 
 	function getBackupDirs(): string[] {
-		const backupRoot = join(testPaths.testHome, ".claudekit", "backups");
+		const backupRoot = join(testPaths.testHome, ".hilab", "backups");
 		if (!existsSync(backupRoot)) {
 			return [];
 		}
@@ -88,13 +88,13 @@ describe("Fresh Installer", () => {
 							{
 								path: "commands/test.md",
 								checksum: CHECKSUM_1,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "agents/test.md",
 								checksum: CHECKSUM_2,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
@@ -106,7 +106,7 @@ describe("Fresh Installer", () => {
 							{
 								path: "hooks/modified.sh",
 								checksum: CHECKSUM_4,
-								ownership: "ck-modified",
+								ownership: "hi-modified",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -176,7 +176,7 @@ describe("Fresh Installer", () => {
 			// .claude directory should still exist
 			expect(existsSync(claudeDir)).toBe(true);
 
-			// ClaudeKit subdirectories should be removed (fallback behavior)
+			// HiLab subdirectories should be removed (fallback behavior)
 			expect(existsSync(join(claudeDir, "commands"))).toBe(false);
 			expect(existsSync(join(claudeDir, "agents"))).toBe(false);
 			expect(existsSync(join(claudeDir, "skills"))).toBe(false);
@@ -203,13 +203,13 @@ describe("Fresh Installer", () => {
 							{
 								path: "commands/test.md",
 								checksum: CHECKSUM_1,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "agents/test.md",
 								checksum: CHECKSUM_2,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
@@ -221,7 +221,7 @@ describe("Fresh Installer", () => {
 							{
 								path: "hooks/test.sh",
 								checksum: CHECKSUM_4,
-								ownership: "ck-modified",
+								ownership: "hi-modified",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -267,7 +267,7 @@ describe("Fresh Installer", () => {
 							{
 								path: "skills/test.md",
 								checksum: CHECKSUM_1,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
@@ -333,7 +333,7 @@ describe("Fresh Installer", () => {
 		test("should cleanup empty directories after removing CK files", async () => {
 			// Create nested directory structure
 			await mkdir(join(claudeDir, "skills", "nested"), { recursive: true });
-			await writeFile(join(claudeDir, "skills", "nested", "ck-file.md"), "ck content");
+			await writeFile(join(claudeDir, "skills", "nested", "hi-file.md"), "ck content");
 
 			// Create metadata tracking only CK files
 			const metadata = {
@@ -345,13 +345,13 @@ describe("Fresh Installer", () => {
 							{
 								path: "skills/test.md",
 								checksum: CHECKSUM_1,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "skills/nested/ck-file.md",
 								checksum: CHECKSUM_2,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -370,7 +370,7 @@ describe("Fresh Installer", () => {
 
 			// Files should be removed
 			expect(existsSync(join(claudeDir, "skills", "test.md"))).toBe(false);
-			expect(existsSync(join(claudeDir, "skills", "nested", "ck-file.md"))).toBe(false);
+			expect(existsSync(join(claudeDir, "skills", "nested", "hi-file.md"))).toBe(false);
 
 			// Empty nested directory should be cleaned up
 			expect(existsSync(join(claudeDir, "skills", "nested"))).toBe(false);
@@ -390,7 +390,7 @@ describe("Fresh Installer", () => {
 							{
 								path: "commands/test.md",
 								checksum: CHECKSUM_1,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
@@ -449,13 +449,13 @@ describe("Fresh Installer", () => {
 							{
 								path: "commands/test.md",
 								checksum: CHECKSUM_1,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "agents/test.md",
 								checksum: CHECKSUM_2,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
@@ -498,13 +498,13 @@ describe("Fresh Installer", () => {
 							{
 								path: "commands/test.md",
 								checksum: CHECKSUM_1,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "agents/test.md",
 								checksum: CHECKSUM_2,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -538,7 +538,7 @@ describe("Fresh Installer", () => {
 							{
 								path: "commands/test.md",
 								checksum: CHECKSUM_1,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -577,7 +577,7 @@ describe("Fresh Installer", () => {
 							{
 								path: "commands/engineer-cmd.md",
 								checksum: CHECKSUM_1,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -589,7 +589,7 @@ describe("Fresh Installer", () => {
 							{
 								path: "commands/marketing-cmd.md",
 								checksum: CHECKSUM_2,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
@@ -636,13 +636,13 @@ describe("Fresh Installer", () => {
 							{
 								path: "commands/nonexistent.md",
 								checksum: CHECKSUM_1,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "commands/test.md",
 								checksum: CHECKSUM_2,
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -704,7 +704,7 @@ describe("Fresh Installer", () => {
 			const result = await handleFreshInstallation(pathWithSlashes, prompts);
 
 			expect(result).toBe(true);
-			// .claude directory should exist but ClaudeKit subdirectories should be removed
+			// .claude directory should exist but HiLab subdirectories should be removed
 			expect(existsSync(claudeDir)).toBe(true);
 			expect(existsSync(join(claudeDir, "commands"))).toBe(false);
 			expect(existsSync(join(claudeDir, ".env"))).toBe(true);

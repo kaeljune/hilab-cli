@@ -34,7 +34,7 @@ function scaffold(title: string, phases: Array<{ name: string; id?: string }>, d
 let testDir: string;
 
 beforeEach(() => {
-	testDir = mkdtempSync(join(tmpdir(), "ck-plan-writer-"));
+	testDir = mkdtempSync(join(tmpdir(), "hi-plan-writer-"));
 });
 
 afterEach(() => {
@@ -137,7 +137,7 @@ describe("generatePlanMd", () => {
 	test("includes createdBy=ck-cli by default", () => {
 		const output = generatePlanMd(baseOptions);
 		const { data } = matter(output);
-		expect(data.createdBy).toBe("ck-cli");
+		expect(data.createdBy).toBe("hi-cli");
 	});
 
 	test("includes source=cli by default", () => {

@@ -1,5 +1,5 @@
 import { PackageManagerDetector } from "@/domains/installation/package-manager-detector.js";
-import { CLAUDEKIT_CLI_INSTALL_COMMANDS } from "@/shared/claudekit-constants.js";
+import { HILAB_CLI_INSTALL_COMMANDS } from "@/shared/hilab-constants.js";
 import { logger } from "@/shared/logger.js";
 import type { CheckResult } from "../types.js";
 
@@ -11,9 +11,9 @@ export async function checkCliInstallMethod(): Promise<CheckResult> {
 	if (process.env.NODE_ENV === "test") {
 		logger.verbose("ClaudekitChecker: Skipping PM detection in test mode");
 		return {
-			id: "ck-cli-install-method",
+			id: "hi-cli-install-method",
 			name: "CLI Installed Via",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "pass",
 			message: "Test Mode (skipped)",
@@ -26,15 +26,15 @@ export async function checkCliInstallMethod(): Promise<CheckResult> {
 	const displayName = PackageManagerDetector.getDisplayName(pm);
 
 	return {
-		id: "ck-cli-install-method",
+		id: "hi-cli-install-method",
 		name: "CLI Installed Via",
-		group: "claudekit",
+		group: "hilab",
 		priority: "standard",
 		status: pm !== "unknown" ? "pass" : "warn",
 		message: pmVersion ? `${displayName} (v${pmVersion})` : displayName,
 		suggestion:
 			pm === "unknown"
-				? `Install with one of: ${CLAUDEKIT_CLI_INSTALL_COMMANDS.join(" | ")}`
+				? `Install with one of: ${HILAB_CLI_INSTALL_COMMANDS.join(" | ")}`
 				: undefined,
 		autoFixable: false,
 	};

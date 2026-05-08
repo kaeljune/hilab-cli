@@ -1,8 +1,8 @@
 /**
- * Handler for `ck projects list` command
+ * Handler for `hi projects list` command
  */
 
-import { ProjectsRegistryManager } from "@/domains/claudekit-data/index.js";
+import { ProjectsRegistryManager } from "@/domains/hilab-data/index.js";
 import { logger } from "@/shared/logger.js";
 import picocolors from "picocolors";
 import type { ProjectsListOptions } from "./types.js";
@@ -24,7 +24,7 @@ export async function handleList(options: ProjectsListOptions): Promise<void> {
 		console.log(picocolors.yellow("No projects registered yet."));
 		console.log();
 		console.log(picocolors.dim("  Add a project with:"));
-		console.log(picocolors.dim("    ck projects add <path>"));
+		console.log(picocolors.dim("    hi projects add <path>"));
 		console.log();
 		return;
 	}

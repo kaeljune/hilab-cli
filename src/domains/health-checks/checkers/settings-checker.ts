@@ -21,9 +21,9 @@ export async function checkSettingsValid(projectDir: string): Promise<CheckResul
 
 	if (!settingsPath) {
 		return {
-			id: "ck-settings-valid",
+			id: "hi-settings-valid",
 			name: "Settings.json",
-			group: "claudekit",
+			group: "hilab",
 			priority: "extended",
 			status: "info",
 			message: "No settings.json found",
@@ -36,9 +36,9 @@ export async function checkSettingsValid(projectDir: string): Promise<CheckResul
 		JSON.parse(content); // Validate JSON
 
 		return {
-			id: "ck-settings-valid",
+			id: "hi-settings-valid",
 			name: "Settings.json",
-			group: "claudekit",
+			group: "hilab",
 			priority: "extended",
 			status: "pass",
 			message: "Valid JSON",
@@ -77,9 +77,9 @@ export async function checkSettingsValid(projectDir: string): Promise<CheckResul
 		}
 
 		return {
-			id: "ck-settings-valid",
+			id: "hi-settings-valid",
 			name: "Settings.json",
-			group: "claudekit",
+			group: "hilab",
 			priority: "extended",
 			status: "fail",
 			message,

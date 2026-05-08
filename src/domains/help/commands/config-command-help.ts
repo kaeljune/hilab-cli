@@ -8,19 +8,19 @@ import type { CommandHelp } from "../help-types.js";
 
 export const configCommandHelp: CommandHelp = {
 	name: "config",
-	description: "Manage ClaudeKit configuration and launch the config dashboard",
-	usage: "ck config [action] [key] [value] [options]",
+	description: "Manage HiLab configuration and launch the config dashboard",
+	usage: "hi config [action] [key] [value] [options]",
 	examples: [
 		{
-			command: "ck config",
-			description: "Launch the web dashboard (same as 'ck config ui')",
+			command: "hi config",
+			description: "Launch the web dashboard (same as 'hi config ui')",
 		},
 		{
-			command: "ck config --host 0.0.0.0 --no-open",
+			command: "hi config --host 0.0.0.0 --no-open",
 			description: "Expose the dashboard to your network intentionally",
 		},
 		{
-			command: "ck config set defaults.kit engineer",
+			command: "hi config set defaults.kit engineer",
 			description: "Set a config value from the CLI",
 		},
 	],
@@ -51,11 +51,11 @@ export const configCommandHelp: CommandHelp = {
 			options: [
 				{
 					flags: "-g, --global",
-					description: "Use global config (~/.claudekit/config.json)",
+					description: "Use global config (~/.hilab/config.json)",
 				},
 				{
 					flags: "-l, --local",
-					description: "Use local config (.claude/.ck.json)",
+					description: "Use local config (.claude/.hi.json)",
 				},
 			],
 		},
@@ -94,28 +94,28 @@ export const configCommandHelp: CommandHelp = {
 		{
 			name: "ui",
 			description: "Launch config dashboard (default action when omitted)",
-			usage: "ck config ui [--port <port>] [--host <host>] [--no-open] [--dev]",
+			usage: "hi config ui [--port <port>] [--host <host>] [--no-open] [--dev]",
 			examples: [],
 			optionGroups: [],
 		},
 		{
 			name: "get",
 			description: "Read a config value",
-			usage: "ck config get <key> [-g | -l] [--json]",
+			usage: "hi config get <key> [-g | -l] [--json]",
 			examples: [],
 			optionGroups: [],
 		},
 		{
 			name: "set",
 			description: "Write a config value",
-			usage: "ck config set <key> <value> [-g | -l]",
+			usage: "hi config set <key> <value> [-g | -l]",
 			examples: [],
 			optionGroups: [],
 		},
 		{
 			name: "show",
 			description: "Print merged config",
-			usage: "ck config show [-g | -l] [--json]",
+			usage: "hi config show [-g | -l] [--json]",
 			examples: [],
 			optionGroups: [],
 		},
@@ -124,7 +124,7 @@ export const configCommandHelp: CommandHelp = {
 		{
 			title: "Notes",
 			content:
-				"Run 'ck config --help' to see both CLI actions and dashboard flags. Running bare 'ck config' opens the dashboard directly. Use '--host' to expose the dashboard intentionally beyond localhost.",
+				"Run 'hi config --help' to see both CLI actions and dashboard flags. Running bare 'hi config' opens the dashboard directly. Use '--host' to expose the dashboard intentionally beyond localhost.",
 		},
 	],
 };

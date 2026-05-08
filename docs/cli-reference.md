@@ -1,4 +1,4 @@
-# ClaudeKit CLI Reference
+# HiLab CLI Reference
 
 Complete reference for all `ck` commands, auto-generated from the help registry.
 
@@ -52,7 +52,7 @@ Install, uninstall, and manage Claude Code agents across providers
 
 ## ck api
 
-Interact with ClaudeKit API and proxy services
+Interact with HiLab API and proxy services
 
 **Usage:** `ck api [action] [service] [path] [options]`
 
@@ -93,7 +93,7 @@ List available proxy services
 
 ### setup
 
-Configure and store your ClaudeKit API key
+Configure and store your HiLab API key
 
 **Usage:** `ck api setup [--key <key>] [--force] [--json]`
 
@@ -107,7 +107,7 @@ Configure and store your ClaudeKit API key
 
 ### proxy
 
-Generic HTTP proxy to any ClaudeKit-backed service
+Generic HTTP proxy to any HiLab-backed service
 
 **Usage:** `ck api proxy <service> <path> [options]`
 
@@ -223,7 +223,7 @@ Download media or extract media URLs from a video
 
 ### reviewweb
 
-Web scraping and SEO analysis via the ClaudeKit proxy
+Web scraping and SEO analysis via the HiLab proxy
 
 **Usage:** `ck api reviewweb <action> <url|domain|keyword>`
 
@@ -352,7 +352,7 @@ Fetch backlink profile for a domain
 
 ## ck backups
 
-List, restore, and prune ClaudeKit recovery backups
+List, restore, and prune HiLab recovery backups
 
 **Usage:** `ck backups <list|restore|prune> [options]`
 
@@ -360,7 +360,7 @@ List, restore, and prune ClaudeKit recovery backups
 
 | Flag | Description | Default |
 |------|-------------|----------|
-| `list [--limit <n>] [--json]` | List recovery backups under ~/.claudekit/backups/ | — |
+| `list [--limit <n>] [--json]` | List recovery backups under ~/.hilab/backups/ | — |
 | `restore <id> [--yes] [--json]` | Restore a specific recovery backup to its original source root | — |
 | `prune [id] [--keep <n> \| --all] [--yes] [--json]` | Delete one, many, or old recovery backups | — |
 | `--limit <n>` | Show only the newest N backups | — |
@@ -376,15 +376,15 @@ List, restore, and prune ClaudeKit recovery backups
 
 **Backup Scope:**
 
-These backups contain only the ClaudeKit-managed files targeted by destructive operations, not the full ~/.claude/ directory.
+These backups contain only the HiLab-managed files targeted by destructive operations, not the full ~/.claude/ directory.
 
 **Automatic Retention:**
 
-ClaudeKit keeps the newest recovery backups automatically and prunes older ones after successful destructive operations.
+HiLab keeps the newest recovery backups automatically and prunes older ones after successful destructive operations.
 
 ### list
 
-List recovery backups under ~/.claudekit/backups/
+List recovery backups under ~/.hilab/backups/
 
 **Usage:** `ck backups list [--limit <n>] [--json]`
 
@@ -430,7 +430,7 @@ Install, uninstall, and manage Claude commands across providers
 
 ## ck config
 
-Manage ClaudeKit configuration and launch the config dashboard
+Manage HiLab configuration and launch the config dashboard
 
 **Usage:** `ck config [action] [key] [value] [options]`
 
@@ -442,8 +442,8 @@ Manage ClaudeKit configuration and launch the config dashboard
 | `get <key>` | Read a config value | — |
 | `set <key> <value>` | Write a config value | — |
 | `show` | Print merged config | — |
-| `-g, --global` | Use global config (~/.claudekit/config.json) | — |
-| `-l, --local` | Use local config (.claude/.ck.json) | — |
+| `-g, --global` | Use global config (~/.hilab/config.json) | — |
+| `-l, --local` | Use local config (.claude/.hi.json) | — |
 | `--port <port>` | Port for dashboard server | — |
 | `--host <host>` | Bind dashboard host (default: 127.0.0.1) | — |
 | `--no-open` | Do not auto-open browser when launching dashboard | — |
@@ -517,7 +517,7 @@ Multi-channel content automation engine
 
 **Notes:**
 
-Requires content config in .ck.json. Run 'ck content setup' for guided configuration. Review mode can be 'auto' or 'manual' (default: manual).
+Requires content config in .hi.json. Run 'ck content setup' for guided configuration. Review mode can be 'auto' or 'manual' (default: manual).
 
 ### start
 
@@ -570,7 +570,7 @@ Reject a content item
 
 ## ck doctor
 
-Comprehensive health check for ClaudeKit
+Comprehensive health check for HiLab
 
 **Usage:** `ck doctor [options]`
 
@@ -593,7 +593,7 @@ Comprehensive health check for ClaudeKit
 
 ## ck init
 
-Initialize or update ClaudeKit project (with interactive version selection)
+Initialize or update HiLab project (with interactive version selection)
 
 **Usage:** `ck init [options]`
 
@@ -683,7 +683,7 @@ Migrate Claude Code agents, commands, skills, config, rules, and hooks to other 
 
 ## ck new
 
-Bootstrap a new ClaudeKit project (with interactive version selection)
+Bootstrap a new HiLab project (with interactive version selection)
 
 **Usage:** `ck new [options]`
 
@@ -839,7 +839,7 @@ Append a new phase to an existing plan
 
 ## ck projects
 
-Manage local ClaudeKit project registry entries
+Manage local HiLab project registry entries
 
 **Usage:** `ck projects <subcommand> [options]`
 
@@ -904,7 +904,7 @@ Run guided setup for provider API keys, preferred image provider, and optional p
 
 ## ck skills
 
-Install, uninstall, and manage ClaudeKit skills across coding agents
+Install, uninstall, and manage HiLab skills across coding agents
 
 **Usage:** `ck skills [options]`
 
@@ -912,7 +912,7 @@ Install, uninstall, and manage ClaudeKit skills across coding agents
 
 | Flag | Description | Default |
 |------|-------------|----------|
-| `-l, --list` | List available skills from ClaudeKit source | — |
+| `-l, --list` | List available skills from HiLab source | — |
 | `--installed` | When used with --list, show installed skills instead | — |
 | `-u, --uninstall` | Uninstall skill(s) from agent(s) | — |
 | `--sync` | Sync registry with filesystem (clean orphaned entries) | — |
@@ -953,15 +953,15 @@ Install, uninstall, and manage ClaudeKit skills across coding agents
 
 **Notes:**
 
-  • Skills are installed from ~/.claude/skills (ClaudeKit Engineer source)
+  • Skills are installed from ~/.claude/skills (HiLab Engineer source)
   • OpenCode reuses Claude-compatible skill roots (.claude/skills, ~/.claude/skills), so installs may be a no-op
-  • Registry stored at ~/.claudekit/skill-registry.json
+  • Registry stored at ~/.hilab/skill-registry.json
   • Target paths vary by agent; some agents intentionally share a common skills directory
 
 
 ## ck uninstall
 
-Remove ClaudeKit installations (ownership-aware)
+Remove HiLab installations (ownership-aware)
 
 **Usage:** `ck uninstall [options]`
 
@@ -989,7 +989,7 @@ Uninstall preserves user customizations by default. Only CK-installed files that
 
 ## ck update
 
-Update ClaudeKit CLI tool only (not kit content)
+Update HiLab CLI tool only (not kit content)
 
 **Usage:** `ck update [options]`
 
@@ -1018,7 +1018,7 @@ Update ClaudeKit CLI tool only (not kit content)
 
 ## ck versions
 
-List available versions of ClaudeKit repositories
+List available versions of HiLab repositories
 
 **Usage:** `ck versions [options]`
 

@@ -40,14 +40,14 @@ export class GitCloneManager {
 
 	constructor() {
 		// Use system temp with proper cross-platform fallbacks
-		// Priority: TMPDIR → TEMP → TMP → HOME/.claudekit/tmp → USERPROFILE/.claudekit/tmp → os.tmpdir()
+		// Priority: TMPDIR → TEMP → TMP → HOME/.hilab/tmp → USERPROFILE/.hilab/tmp → os.tmpdir()
 		const homeDir = process.env.HOME || process.env.USERPROFILE;
 		this.tempBaseDir =
 			process.env.TMPDIR ||
 			process.env.TEMP ||
 			process.env.TMP ||
-			(homeDir ? path.join(homeDir, ".claudekit", "tmp") : null) ||
-			path.join(os.tmpdir(), ".claudekit", "tmp");
+			(homeDir ? path.join(homeDir, ".hilab", "tmp") : null) ||
+			path.join(os.tmpdir(), ".hilab", "tmp");
 	}
 
 	/**
@@ -175,7 +175,7 @@ Check disk space and directory permissions.`,
 			) {
 				logger.debug("SSH clone failed, user may need to add SSH key to GitHub");
 				throw new Error(
-					`Git clone failed: SSH authentication error.\n\nYour SSH key may not be configured for GitHub.\n\nSolutions:\n  1. Add your SSH key to GitHub: github.com/settings/keys\n  2. Use HTTPS instead: ck new --use-git=https\n  3. Use GitHub CLI: gh auth login\n\nOriginal error: ${stderr || errorMessage}`,
+					`Git clone failed: SSH authentication error.\n\nYour SSH key may not be configured for GitHub.\n\nSolutions:\n  1. Add your SSH key to GitHub: github.com/settings/keys\n  2. Use HTTPS instead: hi new --use-git=https\n  3. Use GitHub CLI: gh auth login\n\nOriginal error: ${stderr || errorMessage}`,
 				);
 			}
 

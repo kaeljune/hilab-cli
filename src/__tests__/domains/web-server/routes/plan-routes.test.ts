@@ -6,7 +6,7 @@ import { afterAll, beforeAll, describe, expect, spyOn, test } from "bun:test";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import * as ClaudeKitData from "@/domains/claudekit-data/index.js";
+import * as HiLabData from "@/domains/hilab-data/index.js";
 import { clearActionStore } from "@/domains/plan-actions/action-signal.js";
 import {
 	clearPlanRouteCaches,
@@ -31,10 +31,10 @@ let getProjectSpy: ReturnType<typeof spyOn>;
 
 beforeAll(() => {
 	clearPlanRouteCaches();
-	scanClaudeProjectsSpy = spyOn(ClaudeKitData, "scanClaudeProjects").mockReturnValue([
+	scanClaudeProjectsSpy = spyOn(HiLabData, "scanClaudeProjects").mockReturnValue([
 		{ path: EXTERNAL_PROJECT, lastModified: new Date() },
 	]);
-	getProjectSpy = spyOn(ClaudeKitData.ProjectsRegistryManager, "getProject").mockImplementation(
+	getProjectSpy = spyOn(HiLabData.ProjectsRegistryManager, "getProject").mockImplementation(
 		async (identifier: string) =>
 			identifier === EXTERNAL_REGISTERED_PROJECT_ID
 				? {
@@ -108,7 +108,7 @@ title: Sub Plan
 	);
 
 	writeFileSync(
-		join(EXTERNAL_PROJECT, ".claude", ".ck.json"),
+		join(EXTERNAL_PROJECT, ".claude", ".hi.json"),
 		JSON.stringify(
 			{
 				paths: {

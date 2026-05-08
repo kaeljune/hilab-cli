@@ -207,14 +207,14 @@ describe("help-types", () => {
 
 	test("GlobalHelp type usage", () => {
 		const globalHelp: GlobalHelp = {
-			name: "ck",
-			description: "ClaudeKit CLI",
+			name: "hi",
+			description: "HiLab CLI",
 			version: "1.0.0",
 			usage: "ck [command] [options]",
 			commands: [],
 			globalOptions: [],
 		};
-		expect(globalHelp.name).toBe("ck");
+		expect(globalHelp.name).toBe("hi");
 	});
 
 	test("no any types used (compile-time check)", () => {

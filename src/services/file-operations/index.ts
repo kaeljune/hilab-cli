@@ -8,15 +8,15 @@ export {
 	scanDirectoryTree,
 	filterItemsByPatterns,
 	flattenSelectedItems,
-	getClaudeKitDirectories,
+	getHiLabDirectories,
 	createDefaultSelection,
 	type DirectoryItem,
 	type SelectionState,
 } from "./directory-selector.js";
 export {
-	scanClaudeKitDirectory,
-	readClaudeKitMetadata,
-	getClaudeKitSetup,
-	type ClaudeKitMetadata,
-} from "./claudekit-scanner.js";
+	scanHiLabDirectory,
+	readHiLabMetadata,
+	getHiLabSetup,
+	type HiLabMetadata,
+} from "./hilab-scanner.js";
 export { OwnershipChecker, type OwnershipCheckResult } from "./ownership-checker.js";

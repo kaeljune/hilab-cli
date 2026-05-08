@@ -5,8 +5,8 @@
  * CJS engineer parser (plan-table-parser.cjs) produce identical output
  * for the same markdown input across all supported formats (0-6).
  *
- * CJS parser: claudekit-engineer/.claude/skills/_shared/lib/plan-table-parser.cjs
- * TS parser:  claudekit-cli/src/domains/plan-parser/plan-table-parser.ts
+ * CJS parser: hilab-engineer/.claude/skills/_shared/lib/plan-table-parser.cjs
+ * TS parser:  hilab-cli/src/domains/plan-parser/plan-table-parser.ts
  */
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
@@ -18,7 +18,7 @@ import { parsePlanPhases as tsParsePlanPhases } from "@/domains/plan-parser/plan
 // Bun supports require() for CJS modules natively
 const CJS_PARSER_PATH = resolve(
 	__dirname,
-	"../../../../../claudekit-engineer/.claude/skills/_shared/lib/plan-table-parser.cjs",
+	"../../../../../hilab-engineer/.claude/skills/_shared/lib/plan-table-parser.cjs",
 );
 const HAS_CJS_PARSER = existsSync(CJS_PARSER_PATH);
 
@@ -43,7 +43,7 @@ interface NormalizedPhase {
 let testDir: string;
 
 beforeEach(() => {
-	testDir = mkdtempSync(join(tmpdir(), "ck-parity-"));
+	testDir = mkdtempSync(join(tmpdir(), "hi-parity-"));
 });
 
 afterEach(() => {

@@ -37,7 +37,7 @@ NON_INTERACTIVE=1 ck doctor
 - Updated command description in project structure (line 42)
 - Comprehensive `doctor.ts` feature documentation (lines 116-137)
 - New utility module documentation:
-  - `claudekit-scanner.ts`: Setup detection logic
+  - `hilab-scanner.ts`: Setup detection logic
   - `dependency-checker.ts`: Validation and version checking
   - `dependency-installer.ts`: Cross-platform installation
 - Updated test coverage metrics
@@ -88,7 +88,7 @@ NON_INTERACTIVE=1 ck doctor
 - Shows manual instructions as fallback
 - Supports non-interactive mode for CI/CD
 - Cross-platform: Windows, macOS, Linux (+ WSL)
-- Displays ClaudeKit setup (global and project)
+- Displays HiLab setup (global and project)
 - Reports component counts (agents, commands, workflows, skills)
 
 ### Installation Methods

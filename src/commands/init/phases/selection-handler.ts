@@ -73,7 +73,7 @@ export async function handleSelection(ctx: InitContext): Promise<InitContext> {
 				}
 			}
 			logger.info("");
-			logger.info("Full diagnostics: ck doctor");
+			logger.info("Full diagnostics: hi doctor");
 			return { ...ctx, cancelled: true };
 		}
 
@@ -82,11 +82,11 @@ export async function handleSelection(ctx: InitContext): Promise<InitContext> {
 			accessibleKits = await detectAccessibleKits();
 		} catch (err) {
 			// Non-404 errors (network failure, auth error, rate limit) propagate here
-			// when PR1 lands. Surface the classified message and hint to ck doctor.
+			// when PR1 lands. Surface the classified message and hint to hi doctor.
 			const message = err instanceof Error ? err.message : String(err);
 			logger.error(`Failed to check repository access: ${message}`);
 			logger.info("");
-			logger.info("Run: ck doctor");
+			logger.info("Run: hi doctor");
 			return { ...ctx, cancelled: true };
 		}
 
@@ -95,7 +95,7 @@ export async function handleSelection(ctx: InitContext): Promise<InitContext> {
 			logger.error("No repository access found.");
 			logger.info("Check email for GitHub invitation");
 			logger.info("");
-			logger.info("Full diagnostics: ck doctor");
+			logger.info("Full diagnostics: hi doctor");
 			return { ...ctx, cancelled: true };
 		}
 	}
@@ -249,7 +249,7 @@ export async function handleSelection(ctx: InitContext): Promise<InitContext> {
 	// HOME directory detection: warn if installing to HOME without --global flag
 	// Installing to HOME's .claude/ is effectively a global installation
 	if (!ctx.options.global && PathResolver.isLocalSameAsGlobal(resolvedDir)) {
-		logger.warning("You're at HOME directory. Installing here modifies your GLOBAL ClaudeKit.");
+		logger.warning("You're at HOME directory. Installing here modifies your GLOBAL HiLab.");
 
 		if (!ctx.isNonInteractive) {
 			// Interactive mode: offer choices
@@ -264,7 +264,7 @@ export async function handleSelection(ctx: InitContext): Promise<InitContext> {
 			// "different" choice would require re-prompting for directory, but for simplicity
 			// we just cancel and ask them to run from a different directory
 			if (choice === "different") {
-				logger.info("Please run 'ck init' from a project directory instead.");
+				logger.info("Please run 'hi init' from a project directory instead.");
 				return { ...ctx, cancelled: true };
 			}
 		} else {
@@ -282,7 +282,7 @@ export async function handleSelection(ctx: InitContext): Promise<InitContext> {
 			logger.info(`Created global directory: ${resolvedDir}`);
 		} else {
 			logger.error(`Directory does not exist: ${resolvedDir}`);
-			logger.info('Use "ck new" to create a new project');
+			logger.info('Use "hi new" to create a new project');
 			return { ...ctx, cancelled: true };
 		}
 	}

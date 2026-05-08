@@ -15,7 +15,7 @@ import {
 
 describe("loadPortableManifest", () => {
 	test("loads valid manifest", async () => {
-		const tmpDir = await mkdtemp(join(tmpdir(), "ck-manifest-test-"));
+		const tmpDir = await mkdtemp(join(tmpdir(), "hi-manifest-test-"));
 
 		const manifest: PortableManifest = {
 			version: "1.0",
@@ -40,21 +40,21 @@ describe("loadPortableManifest", () => {
 	});
 
 	test("returns null on missing manifest", async () => {
-		const tmpDir = await mkdtemp(join(tmpdir(), "ck-manifest-test-"));
+		const tmpDir = await mkdtemp(join(tmpdir(), "hi-manifest-test-"));
 		const loaded = await loadPortableManifest(tmpDir);
 		expect(loaded).toBeNull();
 		await rm(tmpDir, { recursive: true });
 	});
 
 	test("throws on invalid JSON", async () => {
-		const tmpDir = await mkdtemp(join(tmpdir(), "ck-manifest-test-"));
+		const tmpDir = await mkdtemp(join(tmpdir(), "hi-manifest-test-"));
 		await writeFile(join(tmpDir, "portable-manifest.json"), "not json", "utf-8");
 		await expect(loadPortableManifest(tmpDir)).rejects.toThrow();
 		await rm(tmpDir, { recursive: true });
 	});
 
 	test("throws on schema validation failure", async () => {
-		const tmpDir = await mkdtemp(join(tmpdir(), "ck-manifest-test-"));
+		const tmpDir = await mkdtemp(join(tmpdir(), "hi-manifest-test-"));
 
 		const invalid = {
 			version: "2.0", // Invalid version
@@ -68,7 +68,7 @@ describe("loadPortableManifest", () => {
 	});
 
 	test("rejects path traversal in rename paths", async () => {
-		const tmpDir = await mkdtemp(join(tmpdir(), "ck-manifest-test-"));
+		const tmpDir = await mkdtemp(join(tmpdir(), "hi-manifest-test-"));
 
 		const malicious = {
 			version: "1.0",
@@ -84,7 +84,7 @@ describe("loadPortableManifest", () => {
 	});
 
 	test("rejects absolute paths in rename paths", async () => {
-		const tmpDir = await mkdtemp(join(tmpdir(), "ck-manifest-test-"));
+		const tmpDir = await mkdtemp(join(tmpdir(), "hi-manifest-test-"));
 
 		const malicious = {
 			version: "1.0",
@@ -100,7 +100,7 @@ describe("loadPortableManifest", () => {
 	});
 
 	test("rejects empty strings in rename paths", async () => {
-		const tmpDir = await mkdtemp(join(tmpdir(), "ck-manifest-test-"));
+		const tmpDir = await mkdtemp(join(tmpdir(), "hi-manifest-test-"));
 
 		const invalid = {
 			version: "1.0",
@@ -116,7 +116,7 @@ describe("loadPortableManifest", () => {
 	});
 
 	test("rejects path traversal in providerPathMigrations", async () => {
-		const tmpDir = await mkdtemp(join(tmpdir(), "ck-manifest-test-"));
+		const tmpDir = await mkdtemp(join(tmpdir(), "hi-manifest-test-"));
 
 		const malicious = {
 			version: "1.0",
@@ -140,7 +140,7 @@ describe("loadPortableManifest", () => {
 	});
 
 	test("rejects empty strings in sectionRenames", async () => {
-		const tmpDir = await mkdtemp(join(tmpdir(), "ck-manifest-test-"));
+		const tmpDir = await mkdtemp(join(tmpdir(), "hi-manifest-test-"));
 
 		const invalid = {
 			version: "1.0",
@@ -156,7 +156,7 @@ describe("loadPortableManifest", () => {
 	});
 
 	test("allows unknown fields (passthrough)", async () => {
-		const tmpDir = await mkdtemp(join(tmpdir(), "ck-manifest-test-"));
+		const tmpDir = await mkdtemp(join(tmpdir(), "hi-manifest-test-"));
 
 		const futureManifest = {
 			version: "1.0",

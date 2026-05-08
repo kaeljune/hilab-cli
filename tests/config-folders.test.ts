@@ -10,7 +10,7 @@ describe("ConfigManager Folders Support", () => {
 	let testDir: string;
 
 	beforeEach(async () => {
-		testDir = join(tmpdir(), `ck-config-test-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+		testDir = join(tmpdir(), `hi-config-test-${Date.now()}-${Math.random().toString(36).slice(2)}`);
 		await mkdir(testDir, { recursive: true });
 	});
 
@@ -28,29 +28,29 @@ describe("ConfigManager Folders Support", () => {
 			expect(result).toBeNull();
 		});
 
-		test("should load .claude/.ck.json config with paths key", async () => {
+		test("should load .claude/.hi.json config with paths key", async () => {
 			await mkdir(join(testDir, ".claude"), { recursive: true });
 			await writeFile(
-				join(testDir, ".claude", ".ck.json"),
+				join(testDir, ".claude", ".hi.json"),
 				JSON.stringify({
 					paths: {
-						docs: "ck-docs",
-						plans: "ck-plans",
+						docs: "hi-docs",
+						plans: "hi-plans",
 					},
 				}),
 			);
 
 			const result = await ConfigManager.loadProjectConfig(testDir);
 			expect(result).not.toBeNull();
-			expect(result?.docs).toBe("ck-docs");
-			expect(result?.plans).toBe("ck-plans");
+			expect(result?.docs).toBe("hi-docs");
+			expect(result?.plans).toBe("hi-plans");
 		});
 
 		test("should handle flat structure (paths at root)", async () => {
 			// Fallback: flat structure without "paths" wrapper
 			await mkdir(join(testDir, ".claude"), { recursive: true });
 			await writeFile(
-				join(testDir, ".claude", ".ck.json"),
+				join(testDir, ".claude", ".hi.json"),
 				JSON.stringify({
 					docs: "flat-docs",
 					plans: "flat-plans",
@@ -64,13 +64,13 @@ describe("ConfigManager Folders Support", () => {
 	});
 
 	describe("saveProjectConfig", () => {
-		test("should save config to .claude/.ck.json with paths key", async () => {
+		test("should save config to .claude/.hi.json with paths key", async () => {
 			await ConfigManager.saveProjectConfig(testDir, {
 				docs: "saved-docs",
 				plans: "saved-plans",
 			});
 
-			expect(await pathExists(join(testDir, ".claude", ".ck.json"))).toBe(true);
+			expect(await pathExists(join(testDir, ".claude", ".hi.json"))).toBe(true);
 
 			const result = await ConfigManager.loadProjectConfig(testDir);
 			expect(result?.docs).toBe("saved-docs");
@@ -100,13 +100,13 @@ describe("ConfigManager Folders Support", () => {
 				paths: { docs: "docs", plans: "plans" },
 				locale: { thinkingLanguage: "vi" },
 			};
-			await writeFile(join(testDir, ".claude", ".ck.json"), JSON.stringify(existingConfig));
+			await writeFile(join(testDir, ".claude", ".hi.json"), JSON.stringify(existingConfig));
 
 			// Update only docs path
 			await ConfigManager.saveProjectConfig(testDir, { docs: "my-docs" });
 
 			// Read raw file to verify all settings preserved
-			const content = await readFile(join(testDir, ".claude", ".ck.json"), "utf-8");
+			const content = await readFile(join(testDir, ".claude", ".hi.json"), "utf-8");
 			const savedConfig = JSON.parse(content);
 
 			// Verify user settings are preserved
@@ -127,12 +127,12 @@ describe("ConfigManager Folders Support", () => {
 			const existingConfig = {
 				paths: { docs: "old-docs", plans: "old-plans", custom: "custom-path" },
 			};
-			await writeFile(join(testDir, ".claude", ".ck.json"), JSON.stringify(existingConfig));
+			await writeFile(join(testDir, ".claude", ".hi.json"), JSON.stringify(existingConfig));
 
 			// Update only docs
 			await ConfigManager.saveProjectConfig(testDir, { docs: "new-docs" });
 
-			const content = await readFile(join(testDir, ".claude", ".ck.json"), "utf-8");
+			const content = await readFile(join(testDir, ".claude", ".hi.json"), "utf-8");
 			const savedConfig = JSON.parse(content);
 
 			// Verify merge behavior
@@ -144,12 +144,12 @@ describe("ConfigManager Folders Support", () => {
 		test("should handle corrupted JSON gracefully and start fresh", async () => {
 			// Create corrupted config file
 			await mkdir(join(testDir, ".claude"), { recursive: true });
-			await writeFile(join(testDir, ".claude", ".ck.json"), "{ invalid json }");
+			await writeFile(join(testDir, ".claude", ".hi.json"), "{ invalid json }");
 
 			// Should not throw, should create new config
 			await ConfigManager.saveProjectConfig(testDir, { docs: "new-docs" });
 
-			const content = await readFile(join(testDir, ".claude", ".ck.json"), "utf-8");
+			const content = await readFile(join(testDir, ".claude", ".hi.json"), "utf-8");
 			const savedConfig = JSON.parse(content);
 
 			expect(savedConfig.paths.docs).toBe("new-docs");
@@ -162,12 +162,12 @@ describe("ConfigManager Folders Support", () => {
 				codingLevel: 2,
 				paths: "invalid-string-instead-of-object",
 			};
-			await writeFile(join(testDir, ".claude", ".ck.json"), JSON.stringify(malformedConfig));
+			await writeFile(join(testDir, ".claude", ".hi.json"), JSON.stringify(malformedConfig));
 
 			// Should not throw, should replace malformed paths with valid object
 			await ConfigManager.saveProjectConfig(testDir, { docs: "new-docs" });
 
-			const content = await readFile(join(testDir, ".claude", ".ck.json"), "utf-8");
+			const content = await readFile(join(testDir, ".claude", ".hi.json"), "utf-8");
 			const savedConfig = JSON.parse(content);
 
 			// Other settings should be preserved
@@ -188,7 +188,7 @@ describe("ConfigManager Folders Support", () => {
 		test("should use project config values", async () => {
 			await mkdir(join(testDir, ".claude"), { recursive: true });
 			await writeFile(
-				join(testDir, ".claude", ".ck.json"),
+				join(testDir, ".claude", ".hi.json"),
 				JSON.stringify({
 					paths: {
 						docs: "project-docs",
@@ -206,7 +206,7 @@ describe("ConfigManager Folders Support", () => {
 		test("should override with CLI options", async () => {
 			await mkdir(join(testDir, ".claude"), { recursive: true });
 			await writeFile(
-				join(testDir, ".claude", ".ck.json"),
+				join(testDir, ".claude", ".hi.json"),
 				JSON.stringify({
 					paths: {
 						docs: "project-docs",
@@ -226,7 +226,7 @@ describe("ConfigManager Folders Support", () => {
 		test("should prioritize CLI options over all other sources", async () => {
 			await mkdir(join(testDir, ".claude"), { recursive: true });
 			await writeFile(
-				join(testDir, ".claude", ".ck.json"),
+				join(testDir, ".claude", ".hi.json"),
 				JSON.stringify({
 					paths: {
 						docs: "project-docs",
@@ -250,9 +250,9 @@ describe("ConfigManager Folders Support", () => {
 			expect(ConfigManager.projectConfigExists(testDir)).toBe(false);
 		});
 
-		test("should return true when .claude/.ck.json exists", async () => {
+		test("should return true when .claude/.hi.json exists", async () => {
 			await mkdir(join(testDir, ".claude"), { recursive: true });
-			await writeFile(join(testDir, ".claude", ".ck.json"), "{}");
+			await writeFile(join(testDir, ".claude", ".hi.json"), "{}");
 			expect(ConfigManager.projectConfigExists(testDir)).toBe(true);
 		});
 	});
@@ -267,7 +267,7 @@ describe("ConfigManager Folders Support", () => {
 		});
 
 		describe("saveProjectConfig with global=true", () => {
-			test("should save to projectDir/.ck.json in global mode", async () => {
+			test("should save to projectDir/.hi.json in global mode", async () => {
 				// In global mode, projectDir is already ~/.claude
 				await ConfigManager.saveProjectConfig(
 					globalDir,
@@ -278,27 +278,27 @@ describe("ConfigManager Folders Support", () => {
 					true,
 				);
 
-				// Should save directly to globalDir/.ck.json, NOT globalDir/.claude/.ck.json
-				expect(await pathExists(join(globalDir, ".ck.json"))).toBe(true);
-				expect(await pathExists(join(globalDir, ".claude", ".ck.json"))).toBe(false);
+				// Should save directly to globalDir/.hi.json, NOT globalDir/.claude/.hi.json
+				expect(await pathExists(join(globalDir, ".hi.json"))).toBe(true);
+				expect(await pathExists(join(globalDir, ".claude", ".hi.json"))).toBe(false);
 			});
 
-			test("should save to projectDir/.claude/.ck.json in local mode (default)", async () => {
+			test("should save to projectDir/.claude/.hi.json in local mode (default)", async () => {
 				await ConfigManager.saveProjectConfig(testDir, {
 					docs: "local-docs",
 					plans: "local-plans",
 				});
 
-				// Should save to testDir/.claude/.ck.json
-				expect(await pathExists(join(testDir, ".claude", ".ck.json"))).toBe(true);
+				// Should save to testDir/.claude/.hi.json
+				expect(await pathExists(join(testDir, ".claude", ".hi.json"))).toBe(true);
 			});
 		});
 
 		describe("loadProjectConfig with global=true", () => {
-			test("should load from projectDir/.ck.json in global mode", async () => {
+			test("should load from projectDir/.hi.json in global mode", async () => {
 				// Create config at global location
 				await writeFile(
-					join(globalDir, ".ck.json"),
+					join(globalDir, ".hi.json"),
 					JSON.stringify({
 						paths: {
 							docs: "global-docs",
@@ -320,30 +320,30 @@ describe("ConfigManager Folders Support", () => {
 		});
 
 		describe("projectConfigExists with global=true", () => {
-			test("should check projectDir/.ck.json in global mode", async () => {
+			test("should check projectDir/.hi.json in global mode", async () => {
 				expect(ConfigManager.projectConfigExists(globalDir, true)).toBe(false);
 
-				await writeFile(join(globalDir, ".ck.json"), "{}");
+				await writeFile(join(globalDir, ".hi.json"), "{}");
 				expect(ConfigManager.projectConfigExists(globalDir, true)).toBe(true);
 			});
 
 			test("should not find config at nested path in global mode", async () => {
 				// Create config at wrong nested location
 				await mkdir(join(globalDir, ".claude"), { recursive: true });
-				await writeFile(join(globalDir, ".claude", ".ck.json"), "{}");
+				await writeFile(join(globalDir, ".claude", ".hi.json"), "{}");
 
 				// Global mode should NOT find this
 				expect(ConfigManager.projectConfigExists(globalDir, true)).toBe(false);
 			});
 		});
 
-		describe("migration: detect and fix nested .ck.json", () => {
-			test("should migrate ~/.claude/.claude/.ck.json to ~/.claude/.ck.json", async () => {
+		describe("migration: detect and fix nested .hi.json", () => {
+			test("should migrate ~/.claude/.claude/.hi.json to ~/.claude/.hi.json", async () => {
 				// Simulate the bug: config at nested location
 				const nestedClaudeDir = join(globalDir, ".claude");
 				await mkdir(nestedClaudeDir, { recursive: true });
 				await writeFile(
-					join(nestedClaudeDir, ".ck.json"),
+					join(nestedClaudeDir, ".hi.json"),
 					JSON.stringify({
 						paths: {
 							docs: "old-docs",
@@ -357,9 +357,9 @@ describe("ConfigManager Folders Support", () => {
 				expect(migrated).toBe(true);
 
 				// Should now exist at correct location
-				expect(await pathExists(join(globalDir, ".ck.json"))).toBe(true);
+				expect(await pathExists(join(globalDir, ".hi.json"))).toBe(true);
 				// Old location should be removed
-				expect(await pathExists(join(nestedClaudeDir, ".ck.json"))).toBe(false);
+				expect(await pathExists(join(nestedClaudeDir, ".hi.json"))).toBe(false);
 
 				// Verify content
 				const result = await ConfigManager.loadProjectConfig(globalDir, true);
@@ -370,7 +370,7 @@ describe("ConfigManager Folders Support", () => {
 			test("should not migrate if correct config already exists", async () => {
 				// Config at correct location
 				await writeFile(
-					join(globalDir, ".ck.json"),
+					join(globalDir, ".hi.json"),
 					JSON.stringify({
 						paths: {
 							docs: "correct-docs",
@@ -383,7 +383,7 @@ describe("ConfigManager Folders Support", () => {
 				const nestedClaudeDir = join(globalDir, ".claude");
 				await mkdir(nestedClaudeDir, { recursive: true });
 				await writeFile(
-					join(nestedClaudeDir, ".ck.json"),
+					join(nestedClaudeDir, ".hi.json"),
 					JSON.stringify({
 						paths: {
 							docs: "old-docs",
@@ -410,7 +410,7 @@ describe("ConfigManager Folders Support", () => {
 				const nestedClaudeDir = join(globalDir, ".claude");
 				await mkdir(nestedClaudeDir, { recursive: true });
 				await writeFile(
-					join(nestedClaudeDir, ".ck.json"),
+					join(nestedClaudeDir, ".hi.json"),
 					JSON.stringify({
 						paths: {
 							docs: "old-docs",
@@ -425,9 +425,9 @@ describe("ConfigManager Folders Support", () => {
 				expect(migrated).toBe(true);
 
 				// Config should be moved to correct location
-				expect(await pathExists(join(globalDir, ".ck.json"))).toBe(true);
-				// Old .ck.json should be removed
-				expect(await pathExists(join(nestedClaudeDir, ".ck.json"))).toBe(false);
+				expect(await pathExists(join(globalDir, ".hi.json"))).toBe(true);
+				// Old .hi.json should be removed
+				expect(await pathExists(join(nestedClaudeDir, ".hi.json"))).toBe(false);
 				// Nested directory should still exist (has other files)
 				expect(await pathExists(nestedClaudeDir)).toBe(true);
 				// Other file should be preserved

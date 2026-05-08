@@ -7,7 +7,7 @@ import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { basename, join, resolve } from "node:path";
-import { ProjectsRegistryManager } from "@/domains/claudekit-data/index.js";
+import { ProjectsRegistryManager } from "@/domains/hilab-data/index.js";
 import { readSettings } from "@/services/claude-data/index.js";
 import type { Express, Request, Response } from "express";
 

@@ -42,7 +42,7 @@ let originalProjectPath: string | null;
 
 beforeEach(async () => {
 	// Create a fresh temp directory for each test
-	tmpDir = await mkdtemp(join(tmpdir(), "ck-codex-cleanup-test-"));
+	tmpDir = await mkdtemp(join(tmpdir(), "hi-codex-cleanup-test-"));
 	// Codex agent dir is .codex/agents — mirror that layout inside tmpDir
 	agentsDir = join(tmpDir, ".codex", "agents");
 	configTomlPath = join(tmpDir, ".codex", "config.toml");

@@ -1,4 +1,4 @@
-# ClaudeKit Content Command (`ck content`)
+# HiLab Content Command (`ck content`)
 
 ## Overview
 
@@ -58,10 +58,10 @@ ck content stop
 
 ```mermaid
 flowchart TD
-    A["Start Daemon<br/>ck content start"] --> B["Load Config<br/>.ck.json content key"]
-    B --> C["Write PID Lock<br/>~/.claudekit/locks/ck-content.lock"]
+    A["Start Daemon<br/>ck content start"] --> B["Load Config<br/>.hi.json content key"]
+    B --> C["Write PID Lock<br/>~/.hilab/locks/ck-content.lock"]
     C --> D["Init SQLite DB<br/>WAL Mode"]
-    D --> E["Load Runtime State<br/>~/.claudekit/content.state.json"]
+    D --> E["Load Runtime State<br/>~/.hilab/content.state.json"]
     E --> F["Register Signal Handlers<br/>SIGINT, SIGTERM"]
     F --> G["Main Loop"]
 
@@ -88,7 +88,7 @@ flowchart TD
 
 ## Configuration
 
-Content is configured via `.ck.json` in your project root:
+Content is configured via `.hi.json` in your project root:
 
 ```json
 {
@@ -119,8 +119,8 @@ Content is configured via `.ck.json` in your project root:
     },
     "firstScanLookbackDays": 30,
     "maxContentPerDay": 10,
-    "contentDir": "~/.claudekit/content/",
-    "dbPath": "~/.claudekit/content.db"
+    "contentDir": "~/.hilab/content/",
+    "dbPath": "~/.hilab/content.db"
   }
 }
 ```
@@ -145,8 +145,8 @@ Content is configured via `.ck.json` in your project root:
 | `selfImprovement.topPerformingCount` | number | `10` | Number of top posts to analyze |
 | `firstScanLookbackDays` | number | `30` | Days to look back on first scan (1-365) |
 | `maxContentPerDay` | number | `10` | Absolute cap on content items per day |
-| `contentDir` | string | `"~/.claudekit/content/"` | Storage directory for media files |
-| `dbPath` | string | `"~/.claudekit/content.db"` | SQLite database location |
+| `contentDir` | string | `"~/.hilab/content/"` | Storage directory for media files |
+| `dbPath` | string | `"~/.hilab/content.db"` | SQLite database location |
 
 ---
 
@@ -228,7 +228,7 @@ interface ContentContext {
 }
 ```
 
-**Cache Strategy:** Context is cached at `~/.claudekit/cache/` with 24-hour TTL, invalidated when source docs change (mtime-based hash).
+**Cache Strategy:** Context is cached at `~/.hilab/cache/` with 24-hour TTL, invalidated when source docs change (mtime-based hash).
 
 ### Phase 6: Content Creator
 
@@ -263,7 +263,7 @@ Generates images via Claude for visual social media posts:
 1. **Prompt**: Build photo-specific prompt from ContentContext
 2. **Invoke Claude**: `claude -p --output-format text --max-turns 40` in media directory
 3. **Dimensions**: Platform-specific (X: 1200×675, Facebook: 1200×630)
-4. **Store**: Save at `~/.claudekit/content/media/{contentId}/`
+4. **Store**: Save at `~/.hilab/content/media/{contentId}/`
 5. **Link**: Attach `mediaPath` to content item
 
 ---
@@ -324,7 +324,7 @@ Coordinates publishing across platforms:
 
 **Requirements:**
 - Facebook Page Access Token (with `pages_manage_metadata` scope)
-- Page ID configured in `.ck.json`
+- Page ID configured in `.hi.json`
 
 **Publishing Process:**
 1. Expand shortened URLs to full forms
@@ -351,7 +351,7 @@ Enforces per-platform limits via RateLimiter class:
 
 ## Database Schema
 
-SQLite at `~/.claudekit/content.db` (WAL mode) contains 5 tables:
+SQLite at `~/.hilab/content.db` (WAL mode) contains 5 tables:
 
 ### git_events
 Detected git activities that might warrant content.
@@ -524,7 +524,7 @@ Analyze top N posts? (default: 10)
 
 ## State Management
 
-Runtime state persisted at `~/.claudekit/content.state.json`:
+Runtime state persisted at `~/.hilab/content.state.json`:
 
 ```typescript
 interface ContentState {
@@ -541,7 +541,7 @@ State is saved atomically after each major phase to enable recovery on restart.
 
 ## Logging
 
-Daemon logs to `~/.claudekit/logs/content-YYYYMMDD.log`:
+Daemon logs to `~/.hilab/logs/content-YYYYMMDD.log`:
 
 **Log Levels:**
 - **INFO**: Major phase completions (scan found N events, created M items, published K)
@@ -564,7 +564,7 @@ Includes per-event details, full prompts/responses, API bodies, timing info.
 
 ```bash
 # Check for stale lock
-ls ~/.claudekit/locks/ck-content.lock
+ls ~/.hilab/locks/ck-content.lock
 
 # Validate config
 ck content status

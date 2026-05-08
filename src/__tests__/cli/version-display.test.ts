@@ -33,7 +33,7 @@ describe("displayVersion", () => {
 			() => {},
 		);
 
-		process.env.CK_TEST_HOME = testHome;
+		process.env.HI_TEST_HOME = testHome;
 		await mkdir(join(projectDir, ".claude"), { recursive: true });
 		await mkdir(join(testHome, ".claude"), { recursive: true });
 		process.chdir(projectDir);
@@ -41,7 +41,7 @@ describe("displayVersion", () => {
 
 	afterEach(async () => {
 		process.chdir(originalCwd);
-		process.env.CK_TEST_HOME = undefined;
+		process.env.HI_TEST_HOME = undefined;
 		cliCheckSpy?.mockRestore();
 		kitCheckSpy?.mockRestore();
 		displayNotificationSpy?.mockRestore();
@@ -121,19 +121,19 @@ describe("displayVersion", () => {
 				currentVersion: "2.16.0-beta.8",
 				latestVersion: "2.16.0-beta.9",
 				updateAvailable: true,
-				releaseUrl: "https://github.com/claudekit/claudekit-engineer/releases/tag/v2.16.0-beta.9",
+				releaseUrl: "https://github.com/hilab/hilab-engineer/releases/tag/v2.16.0-beta.9",
 			},
 			{ isGlobal: true, kitName: "engineer" },
 		);
 	});
 
 	it("infers legacy marketing installs from the metadata name", () => {
-		expect(inferLegacyKitType({ name: "ClaudeKit Marketing" })).toBe("marketing");
-		expect(inferLegacyKitType({ name: "ClaudeKit" })).toBe("engineer");
+		expect(inferLegacyKitType({ name: "HiLab Marketing" })).toBe("marketing");
+		expect(inferLegacyKitType({ name: "HiLab" })).toBe("engineer");
 	});
 
 	it("falls back to the legacy root version when kits are absent", () => {
-		expect(getInstalledKitVersions({ version: "1.3.2", name: "ClaudeKit Marketing" })).toEqual([
+		expect(getInstalledKitVersions({ version: "1.3.2", name: "HiLab Marketing" })).toEqual([
 			{ kit: "marketing", version: "1.3.2" },
 		]);
 	});

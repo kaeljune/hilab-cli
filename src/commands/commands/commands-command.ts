@@ -33,7 +33,7 @@ async function listCommands(showInstalled: boolean): Promise<void> {
 	if (showInstalled) {
 		const installations = await getInstalledCommands();
 		if (installations.length === 0) {
-			p.log.warn("No commands installed via ck commands.");
+			p.log.warn("No commands installed via hi commands.");
 			return;
 		}
 
@@ -103,7 +103,7 @@ async function handleUninstall(options: PortableCommandOptions): Promise<void> {
 	if (!options.name) {
 		const installations = await getInstalledCommands();
 		if (installations.length === 0) {
-			p.log.warn("No commands installed via ck commands.");
+			p.log.warn("No commands installed via hi commands.");
 			return;
 		}
 
@@ -274,7 +274,7 @@ async function handleUninstall(options: PortableCommandOptions): Promise<void> {
  */
 export async function commandsCommand(options: PortableCommandOptions): Promise<void> {
 	console.log();
-	p.intro(pc.bgCyan(pc.black(" ck commands ")));
+	p.intro(pc.bgCyan(pc.black(" hi commands ")));
 
 	try {
 		const validOptions = PortableCommandOptionsSchema.parse(options);

@@ -50,7 +50,7 @@ describe("LegacyMigration", () => {
 						{
 							path: "commands/plan.md",
 							checksum: "abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abcd",
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "1.0.0",
 						},
 					],
@@ -258,12 +258,12 @@ describe("LegacyMigration", () => {
 			const metadata = await ManifestWriter.readManifest(tempDir);
 			expect(metadata).not.toBeNull();
 			expect(metadata?.files).toHaveLength(1);
-			expect(metadata?.files?.[0].ownership).toBe("ck");
+			expect(metadata?.files?.[0].ownership).toBe("hi");
 		});
 
 		test("preserves user files during migration", async () => {
 			// Create CK file and user file
-			const ckFile = join(tempDir, "ck-file.txt");
+			const ckFile = join(tempDir, "hi-file.txt");
 			const userFile = join(tempDir, "user-file.txt");
 			await writeFile(ckFile, "ck content");
 			await writeFile(userFile, "user content");
@@ -273,7 +273,7 @@ describe("LegacyMigration", () => {
 			const manifest = {
 				version: "1.0.0",
 				generatedAt: new Date().toISOString(),
-				files: [{ path: "ck-file.txt", checksum: ckChecksum, size: 10 }],
+				files: [{ path: "hi-file.txt", checksum: ckChecksum, size: 10 }],
 			};
 
 			await LegacyMigration.migrate(tempDir, manifest, "test-kit", "1.0.0", false);
@@ -281,10 +281,10 @@ describe("LegacyMigration", () => {
 			const metadata = await ManifestWriter.readManifest(tempDir);
 			expect(metadata?.files).toHaveLength(2);
 
-			const ckTracked = metadata?.files?.find((f) => f.path === "ck-file.txt");
+			const ckTracked = metadata?.files?.find((f) => f.path === "hi-file.txt");
 			const userTracked = metadata?.files?.find((f) => f.path === "user-file.txt");
 
-			expect(ckTracked?.ownership).toBe("ck");
+			expect(ckTracked?.ownership).toBe("hi");
 			expect(userTracked?.ownership).toBe("user");
 		});
 

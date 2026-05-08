@@ -39,7 +39,7 @@ describe("Cleanup Dry-Run Mode", () => {
 				{
 					path: "commands/plan.md",
 					checksum,
-					ownership: "ck",
+					ownership: "hi",
 					installedVersion: "1.0.0",
 				},
 			],
@@ -89,13 +89,13 @@ describe("Cleanup Dry-Run Mode", () => {
 				{
 					path: "commands/plan.md",
 					checksum: ckChecksum,
-					ownership: "ck",
+					ownership: "hi",
 					installedVersion: "1.0.0",
 				},
 				{
 					path: "commands/fix.md",
 					checksum: originalChecksum,
-					ownership: "ck",
+					ownership: "hi",
 					installedVersion: "1.0.0",
 				},
 			],
@@ -142,7 +142,7 @@ describe("Cleanup Dry-Run Mode", () => {
 				{
 					path: "commands/plan.md",
 					checksum: originalChecksum,
-					ownership: "ck",
+					ownership: "hi",
 					installedVersion: "1.0.0",
 				},
 			],
@@ -181,7 +181,7 @@ describe("Cleanup Dry-Run Mode", () => {
 				{
 					path: "commands/plan.md",
 					checksum: originalChecksum,
-					ownership: "ck",
+					ownership: "hi",
 					installedVersion: "1.0.0",
 				},
 			],

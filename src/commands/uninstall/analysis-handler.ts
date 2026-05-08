@@ -43,14 +43,14 @@ function normalizeTrackedPath(relativePath: string): string {
  * Centralizes the ownership-based decision logic for consistent behavior.
  */
 function classifyFileByOwnership(
-	ownership: "ck" | "ck-modified" | "user",
+	ownership: "hi" | "hi-modified" | "user",
 	forceOverwrite: boolean,
 	deleteReason: string,
 ): FileClassification {
-	if (ownership === "ck") {
+	if (ownership === "hi") {
 		return { action: "delete", reason: deleteReason };
 	}
-	if (ownership === "ck-modified") {
+	if (ownership === "hi-modified") {
 		if (forceOverwrite) {
 			return { action: "delete", reason: "force overwrite" };
 		}

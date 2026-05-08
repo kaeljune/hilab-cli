@@ -1,6 +1,6 @@
 /**
- * Handler for `ck config show` command
- * Uses CkConfigManager for correct .ck.json config resolution
+ * Handler for `hi config show` command
+ * Uses CkConfigManager for correct .hi.json config resolution
  */
 
 import { CkConfigManager } from "@/domains/config/index.js";

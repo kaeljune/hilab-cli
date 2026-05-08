@@ -5,7 +5,7 @@
  * Note: OPENCODE_DEFAULT_MODEL and the simple resolveOpenCodeDefaultModel() wrapper
  * have been removed in favour of the auth-first dynamic resolver in
  * opencode-model-discovery.ts (#771). Use getOpenCodeDefaultModelOverride() to check
- * for .ck.json user overrides before calling the dynamic resolver.
+ * for .hi.json user overrides before calling the dynamic resolver.
  */
 
 /** Provider-agnostic capability tiers */
@@ -44,7 +44,7 @@ export const DEFAULT_PROVIDER_MODEL_MAP: Record<string, Record<ModelTier, Resolv
 	},
 };
 
-/** User taxonomy overrides from .ck.json — set once at migration start */
+/** User taxonomy overrides from .hi.json — set once at migration start */
 let userOverrides: Record<string, Record<string, ResolvedModel>> | undefined;
 
 /** Set user taxonomy overrides from config. Call before conversion. */
@@ -54,7 +54,7 @@ export function setTaxonomyOverrides(
 	userOverrides = overrides;
 }
 
-/** User-set opencode default model override from .ck.json, if any. */
+/** User-set opencode default model override from .hi.json, if any. */
 export function getOpenCodeDefaultModelOverride(): string | undefined {
 	return userOverrides?.opencode?.default?.model;
 }

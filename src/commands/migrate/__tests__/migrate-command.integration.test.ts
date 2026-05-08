@@ -1,5 +1,5 @@
 /**
- * Integration tests for ck migrate — P5 flag surface
+ * Integration tests for hi migrate — P5 flag surface
  *
  * Tests cover:
  *   - Mutual exclusion: --install + --reconcile → error

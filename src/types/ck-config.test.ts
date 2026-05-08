@@ -3,7 +3,7 @@ import {
 	CkConfigSchema,
 	normalizeCkConfigInput,
 	normalizeMigrateProvidersInput,
-} from "./ck-config.js";
+} from "./hi-config.js";
 
 const LEGACY_GEMINI_MODEL_CASES = [
 	[" gemini-3.0-flash ", "gemini-3-flash-preview"],

@@ -5,7 +5,7 @@ import { createCliDesignContext } from "../tokens.js";
 describe("renderNextStepsFooter", () => {
 	it("uses a unicode bullet when unicode rendering is available", () => {
 		const lines = renderNextStepsFooter({
-			commands: ["ck doctor"],
+			commands: ["hi doctor"],
 			context: createCliDesignContext({
 				columns: 72,
 				env: { LANG: "en_US.UTF-8" } as NodeJS.ProcessEnv,
@@ -14,12 +14,12 @@ describe("renderNextStepsFooter", () => {
 			}),
 		});
 
-		expect(lines[0]).toBe("• ck doctor");
+		expect(lines[0]).toBe("• hi doctor");
 	});
 
 	it("uses an ASCII bullet when the ASCII fallback is forced", () => {
 		const lines = renderNextStepsFooter({
-			commands: ["ck doctor"],
+			commands: ["hi doctor"],
 			context: createCliDesignContext({
 				columns: 72,
 				env: { ...process.env, CK_FORCE_ASCII: "1" },
@@ -28,6 +28,6 @@ describe("renderNextStepsFooter", () => {
 			}),
 		});
 
-		expect(lines[0]).toBe("- ck doctor");
+		expect(lines[0]).toBe("- hi doctor");
 	});
 });

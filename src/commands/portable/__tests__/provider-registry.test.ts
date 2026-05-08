@@ -454,7 +454,7 @@ describe("provider-registry", () => {
 		});
 
 		it("returns false for a non-existent binary", () => {
-			expect(hasBinaryInPath("ck-nonexistent-binary-xyz-12345")).toBe(false);
+			expect(hasBinaryInPath("hi-nonexistent-binary-xyz-12345")).toBe(false);
 		});
 
 		it("caches results across repeated calls", () => {
@@ -468,8 +468,8 @@ describe("provider-registry", () => {
 		});
 
 		it("caches false results too", () => {
-			hasBinaryInPath("ck-nonexistent-binary-xyz-12345");
-			expect(binaryCache.get("ck-nonexistent-binary-xyz-12345")).toBe(false);
+			hasBinaryInPath("hi-nonexistent-binary-xyz-12345");
+			expect(binaryCache.get("hi-nonexistent-binary-xyz-12345")).toBe(false);
 		});
 	});
 

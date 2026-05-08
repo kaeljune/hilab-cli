@@ -32,7 +32,7 @@ async function listAgents(showInstalled: boolean): Promise<void> {
 	if (showInstalled) {
 		const installations = await getInstalledAgents();
 		if (installations.length === 0) {
-			p.log.warn("No agents installed via ck agents.");
+			p.log.warn("No agents installed via hi agents.");
 			return;
 		}
 
@@ -99,7 +99,7 @@ async function handleUninstall(options: PortableCommandOptions): Promise<void> {
 	if (!options.name) {
 		const installations = await getInstalledAgents();
 		if (installations.length === 0) {
-			p.log.warn("No agents installed via ck agents.");
+			p.log.warn("No agents installed via hi agents.");
 			return;
 		}
 
@@ -265,7 +265,7 @@ async function handleUninstall(options: PortableCommandOptions): Promise<void> {
  */
 export async function agentsCommand(options: PortableCommandOptions): Promise<void> {
 	console.log();
-	p.intro(pc.bgCyan(pc.black(" ck agents ")));
+	p.intro(pc.bgCyan(pc.black(" hi agents ")));
 
 	try {
 		const validOptions = PortableCommandOptionsSchema.parse(options);

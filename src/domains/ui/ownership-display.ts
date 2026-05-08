@@ -40,11 +40,11 @@ export class OwnershipDisplay {
 	 */
 	static formatOwnership(ownership: FileOwnership): string {
 		switch (ownership) {
-			case "ck":
+			case "hi":
 				return pc.blue("CK-owned");
 			case "user":
 				return pc.green("User-created");
-			case "ck-modified":
+			case "hi-modified":
 				return pc.yellow("CK-modified");
 			default:
 				return pc.gray("Unknown");
@@ -87,13 +87,13 @@ export class OwnershipDisplay {
 		for (const result of results) {
 			// Count by ownership
 			switch (result.ownership) {
-				case "ck":
+				case "hi":
 					summary.ckOwned++;
 					break;
 				case "user":
 					summary.userCreated++;
 					break;
-				case "ck-modified":
+				case "hi-modified":
 					summary.ckModified++;
 					break;
 			}

@@ -118,7 +118,7 @@ describe("sync-handler integration", () => {
 					engineer: {
 						version: "1.5.0",
 						installedAt: new Date().toISOString(),
-						files: [{ path: "commands.md", checksum: "abc", ownership: "ck" }],
+						files: [{ path: "commands.md", checksum: "abc", ownership: "hi" }],
 					},
 				},
 			};
@@ -141,13 +141,13 @@ describe("sync-handler integration", () => {
 		it("categorizes files by ownership", () => {
 			const files = [
 				{ path: "a.md", ownership: "user" },
-				{ path: "b.md", ownership: "ck" },
-				{ path: "c.md", ownership: "ck-modified" },
+				{ path: "b.md", ownership: "hi" },
+				{ path: "c.md", ownership: "hi-modified" },
 			];
 
 			const userOwned = files.filter((f) => f.ownership === "user");
-			const ckOwned = files.filter((f) => f.ownership === "ck");
-			const ckModified = files.filter((f) => f.ownership === "ck-modified");
+			const ckOwned = files.filter((f) => f.ownership === "hi");
+			const ckModified = files.filter((f) => f.ownership === "hi-modified");
 
 			expect(userOwned).toHaveLength(1);
 			expect(ckOwned).toHaveLength(1);
@@ -251,7 +251,7 @@ describe("sync-handler integration", () => {
 				kits: {
 					engineer: {
 						version: "1.0.0",
-						files: [{ path: "test.md", checksum: "abc", ownership: "ck" }],
+						files: [{ path: "test.md", checksum: "abc", ownership: "hi" }],
 						installedAt: new Date().toISOString(),
 					},
 				},
@@ -267,13 +267,13 @@ describe("sync-handler integration", () => {
 		});
 
 		it("handles missing installed version in tracked files", () => {
-			const file = { path: "test.md", checksum: "abc", ownership: "ck" };
+			const file = { path: "test.md", checksum: "abc", ownership: "hi" };
 			// Should not have installedVersion
 			expect(file).not.toHaveProperty("installedVersion");
 		});
 
 		it("validates file object has required fields", () => {
-			const file = { path: "test.md", checksum: "abc123", ownership: "ck-modified" };
+			const file = { path: "test.md", checksum: "abc123", ownership: "hi-modified" };
 			expect(file).toHaveProperty("path");
 			expect(file).toHaveProperty("checksum");
 			expect(file).toHaveProperty("ownership");
@@ -292,16 +292,16 @@ describe("sync-handler integration", () => {
 
 	describe("file path validation during sync", () => {
 		it("rejects absolute paths in file specs", () => {
-			const file = { path: "/etc/passwd", checksum: "abc", ownership: "ck" };
+			const file = { path: "/etc/passwd", checksum: "abc", ownership: "hi" };
 			const isAbsolute = file.path.startsWith("/");
 			expect(isAbsolute).toBe(true);
 		});
 
 		it("rejects path traversal patterns", () => {
 			const files = [
-				{ path: "../escape.md", checksum: "abc", ownership: "ck" },
-				{ path: "../../double.md", checksum: "abc", ownership: "ck" },
-				{ path: "foo/../../../etc/passwd", checksum: "abc", ownership: "ck" },
+				{ path: "../escape.md", checksum: "abc", ownership: "hi" },
+				{ path: "../../double.md", checksum: "abc", ownership: "hi" },
+				{ path: "foo/../../../etc/passwd", checksum: "abc", ownership: "hi" },
 			];
 
 			for (const file of files) {
@@ -312,9 +312,9 @@ describe("sync-handler integration", () => {
 
 		it("accepts valid relative file paths", () => {
 			const files = [
-				{ path: "commands.md", checksum: "abc", ownership: "ck" },
-				{ path: "rules/test.md", checksum: "abc", ownership: "ck" },
-				{ path: "deep/nested/file.txt", checksum: "abc", ownership: "ck" },
+				{ path: "commands.md", checksum: "abc", ownership: "hi" },
+				{ path: "rules/test.md", checksum: "abc", ownership: "hi" },
+				{ path: "deep/nested/file.txt", checksum: "abc", ownership: "hi" },
 			];
 
 			for (const file of files) {

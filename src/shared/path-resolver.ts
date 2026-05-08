@@ -55,7 +55,7 @@ function normalizeWSLPath(p: string): string {
 }
 
 /**
- * Platform-aware path resolver for ClaudeKit configuration directories
+ * Platform-aware path resolver for HiLab configuration directories
  * Follows XDG Base Directory specification for Linux/macOS
  * Uses %LOCALAPPDATA% for Windows
  */
@@ -67,7 +67,7 @@ export class PathResolver {
 	 * @internal Used by tests to inject isolated directories
 	 */
 	private static getTestHomeDir(): string | undefined {
-		return process.env.CK_TEST_HOME;
+		return process.env.HI_TEST_HOME;
 	}
 
 	/**
@@ -132,7 +132,7 @@ export class PathResolver {
 	 * @returns Configuration directory path
 	 *
 	 * Local mode (default):
-	 * - All platforms: ~/.claudekit
+	 * - All platforms: ~/.hilab
 	 *
 	 * Global mode:
 	 * - macOS/Linux: ~/.config/claude (XDG-compliant)
@@ -145,12 +145,12 @@ export class PathResolver {
 			// In test mode, simulate real behavior with separate paths
 			return global
 				? join(testHome, ".config", "claude") // Global path simulation
-				: join(testHome, ".claudekit"); // Local path
+				: join(testHome, ".hilab"); // Local path
 		}
 
 		if (!global) {
-			// Local mode: backward compatible ~/.claudekit
-			return join(homedir(), ".claudekit");
+			// Local mode: backward compatible ~/.hilab
+			return join(homedir(), ".hilab");
 		}
 
 		// Global mode: platform-specific
@@ -188,7 +188,7 @@ export class PathResolver {
 	 * @returns Cache directory path
 	 *
 	 * Local mode (default):
-	 * - All platforms: ~/.claudekit/cache
+	 * - All platforms: ~/.hilab/cache
 	 *
 	 * Global mode:
 	 * - macOS/Linux: ~/.cache/claude (XDG-compliant)
@@ -201,12 +201,12 @@ export class PathResolver {
 			// In test mode, simulate real behavior with separate paths
 			return global
 				? join(testHome, ".cache", "claude") // Global cache simulation
-				: join(testHome, ".claudekit", "cache"); // Local cache
+				: join(testHome, ".hilab", "cache"); // Local cache
 		}
 
 		if (!global) {
-			// Local mode: backward compatible ~/.claudekit/cache
-			return join(homedir(), ".claudekit", "cache");
+			// Local mode: backward compatible ~/.hilab/cache
+			return join(homedir(), ".hilab", "cache");
 		}
 
 		// Global mode: platform-specific
@@ -256,27 +256,27 @@ export class PathResolver {
 	}
 
 	/**
-	 * Get the ClaudeKit CLI data directory
+	 * Get the HiLab CLI data directory
 	 * Used for CLI operational data: config, projects registry
 	 *
-	 * @returns ClaudeKit data directory path
-	 * All platforms: ~/.claudekit/
+	 * @returns HiLab data directory path
+	 * All platforms: ~/.hilab/
 	 */
-	static getClaudeKitDir(): string {
+	static getHiLabDir(): string {
 		const testHome = PathResolver.getTestHomeDir();
 		if (testHome) {
-			return join(testHome, ".claudekit");
+			return join(testHome, ".hilab");
 		}
-		return join(homedir(), ".claudekit");
+		return join(homedir(), ".hilab");
 	}
 
 	/**
 	 * Get the projects registry file path
 	 *
-	 * @returns Projects registry path (~/.claudekit/projects.json)
+	 * @returns Projects registry path (~/.hilab/projects.json)
 	 */
 	static getProjectsRegistryPath(): string {
-		return join(PathResolver.getClaudeKitDir(), "projects.json");
+		return join(PathResolver.getHiLabDir(), "projects.json");
 	}
 
 	/**
@@ -391,18 +391,18 @@ export class PathResolver {
 	 * Uses milliseconds + random suffix for uniqueness
 	 *
 	 * @param timestamp - Optional timestamp for backup directory name
-	 * @returns Backup directory path (~/.claudekit/backups/{timestamp}/)
+	 * @returns Backup directory path (~/.hilab/backups/{timestamp}/)
 	 *
 	 * @example
 	 * ```typescript
-	 * const backupDir = PathResolver.getBackupDir(); // ~/.claudekit/backups/20251227-123456-789-abc1/
-	 * const backupDir = PathResolver.getBackupDir("20251227-123456"); // ~/.claudekit/backups/20251227-123456/
+	 * const backupDir = PathResolver.getBackupDir(); // ~/.hilab/backups/20251227-123456-789-abc1/
+	 * const backupDir = PathResolver.getBackupDir("20251227-123456"); // ~/.hilab/backups/20251227-123456/
 	 * ```
 	 */
 	static getBackupDir(timestamp?: string): string {
 		// Test mode override - use isolated directory
 		const testHome = PathResolver.getTestHomeDir();
-		const baseDir = testHome ? join(testHome, ".claudekit") : join(homedir(), ".claudekit");
+		const baseDir = testHome ? join(testHome, ".hilab") : join(homedir(), ".hilab");
 
 		if (timestamp) {
 			return join(baseDir, "backups", timestamp);
@@ -498,7 +498,7 @@ export class PathResolver {
 	 * Get the global plans registries directory.
 	 * Each project gets its own registry file named by project hash.
 	 * Note: orphaned files from moved/renamed projects are not auto-pruned.
-	 * Use `ck plan registry prune` to clean up stale entries.
+	 * Use `hi plan registry prune` to clean up stale entries.
 	 */
 	static getPlansRegistriesDir(): string {
 		return join(PathResolver.getGlobalKitDir(), "plans-registries");

@@ -83,7 +83,7 @@ export function displayKitNotification(
 	const versionLen = displayCurrent.length + 3 + displayLatest.length;
 
 	// Command depends on installation type
-	const updateCmd = isGlobal ? "ck init -g" : "ck init";
+	const updateCmd = isGlobal ? "hi init -g" : "hi init";
 	const commandText = `Run: ${pc.cyan(pc.bold(updateCmd))}`;
 	const commandLen = `Run: ${updateCmd}`.length;
 
@@ -124,8 +124,8 @@ export function displayCliNotification(result: VersionCheckResult): void {
 	const versionText = `${pc.dim(currentVersion)} ${pc.white("→")} ${pc.green(pc.bold(latestVersion))}`;
 	const versionLen = currentVersion.length + 3 + latestVersion.length;
 
-	const commandText = `Run: ${pc.magenta(pc.bold("ck update"))}`;
-	const commandLen = "Run: ck update".length;
+	const commandText = `Run: ${pc.magenta(pc.bold("hi update"))}`;
+	const commandLen = "Run: hi update".length;
 
 	console.log("");
 	console.log(topBorder);

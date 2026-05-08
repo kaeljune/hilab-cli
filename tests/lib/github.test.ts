@@ -36,14 +36,14 @@ describe("GitHubClient", () => {
 	describe("integration scenarios", () => {
 		test("should handle kit configuration correctly", () => {
 			const engineerKit = AVAILABLE_KITS.engineer;
-			expect(engineerKit.owner).toBe("claudekit");
-			expect(engineerKit.repo).toBe("claudekit-engineer");
+			expect(engineerKit.owner).toBe("hilab");
+			expect(engineerKit.repo).toBe("hilab-engineer");
 		});
 
 		test("should handle marketing kit configuration", () => {
 			const marketingKit = AVAILABLE_KITS.marketing;
-			expect(marketingKit.owner).toBe("claudekit");
-			expect(marketingKit.repo).toBe("claudekit-marketing");
+			expect(marketingKit.owner).toBe("hilab");
+			expect(marketingKit.repo).toBe("hilab-marketing");
 		});
 	});
 
@@ -59,10 +59,8 @@ describe("GitHubClient", () => {
 					prerelease: true,
 					assets: [],
 					published_at: "2024-01-02T00:00:00Z",
-					tarball_url:
-						"https://api.github.com/repos/claudekit/claudekit-engineer/tarball/v1.1.0-beta.1",
-					zipball_url:
-						"https://api.github.com/repos/claudekit/claudekit-engineer/zipball/v1.1.0-beta.1",
+					tarball_url: "https://api.github.com/repos/hilab/hilab-engineer/tarball/v1.1.0-beta.1",
+					zipball_url: "https://api.github.com/repos/hilab/hilab-engineer/zipball/v1.1.0-beta.1",
 				},
 				{
 					id: 1,
@@ -72,8 +70,8 @@ describe("GitHubClient", () => {
 					prerelease: false,
 					assets: [],
 					published_at: "2024-01-01T00:00:00Z",
-					tarball_url: "https://api.github.com/repos/claudekit/claudekit-engineer/tarball/v1.0.0",
-					zipball_url: "https://api.github.com/repos/claudekit/claudekit-engineer/zipball/v1.0.0",
+					tarball_url: "https://api.github.com/repos/hilab/hilab-engineer/tarball/v1.0.0",
+					zipball_url: "https://api.github.com/repos/hilab/hilab-engineer/zipball/v1.0.0",
 				},
 			];
 
@@ -99,10 +97,8 @@ describe("GitHubClient", () => {
 					prerelease: true,
 					assets: [],
 					published_at: "2024-01-03T00:00:00Z",
-					tarball_url:
-						"https://api.github.com/repos/claudekit/claudekit-engineer/tarball/v1.2.0-beta.2",
-					zipball_url:
-						"https://api.github.com/repos/claudekit/claudekit-engineer/zipball/v1.2.0-beta.2",
+					tarball_url: "https://api.github.com/repos/hilab/hilab-engineer/tarball/v1.2.0-beta.2",
+					zipball_url: "https://api.github.com/repos/hilab/hilab-engineer/zipball/v1.2.0-beta.2",
 				},
 				{
 					id: 2,
@@ -112,10 +108,8 @@ describe("GitHubClient", () => {
 					prerelease: true,
 					assets: [],
 					published_at: "2024-01-02T00:00:00Z",
-					tarball_url:
-						"https://api.github.com/repos/claudekit/claudekit-engineer/tarball/v1.1.0-beta.1",
-					zipball_url:
-						"https://api.github.com/repos/claudekit/claudekit-engineer/zipball/v1.1.0-beta.1",
+					tarball_url: "https://api.github.com/repos/hilab/hilab-engineer/tarball/v1.1.0-beta.1",
+					zipball_url: "https://api.github.com/repos/hilab/hilab-engineer/zipball/v1.1.0-beta.1",
 				},
 			];
 
@@ -141,8 +135,8 @@ describe("GitHubClient", () => {
 					prerelease: false,
 					assets: [],
 					published_at: "2024-01-01T00:00:00Z",
-					tarball_url: "https://api.github.com/repos/claudekit/claudekit-engineer/tarball/v1.0.0",
-					zipball_url: "https://api.github.com/repos/claudekit/claudekit-engineer/zipball/v1.0.0",
+					tarball_url: "https://api.github.com/repos/hilab/hilab-engineer/tarball/v1.0.0",
+					zipball_url: "https://api.github.com/repos/hilab/hilab-engineer/zipball/v1.0.0",
 				},
 			];
 

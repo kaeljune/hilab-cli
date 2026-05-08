@@ -8,14 +8,14 @@
 import { exec, spawn } from "node:child_process";
 import { join } from "node:path";
 import { promisify } from "node:util";
-import { CkConfigManager } from "@/domains/config/ck-config-manager.js";
+import { CkConfigManager } from "@/domains/config/hi-config-manager.js";
 import { getInstalledKits } from "@/domains/migration/metadata-migration.js";
 import { versionsMatch } from "@/domains/versioning/checking/version-utils.js";
-import { getClaudeKitSetup } from "@/services/file-operations/claudekit-scanner.js";
+import { getHiLabSetup } from "@/services/file-operations/hilab-scanner.js";
 import { logger } from "@/shared/logger.js";
 import { confirm, isCancel, log, spinner } from "@/shared/safe-prompts.js";
 import { AVAILABLE_KITS, type KitType, type Metadata, MetadataSchema } from "@/types";
-import type { MigrateScopeConfig } from "@/types/ck-config.js";
+import type { MigrateScopeConfig } from "@/types/hi-config.js";
 import { pathExists, readFile } from "fs-extra";
 import type {
 	ExecAsyncFn,
@@ -57,7 +57,7 @@ export function selectKitForUpdate(params: KitSelectionParams): KitSelectionResu
 		return {
 			isGlobal: true,
 			kit,
-			promptMessage: `Update global ClaudeKit content${kit ? ` (${kit})` : ""}?`,
+			promptMessage: `Update global HiLab content${kit ? ` (${kit})` : ""}?`,
 		};
 	}
 
@@ -66,7 +66,7 @@ export function selectKitForUpdate(params: KitSelectionParams): KitSelectionResu
 		return {
 			isGlobal: false,
 			kit,
-			promptMessage: `Update local project ClaudeKit content${kit ? ` (${kit})` : ""}?`,
+			promptMessage: `Update local project HiLab content${kit ? ` (${kit})` : ""}?`,
 		};
 	}
 
@@ -75,7 +75,7 @@ export function selectKitForUpdate(params: KitSelectionParams): KitSelectionResu
 	return {
 		isGlobal: true,
 		kit,
-		promptMessage: `Update global ClaudeKit content${kit ? ` (${kit})` : ""}?`,
+		promptMessage: `Update global HiLab content${kit ? ` (${kit})` : ""}?`,
 	};
 }
 
@@ -118,7 +118,7 @@ export function buildInitCommand(
 	beta?: boolean,
 	yes?: boolean,
 ): string {
-	const parts = ["ck init"];
+	const parts = ["hi init"];
 	if (isGlobal) parts.push("-g");
 	if (kit) parts.push(`--kit ${kit}`);
 	if (yes) parts.push("--yes");
@@ -155,7 +155,7 @@ export async function fetchLatestReleaseTag(kit: KitType, beta: boolean): Promis
 /** Optional dependencies for promptKitUpdate (testing) */
 export interface PromptKitUpdateDeps {
 	execAsyncFn?: ExecAsyncFn;
-	/** Spawn ck init with inherited stdio for interactive mode. Returns exit code. */
+	/** Spawn hi init with inherited stdio for interactive mode. Returns exit code. */
 	spawnInitFn?: (args: string[]) => Promise<number>;
 	getSetupFn?: (projectDir?: string) => Promise<PromptKitUpdateSetup>;
 	spinnerFn?: () => PromptKitUpdateSpinner;
@@ -182,7 +182,7 @@ export async function promptKitUpdate(
 		const loadFullConfigFn = deps?.loadFullConfigFn ?? CkConfigManager.loadFull;
 		const confirmFn = deps?.confirmFn ?? confirm;
 		const isCancelFn = deps?.isCancelFn ?? isCancel;
-		const getSetupFn = deps?.getSetupFn ?? getClaudeKitSetup;
+		const getSetupFn = deps?.getSetupFn ?? getHiLabSetup;
 		const setup = await getSetupFn();
 		const hasLocal = !!setup.project.metadata;
 		const hasGlobal = !!setup.global.metadata;
@@ -196,7 +196,7 @@ export async function promptKitUpdate(
 		const selection = selectKitForUpdate({ hasLocal, hasGlobal, localKits, globalKits });
 
 		if (!selection) {
-			logger.verbose("No ClaudeKit installations detected, skipping kit update prompt");
+			logger.verbose("No HiLab installations detected, skipping kit update prompt");
 			return;
 		}
 
@@ -260,7 +260,7 @@ export async function promptKitUpdate(
 			const initCmd = buildInitCommand(selection.isGlobal, selection.kit, useBeta, true);
 			logger.info(`Running: ${initCmd}`);
 			const s = (deps?.spinnerFn ?? spinner)();
-			s.start("Updating ClaudeKit content...");
+			s.start("Updating HiLab content...");
 
 			try {
 				await execFn(initCmd, { timeout: 300000 });
@@ -294,23 +294,23 @@ export async function promptKitUpdate(
 				}
 			}
 		} else {
-			// Interactive: spawn ck init with inherited stdio
+			// Interactive: spawn hi init with inherited stdio
 			const args = ["init"];
 			if (selection.isGlobal) args.push("-g");
 			args.push("--install-skills");
 			if (useBeta) args.push("--beta");
 
-			const displayCmd = `ck ${args.join(" ")}`;
+			const displayCmd = `hi ${args.join(" ")}`;
 			logger.info(`Running: ${displayCmd}`);
 
 			const spawnFn =
 				deps?.spawnInitFn ??
 				((spawnArgs: string[]) =>
 					new Promise<number>((resolve) => {
-						const child = spawn("ck", spawnArgs, { stdio: "inherit", shell: true });
+						const child = spawn("hi", spawnArgs, { stdio: "inherit", shell: true });
 						child.on("close", (code) => resolve(code ?? 1));
 						child.on("error", (err) => {
-							logger.verbose(`Failed to spawn ck init: ${err.message}`);
+							logger.verbose(`Failed to spawn hi init: ${err.message}`);
 							resolve(1);
 						});
 					}));
@@ -341,7 +341,7 @@ export interface PromptMigrateUpdateDeps {
 
 /**
  * Step 3 of the update pipeline: independently check and run migration.
- * Detects installed providers and runs ck migrate if autoMigrateAfterUpdate is configured.
+ * Detects installed providers and runs hi migrate if autoMigrateAfterUpdate is configured.
  * Runs independently of whether kit update (step 2) executed.
  */
 export async function promptMigrateUpdate(deps?: PromptMigrateUpdateDeps): Promise<void> {
@@ -356,7 +356,7 @@ export async function promptMigrateUpdate(deps?: PromptMigrateUpdateDeps): Promi
 		const getConfigFn =
 			deps?.getProviderConfigFn ??
 			(providerRegistry?.getProviderConfig as (p: string) => { displayName: string });
-		const getSetupFn = deps?.getSetupFn ?? getClaudeKitSetup;
+		const getSetupFn = deps?.getSetupFn ?? getHiLabSetup;
 		const loadFullConfigFn = deps?.loadFullConfigFn ?? CkConfigManager.loadFull;
 		const execFn = deps?.execAsyncFn ?? (execAsync as ExecAsyncFn);
 
@@ -419,7 +419,7 @@ export async function promptMigrateUpdate(deps?: PromptMigrateUpdateDeps): Promi
 
 		const providerNames = safeProviders.map((p) => getConfigFn(p).displayName).join(", ");
 
-		const parts = ["ck", "migrate"];
+		const parts = ["hi", "migrate"];
 		if (isGlobal) parts.push("-g");
 		for (const p of safeProviders) {
 			parts.push("--agent", p);
@@ -445,7 +445,7 @@ export async function promptMigrateUpdate(deps?: PromptMigrateUpdateDeps): Promi
 			logger.success("Auto-migration complete");
 		} catch (error) {
 			logger.warning(
-				`Auto-migration failed: ${error instanceof Error ? error.message : "unknown"}. Run \`ck migrate\` manually to retry.`,
+				`Auto-migration failed: ${error instanceof Error ? error.message : "unknown"}. Run \`hi migrate\` manually to retry.`,
 			);
 		}
 	} catch (error) {

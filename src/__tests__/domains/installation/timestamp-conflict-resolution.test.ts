@@ -57,7 +57,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 					files: files.map((f) => ({
 						path: f.path,
 						checksum: f.checksum,
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: f.installedVersion || "1.0.0",
 						sourceTimestamp: f.sourceTimestamp,
 					})),
@@ -487,7 +487,7 @@ describe("Timestamp-Based Conflict Resolution", () => {
 							{
 								path: "skills/shared.md",
 								checksum: "a".repeat(64),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 								// No sourceTimestamp (old format)
 							},
@@ -588,7 +588,7 @@ describe("ConflictInfo Aggregation", () => {
 						{
 							path: "skills/test.md",
 							checksum: "a".repeat(64),
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "1.0.0",
 							sourceTimestamp: "2025-01-01T12:00:00Z",
 						},

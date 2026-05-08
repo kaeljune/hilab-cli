@@ -177,7 +177,7 @@ export class DownloadManager {
 		const timestamp = Date.now();
 		const counter = DownloadManager.tempDirCounter++;
 
-		const primaryTempDir = join(tmpdir(), `claudekit-${timestamp}-${counter}`);
+		const primaryTempDir = join(tmpdir(), `hilab-${timestamp}-${counter}`);
 		try {
 			await mkdir(primaryTempDir, { recursive: true });
 			logger.debug(`Created temp directory: ${primaryTempDir}`);
@@ -195,12 +195,7 @@ export class DownloadManager {
 				);
 			}
 
-			const fallbackTempDir = join(
-				homeDir,
-				".claudekit",
-				"tmp",
-				`claudekit-${timestamp}-${counter}`,
-			);
+			const fallbackTempDir = join(homeDir, ".hilab", "tmp", `hilab-${timestamp}-${counter}`);
 			try {
 				await mkdir(fallbackTempDir, { recursive: true });
 				logger.debug(`Created temp directory (fallback): ${fallbackTempDir}`);

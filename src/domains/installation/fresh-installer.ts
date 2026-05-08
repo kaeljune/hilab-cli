@@ -22,9 +22,9 @@ import { pathExists, writeFile } from "fs-extra";
 const KIT_MANIFEST_FILE = "metadata.json";
 
 /**
- * ClaudeKit-managed subdirectories (fallback when no metadata)
+ * HiLab-managed subdirectories (fallback when no metadata)
  */
-const CLAUDEKIT_SUBDIRECTORIES = ["commands", "agents", "skills", "rules", "hooks"];
+const HILAB_SUBDIRECTORIES = ["commands", "agents", "skills", "rules", "hooks"];
 
 /**
  * Result of fresh installation analysis
@@ -91,10 +91,10 @@ export async function analyzeFreshInstallation(claudeDir: string): Promise<Fresh
 
 	for (const file of allFiles) {
 		switch (file.ownership) {
-			case "ck":
+			case "hi":
 				ckFiles.push(file);
 				break;
-			case "ck-modified":
+			case "hi-modified":
 				ckModifiedFiles.push(file);
 				break;
 			case "user":
@@ -288,9 +288,7 @@ function getFreshBackupTargets(
 		};
 	}
 
-	const deletePaths = CLAUDEKIT_SUBDIRECTORIES.filter((subdir) =>
-		existsSync(join(claudeDir, subdir)),
-	);
+	const deletePaths = HILAB_SUBDIRECTORIES.filter((subdir) => existsSync(join(claudeDir, subdir)));
 
 	if (existsSync(join(claudeDir, "metadata.json"))) {
 		deletePaths.push("metadata.json");
@@ -303,13 +301,13 @@ function getFreshBackupTargets(
 }
 
 async function restoreFreshBackup(backup: DestructiveOperationBackup): Promise<void> {
-	const restoreSpinner = createSpinner("Restoring ClaudeKit files from recovery backup...").start();
+	const restoreSpinner = createSpinner("Restoring HiLab files from recovery backup...").start();
 
 	try {
 		await restoreDestructiveOperationBackup(backup);
 		restoreSpinner.succeed(`Restored previous state from ${backup.backupDir}`);
 	} catch (error) {
-		restoreSpinner.fail("Failed to restore ClaudeKit files from recovery backup");
+		restoreSpinner.fail("Failed to restore HiLab files from recovery backup");
 		throw new Error(
 			`Fresh install rollback failed: ${error instanceof Error ? error.message : "Unknown error"}. Recovery backup retained at ${backup.backupDir}`,
 		);
@@ -317,13 +315,13 @@ async function restoreFreshBackup(backup: DestructiveOperationBackup): Promise<v
 }
 
 /**
- * Fallback: Remove entire ClaudeKit subdirectories (legacy behavior)
+ * Fallback: Remove entire HiLab subdirectories (legacy behavior)
  */
 async function removeSubdirectoriesFallback(claudeDir: string): Promise<FreshInstallResult> {
 	const removedFiles: string[] = [];
 	let removedDirCount = 0;
 
-	for (const subdir of CLAUDEKIT_SUBDIRECTORIES) {
+	for (const subdir of HILAB_SUBDIRECTORIES) {
 		const subdirPath = join(claudeDir, subdir);
 		if (await pathExists(subdirPath)) {
 			rmSync(subdirPath, { recursive: true, force: true });
@@ -410,7 +408,7 @@ export async function handleFreshInstallation(
 		}
 
 		// Start removal
-		const spinner = createSpinner("Removing ClaudeKit files...").start();
+		const spinner = createSpinner("Removing HiLab files...").start();
 
 		try {
 			let result: FreshInstallResult;
@@ -427,7 +425,7 @@ export async function handleFreshInstallation(
 				// Fallback: remove entire directories (no metadata to guide us)
 				result = await removeSubdirectoriesFallback(claudeDir);
 
-				spinner.succeed(`Removed ${result.removedCount} ClaudeKit directories`);
+				spinner.succeed(`Removed ${result.removedCount} HiLab directories`);
 			}
 
 			// Log details in verbose mode
@@ -439,7 +437,7 @@ export async function handleFreshInstallation(
 
 			return true;
 		} catch (error) {
-			spinner.fail("Failed to remove ClaudeKit files");
+			spinner.fail("Failed to remove HiLab files");
 			if (backup) {
 				await restoreFreshBackup(backup);
 			}

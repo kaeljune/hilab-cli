@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { CkConfigSchema, StatuslineLayoutSchema } from "@/types/ck-config.js";
+import { CkConfigSchema, StatuslineLayoutSchema } from "@/types/hi-config.js";
 
 describe("StatuslineLayoutSchema", () => {
 	describe("lines validation", () => {

@@ -6,7 +6,7 @@ import { DEFAULT_KIT_LAYOUT } from "@/types";
 import { resolveKitLayout } from "./kit-layout.js";
 
 describe("resolveKitLayout", () => {
-	const testDir = join(tmpdir(), "claudekit-kit-layout-test");
+	const testDir = join(tmpdir(), "hilab-kit-layout-test");
 
 	beforeAll(() => {
 		mkdirSync(testDir, { recursive: true });
@@ -22,7 +22,7 @@ describe("resolveKitLayout", () => {
 		writeFileSync(
 			join(projectDir, "package.json"),
 			JSON.stringify({
-				claudekit: {
+				hilab: {
 					sourceDir: "claude",
 					runtimeDir: "../../escaped/.claude",
 				},

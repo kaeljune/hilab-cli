@@ -61,7 +61,7 @@ async function ensureLayoutSourceDir(
 			}
 
 			logger.warning(
-				`Warning: No ${layout.sourceDir} source directory found in ${projectRoot}\nThis may not be a valid ClaudeKit installation. Proceeding anyway...`,
+				`Warning: No ${layout.sourceDir} source directory found in ${projectRoot}\nThis may not be a valid HiLab installation. Proceeding anyway...`,
 			);
 			return null;
 		}
@@ -335,7 +335,7 @@ Please verify your token has the correct permissions:
   • Classic PAT: requires 'repo' scope
   • Fine-grained PAT: cannot access collaborator repos
 
-Or try: ck new --use-git`,
+Or try: hi new --use-git`,
 		);
 	}
 
@@ -438,13 +438,13 @@ async function useLocalKitPath(kitPath: string): Promise<DownloadExtractResult> 
 		const stat = await fs.promises.stat(claudeDir);
 		if (!stat.isDirectory()) {
 			logger.warning(
-				`Warning: ${claudeDir} exists but is not a directory.\nThis may not be a valid ClaudeKit installation.`,
+				`Warning: ${claudeDir} exists but is not a directory.\nThis may not be a valid HiLab installation.`,
 			);
 		}
 	} catch (error: unknown) {
 		if ((error as NodeJS.ErrnoException).code === "ENOENT") {
 			logger.warning(
-				`Warning: No ${layout.runtimeDir} directory found in ${kitRoot}\nThis may not be a valid ClaudeKit installation. Proceeding anyway...`,
+				`Warning: No ${layout.runtimeDir} directory found in ${kitRoot}\nThis may not be a valid HiLab installation. Proceeding anyway...`,
 			);
 		}
 	}

@@ -2,7 +2,7 @@
 
 ## Overview
 
-ClaudeKit CLI is a command-line tool for bootstrapping and updating ClaudeKit projects from private GitHub repository releases. Built with Bun and TypeScript, it provides secure, fast project setup and maintenance with comprehensive features for downloading, extracting, and merging project templates.
+HiLab CLI is a command-line tool for bootstrapping and updating HiLab projects from private GitHub repository releases. Built with Bun and TypeScript, it provides secure, fast project setup and maintenance with comprehensive features for downloading, extracting, and merging project templates.
 
 **Version**: 3.32.0-dev.3 (next stable: 3.32.0)
 **Architecture**: Modular domain-driven with facade patterns
@@ -58,7 +58,7 @@ The codebase underwent a major modularization refactor, reducing 24 large files 
 ## Project Structure
 
 ```
-claudekit-cli/
+hilab-cli/
 ├── bin/                          # Binary distribution
 │   └── ck.js                     # Platform detection wrapper
 ├── src/                          # Source code (334 TS files)
@@ -174,7 +174,7 @@ claudekit-cli/
 │   │   │   │   └── version-formatter.ts
 │   │   │   ├── auto-healer.ts
 │   │   │   ├── check-runner.ts
-│   │   │   ├── claudekit-checker.ts  # Facade
+│   │   │   ├── hilab-checker.ts  # Facade
 │   │   │   ├── platform-checker.ts   # Facade
 │   │   │   └── report-generator.ts
 │   │   ├── help/                 # Help system
@@ -233,9 +233,9 @@ claudekit-cli/
 │   │   │   ├── skills-detector.ts               # Facade
 │   │   │   ├── skills-migrator.ts               # Facade
 │   │   │   └── skills-manifest.ts
-│   │   ├── claudekit-api/        # ClaudeKit API Client (NEW)
+│   │   ├── hilab-api/        # HiLab API Client (NEW)
 │   │   │   ├── index.ts          # Facade with createApiClient() factory
-│   │   │   ├── claudekit-http-client.ts # HTTP client with auth & retry
+│   │   │   ├── hilab-http-client.ts # HTTP client with auth & retry
 │   │   │   └── api-error-handler.ts     # Typed error handling
 │   │   ├── ui/                   # User interface
 │   │   │   ├── prompts/          # Prompt modules (NEW)
@@ -303,7 +303,7 @@ claudekit-cli/
 │   │   └── terminal-utils.ts     # Terminal utilities
 │   ├── types/                    # Domain-specific types & Zod schemas
 │   │   ├── commands.ts           # Command option schemas
-│   │   ├── claudekit-api.ts      # ClaudeKit API types (NEW)
+│   │   ├── hilab-api.ts      # HiLab API types (NEW)
 │   │   ├── common.ts             # Common types
 │   │   ├── errors.ts             # Error types
 │   │   ├── github.ts             # GitHub API types
@@ -354,7 +354,7 @@ Orchestrator + phase handlers: directory-setup, project-creation, post-setup.
 #### skills/ - Skills Management (multi-select, registry, uninstall)
 Renamed from `skill` command. Includes detection, installation, uninstall, and registry tracking of skills across agents.
 
-#### uninstall/ - ClaudeKit Uninstaller
+#### uninstall/ - HiLab Uninstaller
 Detection, analysis, and safe removal with fallback for installations without metadata.json.
 
 #### update-cli.ts - CLI Self-Update with Smart Kit Detection
@@ -380,7 +380,7 @@ Multi-daemon for monitoring Git repos and publishing social content via Claude C
   - **Database**: `db-manager.ts`, `db-queries.ts`, `db-queries-{git-events,content-items}.ts` (SQLite WAL, schema)
   - **Analytics**: `engagement-tracker.ts`, `performance-analyzer.ts`
   - **Setup**: `setup-wizard.ts`, `platform-setup-{x,facebook}.ts` (@clack/prompts interactive)
-  - **State**: `state-manager.ts` (.ck.json integration)
+  - **State**: `state-manager.ts` (.hi.json integration)
   - **Logging**: `content-logger.ts` (structured file + console logging)
 
 ### 2. Domain Layer (src/domains/)
@@ -388,7 +388,7 @@ Multi-daemon for monitoring Git repos and publishing social content via Claude C
 3-phase RECONCILE → EXECUTE → REPORT pipeline for safe repeated migrations. Pure reconciler (zero I/O, 8-case decision matrix), Registry v3.0 with SHA-256 checksums, portable manifest for cross-version evolution. Interactive CLI conflict resolution with diff preview. Dashboard UI with plan viewer and conflict resolver. Migration lock (30s) prevents registry corruption. See `docs/reconciliation-architecture.md`.
 
 #### doctor/ - Health Check System
-Parallel checkers: system (Node, npm, Python, git, gh), auth (token scopes, rate limit), GitHub API, ClaudeKit (installs, versions, skills), platform, network. Auto-healer for common issues.
+Parallel checkers: system (Node, npm, Python, git, gh), auth (token scopes, rate limit), GitHub API, HiLab (installs, versions, skills), platform, network. Auto-healer for common issues.
 
 #### agents/, commands/, projects/ - Agent/Command/Project Management
 Agent installation to Claude config. Command discovery & installation. Project registry UI with dashboard integration.
@@ -396,7 +396,7 @@ Agent installation to Claude config. Command discovery & installation. Project r
 #### setup/ - Initial Setup Wizard (3 phases)
 Interactive onboarding: kit education, feature comparison, guided installation.
 
-#### api/ - ClaudeKit API Command Group (NEW, 20+ subcommands)
+#### api/ - HiLab API Command Group (NEW, 20+ subcommands)
 Facade router orchestrating API subcommands with consistent response handling.
 
 **Subcommands:**
@@ -442,8 +442,8 @@ Long-running daemon that polls GitHub Issues and spawns Claude for AI-powered an
 - `phases/plan-lifecycle.ts` — Plan generation: build plan prompts, invoke Claude, parse phases
 - `phases/response-poster.ts` — Secure posting: credential scanning (9 patterns), @mention stripping, stdin-based posting (no shell args), AI disclaimer injection
 - `phases/input-sanitizer.ts` — Prompt injection defense: 6+ injection patterns, regex-based detection
-- `phases/state-manager.ts` — Config/state persistence: .ck.json schema, issue tracking, conversation history
-- `phases/watch-logger.ts` — File-based logging: daily rotated logs in ~/.claudekit/logs/, summary printing
+- `phases/state-manager.ts` — Config/state persistence: .hi.json schema, issue tracking, conversation history
+- `phases/watch-logger.ts` — File-based logging: daily rotated logs in ~/.hilab/logs/, summary printing
 
 **Key Features:**
 
@@ -455,7 +455,7 @@ Long-running daemon that polls GitHub Issues and spawns Claude for AI-powered an
 - Graceful shutdown: completes current task, saves state, prints summary
 - Timeout handling (brainstorm: 300s, planning: 600s, configurable)
 
-**Configuration (.ck.json):**
+**Configuration (.hi.json):**
 
 ```json
 {
@@ -473,7 +473,7 @@ Long-running daemon that polls GitHub Issues and spawns Claude for AI-powered an
 **Types (types.ts):**
 
 - `WatchCommandOptions` — CLI flags: --interval, --dry-run, --verbose
-- `WatchConfig` — Persisted settings from .ck.json
+- `WatchConfig` — Persisted settings from .hi.json
 - `WatchState` — Runtime state: activeIssues, processedIssues, lastCheckedAt
 - `IssueState` — Per-issue tracking: status, turnsUsed, conversationHistory
 - `IssueStatus` — "new" | "brainstorming" | "clarifying" | "planning" | "plan_posted" | "completed" | "error" | "timeout"
@@ -487,7 +487,7 @@ Business logic by domain with facade pattern.
 
 **config/** - Config management (generator, manager, validator), merger with conflict resolution and diff calculation
 **github/** - GitHub API client (Octokit wrapper), auth (GitHub CLI only), npm registry
-**health-checks/** - Doctor command: 11 parallel checkers (system, auth, GitHub, ClaudeKit, platform, network, etc.) + auto-healer
+**health-checks/** - Doctor command: 11 parallel checkers (system, auth, GitHub, HiLab, platform, network, etc.) + auto-healer
 **installation/** - Download (streaming), extract (ZIP/TAR with security validation), merge (selective, multi-kit aware), package manager detection
 **skills/** - Detection (config, dependencies, scripts), customization scanning (hashing), migration executor (backup/rollback)
 **ui/** - Interactive prompts (kit/version selection, confirmations), ownership display (3-state model)
@@ -496,11 +496,11 @@ Business logic by domain with facade pattern.
 **sync/** - Passive update checking, merge UI preview (NEW)
 **web-server/** - Express+Vite dashboard server, WebSocket, HMR (NEW)
 **api-key/** - Secure API key storage & validation (NEW)
-**claudekit-data/** - Claude user data parsing (history, sessions) (NEW)
+**hilab-data/** - Claude user data parsing (history, sessions) (NEW)
 **error/** - Error classification & handling (NEW)
 **migration/** - Legacy migration, metadata, release manifest (NEW)
 **migration/** (advanced) - Reconciliation system with portable manifest (merged into portable/)
-**claudekit-api/** - ClaudeKit API client infrastructure (NEW)
+**hilab-api/** - HiLab API client infrastructure (NEW)
   - HTTP client with fetch wrapper, auth headers, rate limit retry on 429
   - Typed error handler with CkApiError, error code mapping, rate limit info parsing
   - Factory pattern for client instantiation
@@ -687,9 +687,9 @@ Auto-detection and installation of system dependencies (doctor command).
 - Discord Webhooks: Release notifications
 
 ### File System
-- Configuration (local): ~/.claudekit/config.json
+- Configuration (local): ~/.hilab/config.json
 - Configuration (global): Platform-specific (XDG-compliant)
-- Cache: ~/.claudekit/cache or platform-specific
+- Cache: ~/.hilab/cache or platform-specific
 - Global kit installation: ~/.claude/
 - Local project installations: {project}/.claude/
 - Skills manifest: .claude/skills/.skills-manifest.json

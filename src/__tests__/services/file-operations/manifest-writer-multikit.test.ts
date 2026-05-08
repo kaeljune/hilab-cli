@@ -30,7 +30,7 @@ describe("ManifestWriter multi-kit", () => {
 		it("creates multi-kit structure for fresh install", async () => {
 			const writer = new ManifestWriter();
 
-			await writer.writeManifest(testDir, "ClaudeKit Engineer", "v1.2.3", "local", "engineer");
+			await writer.writeManifest(testDir, "HiLab Engineer", "v1.2.3", "local", "engineer");
 
 			const content = await readFile(join(testDir, "metadata.json"), "utf-8");
 			const metadata = JSON.parse(content) as Metadata;
@@ -39,7 +39,7 @@ describe("ManifestWriter multi-kit", () => {
 			expect(metadata.kits?.engineer?.version).toBe("v1.2.3");
 			expect(metadata.scope).toBe("local");
 			// Legacy fields preserved for backward compat
-			expect(metadata.name).toBe("ClaudeKit Engineer");
+			expect(metadata.name).toBe("HiLab Engineer");
 			expect(metadata.version).toBe("v1.2.3");
 		});
 
@@ -59,7 +59,7 @@ describe("ManifestWriter multi-kit", () => {
 
 			// Add marketing kit
 			const writer = new ManifestWriter();
-			await writer.writeManifest(testDir, "ClaudeKit Marketing", "v0.1.0", "local", "marketing");
+			await writer.writeManifest(testDir, "HiLab Marketing", "v0.1.0", "local", "marketing");
 
 			const content = await readFile(join(testDir, "metadata.json"), "utf-8");
 			const metadata = JSON.parse(content) as Metadata;
@@ -83,7 +83,7 @@ describe("ManifestWriter multi-kit", () => {
 
 			// Update engineer kit
 			const writer = new ManifestWriter();
-			await writer.writeManifest(testDir, "ClaudeKit Engineer", "v2.0.0", "local", "engineer");
+			await writer.writeManifest(testDir, "HiLab Engineer", "v2.0.0", "local", "engineer");
 
 			const content = await readFile(join(testDir, "metadata.json"), "utf-8");
 			const metadata = JSON.parse(content) as Metadata;
@@ -94,7 +94,7 @@ describe("ManifestWriter multi-kit", () => {
 		it("migrates legacy format before writing", async () => {
 			// Pre-create legacy metadata
 			const legacy: Metadata = {
-				name: "ClaudeKit Engineer",
+				name: "HiLab Engineer",
 				version: "v1.0.0",
 				installedAt: "2024-01-01T00:00:00.000Z",
 				scope: "global",
@@ -104,7 +104,7 @@ describe("ManifestWriter multi-kit", () => {
 
 			// Write marketing kit (should trigger migration)
 			const writer = new ManifestWriter();
-			await writer.writeManifest(testDir, "ClaudeKit Marketing", "v0.1.0", "global", "marketing");
+			await writer.writeManifest(testDir, "HiLab Marketing", "v0.1.0", "global", "marketing");
 
 			const content = await readFile(join(testDir, "metadata.json"), "utf-8");
 			const metadata = JSON.parse(content) as Metadata;
@@ -114,14 +114,14 @@ describe("ManifestWriter multi-kit", () => {
 			expect(metadata.kits?.marketing?.version).toBe("v0.1.0");
 			// DEPRECATED: Legacy fields preserved from first kit, not overwritten
 			// Use kits object for version display instead
-			expect(metadata.name).toBe("ClaudeKit Engineer");
+			expect(metadata.name).toBe("HiLab Engineer");
 		});
 
 		it("infers kit type from name if not provided", async () => {
 			const writer = new ManifestWriter();
 
 			// Marketing kit should be inferred from name
-			await writer.writeManifest(testDir, "ClaudeKit Marketing", "v0.1.0", "local");
+			await writer.writeManifest(testDir, "HiLab Marketing", "v0.1.0", "local");
 
 			const content = await readFile(join(testDir, "metadata.json"), "utf-8");
 			const metadata = JSON.parse(content) as Metadata;
@@ -146,7 +146,7 @@ describe("ManifestWriter multi-kit", () => {
 
 			let settled = false;
 			const run = writer
-				.writeManifest(testDir, "ClaudeKit Engineer", "v1.2.3", "local", "engineer")
+				.writeManifest(testDir, "HiLab Engineer", "v1.2.3", "local", "engineer")
 				.finally(() => {
 					settled = true;
 				});
@@ -209,13 +209,13 @@ describe("ManifestWriter multi-kit", () => {
 			const file1: TrackedFile = {
 				path: "commands/engineer.md",
 				checksum: "abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abc1",
-				ownership: "ck",
+				ownership: "hi",
 				installedVersion: "v1.0.0",
 			};
 			const file2: TrackedFile = {
 				path: "commands/marketing.md",
 				checksum: "def456def456def456def456def456def456def456def456def456def456def4",
-				ownership: "ck",
+				ownership: "hi",
 				installedVersion: "v0.1.0",
 			};
 
@@ -246,13 +246,13 @@ describe("ManifestWriter multi-kit", () => {
 			const file1: TrackedFile = {
 				path: "commands/engineer.md",
 				checksum: "abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abc1",
-				ownership: "ck",
+				ownership: "hi",
 				installedVersion: "v1.0.0",
 			};
 			const file2: TrackedFile = {
 				path: "commands/marketing.md",
 				checksum: "def456def456def456def456def456def456def456def456def456def456def4",
-				ownership: "ck",
+				ownership: "hi",
 				installedVersion: "v0.1.0",
 			};
 
@@ -284,13 +284,13 @@ describe("ManifestWriter multi-kit", () => {
 			const sharedFile: TrackedFile = {
 				path: "shared/common.md",
 				checksum: "shared1shared1shared1shared1shared1shared1shared1shared1shared1shar",
-				ownership: "ck",
+				ownership: "hi",
 				installedVersion: "v1.0.0",
 			};
 			const engineerFile: TrackedFile = {
 				path: "commands/engineer.md",
 				checksum: "abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abc1",
-				ownership: "ck",
+				ownership: "hi",
 				installedVersion: "v1.0.0",
 			};
 
@@ -323,13 +323,13 @@ describe("ManifestWriter multi-kit", () => {
 			const engineerVersion: TrackedFile = {
 				path: "shared/config.md",
 				checksum: "eng111eng111eng111eng111eng111eng111eng111eng111eng111eng111eng1",
-				ownership: "ck",
+				ownership: "hi",
 				installedVersion: "v1.0.0",
 			};
 			const marketingVersion: TrackedFile = {
 				path: "shared/config.md", // Same path
 				checksum: "mkt222mkt222mkt222mkt222mkt222mkt222mkt222mkt222mkt222mkt222mkt2", // Different checksum
-				ownership: "ck",
+				ownership: "hi",
 				installedVersion: "v0.2.0", // Different version
 			};
 
@@ -363,13 +363,13 @@ describe("ManifestWriter multi-kit", () => {
 			const engineerFile: TrackedFile = {
 				path: "shared/utility.md",
 				checksum: sharedChecksum,
-				ownership: "ck",
+				ownership: "hi",
 				installedVersion: "v1.0.0",
 			};
 			const marketingFile: TrackedFile = {
 				path: "shared/utility.md",
 				checksum: sharedChecksum,
-				ownership: "ck-modified", // Different ownership status
+				ownership: "hi-modified", // Different ownership status
 				installedVersion: "v1.0.0",
 			};
 
@@ -400,12 +400,12 @@ describe("ManifestWriter multi-kit", () => {
 			const file: TrackedFile = {
 				path: "commands/test.md",
 				checksum: "abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abc1",
-				ownership: "ck",
+				ownership: "hi",
 				installedVersion: "v1.0.0",
 			};
 
 			const legacy: Metadata = {
-				name: "ClaudeKit Engineer",
+				name: "HiLab Engineer",
 				version: "v1.0.0",
 				files: [file],
 			};

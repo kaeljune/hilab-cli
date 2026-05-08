@@ -25,7 +25,7 @@ import { migrateHooksSettings } from "../hooks-settings-merger.js";
 
 // ---- helpers ----------------------------------------------------------------
 
-const testRoot = join(tmpdir(), "ck-codex-compat-integration");
+const testRoot = join(tmpdir(), "hi-codex-compat-integration");
 const originalCwd = process.cwd();
 
 function makeSourceSettings(hooks: Record<string, unknown>): string {
@@ -300,7 +300,7 @@ describe("codex hook compat integration — fresh install", () => {
 	}, 10000);
 });
 
-describe("codex hook compat integration — upgrade from previous ck migrate", () => {
+describe("codex hook compat integration — upgrade from previous hi migrate", () => {
 	it("upgrade: new migration adds supported events even when stale hooks.json exists", async () => {
 		const dir = setupTestDir("upgrade");
 		writeFileSync(join(dir, ".claude", "settings.json"), makeSourceSettings(FULL_CLAUDE_HOOKS));
@@ -621,10 +621,10 @@ describe("codex hook compat — capability fallback on unknown version (H3)", ()
 			"../codex-capabilities.js"
 		);
 		// When codex binary is absent, falls back to oldest entry (last in table)
-		const prev = process.env.CK_CODEX_COMPAT;
+		const prev = process.env.HI_CODEX_COMPAT;
 		// Remove env override so we get default behavior
 		// biome-ignore lint/performance/noDelete: required to truly unset env for this test
-		delete process.env.CK_CODEX_COMPAT;
+		delete process.env.HI_CODEX_COMPAT;
 		try {
 			const caps = await detectCodexCapabilities();
 			// Must be the oldest (last) entry — most restrictive by default
@@ -637,7 +637,7 @@ describe("codex hook compat — capability fallback on unknown version (H3)", ()
 			expect(Object.keys(caps.events).length).toBeGreaterThan(0);
 		} finally {
 			if (prev !== undefined) {
-				process.env.CK_CODEX_COMPAT = prev;
+				process.env.HI_CODEX_COMPAT = prev;
 			}
 		}
 	});
@@ -646,8 +646,8 @@ describe("codex hook compat — capability fallback on unknown version (H3)", ()
 		const { CODEX_CAPABILITY_TABLE: table, detectCodexCapabilities } = await import(
 			"../codex-capabilities.js"
 		);
-		const prev = process.env.CK_CODEX_COMPAT;
-		process.env.CK_CODEX_COMPAT = "strict";
+		const prev = process.env.HI_CODEX_COMPAT;
+		process.env.HI_CODEX_COMPAT = "strict";
 		try {
 			const caps = await detectCodexCapabilities();
 			// Strict always uses last entry (oldest, most conservative)
@@ -655,9 +655,9 @@ describe("codex hook compat — capability fallback on unknown version (H3)", ()
 		} finally {
 			if (prev === undefined) {
 				// biome-ignore lint/performance/noDelete: required to truly unset env for this test
-				delete process.env.CK_CODEX_COMPAT;
+				delete process.env.HI_CODEX_COMPAT;
 			} else {
-				process.env.CK_CODEX_COMPAT = prev;
+				process.env.HI_CODEX_COMPAT = prev;
 			}
 		}
 	});
@@ -666,8 +666,8 @@ describe("codex hook compat — capability fallback on unknown version (H3)", ()
 		const { CODEX_CAPABILITY_TABLE: table, detectCodexCapabilities } = await import(
 			"../codex-capabilities.js"
 		);
-		const prev = process.env.CK_CODEX_COMPAT;
-		process.env.CK_CODEX_COMPAT = "optimistic";
+		const prev = process.env.HI_CODEX_COMPAT;
+		process.env.HI_CODEX_COMPAT = "optimistic";
 		try {
 			const caps = await detectCodexCapabilities();
 			// Optimistic: when codex is absent/unknown, use newest entry (index 0)
@@ -682,9 +682,9 @@ describe("codex hook compat — capability fallback on unknown version (H3)", ()
 		} finally {
 			if (prev === undefined) {
 				// biome-ignore lint/performance/noDelete: required to truly unset env for this test
-				delete process.env.CK_CODEX_COMPAT;
+				delete process.env.HI_CODEX_COMPAT;
 			} else {
-				process.env.CK_CODEX_COMPAT = prev;
+				process.env.HI_CODEX_COMPAT = prev;
 			}
 		}
 	});

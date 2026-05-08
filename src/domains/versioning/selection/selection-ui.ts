@@ -205,7 +205,7 @@ export async function handleSelectionError(
 		clack.note(
 			VersionDisplayFormatter.formatError(
 				"Authentication failed",
-				"Please check your GitHub token with: ck auth",
+				"Please check your GitHub token with: hi auth",
 			),
 			pc.red("Authentication Error"),
 		);

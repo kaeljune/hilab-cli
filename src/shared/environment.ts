@@ -46,7 +46,7 @@ export function isCIEnvironment(): boolean {
  * so expensive operations (npm queries, network checks) can safely run.
  */
 function isIsolatedTestEnvironment(): boolean {
-	const normalizedValue = normalizeEnvValue(process.env.CK_TEST_HOME);
+	const normalizedValue = normalizeEnvValue(process.env.HI_TEST_HOME);
 	if (!normalizedValue) {
 		return false;
 	}

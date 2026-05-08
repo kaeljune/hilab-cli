@@ -1,6 +1,6 @@
 /**
  * Kit Version Checker
- * Checks for ClaudeKit template updates from GitHub
+ * Checks for HiLab template updates from GitHub
  */
 import { GitHubClient } from "@/domains/github/github-client.js";
 import { logger } from "@/shared/logger.js";

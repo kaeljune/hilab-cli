@@ -139,7 +139,7 @@ const FALLBACK_CAPABILITIES: CodexCapabilities =
  * - On failure / unknown version: logs a warning and falls back to FALLBACK_CAPABILITIES.
  */
 export async function detectCodexCapabilities(): Promise<CodexCapabilities> {
-	if (process.env.CK_CODEX_COMPAT === "strict") {
+	if (process.env.HI_CODEX_COMPAT === "strict") {
 		// Strict mode: use the OLDEST known capability set (most conservative)
 		// ORDERING INVARIANT: last entry in table is oldest.
 		return CODEX_CAPABILITY_TABLE[CODEX_CAPABILITY_TABLE.length - 1];
@@ -159,9 +159,9 @@ export async function detectCodexCapabilities(): Promise<CodexCapabilities> {
 
 		// Version is unknown to our table — warn and fall back
 		logger.warning(
-			`[!] Codex version ${version} not found in ck capability table; using most-restrictive baseline. Set CK_CODEX_COMPAT=optimistic to use newest known capabilities instead.`,
+			`[!] Codex version ${version} not found in hi capability table; using most-restrictive baseline. Set CK_CODEX_COMPAT=optimistic to use newest known capabilities instead.`,
 		);
-		return process.env.CK_CODEX_COMPAT === "optimistic"
+		return process.env.HI_CODEX_COMPAT === "optimistic"
 			? CODEX_CAPABILITY_TABLE[0]
 			: FALLBACK_CAPABILITIES;
 	} catch {
@@ -169,7 +169,7 @@ export async function detectCodexCapabilities(): Promise<CodexCapabilities> {
 		logger.warning(
 			"[!] Could not detect Codex version; using most-restrictive capability baseline. Set CK_CODEX_COMPAT=optimistic to use newest known capabilities instead.",
 		);
-		return process.env.CK_CODEX_COMPAT === "optimistic"
+		return process.env.HI_CODEX_COMPAT === "optimistic"
 			? CODEX_CAPABILITY_TABLE[0]
 			: FALLBACK_CAPABILITIES;
 	}

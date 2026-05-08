@@ -2,7 +2,7 @@
 
 ## Overview
 
-As of v1.4.0, `claudekit-cli` is distributed as pre-compiled platform-specific binaries instead of JavaScript source code. This provides:
+As of v1.4.0, `hilab-cli` is distributed as pre-compiled platform-specific binaries instead of JavaScript source code. This provides:
 
 - **Consistent behavior** across all platforms
 - **Better performance** (no JIT compilation needed)
@@ -22,7 +22,7 @@ As of v1.4.0, `claudekit-cli` is distributed as pre-compiled platform-specific b
 
 ### Installation
 
-When you run `npm install -g claudekit-cli`:
+When you run `npm install -g hilab-cli`:
 
 1. NPM downloads the package containing all platform-specific binaries
 2. NPM creates a symlink to `bin/ck.js` in your global bin directory
@@ -34,7 +34,7 @@ When you run `npm install -g claudekit-cli`:
 ### File Structure
 
 ```
-claudekit-cli/
+hilab-cli/
 ├── bin/
 │   ├── ck.js                 # Wrapper script (entry point)
 │   ├── ck-darwin-arm64       # macOS ARM64 binary
@@ -77,7 +77,7 @@ node -e "console.log(process.platform, process.arch)"
 # Expected output: darwin arm64, linux x64, etc.
 ```
 
-If your platform isn't supported, please [open an issue](https://github.com/claudekit/claudekit-cli/issues).
+If your platform isn't supported, please [open an issue](https://github.com/hilab/hilab-cli/issues).
 
 ### Permission Denied (Unix)
 
@@ -108,10 +108,10 @@ If you're upgrading from v1.3.x or earlier:
 
 ```bash
 # Uninstall old version
-npm uninstall -g claudekit-cli
+npm uninstall -g hilab-cli
 
 # Install new binary version
-npm install -g claudekit-cli@latest
+npm install -g hilab-cli@latest
 
 # Verify binary installation
 ck --version

@@ -33,7 +33,7 @@ let cleanupRegistered = false;
  * Get locks directory path
  */
 function getLocksDir(): string {
-	return join(os.homedir(), ".claudekit", "locks");
+	return join(os.homedir(), ".hilab", "locks");
 }
 
 /**
@@ -86,7 +86,7 @@ async function ensureLocksDir(): Promise<void> {
 /**
  * Get both the resource path and the lockfile directory path for a lock name.
  * proper-lockfile creates a directory at `<path>.lock` to hold the actual lock,
- * so for lockPath "ck-watch.lock" the real lock artifact is "ck-watch.lock.lock".
+ * so for lockPath "hi-watch.lock" the real lock artifact is "hi-watch.lock.lock".
  */
 export function getLockPaths(lockName: string): { resource: string; lockfile: string } {
 	const resource = join(getLocksDir(), `${lockName}.lock`);
@@ -98,7 +98,7 @@ export function getLockPaths(lockName: string): { resource: string; lockfile: st
  *
  * @param lockName Name of the lock file (e.g., 'engineer-install', 'migration')
  * @param fn Function to execute with lock held
- * @param duration Lock duration preset — "short" (default) or "long" for daemons like ck watch
+ * @param duration Lock duration preset — "short" (default) or "long" for daemons like hi watch
  * @returns Result of the function
  * @throws {Error} If lock cannot be acquired or function fails
  */
@@ -135,7 +135,7 @@ export async function withProcessLock<T>(
 		const error = e as { code?: string };
 		if (error.code === "ELOCKED") {
 			throw new Error(
-				`Another ClaudeKit process is running.\n\nOperation: ${lockName}\nWait for it to complete or remove lock: ${lockPath}`,
+				`Another HiLab process is running.\n\nOperation: ${lockName}\nWait for it to complete or remove lock: ${lockPath}`,
 			);
 		}
 		if (error.code === "ECOMPROMISED") {

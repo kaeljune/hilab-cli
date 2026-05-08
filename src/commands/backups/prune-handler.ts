@@ -39,10 +39,10 @@ export async function handleBackupsPrune(
 		const summary = await getDestructiveOperationBackupSummary(backupId);
 		promptMessage = `Delete backup ${summary.id}?`;
 	} else if (options.all) {
-		promptMessage = "Delete all ClaudeKit recovery backups?";
+		promptMessage = "Delete all HiLab recovery backups?";
 	} else {
 		const keepCount = parseKeepCount(options.keep);
-		promptMessage = `Prune old ClaudeKit recovery backups and keep the newest ${keepCount}?`;
+		promptMessage = `Prune old HiLab recovery backups and keep the newest ${keepCount}?`;
 	}
 
 	const confirmed =

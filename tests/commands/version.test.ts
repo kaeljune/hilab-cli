@@ -52,16 +52,16 @@ describe("Version Command", () => {
 	describe("Kit Configuration", () => {
 		test("should have engineer kit configured", () => {
 			const engineerKit = AVAILABLE_KITS.engineer;
-			expect(engineerKit.name).toBe("ClaudeKit Engineer");
-			expect(engineerKit.repo).toBe("claudekit-engineer");
-			expect(engineerKit.owner).toBe("claudekit");
+			expect(engineerKit.name).toBe("HiLab Engineer");
+			expect(engineerKit.repo).toBe("hilab-engineer");
+			expect(engineerKit.owner).toBe("hilab");
 		});
 
 		test("should have marketing kit configured", () => {
 			const marketingKit = AVAILABLE_KITS.marketing;
-			expect(marketingKit.name).toBe("ClaudeKit Marketing");
-			expect(marketingKit.repo).toBe("claudekit-marketing");
-			expect(marketingKit.owner).toBe("claudekit");
+			expect(marketingKit.name).toBe("HiLab Marketing");
+			expect(marketingKit.repo).toBe("hilab-marketing");
+			expect(marketingKit.owner).toBe("hilab");
 		});
 	});
 
@@ -303,7 +303,7 @@ describe("Version Command", () => {
 
 			if (result.kit) {
 				const kitConfig = AVAILABLE_KITS[result.kit];
-				expect(kitConfig.repo).toBe("claudekit-engineer");
+				expect(kitConfig.repo).toBe("hilab-engineer");
 			}
 		});
 
@@ -314,7 +314,7 @@ describe("Version Command", () => {
 
 			if (result.kit) {
 				const kitConfig = AVAILABLE_KITS[result.kit];
-				expect(kitConfig.repo).toBe("claudekit-marketing");
+				expect(kitConfig.repo).toBe("hilab-marketing");
 			}
 		});
 	});

@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { CkConfigManager } from "@/domains/config/ck-config-manager.js";
+import { CkConfigManager } from "@/domains/config/hi-config-manager.js";
 
 describe("CkConfigManager", () => {
 	let testDir: string;
@@ -10,7 +10,7 @@ describe("CkConfigManager", () => {
 	beforeEach(async () => {
 		testDir = join(
 			tmpdir(),
-			`ck-config-manager-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+			`hi-config-manager-${Date.now()}-${Math.random().toString(36).slice(2)}`,
 		);
 		await mkdir(join(testDir, ".claude"), { recursive: true });
 	});
@@ -21,7 +21,7 @@ describe("CkConfigManager", () => {
 
 	test("loads project config files that contain legacy Gemini model ids", async () => {
 		await writeFile(
-			join(testDir, ".claude", ".ck.json"),
+			join(testDir, ".claude", ".hi.json"),
 			JSON.stringify({
 				gemini: {
 					model: "gemini-3.0-flash",
@@ -41,7 +41,7 @@ describe("CkConfigManager", () => {
 
 	test("normalizes legacy Gemini ids when loading merged config", async () => {
 		await writeFile(
-			join(testDir, ".claude", ".ck.json"),
+			join(testDir, ".claude", ".hi.json"),
 			JSON.stringify({
 				gemini: {
 					model: "gemini-3.0-pro",
@@ -62,7 +62,7 @@ describe("CkConfigManager", () => {
 	});
 
 	test("canonicalizes preserved Gemini config during partial saves", async () => {
-		const configPath = join(testDir, ".claude", ".ck.json");
+		const configPath = join(testDir, ".claude", ".hi.json");
 		await writeFile(
 			configPath,
 			JSON.stringify({
@@ -92,7 +92,7 @@ describe("CkConfigManager", () => {
 	});
 
 	test("preserves unrelated config when existing files no longer match the current schema", async () => {
-		const configPath = join(testDir, ".claude", ".ck.json");
+		const configPath = join(testDir, ".claude", ".hi.json");
 		await writeFile(
 			configPath,
 			JSON.stringify({

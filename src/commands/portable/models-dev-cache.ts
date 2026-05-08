@@ -66,7 +66,7 @@ const FETCH_TIMEOUT_MS = 10_000; // 10 seconds
 // ---- Helpers ----
 
 function defaultCacheDir(): string {
-	return join(homedir(), ".config", "claudekit", "cache");
+	return join(homedir(), ".config", "hilab", "cache");
 }
 
 function cacheFilePath(cacheDir: string): string {
@@ -143,7 +143,7 @@ async function fetchCatalog(fetcher: FetchFn): Promise<ModelsDevCatalog> {
 export interface GetModelsDevCatalogOptions {
 	/** Inject a fetch implementation (for tests). Defaults to globalThis.fetch. */
 	fetcher?: FetchFn;
-	/** Override the cache directory. Defaults to ~/.config/claudekit/cache. */
+	/** Override the cache directory. Defaults to ~/.config/hilab/cache. */
 	cacheDir?: string;
 }
 

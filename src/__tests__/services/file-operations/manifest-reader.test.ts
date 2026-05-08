@@ -37,7 +37,7 @@ describe("findFileInInstalledKits", () => {
 						{
 							path: "skills/bar.md",
 							checksum: "abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abc1",
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "1.0.0",
 						},
 					],
@@ -61,7 +61,7 @@ describe("findFileInInstalledKits", () => {
 						{
 							path: "skills/foo.md",
 							checksum,
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "1.0.0",
 						},
 					],
@@ -86,7 +86,7 @@ describe("findFileInInstalledKits", () => {
 						{
 							path: "skills/foo.md",
 							checksum: "abc123abc123abc123abc123abc123abc123abc123abc123abc123abc123abc1",
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "1.0.0",
 						},
 					],
@@ -110,7 +110,7 @@ describe("findFileInInstalledKits", () => {
 						{
 							path: "skills/shared.md",
 							checksum,
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "1.0.0",
 						},
 					],
@@ -140,7 +140,7 @@ describe("findFileInInstalledKits", () => {
 						{
 							path: "skills/versioned.md",
 							checksum,
-							ownership: "ck",
+							ownership: "hi",
 							installedVersion: "2.5.0",
 						},
 					],

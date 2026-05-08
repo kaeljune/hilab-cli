@@ -21,7 +21,7 @@ import type { InitContext } from "../types.js";
 export async function handleTransforms(ctx: InitContext): Promise<InitContext> {
 	if (ctx.cancelled || !ctx.extractDir || !ctx.resolvedDir) return ctx;
 
-	// Apply /ck: prefix if requested
+	// Apply /hi: prefix if requested
 	if (CommandsPrefix.shouldApplyPrefix(ctx.options)) {
 		await CommandsPrefix.applyPrefix(ctx.extractDir);
 	}
@@ -38,7 +38,7 @@ export async function handleTransforms(ctx: InitContext): Promise<InitContext> {
 		);
 	}
 
-	// In global mode, auto-migrate .ck.json from nested location if needed
+	// In global mode, auto-migrate .hi.json from nested location if needed
 	if (ctx.options.global) {
 		await ConfigManager.migrateNestedConfig(ctx.resolvedDir);
 	}
@@ -84,8 +84,8 @@ export async function handleTransforms(ctx: InitContext): Promise<InitContext> {
 			);
 			logger.debug(
 				ctx.options.global
-					? "Saved folder configuration to ~/.claude/.ck.json"
-					: "Saved folder configuration to .claude/.ck.json",
+					? "Saved folder configuration to ~/.claude/.hi.json"
+					: "Saved folder configuration to .claude/.hi.json",
 			);
 		}
 	}

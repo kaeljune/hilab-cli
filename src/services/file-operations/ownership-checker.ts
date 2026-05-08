@@ -22,8 +22,8 @@ export interface OwnershipCheckResult {
  * OwnershipChecker - Verifies file ownership using SHA-256 checksums
  *
  * Implements pip RECORD pattern for file tracking:
- * - Files in metadata with matching checksum → "ck" (CK-owned, pristine)
- * - Files in metadata with different checksum → "ck-modified" (user modified)
+ * - Files in metadata with matching checksum → "hi" (CK-owned, pristine)
+ * - Files in metadata with different checksum → "hi-modified" (user modified)
  * - Files not in metadata → "user" (user-created)
  */
 export class OwnershipChecker {
@@ -103,7 +103,7 @@ export class OwnershipChecker {
 		if (actualChecksum === tracked.checksum) {
 			return {
 				path: filePath,
-				ownership: "ck",
+				ownership: "hi",
 				expectedChecksum: tracked.checksum,
 				actualChecksum,
 				exists: true,
@@ -111,7 +111,7 @@ export class OwnershipChecker {
 		}
 		return {
 			path: filePath,
-			ownership: "ck-modified",
+			ownership: "hi-modified",
 			expectedChecksum: tracked.checksum,
 			actualChecksum,
 			exists: true,

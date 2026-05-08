@@ -72,7 +72,7 @@ function createKitSpecificMetadata(
 
 /**
  * Check if a directory belongs to a different kit than the one being cleaned
- * @param dirName - Directory name (e.g., "ck", "mkt")
+ * @param dirName - Directory name (e.g., "hi", "mkt")
  * @param currentKit - Kit type being cleaned
  * @returns true if directory belongs to a different kit
  */

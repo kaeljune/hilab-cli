@@ -64,10 +64,10 @@ const MOCK_DISCOVERY = {
 		global: "/tmp/ck-e2e-test/.claude",
 	},
 	sourcePaths: {
-		agents: "/opt/claudekit/.claude/agents",
-		commands: "/opt/claudekit/.claude/commands",
+		agents: "/opt/hilab/.claude/agents",
+		commands: "/opt/hilab/.claude/commands",
 		skills: null,
-		hooks: "/opt/claudekit/.codex/hooks",
+		hooks: "/opt/hilab/.codex/hooks",
 		config: null,
 		rules: null,
 	},

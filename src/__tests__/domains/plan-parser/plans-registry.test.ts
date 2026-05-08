@@ -18,12 +18,12 @@ let testHome: string;
 const tempProjectDirs: string[] = [];
 
 beforeEach(() => {
-	testRoot = mkdtempSync(join(tmpdir(), "ck-plans-registry-"));
+	testRoot = mkdtempSync(join(tmpdir(), "hi-plans-registry-"));
 	mkdirSync(join(testRoot, ".claude"), { recursive: true });
 	// Always set CK_TEST_HOME for global path isolation
-	testHome = mkdtempSync(join(tmpdir(), "ck-plans-home-"));
+	testHome = mkdtempSync(join(tmpdir(), "hi-plans-home-"));
 	mkdirSync(join(testHome, ".claude"), { recursive: true });
-	process.env.CK_TEST_HOME = testHome;
+	process.env.HI_TEST_HOME = testHome;
 	tempProjectDirs.length = 0;
 });
 
@@ -73,7 +73,7 @@ describe("plans-registry", () => {
 				title: "Demo Plan",
 				status: "pending",
 				created: "2026-04-12T00:00:00.000Z",
-				createdBy: "ck-cli",
+				createdBy: "hi-cli",
 				source: "cli",
 				phases: ["1", "2"],
 				progressPct: 0,
@@ -123,7 +123,7 @@ function getOldRegistryPath(projectDir: string): string {
 
 describe("global-registry-relocation", () => {
 	test("fresh install — no old registry reads from global path and returns empty", () => {
-		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "ck-proj-")));
+		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "hi-proj-")));
 		const result = readRegistry(projectDir);
 
 		// Should return empty registry
@@ -142,7 +142,7 @@ describe("global-registry-relocation", () => {
 	});
 
 	test("existing old registry auto-migrates to global path", () => {
-		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "ck-proj-")));
+		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "hi-proj-")));
 
 		// Write old-style registry with plan data
 		const oldData = {
@@ -153,7 +153,7 @@ describe("global-registry-relocation", () => {
 					title: "Demo Plan",
 					status: "pending",
 					created: "2026-04-15T00:00:00.000Z",
-					createdBy: "ck-cli",
+					createdBy: "hi-cli",
 					source: "cli",
 					phases: ["1"],
 					progressPct: 0,
@@ -181,7 +181,7 @@ describe("global-registry-relocation", () => {
 	});
 
 	test("corrupt old registry returns empty and preserves corrupt file for recovery", () => {
-		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "ck-proj-")));
+		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "hi-proj-")));
 
 		// Write invalid JSON to old path
 		writeFileSync(getOldRegistryPath(projectDir), "{ invalid json !!!", "utf8");
@@ -200,7 +200,7 @@ describe("global-registry-relocation", () => {
 	});
 
 	test("global already exists plus old exists prefers global and deletes old", () => {
-		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "ck-proj-")));
+		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "hi-proj-")));
 
 		// Pre-create global registry with existing data
 		const globalDir = PathResolver.getPlansRegistriesDir();
@@ -214,7 +214,7 @@ describe("global-registry-relocation", () => {
 					title: "Global Plan",
 					status: "done",
 					created: "2026-04-14T00:00:00.000Z",
-					createdBy: "ck-cli",
+					createdBy: "hi-cli",
 					source: "cli",
 					lastModified: "2026-04-14T00:00:00.000Z",
 					phases: ["1", "2"],
@@ -234,7 +234,7 @@ describe("global-registry-relocation", () => {
 					title: "Old Plan",
 					status: "pending",
 					created: "2026-04-13T00:00:00.000Z",
-					createdBy: "ck-cli",
+					createdBy: "hi-cli",
 					source: "cli",
 					phases: [],
 					progressPct: 0,
@@ -255,7 +255,7 @@ describe("global-registry-relocation", () => {
 	});
 
 	test("write goes to global path not project dir", () => {
-		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "ck-proj-")));
+		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "hi-proj-")));
 
 		const registry: PlansRegistry = {
 			version: 1,
@@ -277,8 +277,8 @@ describe("global-registry-relocation", () => {
 	});
 
 	test("hash uniqueness — different project paths produce different hashes", () => {
-		const projectA = mkdtempSync(join(tmpdir(), "ck-proj-a-"));
-		const projectB = mkdtempSync(join(tmpdir(), "ck-proj-b-"));
+		const projectA = mkdtempSync(join(tmpdir(), "hi-proj-a-"));
+		const projectB = mkdtempSync(join(tmpdir(), "hi-proj-b-"));
 		tempProjectDirs.push(projectA, projectB);
 
 		const hashA = computeExpectedHash(projectA);
@@ -288,7 +288,7 @@ describe("global-registry-relocation", () => {
 	});
 
 	test("hash stability — same path produces same hash on repeated calls", () => {
-		const projectDir = mkdtempSync(join(tmpdir(), "ck-proj-"));
+		const projectDir = mkdtempSync(join(tmpdir(), "hi-proj-"));
 		tempProjectDirs.push(projectDir);
 
 		const hash1 = computeExpectedHash(projectDir);
@@ -314,7 +314,7 @@ describe("global-registry-relocation", () => {
 	});
 
 	test("projectRoot field is included in written registry", () => {
-		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "ck-proj-")));
+		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "hi-proj-")));
 
 		writeRegistry(
 			{
@@ -333,7 +333,7 @@ describe("global-registry-relocation", () => {
 	});
 
 	test("backup at global path — write then write creates .bak at global location", () => {
-		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "ck-proj-")));
+		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "hi-proj-")));
 
 		// First write
 		writeRegistry(
@@ -352,7 +352,7 @@ describe("global-registry-relocation", () => {
 				title: "Test",
 				status: "pending",
 				created: "2026-04-15T00:00:00.000Z",
-				createdBy: "ck-cli",
+				createdBy: "hi-cli",
 				source: "cli",
 				phases: [],
 				progressPct: 0,
@@ -371,7 +371,7 @@ describe("global-registry-relocation", () => {
 	});
 
 	test("old .bak cleanup — migration deletes stale backup file", () => {
-		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "ck-proj-")));
+		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "hi-proj-")));
 
 		// Create old registry and its backup
 		const oldData = {
@@ -390,7 +390,7 @@ describe("global-registry-relocation", () => {
 	});
 
 	test("CK_TEST_HOME override — global path derived from test home", () => {
-		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "ck-proj-")));
+		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "hi-proj-")));
 
 		// The registries dir should be under testHome
 		const registriesDir = PathResolver.getPlansRegistriesDir();
@@ -413,7 +413,7 @@ describe("global-registry-relocation", () => {
 	});
 
 	test("corrupt global file — returns empty registry without crashing", () => {
-		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "ck-proj-")));
+		const projectDir = setupProjectDir(mkdtempSync(join(tmpdir(), "hi-proj-")));
 
 		// Pre-create corrupt global registry file
 		const globalDir = PathResolver.getPlansRegistriesDir();

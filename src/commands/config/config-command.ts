@@ -23,7 +23,7 @@ export async function configCommand(
 
 	if (action === "get") {
 		if (typeof keyOrOptions !== "string" || !keyOrOptions.trim()) {
-			console.error("Usage: ck config get <key>");
+			console.error("Usage: hi config get <key>");
 			process.exitCode = 1;
 			return;
 		}
@@ -32,12 +32,12 @@ export async function configCommand(
 
 	if (action === "set") {
 		if (typeof keyOrOptions !== "string" || !keyOrOptions.trim()) {
-			console.error("Usage: ck config set <key> <value>");
+			console.error("Usage: hi config set <key> <value>");
 			process.exitCode = 1;
 			return;
 		}
 		if (typeof valueOrOptions !== "string") {
-			console.error("Usage: ck config set <key> <value>");
+			console.error("Usage: hi config set <key> <value>");
 			process.exitCode = 1;
 			return;
 		}
@@ -57,7 +57,7 @@ export async function configCommand(
 		return;
 	}
 
-	// Default: launch dashboard (bare `ck config`)
+	// Default: launch dashboard (bare `hi config`)
 	const rawOpts = options || (typeof keyOrOptions === "object" ? keyOrOptions : {});
 	const openOption = (rawOpts as Record<string, unknown>).open;
 	const noOpen = rawOpts.noOpen === true || openOption === false ? true : undefined;

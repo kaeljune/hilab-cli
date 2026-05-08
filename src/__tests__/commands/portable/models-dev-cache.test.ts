@@ -64,7 +64,7 @@ function make404Fetcher(): FetchFn {
 // ---- Helpers ----
 
 async function makeTmpCacheDir(): Promise<string> {
-	return mkdtemp(join(tmpdir(), "ck-models-dev-cache-test-"));
+	return mkdtemp(join(tmpdir(), "hi-models-dev-cache-test-"));
 }
 
 function makeStaleCacheEntry(catalog: ModelsDevCatalog, ageMs = 25 * 60 * 60 * 1000) {

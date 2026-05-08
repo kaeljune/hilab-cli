@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { ProjectsRegistryManager } from "@/domains/claudekit-data/projects-registry.js";
+import { ProjectsRegistryManager } from "@/domains/hilab-data/projects-registry.js";
 import { registerActionRoutes } from "@/domains/web-server/routes/action-routes.js";
 import express, { type Express } from "express";
 
@@ -13,8 +13,8 @@ interface TestServer {
 }
 
 async function setupServer(): Promise<TestServer> {
-	const testHome = await mkdtemp(join(tmpdir(), "ck-action-routes-"));
-	process.env.CK_TEST_HOME = testHome;
+	const testHome = await mkdtemp(join(tmpdir(), "hi-action-routes-"));
+	process.env.HI_TEST_HOME = testHome;
 	ProjectsRegistryManager.clearCache();
 
 	const app = express();

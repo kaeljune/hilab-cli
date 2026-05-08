@@ -8,7 +8,7 @@ import {
 	isPrereleaseVersion,
 	normalizeVersion,
 } from "@/domains/versioning/checking/version-utils.js";
-import { getCliUserAgent } from "@/shared/claudekit-constants.js";
+import { getCliUserAgent } from "@/shared/hilab-constants.js";
 import { logger } from "@/shared/logger.js";
 import { PathResolver } from "@/shared/path-resolver.js";
 import type { KitType } from "@/types";
@@ -29,7 +29,7 @@ const MAX_CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
  * Returns validated TTL in milliseconds, or default if invalid
  */
 function parseCacheTtl(): number {
-	const envValue = process.env.CK_SYNC_CACHE_TTL;
+	const envValue = process.env.HI_SYNC_CACHE_TTL;
 	if (!envValue) {
 		return DEFAULT_CACHE_TTL_MS;
 	}
@@ -69,12 +69,12 @@ const RELEASES_PER_PAGE = 100;
 
 /**
  * GitHub repo info for each kit type
- * SECURITY: Owner hardcoded to official ClaudeKit org to prevent supply chain attacks.
+ * SECURITY: Owner hardcoded to official HiLab org to prevent supply chain attacks.
  * Users must fork the CLI if they need different upstream repos.
  */
 const KIT_REPOS: Record<string, { owner: string; repo: string }> = {
-	engineer: { owner: "claudekit", repo: "claudekit-engineer" },
-	marketing: { owner: "claudekit", repo: "claudekit-marketing" },
+	engineer: { owner: "hilab", repo: "hilab-engineer" },
+	marketing: { owner: "hilab", repo: "hilab-marketing" },
 };
 
 /**

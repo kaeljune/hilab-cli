@@ -10,7 +10,7 @@
 
 import { describe, expect, test } from "bun:test";
 
-const NETWORK_ENABLED = process.env.CK_TEST_NETWORK === "1";
+const NETWORK_ENABLED = process.env.HI_TEST_NETWORK === "1";
 
 describe("GitHubReachabilityChecker e2e (real network)", () => {
 	if (!NETWORK_ENABLED) {

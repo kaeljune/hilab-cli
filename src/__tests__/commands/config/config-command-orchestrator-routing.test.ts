@@ -171,7 +171,7 @@ describe("configCommand", () => {
 
 			expect(mockHandleSet).not.toHaveBeenCalled();
 			expect(process.exitCode).toBe(1);
-			expect(consoleSpy).toHaveBeenCalledWith("Usage: ck config set <key> <value>");
+			expect(consoleSpy).toHaveBeenCalledWith("Usage: hi config set <key> <value>");
 		});
 
 		it("handles nested key paths", async () => {
@@ -319,7 +319,7 @@ describe("configCommand", () => {
 			console.error = originalError;
 
 			expect(mockHandleSet).not.toHaveBeenCalled();
-			expect(consoleSpy).toHaveBeenCalledWith("Usage: ck config set <key> <value>");
+			expect(consoleSpy).toHaveBeenCalledWith("Usage: hi config set <key> <value>");
 			expect(process.exitCode).toBe(1);
 		});
 

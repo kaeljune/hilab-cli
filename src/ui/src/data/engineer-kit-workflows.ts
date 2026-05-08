@@ -31,7 +31,7 @@ export const ENGINEER_KIT_WORKFLOWS: Workflow[] = [
 		steps: [
 			{ id: "s1", skill: "brainstorm", transitionLabel: "explore" },
 			{ id: "s2", skill: "plan", transitionLabel: "structure" },
-			{ id: "s3", skill: "cook", command: "/ck:cook @plan.md" },
+			{ id: "s3", skill: "cook", command: "/hi:cook @plan.md" },
 		],
 		isBuiltIn: true,
 	},
@@ -46,7 +46,7 @@ export const ENGINEER_KIT_WORKFLOWS: Workflow[] = [
 		descriptionKey: "workflowQuickImplementationDesc",
 		steps: [
 			{ id: "s1", skill: "scout", transitionLabel: "context" },
-			{ id: "s2", skill: "cook", command: "/ck:cook --fast" },
+			{ id: "s2", skill: "cook", command: "/hi:cook --fast" },
 		],
 		isBuiltIn: true,
 	},
@@ -211,7 +211,7 @@ export const ENGINEER_KIT_WORKFLOWS: Workflow[] = [
 		timeEstimate: "~10-20 min",
 		description: "Trigger a harsh red-team review mapping out potential failure modes.",
 		descriptionKey: "workflowAdversarialReviewDesc",
-		steps: [{ id: "s1", skill: "predict", command: "/ck:predict @plan.md" }],
+		steps: [{ id: "s1", skill: "predict", command: "/hi:predict @plan.md" }],
 		isBuiltIn: true,
 	},
 	{
@@ -223,7 +223,7 @@ export const ENGINEER_KIT_WORKFLOWS: Workflow[] = [
 		timeEstimate: "~30-120 min",
 		description: "Run an autonomous iterative optimization loop for any metric.",
 		descriptionKey: "workflowAutoresearchDesc",
-		steps: [{ id: "s1", skill: "loop", command: "/ck:loop --iterations 5" }],
+		steps: [{ id: "s1", skill: "loop", command: "/hi:loop --iterations 5" }],
 		isBuiltIn: true,
 	},
 	{

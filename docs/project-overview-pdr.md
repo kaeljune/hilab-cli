@@ -2,14 +2,14 @@
 
 ## Project Identity
 
-**Project Name**: ClaudeKit CLI
+**Project Name**: HiLab CLI
 
 **Version**: 3.36.0-dev.11
 **Version**: 3.36.0-dev.7 (next stable: 3.36.0)
 
-**Repository**: https://github.com/mrgoonie/claudekit-cli
+**Repository**: https://github.com/kaeljune/hilab-cli
 
-**NPM Package**: https://www.npmjs.com/package/claudekit-cli
+**NPM Package**: https://www.npmjs.com/package/hilab-cli
 
 **License**: MIT
 
@@ -19,20 +19,20 @@
 
 ## Core Mission
 
-**This CLI is the front door to ClaudeKit.** Two imperatives:
+**This CLI is the front door to HiLab.** Two imperatives:
 
-1. **Educate** — Users understand what ClaudeKit is, what each kit offers, why it matters
+1. **Educate** — Users understand what HiLab is, what each kit offers, why it matters
 2. **Install** — Zero friction from discovery to working setup
 
 Design: Show features not marketing copy. Guide users, not gatekeep. Succeed with working config + clear next steps.
 
 ## Executive Summary
 
-ClaudeKit CLI (`ck`) is a command-line tool designed to streamline the bootstrapping and updating of ClaudeKit projects from private GitHub repository releases. Built with Bun and TypeScript, it provides developers with a fast, secure, and user-friendly way to create and maintain projects based on premium ClaudeKit starter kits.
+HiLab CLI (`ck`) is a command-line tool designed to streamline the bootstrapping and updating of HiLab projects from private GitHub repository releases. Built with Bun and TypeScript, it provides developers with a fast, secure, and user-friendly way to create and maintain projects based on premium HiLab starter kits.
 
 ### Problem Statement
 
-Developers purchasing ClaudeKit starter kits need an efficient way to:
+Developers purchasing HiLab starter kits need an efficient way to:
 - Bootstrap new projects from private GitHub releases
 - Update existing projects with new versions while preserving customizations
 - Manage authentication securely across multiple platforms
@@ -41,7 +41,7 @@ Developers purchasing ClaudeKit starter kits need an efficient way to:
 
 ### Solution
 
-ClaudeKit CLI provides a comprehensive solution with:
+HiLab CLI provides a comprehensive solution with:
 - Multi-tier authentication fallback system
 - Smart file merging with conflict detection
 - Protected file patterns to preserve user customizations
@@ -53,8 +53,8 @@ ClaudeKit CLI provides a comprehensive solution with:
 ## Target Users
 
 ### Primary Users
-1. **Professional Developers**: Purchasing ClaudeKit kits for production projects
-2. **Engineering Teams**: Using ClaudeKit for collaborative development
+1. **Professional Developers**: Purchasing HiLab kits for production projects
+2. **Engineering Teams**: Using HiLab for collaborative development
 3. **Solo Developers**: Building projects with Claude Code assistance
 4. **CI/CD Engineers**: Automating project setup in pipelines
 
@@ -201,7 +201,7 @@ ClaudeKit CLI provides a comprehensive solution with:
 - Support for TAR.GZ and ZIP archives
 - Authenticated GitHub API requests
 - Asset priority selection:
-  1. Official ClaudeKit packages
+  1. Official HiLab packages
   2. Custom uploaded assets
   3. GitHub automatic tarballs
 - Automatic fallback on download failure
@@ -328,7 +328,7 @@ ClaudeKit CLI provides a comprehensive solution with:
 - Queue commands display/approve/reject correctly
 - Setup wizard configures credentials securely
 - Graceful shutdown on SIGTERM/SIGINT
-- All state persisted in `.ck.json` under content key
+- All state persisted in `.hi.json` under content key
 - Daemon lock file prevents multiple instances
 
 ### 10. Onboarding & Kit Selection (`ck setup`)
@@ -350,9 +350,9 @@ ClaudeKit CLI provides a comprehensive solution with:
 - Success screen has next steps + quick actions
 - Works in both CLI and web dashboard
 
-### 10. ClaudeKit API Command Group (`ck api`)
+### 10. HiLab API Command Group (`ck api`)
 
-**NEW command group for interacting with ClaudeKit.cc backend services via API key authentication.**
+**NEW command group for interacting with HiLab.cc backend services via API key authentication.**
 
 #### Functional Requirements
 - `ck api setup` — Configure API key authentication (secure storage)
@@ -570,14 +570,14 @@ ClaudeKit CLI provides a comprehensive solution with:
 - Long-running operation: Designed for 6-8+ hours unattended overnight operation
 - Reliability: Process lock with 1-min stale timeout
 - Performance: 30s poll interval with configurable timeouts (brainstorm: 300s, planning: 600s)
-- Logging: Daily rotated logs in ~/.claudekit/logs/
-- State persistence: Track activeIssues, processedIssues, conversationHistory in .ck.json
+- Logging: Daily rotated logs in ~/.hilab/logs/
+- State persistence: Track activeIssues, processedIssues, conversationHistory in .hi.json
 
 #### Acceptance Criteria
 - `ck watch` starts daemon and polls issues
 - Claude analysis invoked successfully for each new issue
 - Multi-turn conversations maintained across turns
-- State persisted to .ck.json after each operation
+- State persisted to .hi.json after each operation
 - Process lock prevents concurrent runs
 - Graceful shutdown completes current task
 - Credential detection blocks unsafe postings
@@ -665,7 +665,7 @@ ClaudeKit CLI provides a comprehensive solution with:
 
 ### Constraints
 - Requires GitHub token with repo scope
-- Requires purchased ClaudeKit kit
+- Requires purchased HiLab kit
 - Internet connection required
 - Minimum 100MB free disk space
 
@@ -706,7 +706,7 @@ NON_INTERACTIVE=1 ck doctor # Non-interactive mode alternative
 - Auto-detects OS and package managers
 - Offers interactive installation with confirmation
 - Shows manual instructions as fallback
-- Displays ClaudeKit setup (global and project)
+- Displays HiLab setup (global and project)
 - Reports component counts (agents, commands, rules, skills)
 - CI/CD safe (no prompts in non-interactive mode)
 
@@ -742,8 +742,8 @@ dist/**, build/**
 
 ### Appendix D: Available Kits
 
-1. **engineer**: ClaudeKit Engineer - Engineering toolkit for building with Claude (v1.0.0+)
-2. **marketing**: ClaudeKit Marketing - Content automation toolkit (v1.0.0 - AVAILABLE)
+1. **engineer**: HiLab Engineer - Engineering toolkit for building with Claude (v1.0.0+)
+2. **marketing**: HiLab Marketing - Content automation toolkit (v1.0.0 - AVAILABLE)
 
 ### Appendix E: Error Codes
 
@@ -792,12 +792,12 @@ dist/**, build/**
 
 ## Contact & Resources
 
-**Repository**: https://github.com/mrgoonie/claudekit-cli
+**Repository**: https://github.com/kaeljune/hilab-cli
 
-**Issues**: https://github.com/mrgoonie/claudekit-cli/issues
+**Issues**: https://github.com/kaeljune/hilab-cli/issues
 
-**NPM**: https://www.npmjs.com/package/claudekit-cli
+**NPM**: https://www.npmjs.com/package/hilab-cli
 
-**Website**: https://claudekit.cc
+**Website**: https://hilab.cc
 
-**Author**: ClaudeKit Team
+**Author**: HiLab Team

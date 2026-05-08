@@ -1,5 +1,5 @@
 /**
- * GitHub Reachability Checker — layered network probe for `ck doctor`
+ * GitHub Reachability Checker — layered network probe for `hi doctor`
  *
  * Runs four sequential probes. First failure stops the chain and is returned
  * as the root-cause layer. All layers pass → overall ok.
@@ -72,12 +72,12 @@ export interface GitHubReachabilityDeps {
 // ---------------------------------------------------------------------------
 
 /**
- * Timeout for DNS resolution. Overridable via `CLAUDEKIT_DNS_TIMEOUT` (ms).
+ * Timeout for DNS resolution. Overridable via `HILAB_DNS_TIMEOUT` (ms).
  * Default raised from 200ms to 500ms — corporate networks with DNS over VPN,
  * captive portals, or slow resolvers routinely exceed 200ms.
  */
 const DNS_TIMEOUT_MS = (() => {
-	const envVal = Number.parseInt(process.env.CLAUDEKIT_DNS_TIMEOUT ?? "", 10);
+	const envVal = Number.parseInt(process.env.HILAB_DNS_TIMEOUT ?? "", 10);
 	return Number.isFinite(envVal) && envVal > 0 ? envVal : 500;
 })();
 /** Timeout for TCP connect */
@@ -165,7 +165,7 @@ function createDefaultTls(): GitHubReachabilityDeps["tls"] {
 					url,
 					{
 						headers: {
-							"User-Agent": "claudekit-cli-doctor/1.0",
+							"User-Agent": "hilab-cli-doctor/1.0",
 						},
 					},
 					(res) => {
@@ -478,7 +478,7 @@ function buildCheckResult(result: ReachabilityResult): CheckResult {
 		status: "fail",
 		message: `GitHub unreachable at ${failedLayer?.toUpperCase()} layer`,
 		details: detail,
-		suggestion: suggestions[failedLayer ?? ""] ?? "Run: ck doctor for full diagnostics",
+		suggestion: suggestions[failedLayer ?? ""] ?? "Run: hi doctor for full diagnostics",
 		autoFixable: false,
 	};
 }

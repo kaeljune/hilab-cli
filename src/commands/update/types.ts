@@ -5,7 +5,7 @@
 import type { NpmRegistryClient } from "@/domains/github/npm-registry.js";
 import type { PackageManagerDetector } from "@/domains/installation/package-manager-detector.js";
 import type { KitType } from "@/types";
-import type { UpdatePipelineConfig } from "@/types/ck-config.js";
+import type { UpdatePipelineConfig } from "@/types/hi-config.js";
 
 // ─── Utility types shared across update pipeline ─────────────────────────────
 

@@ -9,9 +9,9 @@ describe("generateReference", () => {
 		expect(md.length).toBeGreaterThan(0);
 	});
 
-	test("starts with H1 title '# ClaudeKit CLI Reference'", () => {
+	test("starts with H1 title '# HiLab CLI Reference'", () => {
 		const md = generateReference();
-		expect(md.startsWith("# ClaudeKit CLI Reference")).toBe(true);
+		expect(md.startsWith("# HiLab CLI Reference")).toBe(true);
 	});
 
 	test("contains a Table of Contents section", () => {

@@ -8,10 +8,10 @@ describe("buildProjectPlanData", () => {
 	let projectDir = "";
 
 	beforeEach(async () => {
-		projectDir = await mkdtemp(join(tmpdir(), "ck-project-plan-data-"));
+		projectDir = await mkdtemp(join(tmpdir(), "hi-project-plan-data-"));
 		await mkdir(join(projectDir, ".claude"), { recursive: true });
 		await writeFile(
-			join(projectDir, ".claude", ".ck.json"),
+			join(projectDir, ".claude", ".hi.json"),
 			JSON.stringify({
 				plan: {
 					validation: {

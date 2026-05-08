@@ -229,7 +229,7 @@ export class LegacyMigration {
 				trackedFiles.push({
 					path: relativePath,
 					checksum: manifestEntry.checksum,
-					ownership: "ck",
+					ownership: "hi",
 					installedVersion: kitVersion,
 				});
 			}
@@ -237,7 +237,7 @@ export class LegacyMigration {
 
 		// Calculate checksums in parallel for modified and user files
 		const filesToChecksum = [
-			...preview.ckModified.map((p) => ({ relativePath: p, ownership: "ck-modified" as const })),
+			...preview.ckModified.map((p) => ({ relativePath: p, ownership: "hi-modified" as const })),
 			...preview.userCreated.map((p) => ({ relativePath: p, ownership: "user" as const })),
 		];
 

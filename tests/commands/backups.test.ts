@@ -59,7 +59,7 @@ describe("backups command handlers", () => {
 
 		const cli = createCliInstance();
 		registerCommands(cli);
-		cli.parse(["node", "ck", "backups", "list", "--json"]);
+		cli.parse(["node", "hi", "backups", "list", "--json"]);
 		await cli.runMatchedCommand();
 
 		const output = (console.log as ReturnType<typeof mock>).mock.calls[0]?.[0];

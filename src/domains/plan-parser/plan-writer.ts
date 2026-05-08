@@ -74,7 +74,7 @@ export function generatePlanMd(options: CreatePlanOptions): string {
 
 	// Determine createdBy based on source
 	const createdBy =
-		source === "skill" ? "ck:plan" : source === "dashboard" ? "dashboard" : "ck-cli";
+		source === "skill" ? "ck:plan" : source === "dashboard" ? "dashboard" : "hi-cli";
 	const branch = getCurrentBranch();
 
 	const frontmatterLines: string[] = [

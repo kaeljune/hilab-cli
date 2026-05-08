@@ -1,14 +1,14 @@
-# ClaudeKit CLI (`ck`) Command Flow Guide
+# HiLab CLI (`ck`) Command Flow Guide
 
 ## Overview
 
-ClaudeKit CLI (`ck`) is the primary user interface for bootstrapping and managing ClaudeKit projects. It uses the **cac framework** for command parsing and follows a **phase-based execution model** for all major operations.
+HiLab CLI (`ck`) is the primary user interface for bootstrapping and managing HiLab projects. It uses the **cac framework** for command parsing and follows a **phase-based execution model** for all major operations.
 
 ### Available Commands
 
 | Command | Purpose | Key Flags |
 |---------|---------|-----------|
-| `new` | Bootstrap new ClaudeKit project | `--kit`, `--yes`, `--force` |
+| `new` | Bootstrap new HiLab project | `--kit`, `--yes`, `--force` |
 | `init` | Initialize/update existing project | `--fresh`, `--beta`, `--yes` |
 | `skills` | Install/uninstall skills | Multi-select installation, registry |
 | `doctor` | Health check of setup | `--fix`, `--json`, `--full` |
@@ -317,7 +317,7 @@ flowchart TD
 
 ## 7. Ownership Tracking System
 
-ClaudeKit uses file ownership tracking to protect user-modified files and prevent unintended overwrites during installations and updates. This system implements the Python packaging standards (pip RECORD pattern) adapted for ClaudeKit's multi-kit environment.
+HiLab uses file ownership tracking to protect user-modified files and prevent unintended overwrites during installations and updates. This system implements the Python packaging standards (pip RECORD pattern) adapted for HiLab's multi-kit environment.
 
 ### TrackedFile Interface
 
@@ -328,7 +328,7 @@ interface TrackedFile {
   path: string;                    // Relative path from .claude (e.g., "rules/development-rules.md")
   checksum: string;                // SHA-256 hash of file content (hex format, 64 chars)
   ownership: FileOwnership;        // "ck" | "user" | "ck-modified"
-  installedVersion: string;        // ClaudeKit version that installed it
+  installedVersion: string;        // HiLab version that installed it
   baseChecksum?: string;           // Original checksum at install (for sync detection)
   sourceTimestamp?: string;        // Git commit timestamp from kit repo (ISO 8601)
   installedAt?: string;            // When file was installed locally (ISO 8601)
@@ -399,15 +399,15 @@ flowchart TD
 ```
 
 **Ownership Classes:**
-- **`"ck"`** - ClaudeKit-owned file, unchanged since install (pristine)
-- **`"ck-modified"`** - ClaudeKit-owned file, user has modified
-- **`"user"`** - User-created file, not from ClaudeKit
+- **`"ck"`** - HiLab-owned file, unchanged since install (pristine)
+- **`"ck-modified"`** - HiLab-owned file, user has modified
+- **`"user"`** - User-created file, not from HiLab
 
 ---
 
 ## 8. File Merge & Migration Flow
 
-When installing or updating ClaudeKit, the system must merge new files with existing installations while preserving user modifications. This section covers legacy migration and modern merge logic.
+When installing or updating HiLab, the system must merge new files with existing installations while preserving user modifications. This section covers legacy migration and modern merge logic.
 
 ### Legacy Installation Detection
 
@@ -484,7 +484,7 @@ flowchart TD
 
 ## 9. Release Manifest Generation
 
-The release manifest (`release-manifest.json`) is the source of truth for file ownership verification. It tracks all ClaudeKit-owned files with checksums computed AFTER path transformation.
+The release manifest (`release-manifest.json`) is the source of truth for file ownership verification. It tracks all HiLab-owned files with checksums computed AFTER path transformation.
 
 ### Purpose
 
@@ -562,7 +562,7 @@ CLAUDE.md, claude.md
 
 ## 10. Global Path Transformation
 
-When installing ClaudeKit globally (with `-g` flag), file paths must be transformed from relative `.claude/` references to platform-appropriate home directory paths. This enables kit files to work correctly regardless of installation scope.
+When installing HiLab globally (with `-g` flag), file paths must be transformed from relative `.claude/` references to platform-appropriate home directory paths. This enables kit files to work correctly regardless of installation scope.
 
 ### Transformation Trigger
 
@@ -690,7 +690,7 @@ After transformation, stats are reported:
 - Fetch releases from GitHub API
 - Stream-based downloads with progress tracking
 - Automatic retry logic
-- Temp directory fallback (OS tmp → `~/.claudekit/tmp`)
+- Temp directory fallback (OS tmp → `~/.hilab/tmp`)
 
 **Extractors**
 - `TarExtractor` - Handle .tar.gz files

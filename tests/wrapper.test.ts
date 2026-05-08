@@ -95,7 +95,7 @@ describe("bin/ck.js wrapper", () => {
 			const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf-8"));
 			const files = packageJson.files as string[];
 			const hasBinaryEntries = files.some(
-				(f) => f.includes("ck-darwin") || f.includes("ck-linux") || f.includes("ck-win32"),
+				(f) => f.includes("hi-darwin") || f.includes("hi-linux") || f.includes("hi-win32"),
 			);
 			expect(hasBinaryEntries).toBe(false);
 		});

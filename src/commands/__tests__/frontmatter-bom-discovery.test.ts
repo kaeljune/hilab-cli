@@ -7,7 +7,7 @@ import { discoverAgents } from "../agents/agents-discovery.js";
 import { discoverCommands } from "../commands/commands-discovery.js";
 
 describe("frontmatter discovery with BOM-prefixed markdown", () => {
-	const testDir = join(tmpdir(), "claudekit-frontmatter-bom-discovery-test");
+	const testDir = join(tmpdir(), "hilab-frontmatter-bom-discovery-test");
 
 	beforeAll(() => {
 		mkdirSync(testDir, { recursive: true });

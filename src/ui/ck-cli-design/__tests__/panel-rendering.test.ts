@@ -12,7 +12,7 @@ describe("renderPanel", () => {
 				platform: "darwin",
 			}),
 			subtitle: "Codex -> global",
-			title: "ck migrate",
+			title: "hi migrate",
 			zones: [
 				{ label: "WHERE", lines: ["~/.agents/skills -> cd ~/.agents/skills"] },
 				{ label: "WHAT", lines: ["2 skills · 1 command"] },
@@ -20,7 +20,7 @@ describe("renderPanel", () => {
 		}).join("\n");
 		const plainOutput = stripAnsi(output);
 
-		expect(plainOutput.startsWith("╔═ ck migrate") || plainOutput.startsWith("+- ck migrate")).toBe(
+		expect(plainOutput.startsWith("╔═ hi migrate") || plainOutput.startsWith("+- hi migrate")).toBe(
 			true,
 		);
 		expect(plainOutput).toContain("WHERE");
@@ -30,12 +30,12 @@ describe("renderPanel", () => {
 	it("falls back to plain text on narrow terminals", () => {
 		const output = renderPanel({
 			context: createCliDesignContext({ columns: 48, env: process.env, isTTY: true }),
-			title: "ck migrate",
-			zones: [{ label: "NEXT", lines: ["ck doctor"] }],
+			title: "hi migrate",
+			zones: [{ label: "NEXT", lines: ["hi doctor"] }],
 		}).join("\n");
 
 		expect(output).not.toContain("╔");
-		expect(output).toContain("ck migrate");
+		expect(output).toContain("hi migrate");
 		expect(output).toContain("NEXT");
 	});
 });

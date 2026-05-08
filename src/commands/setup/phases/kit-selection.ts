@@ -1,6 +1,6 @@
 /**
  * Kit selection and initialization phase for setup command
- * Prompts user to select a kit and runs `ck init` to complete installation
+ * Prompts user to select a kit and runs `hi init` to complete installation
  */
 
 import { initCommand } from "@/commands/init.js";
@@ -20,15 +20,15 @@ export async function handleKitSelection(ctx: SetupContext): Promise<SetupContex
 		{ value: "engineer" | "marketing"; label: string }[],
 		"engineer" | "marketing"
 	>({
-		message: "Which ClaudeKit starter kit do you want to install?",
+		message: "Which HiLab starter kit do you want to install?",
 		options: [
 			{
 				value: "engineer",
-				label: "ClaudeKit Engineer - AI-powered coding toolkit",
+				label: "HiLab Engineer - AI-powered coding toolkit",
 			},
 			{
 				value: "marketing",
-				label: "ClaudeKit Marketing - Content automation toolkit",
+				label: "HiLab Marketing - Content automation toolkit",
 			},
 		],
 	});
@@ -38,9 +38,7 @@ export async function handleKitSelection(ctx: SetupContext): Promise<SetupContex
 	}
 
 	// Run init command with selected kit and --yes flag
-	clack.log.info(
-		`Installing ${kit === "engineer" ? "ClaudeKit Engineer" : "ClaudeKit Marketing"}...`,
-	);
+	clack.log.info(`Installing ${kit === "engineer" ? "HiLab Engineer" : "HiLab Marketing"}...`);
 
 	try {
 		await initCommand({

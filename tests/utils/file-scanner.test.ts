@@ -159,7 +159,7 @@ describe("FileScanner", () => {
 			await mkdir(join(destDir, "statsig"), { recursive: true });
 			await mkdir(join(destDir, ".anthropic"), { recursive: true });
 			await mkdir(join(destDir, "telemetry"), { recursive: true });
-			await mkdir(join(destDir, "claudekit-files"), { recursive: true });
+			await mkdir(join(destDir, "hilab-files"), { recursive: true });
 
 			// Create files in each directory
 			await writeFile(join(destDir, "debug", "log.txt"), "debug log");
@@ -171,13 +171,13 @@ describe("FileScanner", () => {
 			await writeFile(join(destDir, "statsig", "analytics.json"), "analytics");
 			await writeFile(join(destDir, ".anthropic", "config.json"), "claude config");
 			await writeFile(join(destDir, "telemetry", "data.json"), "telemetry data");
-			await writeFile(join(destDir, "claudekit-files", "my-file.txt"), "claudekit file");
+			await writeFile(join(destDir, "hilab-files", "my-file.txt"), "hilab file");
 
 			const files = await FileScanner.getFiles(destDir);
 
-			// Should only include files from claudekit-files directory
+			// Should only include files from hilab-files directory
 			expect(files).toHaveLength(1);
-			expect(files).toContain("claudekit-files/my-file.txt");
+			expect(files).toContain("hilab-files/my-file.txt");
 		});
 	});
 

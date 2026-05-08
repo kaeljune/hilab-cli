@@ -277,7 +277,7 @@ export function buildFileTrackingList(options: BuildFileTrackingOptions): FileTr
 		const manifestEntry = releaseManifest
 			? ReleaseManifestLoader.findFile(releaseManifest, installedPath)
 			: null;
-		const ownership: FileOwnership = manifestEntry ? "ck" : "user";
+		const ownership: FileOwnership = manifestEntry ? "hi" : "user";
 
 		filesToTrack.push({
 			filePath,

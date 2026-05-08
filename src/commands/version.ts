@@ -66,12 +66,12 @@ function displayKitReleases(kitName: string, releases: GitHubRelease[]): void {
 }
 
 /**
- * Version command - List available versions of ClaudeKit repositories
+ * Version command - List available versions of HiLab repositories
  */
 export async function versionCommand(options: VersionCommandOptions): Promise<void> {
 	const prompts = new PromptsManager();
 
-	prompts.intro("📦 ClaudeKit - Available Versions");
+	prompts.intro("📦 HiLab - Available Versions");
 
 	try {
 		// Validate and parse options

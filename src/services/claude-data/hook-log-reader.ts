@@ -1,6 +1,6 @@
 import { open } from "node:fs/promises";
 import { join } from "node:path";
-import { ProjectsRegistryManager, scanClaudeProjects } from "@/domains/claudekit-data/index.js";
+import { ProjectsRegistryManager, scanClaudeProjects } from "@/domains/hilab-data/index.js";
 import { PathResolver } from "@/shared/path-resolver.js";
 import {
 	type HookDiagnosticsResult,

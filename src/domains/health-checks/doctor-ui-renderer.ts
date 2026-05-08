@@ -176,10 +176,10 @@ export class DoctorUIRenderer {
 		console.log(`│  Summary: ${parts.join("  ")}`);
 		console.log("│");
 		console.log(`│  ${pc.dim("Quick Commands:")}`);
-		console.log(`│  ${pc.dim("  ck init        Install/update ClaudeKit in project")}`);
-		console.log(`│  ${pc.dim("  ck init -g     Install/update ClaudeKit globally")}`);
-		console.log(`│  ${pc.dim("  ck update      Update the CLI tool")}`);
-		console.log(`│  ${pc.dim("  ck uninstall   Remove ClaudeKit from project/global")}`);
-		console.log(`│  ${pc.dim("  ck --help      Show all commands")}`);
+		console.log(`│  ${pc.dim("  hi init        Install/update HiLab in project")}`);
+		console.log(`│  ${pc.dim("  hi init -g     Install/update HiLab globally")}`);
+		console.log(`│  ${pc.dim("  hi update      Update the CLI tool")}`);
+		console.log(`│  ${pc.dim("  hi uninstall   Remove HiLab from project/global")}`);
+		console.log(`│  ${pc.dim("  hi --help      Show all commands")}`);
 	}
 }

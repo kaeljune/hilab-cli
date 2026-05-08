@@ -50,9 +50,9 @@ export async function checkHooksExist(projectDir: string): Promise<CheckResult> 
 
 	if (!globalExists && !projectExists) {
 		return {
-			id: "ck-hooks-exist",
+			id: "hi-hooks-exist",
 			name: "Hooks Directory",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "info",
 			message: "No hooks directory",
@@ -61,9 +61,9 @@ export async function checkHooksExist(projectDir: string): Promise<CheckResult> 
 	}
 
 	return {
-		id: "ck-hooks-exist",
+		id: "hi-hooks-exist",
 		name: "Hooks Directory",
-		group: "claudekit",
+		group: "hilab",
 		priority: "standard",
 		status: "pass",
 		message: `${hookCount} hook(s) found`,

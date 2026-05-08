@@ -4,9 +4,9 @@
 import { existsSync, readFileSync, realpathSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
-import { ProjectsRegistryManager } from "@/domains/claudekit-data/index.js";
-import { scanClaudeProjects } from "@/domains/claudekit-data/index.js";
 import { CkConfigManager } from "@/domains/config/index.js";
+import { ProjectsRegistryManager } from "@/domains/hilab-data/index.js";
+import { scanClaudeProjects } from "@/domains/hilab-data/index.js";
 import { executeAction } from "@/domains/plan-actions/action-executor.js";
 import {
 	readActionSignal,

@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { handleDeletions } from "@/domains/installation/deletion-handler.js";
-import type { ClaudeKitMetadata, Metadata } from "@/types";
+import type { HiLabMetadata, Metadata } from "@/types";
 
 describe("deletion-handler", () => {
 	let testDir: string;
@@ -36,7 +36,7 @@ describe("deletion-handler", () => {
 							{
 								path: "commands/old.md",
 								checksum: "a".repeat(64),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -45,7 +45,7 @@ describe("deletion-handler", () => {
 			};
 			writeFileSync(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
 				name: "test",
 				description: "test",
@@ -72,7 +72,7 @@ describe("deletion-handler", () => {
 							{
 								path: "commands/modified.md",
 								checksum: "b".repeat(64),
-								ownership: "ck-modified",
+								ownership: "hi-modified",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -81,7 +81,7 @@ describe("deletion-handler", () => {
 			};
 			writeFileSync(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
 				name: "test",
 				description: "test",
@@ -95,8 +95,8 @@ describe("deletion-handler", () => {
 		});
 
 		test("deletes legacy prefixed command files for engineer installs", async () => {
-			mkdirSync(join(testDir, "commands", "ck"), { recursive: true });
-			const filePath = join(testDir, "commands", "ck", "ask.md");
+			mkdirSync(join(testDir, "commands", "hi"), { recursive: true });
+			const filePath = join(testDir, "commands", "hi", "ask.md");
 			writeFileSync(filePath, "content");
 
 			const metadata: Metadata = {
@@ -108,7 +108,7 @@ describe("deletion-handler", () => {
 							{
 								path: "commands/ck/ask.md",
 								checksum: "d".repeat(64),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -117,9 +117,9 @@ describe("deletion-handler", () => {
 			};
 			writeFileSync(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
-				name: "claudekit-engineer",
+				name: "hilab-engineer",
 				description: "test",
 				deletions: ["commands/ask.md"],
 			};
@@ -153,7 +153,7 @@ describe("deletion-handler", () => {
 			};
 			writeFileSync(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
 				name: "test",
 				description: "test",
@@ -167,7 +167,7 @@ describe("deletion-handler", () => {
 		});
 
 		test("prevents path traversal", async () => {
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
 				name: "test",
 				description: "test",
@@ -185,7 +185,7 @@ describe("deletion-handler", () => {
 			writeFileSync(join(testDir, "commands", "old", "file.md"), "content");
 			writeFileSync(join(testDir, "commands", "old", "nested", "deep.md"), "content");
 
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
 				name: "test",
 				description: "test",
@@ -199,7 +199,7 @@ describe("deletion-handler", () => {
 		});
 
 		test("handles empty deletions array", async () => {
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
 				name: "test",
 				description: "test",
@@ -214,7 +214,7 @@ describe("deletion-handler", () => {
 		});
 
 		test("handles missing deletions field", async () => {
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
 				name: "test",
 				description: "test",
@@ -226,7 +226,7 @@ describe("deletion-handler", () => {
 		});
 
 		test("handles non-existent paths gracefully", async () => {
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
 				name: "test",
 				description: "test",
@@ -254,13 +254,13 @@ describe("deletion-handler", () => {
 							{
 								path: "commands/old.md",
 								checksum: "a".repeat(64),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "commands/keep.md",
 								checksum: "b".repeat(64),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -269,7 +269,7 @@ describe("deletion-handler", () => {
 			};
 			writeFileSync(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
 				name: "test",
 				description: "test",
@@ -293,7 +293,7 @@ describe("deletion-handler", () => {
 			mkdirSync(join(testDir, "commands", "nested"), { recursive: true });
 			writeFileSync(join(testDir, "commands", "nested", "file.md"), "content");
 
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
 				name: "test",
 				description: "test",
@@ -325,7 +325,7 @@ describe("deletion-handler", () => {
 			};
 			writeFileSync(join(testDir, "metadata.json"), JSON.stringify(metadata));
 
-			const sourceMetadata: ClaudeKitMetadata = {
+			const sourceMetadata: HiLabMetadata = {
 				version: "2.0.0",
 				name: "test",
 				description: "test",

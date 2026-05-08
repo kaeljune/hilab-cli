@@ -1,6 +1,6 @@
 /**
- * ClaudeKit data domain
- * Manages ~/.claudekit/ directory contents
+ * HiLab data domain
+ * Manages ~/.hilab/ directory contents
  */
 export { ProjectsRegistryManager } from "./projects-registry.js";
 export {

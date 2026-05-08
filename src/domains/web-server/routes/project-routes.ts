@@ -6,8 +6,8 @@ import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { basename, join, resolve } from "node:path";
-import { ProjectsRegistryManager, scanClaudeProjects } from "@/domains/claudekit-data/index.js";
 import { CkConfigManager } from "@/domains/config/index.js";
+import { ProjectsRegistryManager, scanClaudeProjects } from "@/domains/hilab-data/index.js";
 import { buildProjectPlanData } from "@/domains/web-server/project-plan-data.js";
 import {
 	countHooks,

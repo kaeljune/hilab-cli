@@ -1,19 +1,19 @@
-# ClaudeKit Config UI
+# HiLab Config UI
 
-Command-line tool and web dashboard for managing ClaudeKit projects.
+Command-line tool and web dashboard for managing HiLab projects.
 
 **Version**: 1.17.0
 
 ## Overview
 
-ClaudeKit Config UI (`ck`) provides both CLI and web dashboard for managing ClaudeKit projects. It is built with Bun, TypeScript, and React for development, while the published CLI runs on plain Node.js so end users do not need Bun installed.
+HiLab Config UI (`ck`) provides both CLI and web dashboard for managing HiLab projects. It is built with Bun, TypeScript, and React for development, while the published CLI runs on plain Node.js so end users do not need Bun installed.
 
 **Key Features:**
 - **CLI Commands (16)**: new, init, config, projects, setup, skills, agents, commands, migrate, doctor, versions, update, uninstall, watch, content, easter-egg
 - **Web Dashboard**: Interactive React UI via `ck config ui` for configuration and project management
 - **Hook Diagnostics Dashboard**: Inspect recent Claude hook activity and failures from `ck config` across global and project scopes
-- **Projects Registry**: Centralized registry at `~/.claudekit/projects.json` with file locking
-- **Skill Installation**: Install ClaudeKit skills to other coding agents (Cursor, Codex, etc.)
+- **Projects Registry**: Centralized registry at `~/.hilab/projects.json` with file locking
+- **Skill Installation**: Install HiLab skills to other coding agents (Cursor, Codex, etc.)
 - **Multi-tier Authentication**: gh CLI → env vars → keychain → prompt fallback
 - **Smart Merging**: Conflict detection with user customization preservation
 - **Skills Migration**: Auto-detects and migrates skills structure changes
@@ -38,9 +38,9 @@ Comprehensive documentation in `/docs`:
 
 ## Prerequisites
 
-Before using ClaudeKit CLI, you need to:
+Before using HiLab CLI, you need to:
 
-1. **Purchase a ClaudeKit Starter Kit** from [ClaudeKit.cc](https://claudekit.cc)
+1. **Purchase a HiLab Starter Kit** from [HiLab.cc](https://hilab.cc)
 2. **Get Repository Access**: After purchase, you'll receive access to the private GitHub repository containing your kit
 3. **Create a GitHub Personal Access Token** (PAT) with `repo` scope to download releases
 
@@ -48,32 +48,32 @@ Without a purchased kit and repository access, the CLI will not be able to downl
 
 ## Installation
 
-The ClaudeKit CLI is published on npm at [npmjs.com/package/claudekit-cli](https://www.npmjs.com/package/claudekit-cli).
+The HiLab CLI is published on npm at [npmjs.com/package/hilab-cli](https://www.npmjs.com/package/hilab-cli).
 
-End-user runtime note: global installs from `npm`, `pnpm`, `yarn`, or `bun` all execute the packaged Node.js CLI. Bun is optional for users and only needed for local ClaudeKit CLI development workflows.
+End-user runtime note: global installs from `npm`, `pnpm`, `yarn`, or `bun` all execute the packaged Node.js CLI. Bun is optional for users and only needed for local HiLab CLI development workflows.
 
 ### Using npm (Recommended)
 
 ```bash
-npm install -g claudekit-cli
+npm install -g hilab-cli
 ```
 
 ### Using Bun
 
 ```bash
-bun add -g claudekit-cli
+bun add -g hilab-cli
 ```
 
 ### Using Yarn
 
 ```bash
-yarn global add claudekit-cli
+yarn global add hilab-cli
 ```
 
 ### Using pnpm
 
 ```bash
-pnpm add -g claudekit-cli
+pnpm add -g hilab-cli
 ```
 
 After installation, verify it's working:
@@ -150,8 +150,8 @@ ck new --archive ~/downloads/engineer-v1.16.0.zip
 ck new --kit-path ~/extracted-kit/
 
 # Direct repo downloads are also supported
-ck new --archive ~/downloads/claudekit-engineer-main.zip
-ck new --kit-path ~/downloads/claudekit-engineer-main/
+ck new --archive ~/downloads/hilab-engineer-main.zip
+ck new --kit-path ~/downloads/hilab-engineer-main/
 ```
 
 **Flags:**
@@ -162,7 +162,7 @@ ck new --kit-path ~/downloads/claudekit-engineer-main/
 - `--archive <path>`: Use local archive (zip/tar.gz) instead of downloading
 - `--kit-path <path>`: Use local kit directory instead of downloading
 
-`--archive` and `--kit-path` both accept direct repo downloads with a single wrapper directory, including GitHub "Download ZIP" archives and extracted repo folders that still contain `claudekit-engineer-main/` or similar at the top level.
+`--archive` and `--kit-path` both accept direct repo downloads with a single wrapper directory, including GitHub "Download ZIP" archives and extracted repo folders that still contain `hilab-engineer-main/` or similar at the top level.
 
 ### Initialize or Update Project
 
@@ -196,8 +196,8 @@ ck init --archive ~/downloads/engineer-v1.16.0.zip
 ck init --kit-path ~/extracted-kit/
 
 # Direct repo downloads are also supported
-ck init --archive ~/downloads/claudekit-engineer-main.zip
-ck init --kit-path ~/downloads/claudekit-engineer-main/
+ck init --archive ~/downloads/hilab-engineer-main.zip
+ck init --kit-path ~/downloads/hilab-engineer-main/
 ```
 
 **Flags:**
@@ -209,13 +209,13 @@ ck init --kit-path ~/downloads/claudekit-engineer-main/
 - `--archive <path>`: Use local archive (zip/tar.gz) instead of downloading
 - `--kit-path <path>`: Use local kit directory instead of downloading
 
-`--archive` and `--kit-path` both accept direct repo downloads with a single wrapper directory, including GitHub "Download ZIP" archives and extracted repo folders that still contain `claudekit-engineer-main/` or similar at the top level.
+`--archive` and `--kit-path` both accept direct repo downloads with a single wrapper directory, including GitHub "Download ZIP" archives and extracted repo folders that still contain `hilab-engineer-main/` or similar at the top level.
 
 **Default Behavior with `-y` Flag:**
 
 | Prompt | Default |
 |--------|---------|
-| Select ClaudeKit | engineer (first option) |
+| Select HiLab | engineer (first option) |
 | Target directory | Current directory (`.`) |
 | Version selection | Latest stable release |
 | Google Gemini setup | Skip |
@@ -223,7 +223,7 @@ ck init --kit-path ~/downloads/claudekit-engineer-main/
 
 ### Update CLI
 
-Keep the ClaudeKit CLI up to date:
+Keep the HiLab CLI up to date:
 
 ```bash
 # Check for CLI updates
@@ -293,7 +293,7 @@ ck doctor --verbose --fix
 
 **Health Checks:**
 - **System**: Node.js, npm, Python, pip, Claude CLI, git, gh CLI
-- **ClaudeKit**: Global/project installation, versions, skills
+- **HiLab**: Global/project installation, versions, skills
 - **Auth**: GitHub CLI authentication, repository access
 - **Project**: package.json, node_modules, lock files
 - **Modules**: Dynamic skill dependency resolution
@@ -315,7 +315,7 @@ ck doctor --verbose --fix
 
 ### Uninstall
 
-Remove ClaudeKit installations from your system:
+Remove HiLab installations from your system:
 
 ```bash
 ck uninstall              # Interactive mode - prompts for scope and confirmation
@@ -330,18 +330,18 @@ ck uninstall --yes        # Non-interactive - skip confirmation (for scripts)
 - When both local and global installations exist, you'll be prompted to choose:
   - **Local only**: Remove from current project (`.claude/`)
   - **Global only**: Remove from user directory (`~/.claude/`)
-  - **Both**: Remove all ClaudeKit installations
+  - **Both**: Remove all HiLab installations
 - Use `--local` or `--global` flags to skip the prompt
 
 **What it does:**
 - Detects local `.claude` directory in current project
-- Detects global `~/.claude` ClaudeKit installation
+- Detects global `~/.claude` HiLab installation
 - Shows paths before deletion
 - Requires confirmation (unless `--yes` flag)
-- Removes ClaudeKit subdirectories (`commands/`, `agents/`, `skills/`, `workflows/`, `hooks/`, `metadata.json`)
+- Removes HiLab subdirectories (`commands/`, `agents/`, `skills/`, `workflows/`, `hooks/`, `metadata.json`)
 - **Preserves user configs** like `settings.json`, `settings.local.json`, and `CLAUDE.md`
 
-**Note:** Only removes valid ClaudeKit installations (with metadata.json). Regular `.claude` directories from Claude Desktop are not affected.
+**Note:** Only removes valid HiLab installations (with metadata.json). Regular `.claude` directories from Claude Desktop are not affected.
 
 ### Watch GitHub Issues (`ck watch`)
 
@@ -366,7 +366,7 @@ ck watch --verbose
 
 **Features:** issue lifecycle management (10 statuses), Claude-powered brainstorming/planning, automatic PR creation, rate limiting (persisted across restarts), maintainer reply filtering, processedIssues TTL, optional git worktree isolation per issue, multi-repo support, graceful shutdown.
 
-**Config:** `.ck.json` under `watch` key. See [docs/ck-watch.md](./docs/ck-watch.md) for full configuration reference.
+**Config:** `.hi.json` under `watch` key. See [docs/ck-watch.md](./docs/ck-watch.md) for full configuration reference.
 
 ### Content Generation (`ck content`)
 
@@ -399,7 +399,7 @@ ck content start --verbose
 
 **Features:** 11-phase pipeline (scan → filter → classify → context → create → validate → review → photo → publish → engage → analyze), noise filtering, context caching (24h TTL), content validation, photo generation, 3 review modes (auto/manual/hybrid), quiet hours scheduling, engagement tracking, SQLite database, platform-specific adapters.
 
-**Config:** `.ck.json` under `content` key. See [docs/ck-content.md](./docs/ck-content.md) for full configuration reference.
+**Config:** `.hi.json` under `content` key. See [docs/ck-content.md](./docs/ck-content.md) for full configuration reference.
 
 ### Other Commands
 
@@ -440,11 +440,11 @@ CK_CACHE_TTL=0 ck versions       # Disable caching (always fetch fresh)
 export CK_CACHE_TTL=1800         # 30 minutes
 ```
 
-**Cache Location:** `~/.claudekit/cache/releases/`
+**Cache Location:** `~/.hilab/cache/releases/`
 
 ### Update Notifications
 
-The `ck --version` command checks for newer versions of your installed ClaudeKit and displays a notification if an update is available. The check is cached for 7 days to minimize API calls.
+The `ck --version` command checks for newer versions of your installed HiLab and displays a notification if an update is available. The check is cached for 7 days to minimize API calls.
 
 **Disable Update Notifications:**
 ```bash
@@ -458,7 +458,7 @@ NO_UPDATE_NOTIFIER=1 ck --version
 export NO_UPDATE_NOTIFIER=1
 ```
 
-**Cache Location:** `~/.claudekit/cache/version-check.json` (Windows: `%USERPROFILE%\.claudekit\cache\`)
+**Cache Location:** `~/.hilab/cache/version-check.json` (Windows: `%USERPROFILE%\.hilab\cache\`)
 
 ## Authentication
 
@@ -474,7 +474,7 @@ The CLI requires GitHub authentication to download releases from private reposit
 │       ↓ (if not available)                       │
 │  2. Environment Variables (GITHUB_TOKEN)        │
 │       ↓ (if not set)                             │
-│  3. Config File (~/.claudekit/config.json)      │
+│  3. Config File (~/.hilab/config.json)      │
 │       ↓ (if not found)                           │
 │  4. OS Keychain (secure storage)                │
 │       ↓ (if not stored)                          │
@@ -540,16 +540,16 @@ ck init --verbose
 
 ## Available Kits
 
-ClaudeKit offers premium starter kits available for purchase at [ClaudeKit.cc](https://claudekit.cc):
+HiLab offers premium starter kits available for purchase at [HiLab.cc](https://hilab.cc):
 
-- **engineer**: ClaudeKit Engineer - Engineering toolkit for building with Claude (v1.0.0+)
-- **marketing**: ClaudeKit Marketing - Content automation toolkit (v1.0.0 available)
+- **engineer**: HiLab Engineer - Engineering toolkit for building with Claude (v1.0.0+)
+- **marketing**: HiLab Marketing - Content automation toolkit (v1.0.0 available)
 
 Each kit provides a comprehensive project template with best practices, tooling, and workflows optimized for Claude Code development.
 
 ## Configuration
 
-Configuration is stored in `~/.claudekit/config.json`:
+Configuration is stored in `~/.hilab/config.json`:
 
 ```json
 {
@@ -669,7 +669,7 @@ Note: The dev server starts automatically via `bun run dashboard:dev`. CI wiring
 ## FAQ
 
 **Q: Do I need GitHub CLI?**
-A: Yes, GitHub CLI is required. ClaudeKit uses it exclusively for authentication with private repositories.
+A: Yes, GitHub CLI is required. HiLab uses it exclusively for authentication with private repositories.
 
 **Q: How do I authenticate?**
 A: Run `gh auth login`, select 'Login with a web browser', complete OAuth in browser. Do NOT use 'Paste an authentication token'.

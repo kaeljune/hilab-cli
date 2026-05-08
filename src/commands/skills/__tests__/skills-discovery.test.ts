@@ -8,7 +8,7 @@ import { join } from "node:path";
 import { discoverSkills, findSkillByName, getSkillSourcePath } from "../skills-discovery.js";
 
 describe("skill-discovery", () => {
-	const testDir = join(tmpdir(), "claudekit-skill-test");
+	const testDir = join(tmpdir(), "hilab-skill-test");
 
 	beforeAll(() => {
 		// Create test skill structure
@@ -110,7 +110,7 @@ Vercel's recommended patterns.
 			writeFileSync(
 				join(projectDir, "package.json"),
 				JSON.stringify({
-					claudekit: {
+					hilab: {
 						sourceDir: "claude",
 						runtimeDir: ".claude",
 					},
@@ -137,9 +137,9 @@ description: Found via claude source layout
 			}
 		});
 
-		it("preserves legacy bundled node_modules/claudekit-engineer/skills lookup", async () => {
+		it("preserves legacy bundled node_modules/hilab-engineer/skills lookup", async () => {
 			const projectDir = join(testDir, "legacy-bundled-project");
-			const bundledSkillsDir = join(projectDir, "node_modules", "claudekit-engineer", "skills");
+			const bundledSkillsDir = join(projectDir, "node_modules", "hilab-engineer", "skills");
 			const originalCwd = process.cwd();
 
 			mkdirSync(join(bundledSkillsDir, "legacy-demo"), { recursive: true });

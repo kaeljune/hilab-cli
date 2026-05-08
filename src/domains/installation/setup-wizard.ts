@@ -12,7 +12,7 @@ export interface SetupWizardOptions {
 }
 
 /**
- * Required environment keys that must be present for ClaudeKit to function
+ * Required environment keys that must be present for HiLab to function
  * Easy to extend with additional keys in the future
  */
 export interface RequiredEnvKey {
@@ -386,7 +386,7 @@ export async function runSetupWizard(options: SetupWizardOptions): Promise<boole
 			{ value: ImageGenProvider; label: string; hint: string }[],
 			ImageGenProvider
 		>({
-			message: "Which image-generation provider should ClaudeKit prefer by default?",
+			message: "Which image-generation provider should HiLab prefer by default?",
 			options: [
 				{
 					value: "auto",
@@ -500,7 +500,7 @@ export interface PromptSetupWizardOptions {
 
 /**
  * Shared helper to prompt user for setup wizard if required keys are missing
- * Used by both `ck init` and `ck new` commands to reduce duplication
+ * Used by both `hi init` and `hi new` commands to reduce duplication
  */
 export async function promptSetupWizardIfNeeded(options: PromptSetupWizardOptions): Promise<void> {
 	const { envPath, claudeDir, isGlobal, isNonInteractive, prompts } = options;
@@ -529,7 +529,7 @@ export async function promptSetupWizardIfNeeded(options: PromptSetupWizardOption
 		});
 	} else {
 		prompts.note(
-			`Create ${envPath} manually or run 'ck init' again.\nRequired: one of GEMINI_API_KEY, OPENROUTER_API_KEY, MINIMAX_API_KEY\nOptional: IMAGE_GEN_PROVIDER, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN`,
+			`Create ${envPath} manually or run 'hi init' again.\nRequired: one of GEMINI_API_KEY, OPENROUTER_API_KEY, MINIMAX_API_KEY\nOptional: IMAGE_GEN_PROVIDER, DISCORD_WEBHOOK_URL, TELEGRAM_BOT_TOKEN`,
 			"Configuration skipped",
 		);
 	}

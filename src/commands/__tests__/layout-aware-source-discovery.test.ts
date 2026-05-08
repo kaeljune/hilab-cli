@@ -6,7 +6,7 @@ import { getAgentSourcePath } from "../agents/agents-discovery.js";
 import { getCommandSourcePath } from "../commands/commands-discovery.js";
 
 describe("layout-aware source discovery", () => {
-	const testDir = join(tmpdir(), "claudekit-layout-aware-discovery-test");
+	const testDir = join(tmpdir(), "hilab-layout-aware-discovery-test");
 
 	beforeAll(() => {
 		mkdirSync(testDir, { recursive: true });
@@ -23,7 +23,7 @@ describe("layout-aware source discovery", () => {
 		writeFileSync(
 			join(projectDir, "package.json"),
 			JSON.stringify({
-				claudekit: {
+				hilab: {
 					sourceDir: "claude",
 					runtimeDir: ".claude",
 				},
@@ -46,7 +46,7 @@ describe("layout-aware source discovery", () => {
 		writeFileSync(
 			join(projectDir, "package.json"),
 			JSON.stringify({
-				claudekit: {
+				hilab: {
 					sourceDir: "claude",
 					runtimeDir: ".claude",
 				},

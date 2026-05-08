@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-The `ck doctor` command is a comprehensive system dependency checker and installer for ClaudeKit CLI. Feature is fully implemented, thoroughly tested, and production-ready. All acceptance criteria met. Cross-platform support verified (Windows, macOS, Linux, WSL).
+The `ck doctor` command is a comprehensive system dependency checker and installer for HiLab CLI. Feature is fully implemented, thoroughly tested, and production-ready. All acceptance criteria met. Cross-platform support verified (Windows, macOS, Linux, WSL).
 
 **Key Achievement**: Delivered robust, secure, user-friendly diagnostic tool with extensive test coverage (50 passing tests, 324 assertions) and clear upgrade path for users with missing dependencies.
 
@@ -134,7 +134,7 @@ NON_INTERACTIVE=1 ck doctor
 - ✅ Uses Linux package managers
 - ✅ WSL distro name reported
 
-### 4. ClaudeKit Setup Overview ✅
+### 4. HiLab Setup Overview ✅
 
 **Global Setup Display**:
 - Path to global `.claude` directory
@@ -149,7 +149,7 @@ NON_INTERACTIVE=1 ck doctor
 **Output**:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Global ClaudeKit Setup
+Global HiLab Setup
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Path: ~/.claude
 Status: Installed ✅
@@ -265,7 +265,7 @@ Skills: 12
 3. ✅ Offers interactive installation with confirmation
 4. ✅ Provides manual installation instructions
 5. ✅ Supports non-interactive mode (CI/CD)
-6. ✅ Displays ClaudeKit setup overview
+6. ✅ Displays HiLab setup overview
 7. ✅ Shows component statistics
 8. ✅ Cross-platform support
 
@@ -311,8 +311,8 @@ Skills: 12
 | Manual instructions | ✅ | dependency-installer.ts:getManualInstructions() |
 | Non-interactive mode | ✅ | doctor.ts:16-20 |
 | Cross-platform | ✅ | Tests cover Windows, macOS, Linux, WSL |
-| ClaudeKit setup | ✅ | doctor.ts:100+ |
-| Component counts | ✅ | claudekit-scanner.ts |
+| HiLab setup | ✅ | doctor.ts:100+ |
+| Component counts | ✅ | hilab-scanner.ts |
 | 50+ tests | ✅ | 50 passing tests |
 | Code review 8.5/10 | ✅ | Code review completed |
 | No blocking issues | ✅ | All tests passing |

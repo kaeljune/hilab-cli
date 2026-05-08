@@ -33,7 +33,7 @@ async function runBackupsCommand(
 			return;
 		case "restore":
 			if (!id) {
-				throw new Error("Usage: ck backups restore <id>");
+				throw new Error("Usage: hi backups restore <id>");
 			}
 			await handleBackupsRestore(id, options);
 			return;
@@ -47,7 +47,7 @@ async function runBackupsCommand(
 
 export function registerBackupsCommand(cli: ReturnType<typeof cac>): void {
 	cli
-		.command("backups [action] [id]", "List, restore, and prune ClaudeKit recovery backups")
+		.command("backups [action] [id]", "List, restore, and prune HiLab recovery backups")
 		.option("--json", "Output in JSON format")
 		.option("--limit <limit>", "Limit the number of backups shown")
 		.option("-y, --yes", "Skip confirmation prompt")

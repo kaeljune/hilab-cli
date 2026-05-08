@@ -256,7 +256,7 @@ export function updateRegistryEntry(
 			blockedBy: normalizedEntry.blockedBy ?? [],
 			blocks: normalizedEntry.blocks ?? [],
 			created: normalizedEntry.created ?? now,
-			createdBy: normalizedEntry.createdBy ?? "ck-cli",
+			createdBy: normalizedEntry.createdBy ?? "hi-cli",
 			source: normalizedEntry.source ?? "cli",
 			lastModified: now,
 			phases: normalizedEntry.phases ?? [],
@@ -285,7 +285,7 @@ export function registerNewPlan(options: {
 	const now = new Date().toISOString();
 	const source = options.source ?? "cli";
 	const createdBy =
-		source === "skill" ? "ck:plan" : source === "dashboard" ? "dashboard" : "ck-cli";
+		source === "skill" ? "ck:plan" : source === "dashboard" ? "dashboard" : "hi-cli";
 
 	updateRegistryEntry(
 		{

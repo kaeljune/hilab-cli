@@ -40,7 +40,7 @@ const SKIP_DIRS = [
 	".svn",
 	"dist",
 	"build",
-	// Claude Code internal directories (not ClaudeKit files)
+	// Claude Code internal directories (not HiLab files)
 	"debug",
 	"projects",
 	"shell-snapshots",

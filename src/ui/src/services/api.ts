@@ -19,7 +19,7 @@ const API_BASE = "/api";
  */
 export class ServerUnavailableError extends Error {
 	constructor() {
-		super("Backend server is not running. Start it with: ck config");
+		super("Backend server is not running. Start it with: hi config");
 		this.name = "ServerUnavailableError";
 	}
 }

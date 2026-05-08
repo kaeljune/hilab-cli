@@ -5,7 +5,7 @@ import * as path from "node:path";
 import { downloadAndExtract } from "@/domains/installation/download-extractor";
 import { AVAILABLE_KITS } from "@/types";
 
-const TEST_DIR = path.join(os.tmpdir(), "ck-test-archive");
+const TEST_DIR = path.join(os.tmpdir(), "hi-test-archive");
 const mockKit = AVAILABLE_KITS.engineer;
 
 describe("archive format validation", () => {

@@ -2,7 +2,7 @@
  * Hooks settings.json merger — reads hooks from source provider's settings.json,
  * rewrites paths, filters to installed files, and merges into target settings.json.
  *
- * Used by `ck migrate` to auto-register hooks after copying hook files.
+ * Used by `hi migrate` to auto-register hooks after copying hook files.
  */
 import { existsSync } from "node:fs";
 import { mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";

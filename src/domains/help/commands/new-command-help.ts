@@ -9,15 +9,15 @@ import { filterOptionsGroup, folderOptionsGroup } from "./common-options.js";
 
 export const newCommandHelp: CommandHelp = {
 	name: "new",
-	description: "Bootstrap a new ClaudeKit project (with interactive version selection)",
-	usage: "ck new [options]",
+	description: "Bootstrap a new HiLab project (with interactive version selection)",
+	usage: "hi new [options]",
 	examples: [
 		{
-			command: "ck new --kit engineer --dir ./my-project",
+			command: "hi new --kit engineer --dir ./my-project",
 			description: "Create engineer kit project in specific directory",
 		},
 		{
-			command: "ck new -y --use-git --release v2.1.0",
+			command: "hi new -y --use-git --release v2.1.0",
 			description: "Non-interactive with git clone (no GitHub API needed)",
 		},
 	],
@@ -87,7 +87,7 @@ export const newCommandHelp: CommandHelp = {
 				},
 				{
 					flags: "--prefix",
-					description: "Add /ck: prefix to all slash commands",
+					description: "Add /hi: prefix to all slash commands",
 				},
 			],
 		},

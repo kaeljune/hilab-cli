@@ -37,7 +37,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 	describe("kit-specific cleanup", () => {
 		it("only removes files owned by specified kit", async () => {
 			// Setup: create files owned by different kits
-			const ckDir = join(commandsDir, "ck");
+			const ckDir = join(commandsDir, "hi");
 			const mktDir = join(commandsDir, "mkt");
 			await mkdir(ckDir, { recursive: true });
 			await mkdir(mktDir, { recursive: true });
@@ -57,7 +57,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 							{
 								path: "commands/ck/plan.md",
 								checksum: await calculateChecksum(planPath),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -69,7 +69,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 							{
 								path: "commands/mkt/email.md",
 								checksum: await calculateChecksum(emailPath),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -99,7 +99,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 
 		it("preserves all files from other kits", async () => {
 			// Setup: multiple files per kit
-			const ckDir = join(commandsDir, "ck");
+			const ckDir = join(commandsDir, "hi");
 			const mktDir = join(commandsDir, "mkt");
 			await mkdir(ckDir, { recursive: true });
 			await mkdir(mktDir, { recursive: true });
@@ -123,13 +123,13 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 							{
 								path: "commands/ck/plan.md",
 								checksum: await calculateChecksum(planPath),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "commands/ck/fix.md",
 								checksum: await calculateChecksum(fixPath),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -141,13 +141,13 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 							{
 								path: "commands/mkt/email.md",
 								checksum: await calculateChecksum(emailPath),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 							{
 								path: "commands/mkt/campaign.md",
 								checksum: await calculateChecksum(campaignPath),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -177,7 +177,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 	describe("backward compatibility", () => {
 		it("cleans all kits when no kitType provided", async () => {
 			// Setup: files from multiple kits
-			const ckDir = join(commandsDir, "ck");
+			const ckDir = join(commandsDir, "hi");
 			const mktDir = join(commandsDir, "mkt");
 			await mkdir(ckDir, { recursive: true });
 			await mkdir(mktDir, { recursive: true });
@@ -196,7 +196,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 							{
 								path: "commands/ck/plan.md",
 								checksum: await calculateChecksum(planPath),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -208,7 +208,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 							{
 								path: "commands/mkt/email.md",
 								checksum: await calculateChecksum(emailPath),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -234,14 +234,14 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 
 			const planPath = join(commandsDir, "plan.md");
 			const metadata: Metadata = {
-				name: "ClaudeKit Engineer",
+				name: "HiLab Engineer",
 				version: "1.0.0",
 				installedAt: new Date().toISOString(),
 				files: [
 					{
 						path: "commands/plan.md",
 						checksum: await calculateChecksum(planPath),
-						ownership: "ck",
+						ownership: "hi",
 						installedVersion: "1.0.0",
 					},
 				],
@@ -308,7 +308,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 							{
 								path: "commands/plan.md",
 								checksum: "0000000000000000000000000000000000000000000000000000000000000000",
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],
@@ -343,7 +343,7 @@ describe("cleanupCommandsDirectory - kit-aware", () => {
 							{
 								path: "commands/plan.md",
 								checksum: await calculateChecksum(planPath),
-								ownership: "ck",
+								ownership: "hi",
 								installedVersion: "1.0.0",
 							},
 						],

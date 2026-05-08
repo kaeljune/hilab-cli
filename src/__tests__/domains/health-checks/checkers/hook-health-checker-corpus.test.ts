@@ -2,7 +2,7 @@
  * hook-health-checker-corpus.test.ts
  *
  * Exhaustive corpus tests proving every known stale hook command path shape
- * converges in a single `ck doctor --fix` pass (issue #776).
+ * converges in a single `hi doctor --fix` pass (issue #776).
  *
  * Each test row: input command → repairClaudeNodeCommandPath → assert:
  *   - no FixerDidNotConvergeError
@@ -45,8 +45,8 @@ async function setupCtx(): Promise<TestContext> {
 	const tempDir = join(tmpdir(), `ck-corpus-${Date.now()}-${Math.random().toString(36).slice(2)}`);
 	const projectDir = join(tempDir, "project");
 	await mkdir(projectDir, { recursive: true });
-	const originalCkTestHome = process.env.CK_TEST_HOME;
-	process.env.CK_TEST_HOME = tempDir;
+	const originalCkTestHome = process.env.HI_TEST_HOME;
+	process.env.HI_TEST_HOME = tempDir;
 	return { tempDir, projectDir, originalCkTestHome };
 }
 
@@ -54,9 +54,9 @@ async function teardownCtx(ctx: TestContext): Promise<void> {
 	await rm(ctx.tempDir, { recursive: true, force: true });
 	if (ctx.originalCkTestHome === undefined) {
 		// biome-ignore lint/performance/noDelete: process.env semantics require delete to truly unset
-		delete process.env.CK_TEST_HOME;
+		delete process.env.HI_TEST_HOME;
 	} else {
-		process.env.CK_TEST_HOME = ctx.originalCkTestHome;
+		process.env.HI_TEST_HOME = ctx.originalCkTestHome;
 	}
 }
 
@@ -284,7 +284,7 @@ describe("repairClaudeNodeCommandPath: per-shape unit corpus", () => {
 		// when root=$HOME (same-scope canonical guard only fires for $HOME→$HOME).
 		// This is intentional: SettingsProcessor uses this for cross-scope normalization.
 		// The health-checker suppresses this via isAlreadyCanonical() in collectHookCommandFindings
-		// — so ck doctor --fix does NOT re-root canonical cross-scope commands.
+		// — so hi doctor --fix does NOT re-root canonical cross-scope commands.
 		const result = repairClaudeNodeCommandPath(
 			'node "$CLAUDE_PROJECT_DIR"/.claude/hooks/foo.cjs',
 			"$HOME",

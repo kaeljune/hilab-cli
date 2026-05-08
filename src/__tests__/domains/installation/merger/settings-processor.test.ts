@@ -10,7 +10,7 @@ function toPosix(path: string): string {
 
 describe("SettingsProcessor custom global dir support", () => {
 	const originalClaudeConfigDir = process.env.CLAUDE_CONFIG_DIR;
-	const originalCkTestHome = process.env.CK_TEST_HOME;
+	const originalCkTestHome = process.env.HI_TEST_HOME;
 	let testDir: string;
 	let customClaudeDir: string;
 	let sourceFile: string;
@@ -26,7 +26,7 @@ describe("SettingsProcessor custom global dir support", () => {
 		// so clear it to prevent env leakage from other tests running in the same Bun process.
 		// Must use delete — Node.js coerces `= undefined` to the string "undefined".
 		// biome-ignore lint/performance/noDelete: process.env requires delete to actually unset
-		delete process.env.CK_TEST_HOME;
+		delete process.env.HI_TEST_HOME;
 		process.env.CLAUDE_CONFIG_DIR = customClaudeDir;
 	});
 
@@ -39,10 +39,10 @@ describe("SettingsProcessor custom global dir support", () => {
 			delete process.env.CLAUDE_CONFIG_DIR;
 		}
 		if (originalCkTestHome !== undefined) {
-			process.env.CK_TEST_HOME = originalCkTestHome;
+			process.env.HI_TEST_HOME = originalCkTestHome;
 		} else {
 			// biome-ignore lint/performance/noDelete: process.env requires delete to actually unset
-			delete process.env.CK_TEST_HOME;
+			delete process.env.HI_TEST_HOME;
 		}
 	});
 
@@ -170,7 +170,7 @@ describe("SettingsProcessor custom global dir support", () => {
 			),
 		);
 		// Simulate a destination settings.json that already contains an absolute path
-		// (written by Claude Code on a previous save or an older ck version).
+		// (written by Claude Code on a previous save or an older hi version).
 		await writeFile(
 			destFile,
 			JSON.stringify(

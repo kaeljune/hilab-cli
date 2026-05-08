@@ -8,15 +8,15 @@ import type { CommandHelp } from "../help-types.js";
 
 export const uninstallCommandHelp: CommandHelp = {
 	name: "uninstall",
-	description: "Remove ClaudeKit installations (ownership-aware)",
-	usage: "ck uninstall [options]",
+	description: "Remove HiLab installations (ownership-aware)",
+	usage: "hi uninstall [options]",
 	examples: [
 		{
-			command: "ck uninstall --local --yes",
+			command: "hi uninstall --local --yes",
 			description: "Remove local installation without confirmation",
 		},
 		{
-			command: "ck uninstall --dry-run",
+			command: "hi uninstall --dry-run",
 			description: "Preview what would be removed without deleting",
 		},
 	],

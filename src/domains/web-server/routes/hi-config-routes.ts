@@ -1,10 +1,10 @@
 /**
- * CK Config API routes - Full .ck.json config with source tracking
+ * CK Config API routes - Full .hi.json config with source tracking
  *
  * Endpoints:
- * - GET /api/ck-config - Load full config with sources
- * - PUT /api/ck-config - Save full config
- * - GET /api/ck-config/schema - Return JSON Schema
+ * - GET /api/hi-config - Load full config with sources
+ * - PUT /api/hi-config - Save full config
+ * - GET /api/hi-config/schema - Return JSON Schema
  * - GET /api/metadata/global - Load global metadata
  */
 
@@ -12,7 +12,7 @@ import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { CkConfigManager } from "@/domains/config/index.js";
-import ckConfigSchema from "@/schemas/ck-config.schema.json" with { type: "json" };
+import ckConfigSchema from "@/schemas/hi-config.schema.json" with { type: "json" };
 import { logger } from "@/shared/logger.js";
 import { PathResolver } from "@/shared/path-resolver.js";
 import { type CkConfig, CkConfigSchema, normalizeCkConfigInput } from "@/types";
@@ -33,21 +33,21 @@ async function resolveProjectDir(projectId: string | undefined): Promise<string 
 	}
 
 	// Resolve from registry
-	const { ProjectsRegistryManager } = await import("@/domains/claudekit-data/projects-registry.js");
+	const { ProjectsRegistryManager } = await import("@/domains/hilab-data/projects-registry.js");
 	const project = await ProjectsRegistryManager.getProject(projectId);
 	return project?.path ?? null;
 }
 
 export function registerCkConfigRoutes(app: Express): void {
 	/**
-	 * GET /api/ck-config
-	 * Load full .ck.json config with source tracking
+	 * GET /api/hi-config
+	 * Load full .hi.json config with source tracking
 	 *
 	 * Query params:
 	 * - projectId: string (optional) - Project ID for project-specific config
 	 * - scope: "global" | "project" | "merged" (default: "merged")
 	 */
-	app.get("/api/ck-config", async (req: Request, res: Response) => {
+	app.get("/api/hi-config", async (req: Request, res: Response) => {
 		try {
 			const { projectId, scope = "merged" } = req.query as {
 				projectId?: string;
@@ -86,21 +86,21 @@ export function registerCkConfigRoutes(app: Express): void {
 			const result = await CkConfigManager.loadFull(projectDir);
 			res.json(result);
 		} catch (error) {
-			logger.error(`Failed to load ck-config: ${error}`);
+			logger.error(`Failed to load hi-config: ${error}`);
 			res.status(500).json({ error: "Failed to load configuration" });
 		}
 	});
 
 	/**
-	 * PUT /api/ck-config
-	 * Save .ck.json config to specified scope
+	 * PUT /api/hi-config
+	 * Save .hi.json config to specified scope
 	 *
 	 * Request body:
 	 * - scope: "global" | "project"
 	 * - projectId: string (required for project scope)
 	 * - config: CkConfig object
 	 */
-	app.put("/api/ck-config", async (req: Request, res: Response) => {
+	app.put("/api/hi-config", async (req: Request, res: Response) => {
 		try {
 			const { scope, projectId, config } = req.body as {
 				scope: "global" | "project";
@@ -169,21 +169,21 @@ export function registerCkConfigRoutes(app: Express): void {
 				config: savedConfig || {},
 			});
 		} catch (error) {
-			logger.error(`Failed to save ck-config: ${error}`);
+			logger.error(`Failed to save hi-config: ${error}`);
 			res.status(500).json({ error: "Failed to save configuration" });
 		}
 	});
 
 	/**
-	 * GET /api/ck-config/schema
-	 * Return the JSON Schema for .ck.json
+	 * GET /api/hi-config/schema
+	 * Return the JSON Schema for .hi.json
 	 */
-	app.get("/api/ck-config/schema", (_req: Request, res: Response) => {
+	app.get("/api/hi-config/schema", (_req: Request, res: Response) => {
 		res.json(ckConfigSchema);
 	});
 
 	/**
-	 * PATCH /api/ck-config/field
+	 * PATCH /api/hi-config/field
 	 * Update a single field at specified scope
 	 *
 	 * Request body:
@@ -192,7 +192,7 @@ export function registerCkConfigRoutes(app: Express): void {
 	 * - fieldPath: string (dot-notation path)
 	 * - value: any
 	 */
-	app.patch("/api/ck-config/field", async (req: Request, res: Response) => {
+	app.patch("/api/hi-config/field", async (req: Request, res: Response) => {
 		try {
 			const { scope, projectId, fieldPath, value } = req.body as {
 				scope: "global" | "project";
@@ -235,7 +235,7 @@ export function registerCkConfigRoutes(app: Express): void {
 				res.status(400).json({ error: "Validation failed", issues: error.issues });
 				return;
 			}
-			logger.error(`Failed to update ck-config field: ${error}`);
+			logger.error(`Failed to update hi-config field: ${error}`);
 			res.status(500).json({ error: "Failed to update field" });
 		}
 	});

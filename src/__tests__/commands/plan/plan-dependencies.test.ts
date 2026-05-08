@@ -11,7 +11,7 @@ describe("resolvePlanDependencies", () => {
 	let currentPlanFile = "";
 
 	beforeEach(async () => {
-		projectDir = await mkdtemp(join(tmpdir(), "ck-plan-dependencies-"));
+		projectDir = await mkdtemp(join(tmpdir(), "hi-plan-dependencies-"));
 		projectPlansDir = join(projectDir, "plans", "project");
 		globalPlansDir = join(projectDir, "plans", "global");
 		currentPlanFile = join(projectPlansDir, "260413-current", "plan.md");
@@ -22,7 +22,7 @@ describe("resolvePlanDependencies", () => {
 		await mkdir(join(globalPlansDir, "260413-foundation"), { recursive: true });
 
 		await writeFile(
-			join(projectDir, ".claude", ".ck.json"),
+			join(projectDir, ".claude", ".hi.json"),
 			JSON.stringify(
 				{
 					paths: {

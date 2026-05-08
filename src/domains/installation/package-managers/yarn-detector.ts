@@ -10,9 +10,9 @@ export function getYarnQuery(): PmQuery {
 	return {
 		pm: "yarn",
 		cmd: isWindows()
-			? "yarn.cmd global list --pattern claudekit-cli"
-			: "yarn global list --pattern claudekit-cli",
-		checkFn: (stdout) => /(?:^|[^a-z0-9-])claudekit-cli@/m.test(stdout),
+			? "yarn.cmd global list --pattern hilab-cli"
+			: "yarn global list --pattern hilab-cli",
+		checkFn: (stdout) => /(?:^|[^a-z0-9-])hilab-cli@/m.test(stdout),
 	};
 }
 

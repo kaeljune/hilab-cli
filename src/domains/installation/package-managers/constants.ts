@@ -9,7 +9,7 @@ const DEFAULT_PM_QUERY_TIMEOUT_MS = 5_000;
  */
 export function getPmVersionCommandTimeoutMs(): number {
 	return parseTimeoutMs(
-		process.env.CK_PM_VERSION_TIMEOUT_MS,
+		process.env.HI_PM_VERSION_TIMEOUT_MS,
 		DEFAULT_PM_VERSION_COMMAND_TIMEOUT_MS,
 	);
 }
@@ -19,5 +19,5 @@ export function getPmVersionCommandTimeoutMs(): number {
  * Evaluated lazily so tests can override env vars after module load.
  */
 export function getPmQueryTimeoutMs(): number {
-	return parseTimeoutMs(process.env.CK_PM_QUERY_TIMEOUT_MS, DEFAULT_PM_QUERY_TIMEOUT_MS);
+	return parseTimeoutMs(process.env.HI_PM_QUERY_TIMEOUT_MS, DEFAULT_PM_QUERY_TIMEOUT_MS);
 }

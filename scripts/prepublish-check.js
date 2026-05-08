@@ -424,7 +424,7 @@ async function verifyInstalledCli({ logger, tarballPath, expectedVersion }) {
 			encoding: "utf8",
 			env,
 		});
-		if (!helpOutput.includes("ClaudeKit CLI")) {
+		if (!helpOutput.includes("HiLab CLI")) {
 			throw new Error("Installed CLI help output did not contain the expected banner");
 		}
 

@@ -16,7 +16,7 @@ const MAX_NPM_TIMEOUT_MS = 300_000;
  */
 function getNpmLookupTimeoutMs(): number {
 	return parseTimeoutMs(
-		process.env.CK_NPM_LOOKUP_TIMEOUT_MS,
+		process.env.HI_NPM_LOOKUP_TIMEOUT_MS,
 		DEFAULT_NPM_LOOKUP_TIMEOUT_MS,
 		MIN_NPM_TIMEOUT_MS,
 		MAX_NPM_TIMEOUT_MS,
@@ -25,7 +25,7 @@ function getNpmLookupTimeoutMs(): number {
 
 function getNpmInstallTimeoutMs(): number {
 	return parseTimeoutMs(
-		process.env.CK_NPM_INSTALL_TIMEOUT_MS,
+		process.env.HI_NPM_INSTALL_TIMEOUT_MS,
 		DEFAULT_NPM_INSTALL_TIMEOUT_MS,
 		MIN_NPM_TIMEOUT_MS,
 		MAX_NPM_TIMEOUT_MS,

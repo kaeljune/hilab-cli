@@ -1,7 +1,7 @@
 /**
  * Prefix Applier
  *
- * Handles applying /ck: prefix to slash commands by:
+ * Handles applying /hi: prefix to slash commands by:
  * 1. Reorganizing the commands directory structure
  * 2. Transforming command references in file contents
  */
@@ -17,7 +17,7 @@ import { validatePath } from "./prefix-utils.js";
  * Apply prefix reorganization to commands directory
  *
  * Moves all files from .claude/commands/ to .claude/commands/ck/
- * This enables slash commands to have /ck: prefix (e.g., /ck:plan)
+ * This enables slash commands to have /hi: prefix (e.g., /hi:plan)
  *
  * @param extractDir - Temporary extraction directory containing .claude folder
  *                     Must be absolute path, no path traversal allowed
@@ -47,7 +47,7 @@ export async function applyPrefix(extractDir: string): Promise<void> {
 		return;
 	}
 
-	logger.info("Applying /ck: prefix to slash commands...");
+	logger.info("Applying /hi: prefix to slash commands...");
 
 	const backupDir = join(extractDir, ".commands-backup");
 	const tempDir = join(extractDir, ".commands-prefix-temp");
@@ -61,11 +61,11 @@ export async function applyPrefix(extractDir: string): Promise<void> {
 		}
 
 		// Check if already prefixed (ck subdirectory exists and is the only entry)
-		if (entries.length === 1 && entries[0] === "ck") {
-			const ckDir = join(commandsDir, "ck");
+		if (entries.length === 1 && entries[0] === "hi") {
+			const ckDir = join(commandsDir, "hi");
 			const ckStat = await stat(ckDir);
 			if (ckStat.isDirectory()) {
-				logger.verbose("Commands already have /ck: prefix, skipping");
+				logger.verbose("Commands already have /hi: prefix, skipping");
 				return;
 			}
 		}
@@ -77,11 +77,11 @@ export async function applyPrefix(extractDir: string): Promise<void> {
 		// Create temporary directory for reorganization
 		await mkdir(tempDir, { recursive: true });
 
-		// Create ck subdirectory in temp
-		const ckDir = join(tempDir, "ck");
+		// Create hi subdirectory in temp
+		const ckDir = join(tempDir, "hi");
 		await mkdir(ckDir, { recursive: true });
 
-		// Move all current commands to ck subdirectory
+		// Move all current commands to hi subdirectory
 		let processedCount = 0;
 		for (const entry of entries) {
 			const sourcePath = join(commandsDir, entry);
@@ -121,7 +121,7 @@ export async function applyPrefix(extractDir: string): Promise<void> {
 		// Cleanup backup after successful operation
 		await remove(backupDir);
 
-		logger.success("Successfully reorganized commands to /ck: prefix");
+		logger.success("Successfully reorganized commands to /hi: prefix");
 
 		// Transform command references in file contents
 		const claudeDir = join(extractDir, ".claude");
@@ -156,7 +156,7 @@ export async function applyPrefix(extractDir: string): Promise<void> {
 			});
 		}
 
-		logger.error("Failed to apply /ck: prefix to commands");
+		logger.error("Failed to apply /hi: prefix to commands");
 		throw error;
 	} finally {
 		// Always cleanup backup and temp directories

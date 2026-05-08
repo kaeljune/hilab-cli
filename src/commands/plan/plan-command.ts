@@ -132,7 +132,7 @@ export function renderPhasesTable(phases: PlanPhase[]): void {
 // ─── Main dispatcher ──────────────────────────────────────────────────────────
 
 /**
- * Entry point for `ck plan [action] [target]`
+ * Entry point for `hi plan [action] [target]`
  * Actions: parse, validate, status, kanban (default: status)
  */
 export async function planCommand(
@@ -163,7 +163,7 @@ export async function planCommand(
 			resolvedAction.endsWith(".md") ||
 			resolvedAction === "." ||
 			resolvedAction === "..";
-		// Fallback: bare name that exists on disk (e.g. "ck plan my-feature-plan")
+		// Fallback: bare name that exists on disk (e.g. "hi plan my-feature-plan")
 		const existsOnDisk = !looksLikePath && existsSync(resolve(resolvedAction));
 		if (looksLikePath || existsOnDisk) {
 			resolvedTarget = resolvedAction;

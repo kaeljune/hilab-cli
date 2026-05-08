@@ -1,7 +1,7 @@
 /**
  * Tests for opencode-config-installer.ts
  * Covers: fresh install, existing valid/invalid model, non-interactive fail-fast,
- * interactive rewrite/keep, .ck.json override wins.
+ * interactive rewrite/keep, .hi.json override wins.
  */
 import { afterEach, beforeEach, describe, expect, it, spyOn } from "bun:test";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
@@ -60,11 +60,11 @@ function makeOkFetcher(catalog: ModelsDevCatalog): FetchFn {
 // ---- Helpers ----
 
 async function makeTmpHome(): Promise<string> {
-	return mkdtemp(join(tmpdir(), "ck-installer-test-home-"));
+	return mkdtemp(join(tmpdir(), "hi-installer-test-home-"));
 }
 
 async function makeLocalDir(): Promise<string> {
-	return mkdtemp(join(tmpdir(), "ck-installer-test-local-"));
+	return mkdtemp(join(tmpdir(), "hi-installer-test-local-"));
 }
 
 async function writeAuthJson(homeDir: string, providers: Record<string, unknown>): Promise<void> {
@@ -92,7 +92,7 @@ describe("ensureOpenCodeModel", () => {
 	beforeEach(async () => {
 		homeDir = await makeTmpHome();
 		localDir = await makeLocalDir();
-		cacheDir = await mkdtemp(join(tmpdir(), "ck-installer-cache-"));
+		cacheDir = await mkdtemp(join(tmpdir(), "hi-installer-cache-"));
 		// Reset taxonomy overrides
 		setTaxonomyOverrides(undefined);
 	});
@@ -245,9 +245,9 @@ describe("ensureOpenCodeModel", () => {
 		expect(result.model).toBe("anthropic/claude-sonnet-4-6");
 	});
 
-	// ---- .ck.json override wins ----
+	// ---- .hi.json override wins ----
 
-	it(".ck.json override set — wins over discovery, no auth check", async () => {
+	it(".hi.json override set — wins over discovery, no auth check", async () => {
 		// Override is set via taxonomy
 		setTaxonomyOverrides({
 			opencode: {

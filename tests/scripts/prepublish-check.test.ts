@@ -7,7 +7,7 @@ import { synchronizePackageJsonVersion } from "../../scripts/rebuild-after-versi
 
 describe("assertNodeCompatibleBundle", () => {
 	test("allows Node-safe bundles", () => {
-		const tempDir = mkdtempSync(join(tmpdir(), "ck-prepublish-safe-"));
+		const tempDir = mkdtempSync(join(tmpdir(), "hi-prepublish-safe-"));
 		const bundlePath = join(tempDir, "index.js");
 
 		try {
@@ -28,7 +28,7 @@ describe("assertNodeCompatibleBundle", () => {
 	});
 
 	test("rejects bun: protocol imports", () => {
-		const tempDir = mkdtempSync(join(tmpdir(), "ck-prepublish-bun-import-"));
+		const tempDir = mkdtempSync(join(tmpdir(), "hi-prepublish-bun-import-"));
 		const bundlePath = join(tempDir, "index.js");
 
 		try {
@@ -40,7 +40,7 @@ describe("assertNodeCompatibleBundle", () => {
 	});
 
 	test("reliably detects forbidden patterns across repeated invocations", () => {
-		const tempDir = mkdtempSync(join(tmpdir(), "ck-prepublish-repeat-"));
+		const tempDir = mkdtempSync(join(tmpdir(), "hi-prepublish-repeat-"));
 		const bundlePath = join(tempDir, "index.js");
 
 		try {
@@ -53,7 +53,7 @@ describe("assertNodeCompatibleBundle", () => {
 	});
 
 	test("rejects Bun.file runtime usage", () => {
-		const tempDir = mkdtempSync(join(tmpdir(), "ck-prepublish-bun-file-"));
+		const tempDir = mkdtempSync(join(tmpdir(), "hi-prepublish-bun-file-"));
 		const bundlePath = join(tempDir, "index.js");
 
 		try {
@@ -65,7 +65,7 @@ describe("assertNodeCompatibleBundle", () => {
 	});
 
 	test("rejects Bun.write runtime usage", () => {
-		const tempDir = mkdtempSync(join(tmpdir(), "ck-prepublish-bun-write-"));
+		const tempDir = mkdtempSync(join(tmpdir(), "hi-prepublish-bun-write-"));
 		const bundlePath = join(tempDir, "index.js");
 
 		try {
@@ -79,13 +79,13 @@ describe("assertNodeCompatibleBundle", () => {
 
 describe("synchronizePackageJsonVersion", () => {
 	test("updates package.json before the rebuild step when semantic-release has not yet done it", () => {
-		const tempDir = mkdtempSync(join(tmpdir(), "ck-rebuild-version-sync-"));
+		const tempDir = mkdtempSync(join(tmpdir(), "hi-rebuild-version-sync-"));
 		const packageJsonPath = join(tempDir, "package.json");
 
 		try {
 			writeFileSync(
 				packageJsonPath,
-				`${JSON.stringify({ name: "claudekit-cli", version: "3.40.1-dev.1" }, null, "\t")}\n`,
+				`${JSON.stringify({ name: "hilab-cli", version: "3.40.1-dev.1" }, null, "\t")}\n`,
 			);
 
 			expect(synchronizePackageJsonVersion("3.40.2", packageJsonPath)).toBe(true);
@@ -96,13 +96,13 @@ describe("synchronizePackageJsonVersion", () => {
 	});
 
 	test("is a no-op when package.json already matches the target release version", () => {
-		const tempDir = mkdtempSync(join(tmpdir(), "ck-rebuild-version-noop-"));
+		const tempDir = mkdtempSync(join(tmpdir(), "hi-rebuild-version-noop-"));
 		const packageJsonPath = join(tempDir, "package.json");
 
 		try {
 			writeFileSync(
 				packageJsonPath,
-				`${JSON.stringify({ name: "claudekit-cli", version: "3.40.2" }, null, "\t")}\n`,
+				`${JSON.stringify({ name: "hilab-cli", version: "3.40.2" }, null, "\t")}\n`,
 			);
 
 			expect(synchronizePackageJsonVersion("3.40.2", packageJsonPath)).toBe(false);

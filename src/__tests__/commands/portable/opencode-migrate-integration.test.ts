@@ -65,9 +65,9 @@ function makeOkFetcher(catalog: ModelsDevCatalog): FetchFn {
 // ---- Helpers ----
 
 async function makeTmpEnv(): Promise<{ homeDir: string; localDir: string; cacheDir: string }> {
-	const homeDir = await mkdtemp(join(tmpdir(), "ck-migrate-integ-home-"));
-	const localDir = await mkdtemp(join(tmpdir(), "ck-migrate-integ-local-"));
-	const cacheDir = await mkdtemp(join(tmpdir(), "ck-migrate-integ-cache-"));
+	const homeDir = await mkdtemp(join(tmpdir(), "hi-migrate-integ-home-"));
+	const localDir = await mkdtemp(join(tmpdir(), "hi-migrate-integ-local-"));
+	const cacheDir = await mkdtemp(join(tmpdir(), "hi-migrate-integ-cache-"));
 	return { homeDir, localDir, cacheDir };
 }
 

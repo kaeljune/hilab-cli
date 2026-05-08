@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import ckConfigSchema from "../../../../schemas/ck-config.schema.json" with { type: "json" };
-import { GEMINI_MODEL_VALUES } from "../../../../types/ck-config.js";
+import ckConfigSchema from "../../../../schemas/hi-config.schema.json" with { type: "json" };
+import { GEMINI_MODEL_VALUES } from "../../../../types/hi-config.js";
 import { CONFIG_FIELD_DOCS } from "../../services/configFieldDocs";
 import {
 	formatStringArrayUnionDisplayValue,

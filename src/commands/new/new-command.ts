@@ -1,7 +1,7 @@
 /**
  * New Command
  *
- * Main orchestrator for the new command (bootstrap new ClaudeKit project).
+ * Main orchestrator for the new command (bootstrap new HiLab project).
  */
 
 import { PromptsManager } from "@/domains/ui/prompts.js";
@@ -27,7 +27,7 @@ function createNewContext(options: NewCommandOptions, prompts: PromptsManager): 
 export async function newCommand(options: NewCommandOptions): Promise<void> {
 	const prompts = new PromptsManager();
 
-	prompts.intro("🚀 ClaudeKit - Create New Project");
+	prompts.intro("🚀 HiLab - Create New Project");
 
 	try {
 		// Create context with validated options
@@ -52,7 +52,7 @@ export async function newCommand(options: NewCommandOptions): Promise<void> {
 			throw new Error(
 				"--use-git requires --release <tag> to specify the version.\n\n" +
 					"Git clone mode cannot list versions without GitHub API access.\n" +
-					"Example: ck new --use-git --release v2.1.0",
+					"Example: hi new --use-git --release v2.1.0",
 			);
 		}
 
@@ -74,7 +74,7 @@ export async function newCommand(options: NewCommandOptions): Promise<void> {
 
 		// Show update hint for future reference
 		log.info(
-			`${picocolors.dim("Tip:")} To update later: ${picocolors.cyan("ck update")} (CLI) + ${picocolors.cyan("ck init")} (kit content)`,
+			`${picocolors.dim("Tip:")} To update later: ${picocolors.cyan("hi update")} (CLI) + ${picocolors.cyan("hi init")} (kit content)`,
 		);
 	} catch (error) {
 		logger.error(error instanceof Error ? error.message : "Unknown error occurred");

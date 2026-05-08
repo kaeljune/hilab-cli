@@ -30,7 +30,7 @@ function formatComponentSummary(inst: Installation): string {
 }
 
 function displayInstallations(installations: Installation[], scope: UninstallScope): void {
-	prompts.intro("ClaudeKit Uninstaller");
+	prompts.intro("HiLab Uninstaller");
 
 	const scopeLabel = scope === "all" ? "all" : scope === "local" ? "local only" : "global only";
 	const hasLegacy = installations.some((i) => !i.hasMetadata);
@@ -42,7 +42,7 @@ function displayInstallations(installations: Installation[], scope: UninstallSco
 		return `  ${typeLabel}: ${i.path}${legacyTag}${components}`;
 	});
 
-	prompts.note(lines.join("\n"), `Detected ClaudeKit installations (${scopeLabel})`);
+	prompts.note(lines.join("\n"), `Detected HiLab installations (${scopeLabel})`);
 
 	if (hasLegacy) {
 		log.warn(
@@ -53,7 +53,7 @@ function displayInstallations(installations: Installation[], scope: UninstallSco
 		);
 	}
 
-	log.warn("[!] This will permanently delete ClaudeKit files from the above paths.");
+	log.warn("[!] This will permanently delete HiLab files from the above paths.");
 }
 
 async function promptScope(installations: Installation[]): Promise<UninstallScope | null> {
@@ -68,7 +68,7 @@ async function promptScope(installations: Installation[]): Promise<UninstallScop
 	const options: { value: UninstallScope; label: string; hint: string }[] = [
 		{ value: "local", label: "Local only", hint: "Remove from current project (.claude/)" },
 		{ value: "global", label: "Global only", hint: "Remove from user directory (~/.claude/)" },
-		{ value: "all", label: "Both", hint: "Remove all ClaudeKit installations" },
+		{ value: "all", label: "Both", hint: "Remove all HiLab installations" },
 	];
 
 	const selected = await select<
@@ -89,10 +89,10 @@ async function promptScope(installations: Installation[]): Promise<UninstallScop
 async function confirmUninstall(scope: UninstallScope, kitLabel = ""): Promise<boolean> {
 	const scopeText =
 		scope === "all"
-			? "all ClaudeKit installations"
+			? "all HiLab installations"
 			: scope === "local"
-				? "local ClaudeKit installation"
-				: "global ClaudeKit installation";
+				? "local HiLab installation"
+				: "global HiLab installation";
 
 	const confirmed = await confirm({
 		message: `Continue with uninstalling ${scopeText}${kitLabel}? A recovery backup will be created first.`,
@@ -113,7 +113,7 @@ export async function uninstallCommand(options: UninstallCommandOptions): Promis
 
 			// 3. Check if any found
 			if (allInstallations.length === 0) {
-				logger.info("No ClaudeKit installations found.");
+				logger.info("No HiLab installations found.");
 				return;
 			}
 
@@ -179,7 +179,7 @@ export async function uninstallCommand(options: UninstallCommandOptions): Promis
 
 			if (installations.length === 0) {
 				const scopeLabel = scope === "local" ? "local" : "global";
-				logger.info(`No ${scopeLabel} ClaudeKit installation found.`);
+				logger.info(`No ${scopeLabel} HiLab installation found.`);
 				return;
 			}
 
@@ -231,12 +231,12 @@ export async function uninstallCommand(options: UninstallCommandOptions): Promis
 			const kitMsg = validOptions.kit ? ` (${validOptions.kit} kit)` : "";
 			if (hasProtectedFiles) {
 				prompts.outro(
-					`ClaudeKit${kitMsg} uninstall completed with preserved customizations. Use --force-overwrite for full removal.`,
+					`HiLab${kitMsg} uninstall completed with preserved customizations. Use --force-overwrite for full removal.`,
 				);
 				return;
 			}
 
-			prompts.outro(`ClaudeKit${kitMsg} uninstalled successfully!`);
+			prompts.outro(`HiLab${kitMsg} uninstalled successfully!`);
 		});
 	} catch (error) {
 		logger.error(error instanceof Error ? error.message : "Unknown error");

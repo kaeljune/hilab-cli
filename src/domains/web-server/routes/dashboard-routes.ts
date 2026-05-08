@@ -219,7 +219,7 @@ export function registerDashboardRoutes(app: Express): void {
 			if (!settings) {
 				suggestions.push({
 					type: "warning",
-					message: "No ~/.claude/settings.json found — run ck init to create one",
+					message: "No ~/.claude/settings.json found — run hi init to create one",
 				});
 			}
 

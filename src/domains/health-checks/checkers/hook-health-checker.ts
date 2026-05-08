@@ -4,8 +4,8 @@ import { readdir } from "node:fs/promises";
 import { homedir, tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { type SettingsJson, SettingsMerger } from "@/domains/config/settings-merger.js";
-import { CLAUDEKIT_CLI_NPM_PACKAGE_NAME } from "@/shared/claudekit-constants.js";
 import { repairClaudeNodeCommandPath } from "@/shared/command-normalizer.js";
+import { HILAB_CLI_NPM_PACKAGE_NAME } from "@/shared/hilab-constants.js";
 import { logger } from "@/shared/logger.js";
 import { PathResolver } from "@/shared/path-resolver.js";
 import type { CheckResult } from "../types.js";
@@ -46,7 +46,7 @@ export class FixerDidNotConvergeError extends Error {
 			.map((f) => `  ${f.label} :: ${f.eventName} :: ${f.command}`)
 			.join("\n");
 		super(
-			`ck doctor --fix: fixer did not converge — ${unresolved.length} stale hook command path(s) remain after repair:\n${lines}\n\nThis is a bug. Please open an issue at https://github.com/mrgoonie/claudekit-cli`,
+			`hi doctor --fix: fixer did not converge — ${unresolved.length} stale hook command path(s) remain after repair:\n${lines}\n\nThis is a bug. Please open an issue at https://github.com/kaeljune/hilab-cli`,
 		);
 		this.name = "FixerDidNotConvergeError";
 		this.unresolved = unresolved;
@@ -281,7 +281,7 @@ export async function checkHookSyntax(projectDir: string): Promise<CheckResult> 
 		return {
 			id: "hook-syntax",
 			name: "Hook Syntax",
-			group: "claudekit",
+			group: "hilab",
 			priority: "critical",
 			status: "info",
 			message: "No hooks directory",
@@ -297,7 +297,7 @@ export async function checkHookSyntax(projectDir: string): Promise<CheckResult> 
 			return {
 				id: "hook-syntax",
 				name: "Hook Syntax",
-				group: "claudekit",
+				group: "hilab",
 				priority: "critical",
 				status: "info",
 				message: "No .cjs hooks found",
@@ -323,19 +323,19 @@ export async function checkHookSyntax(projectDir: string): Promise<CheckResult> 
 			return {
 				id: "hook-syntax",
 				name: "Hook Syntax",
-				group: "claudekit",
+				group: "hilab",
 				priority: "critical",
 				status: "fail",
 				message: `${errors.length} hook(s) with syntax errors`,
 				details: errors.join("\n"),
-				suggestion: "Run: ck init",
+				suggestion: "Run: hi init",
 				autoFixable: true,
 				fix: {
 					id: "fix-hook-syntax",
-					description: "Reinstall hooks via ck init",
+					description: "Reinstall hooks via hi init",
 					execute: async () => ({
 						success: false,
-						message: "Manual fix required: run 'ck init'",
+						message: "Manual fix required: run 'hi init'",
 					}),
 				},
 			};
@@ -344,7 +344,7 @@ export async function checkHookSyntax(projectDir: string): Promise<CheckResult> 
 		return {
 			id: "hook-syntax",
 			name: "Hook Syntax",
-			group: "claudekit",
+			group: "hilab",
 			priority: "critical",
 			status: "pass",
 			message: `${cjsFiles.length} hook(s) valid`,
@@ -355,7 +355,7 @@ export async function checkHookSyntax(projectDir: string): Promise<CheckResult> 
 		return {
 			id: "hook-syntax",
 			name: "Hook Syntax",
-			group: "claudekit",
+			group: "hilab",
 			priority: "critical",
 			status: "fail",
 			message: "Failed to check hook syntax",
@@ -375,7 +375,7 @@ export async function checkHookDeps(projectDir: string): Promise<CheckResult> {
 		return {
 			id: "hook-deps",
 			name: "Hook Dependencies",
-			group: "claudekit",
+			group: "hilab",
 			priority: "critical",
 			status: "info",
 			message: "No hooks directory",
@@ -391,7 +391,7 @@ export async function checkHookDeps(projectDir: string): Promise<CheckResult> {
 			return {
 				id: "hook-deps",
 				name: "Hook Dependencies",
-				group: "claudekit",
+				group: "hilab",
 				priority: "critical",
 				status: "info",
 				message: "No .cjs hooks found",
@@ -439,19 +439,19 @@ export async function checkHookDeps(projectDir: string): Promise<CheckResult> {
 			return {
 				id: "hook-deps",
 				name: "Hook Dependencies",
-				group: "claudekit",
+				group: "hilab",
 				priority: "critical",
 				status: "fail",
 				message: `${missingDeps.length} missing dependency(ies)`,
 				details: missingDeps.join("\n"),
-				suggestion: "Run: ck init",
+				suggestion: "Run: hi init",
 				autoFixable: true,
 				fix: {
 					id: "fix-hook-deps",
-					description: "Reinstall hooks via ck init",
+					description: "Reinstall hooks via hi init",
 					execute: async () => ({
 						success: false,
-						message: "Manual fix required: run 'ck init'",
+						message: "Manual fix required: run 'hi init'",
 					}),
 				},
 			};
@@ -460,7 +460,7 @@ export async function checkHookDeps(projectDir: string): Promise<CheckResult> {
 		return {
 			id: "hook-deps",
 			name: "Hook Dependencies",
-			group: "claudekit",
+			group: "hilab",
 			priority: "critical",
 			status: "pass",
 			message: "All dependencies resolved",
@@ -471,7 +471,7 @@ export async function checkHookDeps(projectDir: string): Promise<CheckResult> {
 		return {
 			id: "hook-deps",
 			name: "Hook Dependencies",
-			group: "claudekit",
+			group: "hilab",
 			priority: "critical",
 			status: "fail",
 			message: "Failed to check dependencies",
@@ -532,7 +532,7 @@ export async function checkHookRuntime(projectDir: string): Promise<CheckResult>
 		return {
 			id: "hook-runtime",
 			name: "Hook Runtime",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "info",
 			message: "No hooks directory",
@@ -548,7 +548,7 @@ export async function checkHookRuntime(projectDir: string): Promise<CheckResult>
 			return {
 				id: "hook-runtime",
 				name: "Hook Runtime",
-				group: "claudekit",
+				group: "hilab",
 				priority: "standard",
 				status: "info",
 				message: "No .cjs hooks found",
@@ -558,7 +558,7 @@ export async function checkHookRuntime(projectDir: string): Promise<CheckResult>
 
 		const syntheticPayload = JSON.stringify({
 			tool_name: "Read",
-			tool_input: { file_path: join(tmpdir(), "ck-doctor-test.txt") },
+			tool_input: { file_path: join(tmpdir(), "hi-doctor-test.txt") },
 		});
 
 		const failures: string[] = [];
@@ -587,19 +587,19 @@ export async function checkHookRuntime(projectDir: string): Promise<CheckResult>
 			return {
 				id: "hook-runtime",
 				name: "Hook Runtime",
-				group: "claudekit",
+				group: "hilab",
 				priority: "standard",
 				status: "fail",
 				message: `${failures.length} hook(s) failed dry-run`,
 				details: failures.join("\n"),
-				suggestion: "Run: ck init",
+				suggestion: "Run: hi init",
 				autoFixable: true,
 				fix: {
 					id: "fix-hook-runtime",
-					description: "Reinstall hooks via ck init",
+					description: "Reinstall hooks via hi init",
 					execute: async () => ({
 						success: false,
-						message: "Manual fix required: run 'ck init'",
+						message: "Manual fix required: run 'hi init'",
 					}),
 				},
 			};
@@ -608,7 +608,7 @@ export async function checkHookRuntime(projectDir: string): Promise<CheckResult>
 		return {
 			id: "hook-runtime",
 			name: "Hook Runtime",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "pass",
 			message: `${cjsFiles.length} hook(s) passed dry-run`,
@@ -619,7 +619,7 @@ export async function checkHookRuntime(projectDir: string): Promise<CheckResult>
 		return {
 			id: "hook-runtime",
 			name: "Hook Runtime",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "fail",
 			message: "Failed to check hook runtime",
@@ -640,7 +640,7 @@ export async function checkHookCommandPaths(projectDir: string): Promise<CheckRe
 		return {
 			id: "hook-command-paths",
 			name: "Hook Command Paths",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "info",
 			message: "No Claude settings files",
@@ -661,7 +661,7 @@ export async function checkHookCommandPaths(projectDir: string): Promise<CheckRe
 		return {
 			id: "hook-command-paths",
 			name: "Hook Command Paths",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "pass",
 			message: `${settingsFiles.length} settings file(s) canonical`,
@@ -680,12 +680,12 @@ export async function checkHookCommandPaths(projectDir: string): Promise<CheckRe
 	return {
 		id: "hook-command-paths",
 		name: "Hook Command Paths",
-		group: "claudekit",
+		group: "hilab",
 		priority: "standard",
 		status: "fail",
 		message: `${findings.length} stale hook command path(s)`,
 		details,
-		suggestion: "Run: ck doctor --fix",
+		suggestion: "Run: hi doctor --fix",
 		autoFixable: true,
 		fix: {
 			id: "fix-hook-command-paths",
@@ -891,7 +891,7 @@ export async function checkHookFileReferences(projectDir: string): Promise<Check
 		return {
 			id: "hook-file-references",
 			name: "Hook File References",
-			group: "claudekit",
+			group: "hilab",
 			priority: "critical",
 			status: "info",
 			message: "No Claude settings files",
@@ -910,7 +910,7 @@ export async function checkHookFileReferences(projectDir: string): Promise<Check
 		return {
 			id: "hook-file-references",
 			name: "Hook File References",
-			group: "claudekit",
+			group: "hilab",
 			priority: "critical",
 			status: "pass",
 			message: "All referenced hook files exist",
@@ -929,12 +929,12 @@ export async function checkHookFileReferences(projectDir: string): Promise<Check
 	return {
 		id: "hook-file-references",
 		name: "Hook File References",
-		group: "claudekit",
+		group: "hilab",
 		priority: "critical",
 		status: "fail",
 		message: `${findings.length} settings hook(s) reference missing file(s)`,
 		details,
-		suggestion: "Run: ck doctor --fix (prunes stale entries), then 'ck init' to restore hooks",
+		suggestion: "Run: hi doctor --fix (prunes stale entries), then 'hi init' to restore hooks",
 		autoFixable: true,
 		fix: {
 			id: "fix-hook-file-references",
@@ -950,7 +950,7 @@ export async function checkHookFileReferences(projectDir: string): Promise<Check
 					}
 					return {
 						success: true,
-						message: `Pruned ${pruned} stale hook entry(ies). Run 'ck init' to restore hooks if needed.`,
+						message: `Pruned ${pruned} stale hook entry(ies). Run 'hi init' to restore hooks if needed.`,
 					};
 				} catch (error) {
 					return {
@@ -967,8 +967,8 @@ export async function checkHookFileReferences(projectDir: string): Promise<Check
  * Check hook configuration validity
  */
 export async function checkHookConfig(projectDir: string): Promise<CheckResult> {
-	const projectConfigPath = join(projectDir, ".claude", ".ck.json");
-	const globalConfigPath = join(PathResolver.getGlobalKitDir(), ".ck.json");
+	const projectConfigPath = join(projectDir, ".claude", ".hi.json");
+	const globalConfigPath = join(PathResolver.getGlobalKitDir(), ".hi.json");
 
 	// Prefer project config, fallback to global
 	const configPath = existsSync(projectConfigPath)
@@ -981,10 +981,10 @@ export async function checkHookConfig(projectDir: string): Promise<CheckResult> 
 		return {
 			id: "hook-config",
 			name: "Hook Config",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "info",
-			message: "No .ck.json config",
+			message: "No .hi.json config",
 			autoFixable: false,
 		};
 	}
@@ -994,7 +994,7 @@ export async function checkHookConfig(projectDir: string): Promise<CheckResult> 
 		return {
 			id: "hook-config",
 			name: "Hook Config",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "info",
 			message: "No hooks directory",
@@ -1010,7 +1010,7 @@ export async function checkHookConfig(projectDir: string): Promise<CheckResult> 
 			return {
 				id: "hook-config",
 				name: "Hook Config",
-				group: "claudekit",
+				group: "hilab",
 				priority: "standard",
 				status: "pass",
 				message: "No hooks configured",
@@ -1043,16 +1043,16 @@ export async function checkHookConfig(projectDir: string): Promise<CheckResult> 
 			return {
 				id: "hook-config",
 				name: "Hook Config",
-				group: "claudekit",
+				group: "hilab",
 				priority: "standard",
 				status: "warn",
 				message: `${orphanedEntries.length} orphaned config entry(ies)`,
 				details: orphanedEntries.join(", "),
-				suggestion: "Remove orphaned entries from .ck.json",
+				suggestion: "Remove orphaned entries from .hi.json",
 				autoFixable: true,
 				fix: {
 					id: "fix-hook-config",
-					description: "Remove orphaned entries from .ck.json",
+					description: "Remove orphaned entries from .hi.json",
 					execute: async () => {
 						try {
 							for (const entry of orphanedEntries) {
@@ -1067,7 +1067,7 @@ export async function checkHookConfig(projectDir: string): Promise<CheckResult> 
 						} catch (err) {
 							return {
 								success: false,
-								message: `Failed to update .ck.json: ${err}`,
+								message: `Failed to update .hi.json: ${err}`,
 							};
 						}
 					},
@@ -1078,7 +1078,7 @@ export async function checkHookConfig(projectDir: string): Promise<CheckResult> 
 		return {
 			id: "hook-config",
 			name: "Hook Config",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "pass",
 			message: "All config entries valid",
@@ -1089,7 +1089,7 @@ export async function checkHookConfig(projectDir: string): Promise<CheckResult> 
 		return {
 			id: "hook-config",
 			name: "Hook Config",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "fail",
 			message: "Failed to validate config",
@@ -1109,7 +1109,7 @@ export async function checkHookLogs(projectDir: string): Promise<CheckResult> {
 		return {
 			id: "hook-logs",
 			name: "Hook Crash Logs",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "info",
 			message: "No hooks directory",
@@ -1123,7 +1123,7 @@ export async function checkHookLogs(projectDir: string): Promise<CheckResult> {
 		return {
 			id: "hook-logs",
 			name: "Hook Crash Logs",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "pass",
 			message: "No crash logs",
@@ -1138,11 +1138,11 @@ export async function checkHookLogs(projectDir: string): Promise<CheckResult> {
 			return {
 				id: "hook-logs",
 				name: "Hook Crash Logs",
-				group: "claudekit",
+				group: "hilab",
 				priority: "standard",
 				status: "warn",
 				message: `Log file too large (${Math.round(logStats.size / 1024 / 1024)}MB)`,
-				suggestion: "Delete .claude/hooks/.logs/hook-log.jsonl and run: ck init",
+				suggestion: "Delete .claude/hooks/.logs/hook-log.jsonl and run: hi init",
 				autoFixable: true,
 				fix: {
 					id: "fix-hook-logs",
@@ -1186,7 +1186,7 @@ export async function checkHookLogs(projectDir: string): Promise<CheckResult> {
 			return {
 				id: "hook-logs",
 				name: "Hook Crash Logs",
-				group: "claudekit",
+				group: "hilab",
 				priority: "standard",
 				status: "pass",
 				message: "No crashes in last 24h",
@@ -1199,12 +1199,12 @@ export async function checkHookLogs(projectDir: string): Promise<CheckResult> {
 			return {
 				id: "hook-logs",
 				name: "Hook Crash Logs",
-				group: "claudekit",
+				group: "hilab",
 				priority: "standard",
 				status: "warn",
 				message: `${crashes.length} crash(es) in last 24h`,
 				details: hookList,
-				suggestion: "Run: ck init",
+				suggestion: "Run: hi init",
 				autoFixable: true,
 				fix: {
 					id: "fix-hook-logs",
@@ -1244,12 +1244,12 @@ export async function checkHookLogs(projectDir: string): Promise<CheckResult> {
 		return {
 			id: "hook-logs",
 			name: "Hook Crash Logs",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "fail",
 			message: `${crashes.length} crashes in last 24h`,
 			details: `Most frequent: ${topCrashers}`,
-			suggestion: "Run: ck init",
+			suggestion: "Run: hi init",
 			autoFixable: true,
 			fix: {
 				id: "fix-hook-logs",
@@ -1259,7 +1259,7 @@ export async function checkHookLogs(projectDir: string): Promise<CheckResult> {
 						writeFileSync(logPath, "", "utf-8");
 						return {
 							success: true,
-							message: "Cleared crash log. Run 'ck init' to reinstall hooks.",
+							message: "Cleared crash log. Run 'hi init' to reinstall hooks.",
 						};
 					} catch (err) {
 						return {
@@ -1275,7 +1275,7 @@ export async function checkHookLogs(projectDir: string): Promise<CheckResult> {
 		return {
 			id: "hook-logs",
 			name: "Hook Crash Logs",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "fail",
 			message: "Failed to check crash logs",
@@ -1290,8 +1290,8 @@ export async function checkHookLogs(projectDir: string): Promise<CheckResult> {
  */
 export async function checkCliVersion(): Promise<CheckResult> {
 	try {
-		// Try to get installed version from ck -V command
-		const versionResult = spawnSync("ck", ["-V"], {
+		// Try to get installed version from hi -V command
+		const versionResult = spawnSync("hi", ["-V"], {
 			timeout: HOOK_CHECK_TIMEOUT_MS,
 			encoding: "utf-8",
 		});
@@ -1305,7 +1305,7 @@ export async function checkCliVersion(): Promise<CheckResult> {
 			return {
 				id: "cli-version",
 				name: "CLI Version",
-				group: "claudekit",
+				group: "hilab",
 				priority: "critical",
 				status: "warn",
 				message: "Cannot determine installed version",
@@ -1314,7 +1314,7 @@ export async function checkCliVersion(): Promise<CheckResult> {
 		}
 
 		// Get latest version from npm
-		const npmResult = spawnSync("npm", ["view", CLAUDEKIT_CLI_NPM_PACKAGE_NAME, "version"], {
+		const npmResult = spawnSync("npm", ["view", HILAB_CLI_NPM_PACKAGE_NAME, "version"], {
 			timeout: HOOK_CHECK_TIMEOUT_MS,
 			encoding: "utf-8",
 		});
@@ -1323,7 +1323,7 @@ export async function checkCliVersion(): Promise<CheckResult> {
 			return {
 				id: "cli-version",
 				name: "CLI Version",
-				group: "claudekit",
+				group: "hilab",
 				priority: "critical",
 				status: "warn",
 				message: `v${installedVersion} (unable to check for updates)`,
@@ -1342,19 +1342,19 @@ export async function checkCliVersion(): Promise<CheckResult> {
 			return {
 				id: "cli-version",
 				name: "CLI Version",
-				group: "claudekit",
+				group: "hilab",
 				priority: "critical",
 				status: "fail",
 				message: `v${installedVersion} (latest: v${latestVersion})`,
 				details: "Major version behind",
-				suggestion: "Run: ck update",
+				suggestion: "Run: hi update",
 				autoFixable: true,
 				fix: {
 					id: "fix-cli-version",
 					description: "Update CLI to latest version",
 					execute: async () => ({
 						success: false,
-						message: "Manual fix required: run 'ck update'",
+						message: "Manual fix required: run 'hi update'",
 					}),
 				},
 			};
@@ -1365,19 +1365,19 @@ export async function checkCliVersion(): Promise<CheckResult> {
 			return {
 				id: "cli-version",
 				name: "CLI Version",
-				group: "claudekit",
+				group: "hilab",
 				priority: "critical",
 				status: "warn",
 				message: `v${installedVersion} (latest: v${latestVersion})`,
 				details: "Minor version behind",
-				suggestion: "Run: ck update",
+				suggestion: "Run: hi update",
 				autoFixable: true,
 				fix: {
 					id: "fix-cli-version",
 					description: "Update CLI to latest version",
 					execute: async () => ({
 						success: false,
-						message: "Manual fix required: run 'ck update'",
+						message: "Manual fix required: run 'hi update'",
 					}),
 				},
 			};
@@ -1386,7 +1386,7 @@ export async function checkCliVersion(): Promise<CheckResult> {
 		return {
 			id: "cli-version",
 			name: "CLI Version",
-			group: "claudekit",
+			group: "hilab",
 			priority: "critical",
 			status: "pass",
 			message: `v${installedVersion} (up to date)`,
@@ -1397,7 +1397,7 @@ export async function checkCliVersion(): Promise<CheckResult> {
 		return {
 			id: "cli-version",
 			name: "CLI Version",
-			group: "claudekit",
+			group: "hilab",
 			priority: "critical",
 			status: "warn",
 			message: "Failed to check version",
@@ -1428,7 +1428,7 @@ export async function checkPythonVenv(projectDir: string): Promise<CheckResult> 
 		return {
 			id: "python-venv",
 			name: "Python Venv",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "warn",
 			message: "Virtual environment not found",
@@ -1455,7 +1455,7 @@ export async function checkPythonVenv(projectDir: string): Promise<CheckResult> 
 			return {
 				id: "python-venv",
 				name: "Python Venv",
-				group: "claudekit",
+				group: "hilab",
 				priority: "standard",
 				status: "fail",
 				message: "Python venv exists but broken",
@@ -1477,7 +1477,7 @@ export async function checkPythonVenv(projectDir: string): Promise<CheckResult> 
 		return {
 			id: "python-venv",
 			name: "Python Venv",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "pass",
 			message: version,
@@ -1488,7 +1488,7 @@ export async function checkPythonVenv(projectDir: string): Promise<CheckResult> 
 		return {
 			id: "python-venv",
 			name: "Python Venv",
-			group: "claudekit",
+			group: "hilab",
 			priority: "standard",
 			status: "fail",
 			message: "Failed to check venv",

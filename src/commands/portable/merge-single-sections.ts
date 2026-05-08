@@ -197,14 +197,14 @@ export function parseMergedSections(content: string): ParsedMergedSections {
 	let preamble = content.slice(0, preambleEnd).trimEnd();
 	preamble = preamble
 		.replace(
-			/^# Agents\r?\n\r?\n> Ported from Claude Code agents via ClaudeKit CLI \(ck agents\)\r?\n> Target: .*\r?\n+/is,
+			/^# Agents\r?\n\r?\n> Ported from Claude Code agents via HiLab CLI \(ck agents\)\r?\n> Target: .*\r?\n+/is,
 			"",
 		)
 		.replace(
-			/^# Rules\r?\n\r?\n> Ported from Claude Code rules via ClaudeKit CLI \(ck migrate --rules\)\r?\n> Target: .*\r?\n+/is,
+			/^# Rules\r?\n\r?\n> Ported from Claude Code rules via HiLab CLI \(ck migrate --rules\)\r?\n> Target: .*\r?\n+/is,
 			"",
 		)
-		.replace(/^# Config\r?\n\r?\n> Ported from Claude Code config via ClaudeKit CLI.*\r?\n+/is, "")
+		.replace(/^# Config\r?\n\r?\n> Ported from Claude Code config via HiLab CLI.*\r?\n+/is, "")
 		.trimEnd();
 
 	return {

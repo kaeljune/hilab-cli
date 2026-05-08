@@ -104,7 +104,7 @@ export interface InitContext {
 	/** Whether cancelled by user */
 	cancelled: boolean;
 
-	/** Whether ClaudeKit API key was configured */
+	/** Whether HiLab API key was configured */
 	apiKeyConfigured?: boolean;
 
 	/** Additional kits to install after current one (multi-kit mode) */

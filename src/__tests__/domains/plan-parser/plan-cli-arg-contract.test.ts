@@ -1,7 +1,7 @@
 /**
  * CLI Arg Contract Tests
  *
- * Extracts all `ck plan` invocations from engineer files and validates
+ * Extracts all `hi plan` invocations from engineer files and validates
  * that each subcommand and flag exists in the CLI's registered set.
  *
  * Valid subcommands sourced from: plan-command.ts knownActions
@@ -15,7 +15,7 @@ import { join, resolve } from "node:path";
 
 /**
  * Known subcommands — from knownActions Set in planCommand() dispatcher.
- * Source: claudekit-cli/src/commands/plan/plan-command.ts
+ * Source: hilab-cli/src/commands/plan/plan-command.ts
  */
 const VALID_SUBCOMMANDS = new Set([
 	"parse",
@@ -30,7 +30,7 @@ const VALID_SUBCOMMANDS = new Set([
 
 /**
  * Valid flags — from PlanCommandOptions interface in plan-command.ts.
- * Source: claudekit-cli/src/commands/plan/plan-command.ts
+ * Source: hilab-cli/src/commands/plan/plan-command.ts
  */
 const VALID_FLAGS = new Set([
 	"json",
@@ -80,16 +80,16 @@ function extractOptionsFromSource(): Set<string> {
 
 // ─── Engineer file paths ──────────────────────────────────────────────────────
 
-const ENGINEER_REPO_ROOT = resolve(__dirname, "../../../../../claudekit-engineer");
+const ENGINEER_REPO_ROOT = resolve(__dirname, "../../../../../hilab-engineer");
 
 function resolveEngineerSourceRoot(): string {
 	const packageJsonPath = join(ENGINEER_REPO_ROOT, "package.json");
 	if (existsSync(packageJsonPath)) {
 		try {
 			const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8")) as {
-				claudekit?: { sourceDir?: string };
+				hilab?: { sourceDir?: string };
 			};
-			const sourceDir = packageJson.claudekit?.sourceDir;
+			const sourceDir = packageJson.hilab?.sourceDir;
 			if (sourceDir) {
 				const layoutAwareRoot = join(ENGINEER_REPO_ROOT, sourceDir);
 				if (existsSync(layoutAwareRoot)) {
@@ -133,11 +133,11 @@ interface CkPlanInvocation {
 }
 
 /**
- * Extract all `ck plan` invocations from a file's content.
+ * Extract all `hi plan` invocations from a file's content.
  *
  * Only extracts from lines that look like shell invocations:
  * - Lines inside fenced code blocks (```bash, ```sh, ```)
- * - Lines where `ck plan` starts the command (with optional leading whitespace/$)
+ * - Lines where `hi plan` starts the command (with optional leading whitespace/$)
  *
  * Strips angle-bracket placeholders (<id>, <phase-id>, <name>) before extraction.
  * Skips slash-joined subcommand lists like check/uncheck/add-phase (prose enumerations).
@@ -164,12 +164,12 @@ function extractInvocations(filePath: string): CkPlanInvocation[] {
 			continue;
 		}
 
-		// Only process lines with `ck plan` — word boundary prevents substring
-		// matches against words ending in "ck" (e.g. "fact-check plan claims").
+		// Only process lines with `hi plan` — word boundary prevents substring
+		// matches against words ending in "hi" (e.g. "fact-check plan claims").
 		if (!/\bck\s+plan\b/.test(line)) continue;
 
-		// Skip /ck:skill references (not CLI invocations)
-		if (/\/ck:[a-z]/.test(line)) continue;
+		// Skip /hi:skill references (not CLI invocations)
+		if (/\/hi:[a-z]/.test(line)) continue;
 
 		// Skip JS comment lines
 		if (trimmed.startsWith("//") || trimmed.startsWith("*")) continue;
@@ -177,8 +177,8 @@ function extractInvocations(filePath: string): CkPlanInvocation[] {
 		// Skip JS test assertion lines
 		if (/\.includes\s*\(/.test(line)) continue;
 
-		// Outside code blocks: only accept lines where ck plan is at command start
-		// (leading whitespace, $, or nothing before "ck plan")
+		// Outside code blocks: only accept lines where hi plan is at command start
+		// (leading whitespace, $, or nothing before "hi plan")
 		if (!inCodeBlock) {
 			if (!/^\s*(?:\$\s*)?ck\s+plan/.test(line)) continue;
 		}
@@ -186,7 +186,7 @@ function extractInvocations(filePath: string): CkPlanInvocation[] {
 		// Strip backtick wrappers and angle-bracket placeholders for clean parsing
 		const cleaned = line.replace(/`/g, "").replace(/<[^>]+>/g, "PLACEHOLDER");
 
-		// Extract subcommand: word immediately after "ck plan"
+		// Extract subcommand: word immediately after "hi plan"
 		const subMatch = /ck\s+plan\s+(\S+)/.exec(cleaned);
 		let subcommand: string | null = null;
 		if (subMatch) {
@@ -222,7 +222,7 @@ function extractInvocations(filePath: string): CkPlanInvocation[] {
 }
 
 /**
- * Collect all `ck plan` invocations from a list of file paths.
+ * Collect all `hi plan` invocations from a list of file paths.
  */
 function collectFromFiles(filePaths: string[]): CkPlanInvocation[] {
 	return filePaths.flatMap(extractInvocations);
@@ -248,12 +248,12 @@ describe.skipIf(!HAS_ENGINEER_REPO)("Named engineer files — subcommands are va
 	const invocations = collectFromFiles(NAMED_FILES);
 	const withSubcommands = invocations.filter((inv) => inv.subcommand !== null);
 
-	test("at least one ck plan invocation found in named files", () => {
+	test("at least one hi plan invocation found in named files", () => {
 		expect(invocations.length).toBeGreaterThan(0);
 	});
 
 	for (const inv of withSubcommands) {
-		const label = `${inv.subcommand} (${inv.file.split("/claudekit-engineer/")[1]}:${inv.line})`;
+		const label = `${inv.subcommand} (${inv.file.split("/hilab-engineer/")[1]}:${inv.line})`;
 		test(`subcommand '${label}' is registered in CLI`, () => {
 			expect(VALID_SUBCOMMANDS.has(inv.subcommand as string)).toBe(true);
 		});
@@ -266,7 +266,7 @@ describe.skipIf(!HAS_ENGINEER_REPO)("Named engineer files — flags are valid", 
 
 	for (const inv of withFlags) {
 		for (const flag of inv.flags) {
-			const relPath = inv.file.split("/claudekit-engineer/")[1];
+			const relPath = inv.file.split("/hilab-engineer/")[1];
 			const label = `--${flag} (${relPath}:${inv.line})`;
 			test(`flag '${label}' is registered in CLI`, () => {
 				expect(VALID_FLAGS.has(flag)).toBe(true);
@@ -307,12 +307,12 @@ describe.skipIf(!HAS_ENGINEER_REPO)(
 		const invocations = collectFromFiles(allFiles);
 		const withSubcommands = invocations.filter((inv) => inv.subcommand !== null);
 
-		test("catch-all scan finds ck plan invocations", () => {
+		test("catch-all scan finds hi plan invocations", () => {
 			expect(invocations.length).toBeGreaterThan(0);
 		});
 
 		for (const inv of withSubcommands) {
-			const relPath = inv.file.split("/claudekit-engineer/")[1] ?? inv.file;
+			const relPath = inv.file.split("/hilab-engineer/")[1] ?? inv.file;
 			const label = `${inv.subcommand} (${relPath}:${inv.line})`;
 			test(`subcommand '${label}' is registered in CLI`, () => {
 				expect(VALID_SUBCOMMANDS.has(inv.subcommand as string)).toBe(true);
@@ -331,7 +331,7 @@ describe.skipIf(!HAS_ENGINEER_REPO)(
 
 		for (const inv of withFlags) {
 			for (const flag of inv.flags) {
-				const relPath = inv.file.split("/claudekit-engineer/")[1] ?? inv.file;
+				const relPath = inv.file.split("/hilab-engineer/")[1] ?? inv.file;
 				const label = `--${flag} (${relPath}:${inv.line})`;
 				test(`flag '${label}' is registered in CLI`, () => {
 					expect(VALID_FLAGS.has(flag)).toBe(true);

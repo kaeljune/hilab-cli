@@ -35,7 +35,7 @@ function toGitHubError(error: unknown): GitHubError {
 		messageParts.push(`\nSolutions:${formattedActions}`);
 	}
 
-	messageParts.push("\nNeed help? Run with: ck new --verbose");
+	messageParts.push("\nNeed help? Run with: hi new --verbose");
 
 	return new GitHubError(messageParts.join("\n"), classified.httpStatus);
 }
@@ -77,7 +77,7 @@ export async function detectAccessibleKits(): Promise<KitType[]> {
 			const err = result.reason;
 			// 404 = kit not accessible to this user — expected, treat as "no access".
 			// In production, `checkAccess` always wraps errors as GitHubError (which uses
-			// `statusCode` via ClaudeKitError). The `.status` fallback is defense-in-depth
+			// `statusCode` via HiLabError). The `.status` fallback is defense-in-depth
 			// for raw Octokit-style errors that might bypass that wrapping (e.g. in tests
 			// or future call paths) — without it, a raw 404 would fall through to the
 			// fatal-error branch and incorrectly throw.

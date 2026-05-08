@@ -1,4 +1,4 @@
-import { getClaudeKitSetup } from "@/services/file-operations/claudekit-scanner.js";
+import { getHiLabSetup } from "@/services/file-operations/hilab-scanner.js";
 import { logger } from "@/shared/logger.js";
 import {
 	checkActivePlan,
@@ -28,11 +28,11 @@ import {
 import type { CheckResult, Checker } from "./types.js";
 
 /**
- * ClaudekitChecker validates ClaudeKit installations (global + project)
+ * ClaudekitChecker validates HiLab installations (global + project)
  * This is a facade that orchestrates individual checker functions.
  */
 export class ClaudekitChecker implements Checker {
-	readonly group = "claudekit" as const;
+	readonly group = "hilab" as const;
 	private projectDir: string;
 
 	constructor(projectDir: string = process.cwd()) {
@@ -40,10 +40,10 @@ export class ClaudekitChecker implements Checker {
 	}
 
 	async run(): Promise<CheckResult[]> {
-		logger.verbose("ClaudekitChecker: Scanning ClaudeKit setup", {
+		logger.verbose("ClaudekitChecker: Scanning HiLab setup", {
 			projectDir: this.projectDir,
 		});
-		const setup = await getClaudeKitSetup(this.projectDir);
+		const setup = await getHiLabSetup(this.projectDir);
 		logger.verbose("ClaudekitChecker: Setup scan complete");
 		const results: CheckResult[] = [];
 
