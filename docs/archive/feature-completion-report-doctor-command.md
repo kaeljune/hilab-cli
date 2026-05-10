@@ -1,4 +1,4 @@
-# Feature Completion Report: ck doctor Command
+# Feature Completion Report: hi doctor Command
 
 **Report Date**: 2025-11-16
 **Feature**: Doctor Command - System Dependency Checker & Installer
@@ -77,7 +77,7 @@ tests/utils/dependency-installer.test.ts
 
 ### 1. Dependency Checking ✅
 ```bash
-ck doctor
+hi doctor
 ```
 
 **Checks**:
@@ -97,13 +97,13 @@ ck doctor
 
 **Interactive Mode**:
 ```bash
-ck doctor  # Shows missing deps and prompts to install
+hi doctor  # Shows missing deps and prompts to install
 ```
 
 **Non-Interactive Mode**:
 ```bash
-CI=true ck doctor       # Shows status only
-NON_INTERACTIVE=1 ck doctor
+CI=true hi doctor       # Shows status only
+NON_INTERACTIVE=1 hi doctor
 ```
 
 **Safety Features**:

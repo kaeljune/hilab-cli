@@ -186,7 +186,7 @@ export const PlansRegistryEntrySchema = z.object({
 	blockedBy: z.array(z.string()).default([]),
 	blocks: z.array(z.string()).default([]),
 	created: z.string(), // ISO timestamp
-	createdBy: z.string(), // "ck:plan" | "hi-cli" | "dashboard"
+	createdBy: z.string(), // "hi:plan" | "hi-cli" | "dashboard"
 	source: PlanSourceSchema,
 	lastModified: z.string(), // ISO timestamp
 	phases: z.array(z.string()), // ["phase-01", "phase-02"]

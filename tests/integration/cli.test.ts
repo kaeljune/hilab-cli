@@ -57,12 +57,12 @@ integrationDescribe("CLI Integration Tests", () => {
 		}
 	});
 
-	describe("ck new command", () => {
+	describe("hi new command", () => {
 		test("should create new project in specified directory", async () => {
 			const projectDir = join(testDir, "test-hi-new");
 
 			try {
-				// Run ck new command with --kit, --force, and --version flags for non-interactive mode
+				// Run hi new command with --kit, --force, and --version flags for non-interactive mode
 				execSync(
 					`node ${cliPath} new --dir ${projectDir} --kit coding --force --release ${releaseVersion}`,
 					{
@@ -132,7 +132,7 @@ integrationDescribe("CLI Integration Tests", () => {
 		});
 	});
 
-	describe("ck update command", () => {
+	describe("hi update command", () => {
 		test("should update existing project", async () => {
 			const projectDir = join(testDir, "test-hi-update");
 

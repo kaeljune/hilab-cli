@@ -28,7 +28,7 @@ Both kits share the HiLab foundation. Users can install one or both.
 
 ---
 
-CLI tool (`ck`) for bootstrapping/updating HiLab projects from GitHub releases.
+CLI tool (`hi`) for bootstrapping/updating HiLab projects from GitHub releases.
 
 ## 🎯 Core Principle
 

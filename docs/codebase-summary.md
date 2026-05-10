@@ -624,7 +624,7 @@ Pure utilities (logger, path-resolver, environment, progress-bar, safe-prompts, 
 - **Init command**: Renamed from update (deprecation warning)
 - **Fresh installation**: --fresh flag for clean reinstall
 - **Beta versions**: --beta flag for pre-release visibility
-- **Command prefix**: --prefix flag for /ck: namespace
+- **Command prefix**: --prefix flag for /hi: namespace
 - **Optional packages**: OpenCode and Gemini integration
 - **Skills dependencies**: --install-skills for auto-setup
 - **Update notifications**: 7-day cached version checks with color-coded display

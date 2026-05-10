@@ -60,10 +60,10 @@ describe("help-types", () => {
 
 	test("HelpExample type usage", () => {
 		const example: HelpExample = {
-			command: "ck new --kit coding",
+			command: "hi new --kit coding",
 			description: "Create new engineer kit",
 		};
-		expect(example.command).toBe("ck new --kit coding");
+		expect(example.command).toBe("hi new --kit coding");
 	});
 
 	test("HelpSection type usage", () => {
@@ -78,7 +78,7 @@ describe("help-types", () => {
 		const help: CommandHelp = {
 			name: "new",
 			description: "Create new kit",
-			usage: "ck new [options]",
+			usage: "hi new [options]",
 			examples: [],
 			optionGroups: [],
 		};
@@ -158,7 +158,7 @@ describe("help-types", () => {
 			new: {
 				name: "new",
 				description: "Create new kit",
-				usage: "ck new [options]",
+				usage: "hi new [options]",
 				examples: [],
 				optionGroups: [],
 			},
@@ -174,7 +174,7 @@ describe("help-types", () => {
 			{
 				name: "new",
 				description: "Create kit",
-				usage: "ck new",
+				usage: "hi new",
 				examples: [],
 				optionGroups: [],
 			},

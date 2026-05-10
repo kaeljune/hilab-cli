@@ -158,7 +158,7 @@ describe("help-commands", () => {
 			}
 		});
 
-		test("deprecated --kit option points to ck init", () => {
+		test("deprecated --kit option points to hi init", () => {
 			const help = HELP_REGISTRY.update;
 			const deprecatedGroup = help.optionGroups.find((g) => g.title === "Deprecated Options");
 			expect(deprecatedGroup).toBeDefined();
@@ -169,7 +169,7 @@ describe("help-commands", () => {
 			expect(kitOption.deprecated.alternative).toBe("hi init --kit <kit>");
 		});
 
-		test("deprecated --global option points to ck init", () => {
+		test("deprecated --global option points to hi init", () => {
 			const help = HELP_REGISTRY.update;
 			const deprecatedGroup = help.optionGroups.find((g) => g.title === "Deprecated Options");
 			expect(deprecatedGroup).toBeDefined();

@@ -4,7 +4,7 @@
  * This manifest tracks all CK-owned files with checksums for ownership verification
  *
  * Checksums are calculated AFTER applying global path transformation ($HOME/.claude/)
- * so they match installed files after `ck init -g` transforms paths.
+ * so they match installed files after `hi init -g` transforms paths.
  *
  * Usage: bun scripts/generate-release-manifest.ts [source-dir]
  * Output: release-manifest.json in source-dir or CWD
@@ -137,7 +137,7 @@ async function main() {
 		try {
 			if (shouldTransformFile(relativePath)) {
 				// Read content, apply path transformation, then checksum
-				// This ensures manifest checksums match files after `ck init -g` transforms paths
+				// This ensures manifest checksums match files after `hi init -g` transforms paths
 				const content = await readFile(file, "utf-8");
 				const { transformed, changes } = transformContent(content);
 				checksum = calculateChecksumFromContent(transformed);

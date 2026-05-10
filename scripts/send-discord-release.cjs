@@ -100,7 +100,7 @@ function createEmbed(release) {
 	const isDev = releaseType === "dev";
 	const color = isDev ? 0xf5a623 : 0x10b981;
 	const title = isDev ? `🧪 Dev Release ${release.version}` : `🚀 Release ${release.version}`;
-	const repoUrl = "https://github.com/mrgoonie/claudekit-cli";
+	const repoUrl = "https://github.com/kaeljune/hilab-cli";
 	const url = `${repoUrl}/releases/tag/v${release.version}`;
 
 	const fallbackEmojis = {
@@ -194,7 +194,7 @@ function createEmbed(release) {
 function sendToDiscord(embed) {
 	const payload = {
 		username: releaseType === "dev" ? "ClaudeKit Dev Release Bot" : "ClaudeKit Release Bot",
-		avatar_url: "https://github.com/claudekit.png",
+		avatar_url: "https://github.com/kaeljune.png",
 		embeds: [embed],
 	};
 

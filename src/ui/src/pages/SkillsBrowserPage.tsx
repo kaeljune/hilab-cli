@@ -181,7 +181,7 @@ const SkillsBrowserPage: React.FC = () => {
 
 	// Auto-select skill from URL query param (e.g., /skills?name=plan)
 	// IMPORTANT: Some skills have "hi-" prefix in folder names (e.g., "hi-plan", "hi-debug")
-	// but are invoked without prefix in commands (e.g., "/ck:plan" extracts "plan").
+	// but are invoked without prefix in commands (e.g., "/hi:plan" extracts "plan").
 	// This effect checks both exact match and "hi-{name}" prefixed match.
 	useEffect(() => {
 		const nameParam = searchParams.get("name");

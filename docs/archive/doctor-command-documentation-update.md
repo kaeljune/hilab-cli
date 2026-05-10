@@ -23,11 +23,11 @@ Updated project documentation to reflect the fully implemented and production-re
 **Key Additions**:
 ```bash
 # Interactive mode - checks and offers to install missing dependencies
-ck doctor
+hi doctor
 
 # Non-interactive mode (CI/CD) - shows status only
-CI=true ck doctor
-NON_INTERACTIVE=1 ck doctor
+CI=true hi doctor
+NON_INTERACTIVE=1 hi doctor
 ```
 
 ### 2. docs/codebase-summary.md

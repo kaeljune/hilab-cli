@@ -121,36 +121,36 @@ bun run ui:build    # runs tsc -b && vite build — the authoritative UI gate
 
 ## Skill Naming Convention (IMPORTANT)
 
-Some skills have `ck-` prefix in their folder names but are invoked without the prefix:
+Some skills have `hi-` prefix in their folder names but are invoked without the prefix:
 
 | Folder Name | Invocation Command | URL Param |
 |-------------|-------------------|-----------|
-| `ck-plan` | `/ck:plan` | `?name=plan` or `?name=ck-plan` |
-| `ck-debug` | `/ck:debug` | `?name=debug` or `?name=ck-debug` |
-| `ck-predict` | `/ck:predict` | `?name=predict` or `?name=ck-predict` |
-| `ck-scenario` | `/ck:scenario` | `?name=scenario` |
-| `ck-security` | `/ck:security` | `?name=security` |
-| `ck-loop` | `/ck:loop` | `?name=loop` |
-| `ck-autoresearch` | - | `?name=autoresearch` |
-| `cook` | `/ck:cook` | `?name=cook` |
-| `fix` | `/ck:fix` | `?name=fix` |
-| `scout` | `/ck:scout` | `?name=scout` |
+| `hi-plan` | `/hi:plan` | `?name=plan` or `?name=hi-plan` |
+| `hi-debug` | `/hi:debug` | `?name=debug` or `?name=hi-debug` |
+| `hi-predict` | `/hi:predict` | `?name=predict` or `?name=hi-predict` |
+| `hi-scenario` | `/hi:scenario` | `?name=scenario` |
+| `hi-security` | `/hi:security` | `?name=security` |
+| `hi-loop` | `/hi:loop` | `?name=loop` |
+| `hi-autoresearch` | - | `?name=autoresearch` |
+| `cook` | `/hi:cook` | `?name=cook` |
+| `fix` | `/hi:fix` | `?name=fix` |
+| `scout` | `/hi:scout` | `?name=scout` |
 
 **Handling in code:**
 
 1. **Workflows page** (`hooks/use-workflows-enhanced.ts`):
-   - `buildSkillCommandMap()` creates aliases for both `ck-{name}` and `{name}` forms
+   - `buildSkillCommandMap()` creates aliases for both `hi-{name}` and `{name}` forms
    - Workflows can reference skills by short name (e.g., `skill: "plan"`)
 
 2. **Skills browser** (`pages/SkillsBrowserPage.tsx`):
-   - URL param matching checks both exact match and `ck-{name}` prefixed match
-   - `/skills?name=plan` will correctly find `ck-plan` skill
+   - URL param matching checks both exact match and `hi-{name}` prefixed match
+   - `/skills?name=plan` will correctly find `hi-plan` skill
 
 3. **Skill chip navigation** (`components/workflows/workflow-skill-chip.tsx`):
-   - Extracts skill name from command (e.g., `/ck:plan` → `plan`)
+   - Extracts skill name from command (e.g., `/hi:plan` → `plan`)
    - Navigates to `/skills?name={skillName}`
    - Skills browser handles the prefix resolution
 
 **When adding new skills:**
-- If the skill folder has `ck-` prefix, no special handling needed — the alias system covers it
+- If the skill folder has `hi-` prefix, no special handling needed — the alias system covers it
 - The skill's `triggers[0]` in SKILL.md determines the canonical invocation command

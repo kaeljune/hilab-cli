@@ -52,7 +52,7 @@ describe("ReportGenerator", () => {
 				group: "hilab",
 				status: "fail",
 				message: "Not installed",
-				suggestion: "Run: ck init --global",
+				suggestion: "Run: hi init --global",
 				autoFixable: true,
 			},
 		],
@@ -115,7 +115,7 @@ describe("ReportGenerator", () => {
 			const report = generator.generateTextReport(createMockSummary());
 
 			expect(report).toContain("Fix:");
-			expect(report).toContain("ck init --global");
+			expect(report).toContain("hi init --global");
 		});
 
 		test("includes summary line with symbols", () => {
@@ -234,7 +234,7 @@ describe("ReportGenerator", () => {
 			expect(json.errors[0].checkId).toBe("hilab-global");
 			expect(json.errors[0].checkName).toBe("HiLab Global");
 			expect(json.errors[0].message).toBe("Not installed");
-			expect(json.errors[0].suggestion).toBe("Run: ck init --global");
+			expect(json.errors[0].suggestion).toBe("Run: hi init --global");
 		});
 
 		test("returns empty errors array when no failures", () => {

@@ -214,7 +214,7 @@ Manifest reader/writer with multi-kit support. Manifest tracker for file ownersh
 Dependency installer (Node, Python, system). Gemini MCP linker for AI tooling. Process executor. Package manager detection (npm/yarn/pnpm/bun).
 
 ### transformers/ - Path Transformations
-Command prefix applier (/ck: namespace). Folder path transformer for directory renaming.
+Command prefix applier (/hi: namespace). Folder path transformer for directory renaming.
 
 ### claude-data/ - Claude User Data Parsing
 History, session, and project state parsing from Claude's local data storage.
@@ -321,7 +321,7 @@ Live updates for long-running operations (downloads, migrations, installations).
 - Maximum extraction: 500MB
 - Request timeout: 30 seconds
 - Progress bar chunk: 1MB
-- Cache TTL: 3600s (configurable via CK_CACHE_TTL)
+- Cache TTL: 3600s (configurable via HI_CACHE_TTL)
 
 ## Data Flows
 

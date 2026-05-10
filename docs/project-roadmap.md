@@ -8,7 +8,7 @@
 
 ## Project Overview
 
-HiLab CLI (`ck`) is a command-line tool for bootstrapping and updating HiLab projects from private GitHub releases. Built with Bun and TypeScript, provides fast, secure project setup and maintenance with cross-platform support.
+HiLab CLI (`hi`) is a command-line tool for bootstrapping and updating HiLab projects from private GitHub releases. Built with Bun and TypeScript, provides fast, secure project setup and maintenance with cross-platform support.
 
 **Current Status**: Active Development / Maintenance Phase
 
@@ -42,8 +42,8 @@ HiLab CLI (`ck`) is a command-line tool for bootstrapping and updating HiLab pro
 - **ck watch Command (f36249e)**: GitHub Issues auto-responder daemon
   - Process locking prevents concurrent executions
   - Polls GitHub Issues at configurable intervals (default: 30s)
-  - Invokes `/ck:brainstorm` skill for issue analysis
-  - Invokes `/ck:plan` skill for structured response planning
+  - Invokes `/hi:brainstorm` skill for issue analysis
+  - Invokes `/hi:plan` skill for structured response planning
   - Multi-turn conversations (configurable, max 10 turns/issue)
   - Rate limiting (configurable, max 10 issues/hour)
   - Credential scanning (9 patterns, blocks unsafe posting)
@@ -122,7 +122,7 @@ HiLab CLI (`ck`) is a command-line tool for bootstrapping and updating HiLab pro
 - ✅ **Init Command** (Renamed from update, deprecation warning)
 - ✅ **Fresh Installation** (--fresh flag for clean reinstall)
 - ✅ **Beta Version Support** (--beta flag for pre-releases)
-- ✅ **Command Prefix** (--prefix flag for /ck: namespace)
+- ✅ **Command Prefix** (--prefix flag for /hi: namespace)
 - ✅ **Optional Packages** (OpenCode, Gemini integration)
 - ✅ **Skills Dependencies** (--install-skills auto-installation)
 - ✅ **Update Notifications** (7-day cached version checks)

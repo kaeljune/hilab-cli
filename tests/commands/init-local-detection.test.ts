@@ -96,7 +96,7 @@ describe("init command - local installation detection", () => {
 
 	describe("global mode edge cases", () => {
 		test("should skip detection when cwd is home directory (issue #178)", async () => {
-			// When running `ck init -g` from home directory, ~/.claude is the global dir
+			// When running `hi init -g` from home directory, ~/.claude is the global dir
 			// not a local installation, so detection should be skipped
 			const globalKitDir = PathResolver.getGlobalKitDir();
 			const homeDir = resolve(globalKitDir, "..");

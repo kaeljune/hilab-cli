@@ -114,7 +114,7 @@ function isSkippedOption(opt: CacOption, globalLongFlags: Set<string>): boolean 
  * Collect all long-flag strings from a HELP_REGISTRY command's option groups
  * AND from all subcommand option groups (recursively one level deep).
  *
- * For commands like `ck plan` and `ck api`, action-specific flags live in
+ * For commands like `hi plan` and `hi api`, action-specific flags live in
  * subcommand entries rather than the top-level optionGroups — but CAC
  * registers them all at the top level. We must union both to avoid false
  * "missing in help" reports.
