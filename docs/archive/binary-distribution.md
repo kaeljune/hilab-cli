@@ -25,8 +25,8 @@ As of v1.4.0, `hilab-cli` is distributed as pre-compiled platform-specific binar
 When you run `npm install -g hilab-cli`:
 
 1. NPM downloads the package containing all platform-specific binaries
-2. NPM creates a symlink to `bin/ck.js` in your global bin directory
-3. When you run `ck`, the wrapper script (`bin/ck.js`) automatically:
+2. NPM creates a symlink to `bin/hi.js` in your global bin directory
+3. When you run `hi`, the wrapper script (`bin/hi.js`) automatically:
    - Detects your platform and architecture
    - Selects the correct binary (e.g., `ck-darwin-arm64`)
    - Executes it with all your arguments
@@ -127,7 +127,7 @@ bun run src/index.ts new --dir test-project
 
 # Or compile and test the binary
 bun run compile:binary
-./bin/ck new --dir test-project
+./bin/hi new --dir test-project
 ```
 
 ## Why This Change?

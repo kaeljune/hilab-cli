@@ -76,7 +76,7 @@ async function removeFromMergeSingle(
 			// Preserve non-agent preamble (e.g., config/rules) and drop generated agents header.
 			const cleanedPreamble = preamble
 				.replace(
-					/^# Agents\n\n> Ported from Claude Code agents via HiLab CLI \(ck agents\)\n> Target: .*\n+/s,
+					/^# Agents\n\n> Ported from Claude Code agents via HiLab CLI \(hi agents\)\n> Target: .*\n+/s,
 					"",
 				)
 				.trim();

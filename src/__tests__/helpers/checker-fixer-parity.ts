@@ -12,7 +12,7 @@
  *      c. Assert the detect function now returns zero findings (fixer converged).
  *
  * If the fixer fails to converge the helper throws, proving the bug surfaced by
- * anhhoangpham's report (ck doctor --fix → still 16 stale entries).
+ * anhhoangpham's report (hi doctor --fix → still 16 stale entries).
  *
  * @see docs/code-standards.md — "Checker/Fixer Parity for autoFixable health checks"
  */

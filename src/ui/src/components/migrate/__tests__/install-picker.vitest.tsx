@@ -53,7 +53,7 @@ function makeCandidate(
 const CANDIDATES: InstallCandidate[] = [
 	makeCandidate({ item: "planner", type: "agent" }),
 	makeCandidate({ item: "researcher", type: "agent", alreadyInstalled: true }),
-	makeCandidate({ item: "/ck:plan", type: "command" }),
+	makeCandidate({ item: "/hi:plan", type: "command" }),
 	makeCandidate({ item: "hi-plan", type: "skill", isDirectoryItem: true }),
 ];
 

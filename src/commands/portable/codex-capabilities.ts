@@ -109,7 +109,7 @@ if (CODEX_CAPABILITY_TABLE.length > 1) {
 		const older = semver.coerce(CODEX_CAPABILITY_TABLE[i + 1].version);
 		if (newer && older && !semver.gte(newer, older)) {
 			throw new Error(
-				`[ck] CODEX_CAPABILITY_TABLE ordering violation: entry[${i}] (${CODEX_CAPABILITY_TABLE[i].version}) must be >= entry[${i + 1}] (${CODEX_CAPABILITY_TABLE[i + 1].version}). Table must be sorted newest-first.`,
+				`[hi] CODEX_CAPABILITY_TABLE ordering violation: entry[${i}] (${CODEX_CAPABILITY_TABLE[i].version}) must be >= entry[${i + 1}] (${CODEX_CAPABILITY_TABLE[i + 1].version}). Table must be sorted newest-first.`,
 			);
 		}
 	}

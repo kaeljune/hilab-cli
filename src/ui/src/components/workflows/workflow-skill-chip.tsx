@@ -8,8 +8,8 @@ interface SkillChipProps {
 export const WorkflowSkillChip: React.FC<SkillChipProps> = ({ command }) => {
 	const navigate = useNavigate();
 
-	// Parse skill name from command, e.g., "/ck:plan" -> "plan"
-	const skillMatch = command.match(/\/ck:([a-z0-9-]+)/i);
+	// Parse skill name from command, e.g., "/hi:plan" -> "plan"
+	const skillMatch = command.match(/\/hi:([a-z0-9-]+)/i);
 	const skillName = skillMatch ? skillMatch[1] : command.replace("/", "");
 
 	const handleClick = (e: React.MouseEvent) => {

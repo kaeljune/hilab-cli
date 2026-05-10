@@ -4,7 +4,7 @@ import { validateSkillFrontmatter } from "../skill-frontmatter-validator.js";
 describe("validateSkillFrontmatter", () => {
 	test("T1: valid frontmatter passes with 0 warnings", () => {
 		const result = validateSkillFrontmatter(
-			{ name: "ck:cook", description: "Implement features" },
+			{ name: "hi:cook", description: "Implement features" },
 			"cook",
 		);
 		expect(result.valid).toBe(true);
@@ -18,14 +18,14 @@ describe("validateSkillFrontmatter", () => {
 	});
 
 	test("T3: missing description produces warning", () => {
-		const result = validateSkillFrontmatter({ name: "ck:x" }, "test-skill");
+		const result = validateSkillFrontmatter({ name: "hi:x" }, "test-skill");
 		expect(result.valid).toBe(false);
 		expect(result.warnings.some((w) => w.includes("description"))).toBe(true);
 	});
 
 	test("T4: invalid category produces warning", () => {
 		const result = validateSkillFrontmatter(
-			{ name: "ck:x", description: "Test", category: "invalid-cat" },
+			{ name: "hi:x", description: "Test", category: "invalid-cat" },
 			"test-skill",
 		);
 		expect(result.valid).toBe(false);
@@ -34,7 +34,7 @@ describe("validateSkillFrontmatter", () => {
 
 	test("T5: valid category accepted", () => {
 		const result = validateSkillFrontmatter(
-			{ name: "ck:x", description: "Test", category: "dev-tools" },
+			{ name: "hi:x", description: "Test", category: "dev-tools" },
 			"test-skill",
 		);
 		expect(result.valid).toBe(true);
@@ -44,7 +44,7 @@ describe("validateSkillFrontmatter", () => {
 	test("T6: unknown fields produce no warning (permissive)", () => {
 		const result = validateSkillFrontmatter(
 			{
-				name: "ck:x",
+				name: "hi:x",
 				description: "Test",
 				customField: "hello",
 				anotherOne: 42,

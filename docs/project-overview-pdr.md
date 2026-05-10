@@ -28,7 +28,7 @@ Design: Show features not marketing copy. Guide users, not gatekeep. Succeed wit
 
 ## Executive Summary
 
-HiLab CLI (`ck`) is a command-line tool designed to streamline the bootstrapping and updating of HiLab projects from private GitHub repository releases. Built with Bun and TypeScript, it provides developers with a fast, secure, and user-friendly way to create and maintain projects based on premium HiLab starter kits.
+HiLab CLI (`hi`) is a command-line tool designed to streamline the bootstrapping and updating of HiLab projects from private GitHub repository releases. Built with Bun and TypeScript, it provides developers with a fast, secure, and user-friendly way to create and maintain projects based on premium HiLab starter kits.
 
 ### Problem Statement
 
@@ -556,8 +556,8 @@ HiLab CLI provides a comprehensive solution with:
 
 #### Functional Requirements
 - Long-running daemon: Poll GitHub Issues at configurable intervals (default: 30s)
-- Issue analysis: Invoke `/ck:brainstorm` skill for issue understanding
-- Plan generation: Invoke `/ck:plan` skill for structured response planning
+- Issue analysis: Invoke `/hi:brainstorm` skill for issue understanding
+- Plan generation: Invoke `/hi:plan` skill for structured response planning
 - Multi-turn conversations: Support up to 10 turns per issue (configurable)
 - Process locking: Prevent concurrent executions via proper-lockfile
 - Graceful shutdown: Complete current task, save state on SIGINT/SIGTERM
@@ -679,26 +679,26 @@ HiLab CLI provides a comprehensive solution with:
 
 ### Appendix A: Command Reference
 
-#### ck new
+#### hi new
 ```bash
-ck new [--dir <directory>] [--kit <kit>] [--version <version>] [--force] [--exclude <pattern>] [--verbose]
+hi new [--dir <directory>] [--kit <kit>] [--version <version>] [--force] [--exclude <pattern>] [--verbose]
 ```
 
-#### ck update (init)
+#### hi update (init)
 ```bash
-ck init [--dir <directory>] [--kit <kit>] [--version <version>] [--exclude <pattern>] [--global] [--verbose]
+hi init [--dir <directory>] [--kit <kit>] [--version <version>] [--exclude <pattern>] [--global] [--verbose]
 ```
 
-#### ck versions
+#### hi versions
 ```bash
-ck versions [--kit <kit>] [--limit <number>] [--all] [--verbose]
+hi versions [--kit <kit>] [--limit <number>] [--all] [--verbose]
 ```
 
-#### ck doctor
+#### hi doctor
 ```bash
-ck doctor                    # Interactive mode with auto-installation
-CI=true ck doctor           # Non-interactive mode (CI/CD safe)
-NON_INTERACTIVE=1 ck doctor # Non-interactive mode alternative
+hi doctor                    # Interactive mode with auto-installation
+CI=true hi doctor           # Non-interactive mode (CI/CD safe)
+NON_INTERACTIVE=1 hi doctor # Non-interactive mode alternative
 ```
 
 **Features:**
@@ -767,7 +767,7 @@ dist/**, build/**
 - Init command (renamed from update with deprecation warning)
 - Fresh installation mode (--fresh flag)
 - Beta version support (--beta flag)
-- Command prefix support (--prefix flag for /ck: namespace)
+- Command prefix support (--prefix flag for /hi: namespace)
 - Optional package installation (OpenCode, Gemini)
 - Skills dependencies auto-installation (--install-skills)
 - Update notifications with 7-day caching

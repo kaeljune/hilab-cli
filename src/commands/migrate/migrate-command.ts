@@ -406,7 +406,7 @@ async function executeDeleteAction(
 
 /**
  * Process source kit metadata.json deletions against the user's .claude/ directory.
- * Handles directory renames (e.g., skills/plan → skills/ck-plan) by removing
+ * Handles directory renames (e.g., skills/plan → skills/hi-plan) by removing
  * old paths listed in the source kit's deletions array.
  *
  * Source metadata is read from the kit source directory (adjacent to skills/),
@@ -1144,7 +1144,7 @@ export async function migrateCommand(options: MigrateOptions): Promise<void> {
 			}
 		}
 
-		// Process metadata.json deletions (handles directory renames like skills/plan → skills/ck-plan)
+		// Process metadata.json deletions (handles directory renames like skills/plan → skills/hi-plan)
 		// This runs AFTER skill installation so new dirs exist before old ones are removed.
 		await processMetadataDeletions(skillSource, installGlobally);
 

@@ -8,7 +8,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 /**
  * Remap pre-rebrand kit names from legacy metadata.name to HiLab brand for display.
- * The user's on-disk metadata.json (written by old `ck init`) may contain
+ * The user's on-disk metadata.json (written by legacy claudekit `ck init`) may contain
  * "ClaudeKit Engineer" / "ClaudeKit Marketing" / "ClaudeKit". Re-running `hi init`
  * rewrites the file, but until then we present the HiLab equivalent in the UI.
  */
@@ -107,7 +107,7 @@ const SystemDashboard: React.FC<SystemDashboardProps> = ({ metadata }) => {
 	}, [metadata.kits]);
 	const hasKits = kitEntries.length > 0;
 	const rawLegacyName = metadata.name as string | undefined;
-	// Remap pre-rebrand metadata.name (written by old `ck init`) to HiLab brand for display.
+	// Remap pre-rebrand metadata.name (written by legacy claudekit `ck init`) to HiLab brand for display.
 	// User's metadata.json on disk still has "ClaudeKit Engineer" — re-running `hi init` will overwrite it.
 	const legacyName = remapLegacyKitName(rawLegacyName);
 	const legacyVersion = metadata.version as string | undefined;

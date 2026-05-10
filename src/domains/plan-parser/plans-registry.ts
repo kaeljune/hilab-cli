@@ -99,7 +99,7 @@ function migrateFromProjectLocal(cwd: string, globalPath: string): void {
 		// Invalid structure — keep old files for manual recovery
 	} catch (err) {
 		// Corrupt or unreadable file — keep old files for manual recovery
-		console.warn("[ck] plans-registry migration failed:", err instanceof Error ? err.message : err);
+		console.warn("[hi] plans-registry migration failed:", err instanceof Error ? err.message : err);
 	}
 }
 
@@ -285,7 +285,7 @@ export function registerNewPlan(options: {
 	const now = new Date().toISOString();
 	const source = options.source ?? "cli";
 	const createdBy =
-		source === "skill" ? "ck:plan" : source === "dashboard" ? "dashboard" : "hi-cli";
+		source === "skill" ? "hi:plan" : source === "dashboard" ? "dashboard" : "hi-cli";
 
 	updateRegistryEntry(
 		{

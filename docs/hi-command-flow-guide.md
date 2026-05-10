@@ -1,8 +1,8 @@
-# HiLab CLI (`ck`) Command Flow Guide
+# HiLab CLI (`hi`) Command Flow Guide
 
 ## Overview
 
-HiLab CLI (`ck`) is the primary user interface for bootstrapping and managing HiLab projects. It uses the **cac framework** for command parsing and follows a **phase-based execution model** for all major operations.
+HiLab CLI (`hi`) is the primary user interface for bootstrapping and managing HiLab projects. It uses the **cac framework** for command parsing and follows a **phase-based execution model** for all major operations.
 
 ### Available Commands
 
@@ -55,7 +55,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A["User: ck new [options]"] --> B["Validate Options<br/>Zod Schema"]
+    A["User: hi new [options]"] --> B["Validate Options<br/>Zod Schema"]
     B --> C{"Mutual<br/>Exclusivity<br/>OK?"}
     C -->|No| D["Show Error Message"]
     D --> E["Exit 1"]
@@ -114,7 +114,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A["User: ck init [options]"] --> B["Validate Options<br/>Zod Schema"]
+    A["User: hi init [options]"] --> B["Validate Options<br/>Zod Schema"]
     B --> C["Check Directory<br/>Exists"]
     C --> D{"Project<br/>Valid?"}
     D -->|No| E["Show Error"]
@@ -159,7 +159,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A["User: ck doctor [options]"] --> B["Create CheckRunner"]
+    A["User: hi doctor [options]"] --> B["Create CheckRunner"]
     B --> C["Register Checkers"]
     C --> D["System Checker"]
     C --> E["GitHub Checker"]
@@ -566,7 +566,7 @@ When installing HiLab globally (with `-g` flag), file paths must be transformed 
 
 ```mermaid
 flowchart TD
-    A["User: ck new/init -g<br/>Global Install"] --> B["Extract Kit Archive"]
+    A["User: hi new/init -g<br/>Global Install"] --> B["Extract Kit Archive"]
     B --> C["Check Installation Scope"]
     C --> D{"Global<br/>Install?"}
     D -->|Yes| E["Transform Paths"]

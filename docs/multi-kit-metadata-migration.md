@@ -62,20 +62,20 @@ File locking prevents race conditions when multiple processes install kits simul
 
 ```bash
 # Install engineer kit
-ck init --kit engineer
+hi init --kit engineer
 
 # Install marketing kit (preserves engineer)
-ck init --kit marketing
+hi init --kit marketing
 ```
 
 ### Uninstalling Specific Kit
 
 ```bash
 # Remove only marketing kit (preserves engineer)
-ck uninstall --kit marketing
+hi uninstall --kit marketing
 
 # Remove all kits
-ck uninstall
+hi uninstall
 ```
 
 ### Shared File Handling

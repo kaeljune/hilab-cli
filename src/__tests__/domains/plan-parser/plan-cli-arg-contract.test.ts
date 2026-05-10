@@ -166,7 +166,7 @@ function extractInvocations(filePath: string): HiPlanInvocation[] {
 
 		// Only process lines with `hi plan` — word boundary prevents substring
 		// matches against words ending in "hi" (e.g. "fact-check plan claims").
-		if (!/\bck\s+plan\b/.test(line)) continue;
+		if (!/\bhi\s+plan\b/.test(line)) continue;
 
 		// Skip /hi:skill references (not CLI invocations)
 		if (/\/hi:[a-z]/.test(line)) continue;

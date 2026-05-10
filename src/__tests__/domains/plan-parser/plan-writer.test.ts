@@ -146,10 +146,10 @@ describe("generatePlanMd", () => {
 		expect(data.source).toBe("cli");
 	});
 
-	test("sets createdBy=ck:plan when source=skill", () => {
+	test("sets createdBy=hi:plan when source=skill", () => {
 		const output = generatePlanMd({ ...baseOptions, source: "skill" });
 		const { data } = matter(output);
-		expect(data.createdBy).toBe("ck:plan");
+		expect(data.createdBy).toBe("hi:plan");
 		expect(data.source).toBe("skill");
 	});
 

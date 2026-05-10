@@ -927,8 +927,8 @@ A: Restart terminal or manually add to PATH in shell config (.bashrc, .zshrc, pr
 
    ```bash
    ck diagnose              # Check authentication, access, releases
-   ck doctor                # Check dependencies and setup
-   ck new --verbose         # Enable detailed logging
+   hi doctor                # Check dependencies and setup
+   hi new --verbose         # Enable detailed logging
    ```
 
    **Common Issues:**
