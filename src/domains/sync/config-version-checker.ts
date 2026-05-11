@@ -74,7 +74,7 @@ const RELEASES_PER_PAGE = 100;
  */
 const KIT_REPOS: Record<string, { owner: string; repo: string }> = {
 	coding: { owner: "kaeljune", repo: "hilab-coding" },
-	marketing: { owner: "hilab", repo: "hilab-marketing" },
+	marketing: { owner: "kaeljune", repo: "hilab-marketing" },
 };
 
 /**

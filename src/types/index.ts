@@ -16,6 +16,7 @@ export {
 	USER_CONFIG_PATTERNS,
 	PROTECTED_PATTERNS,
 	isValidKitType,
+	LEGACY_KIT_ALIASES,
 } from "./kit.js";
 
 // Command types

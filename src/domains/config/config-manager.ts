@@ -11,6 +11,7 @@ import {
 	DEFAULT_FOLDERS,
 	type FoldersConfig,
 	FoldersConfigSchema,
+	LEGACY_KIT_ALIASES,
 } from "@/types";
 
 // Project-level config file name
@@ -60,6 +61,12 @@ export class ConfigManager {
 			if (existsSync(configFile)) {
 				const content = await readFile(configFile, "utf-8");
 				const data = JSON.parse(content);
+				// Migrate legacy kit aliases (e.g., "engineer" → "coding") before schema validation.
+				// Keeps stored configs from previous CLI versions valid after rebrand.
+				const legacyKit = data?.defaults?.kit;
+				if (typeof legacyKit === "string" && legacyKit in LEGACY_KIT_ALIASES) {
+					data.defaults.kit = LEGACY_KIT_ALIASES[legacyKit];
+				}
 				ConfigManager.config = ConfigSchema.parse(data);
 				logger.debug(`Config loaded from ${configFile}`);
 				return ConfigManager.config;
