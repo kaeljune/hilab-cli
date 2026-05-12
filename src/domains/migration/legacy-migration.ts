@@ -5,10 +5,38 @@ import { OwnershipChecker } from "@/services/file-operations/ownership-checker.j
 import { mapWithLimit } from "@/shared/concurrent-file-ops.js";
 import { getOptimalConcurrency } from "@/shared/environment.js";
 import { logger } from "@/shared/logger.js";
+import { createSpinner } from "@/shared/safe-spinner.js";
 import { SKIP_DIRS_ALL, hasSkippedDirectorySegment } from "@/shared/skip-directories.js";
 import type { Metadata, TrackedFile } from "@/types";
 import { writeFile } from "fs-extra";
 import { type ReleaseManifest, ReleaseManifestLoader } from "./release-manifest.js";
+
+// Per-file checksum timeout (ms). Guards against hangs on FIFOs, network
+// mounts, or other special files that block on read. SHA-256 of a 100 MB
+// file on a normal SSD is < 1 s, so 30 s is generous.
+const CHECKSUM_TIMEOUT_MS = 30_000;
+
+/**
+ * Calculate SHA-256 with a per-file timeout. Returns null if the file errors
+ * or exceeds the timeout — caller can decide to skip vs fail. We log at
+ * debug level so a single bad file doesn't pollute the install output.
+ */
+async function safeChecksum(filePath: string, relativePath: string): Promise<string | null> {
+	try {
+		return await Promise.race([
+			OwnershipChecker.calculateChecksum(filePath),
+			new Promise<string>((_, reject) =>
+				setTimeout(
+					() => reject(new Error(`checksum timeout after ${CHECKSUM_TIMEOUT_MS}ms`)),
+					CHECKSUM_TIMEOUT_MS,
+				),
+			),
+		]);
+	} catch (err) {
+		logger.debug(`Skipping ${relativePath}: ${(err as Error).message}`);
+		return null;
+	}
+}
 
 export interface LegacyDetectionResult {
 	isLegacy: boolean;
@@ -150,20 +178,34 @@ export class LegacyMigration {
 			}
 		}
 
-		// Batch calculate checksums with concurrency limit to avoid EMFILE
+		// Batch calculate checksums with concurrency limit to avoid EMFILE.
+		// Use safeChecksum so a single bad file (FIFO, broken symlink, network
+		// mount) cannot stall the entire migration.
 		if (filesInManifest.length > 0) {
+			const total = filesInManifest.length;
+			const spinner = createSpinner(`Classifying ${total} files...`).start();
+			let completed = 0;
+
 			const checksumResults = await mapWithLimit(
 				filesInManifest,
 				async ({ file, relativePath, manifestChecksum }) => {
-					const actualChecksum = await OwnershipChecker.calculateChecksum(file);
+					const actualChecksum = await safeChecksum(file, relativePath);
+					completed++;
+					if (completed % 100 === 0 || completed === total) {
+						spinner.text = `Classifying files... ${completed}/${total}`;
+					}
 					return { relativePath, actualChecksum, manifestChecksum };
 				},
 				getOptimalConcurrency(),
 			);
 
-			// Classify based on checksum comparison
+			spinner.succeed(`Classified ${total} files`);
+
+			// Classify based on checksum comparison. Files that failed checksum
+			// are treated as modified (safer default — they'll be tracked but
+			// flagged as user-touched).
 			for (const { relativePath, actualChecksum, manifestChecksum } of checksumResults) {
-				if (actualChecksum === manifestChecksum) {
+				if (actualChecksum && actualChecksum === manifestChecksum) {
 					preview.ckPristine.push(relativePath);
 				} else {
 					preview.ckModified.push(relativePath);
@@ -241,19 +283,40 @@ export class LegacyMigration {
 			...preview.userCreated.map((p) => ({ relativePath: p, ownership: "user" as const })),
 		];
 
-		// Calculate checksums with concurrency limit to avoid EMFILE
+		// Calculate checksums with concurrency limit to avoid EMFILE.
+		// Show a spinner + progress: legacy installs on macOS can have 1500+
+		// user files which take several seconds; without progress the CLI
+		// appears frozen and users kill it before it finishes.
 		if (filesToChecksum.length > 0) {
+			const total = filesToChecksum.length;
+			const spinner = createSpinner(`Tracking ${total} files...`).start();
+			let completed = 0;
+			let skipped = 0;
+
 			const checksumResults = await mapWithLimit(
 				filesToChecksum,
 				async ({ relativePath, ownership }) => {
 					const fullPath = join(claudeDir, relativePath);
-					const checksum = await OwnershipChecker.calculateChecksum(fullPath);
+					const checksum = await safeChecksum(fullPath, relativePath);
+					completed++;
+					if (checksum === null) skipped++;
+					if (completed % 100 === 0 || completed === total) {
+						spinner.text = `Tracking files... ${completed}/${total}${skipped > 0 ? ` (${skipped} skipped)` : ""}`;
+					}
 					return { relativePath, checksum, ownership };
 				},
 				getOptimalConcurrency(),
 			);
 
+			spinner.succeed(`Tracked ${total - skipped}/${total} files`);
+			if (skipped > 0) {
+				logger.warning(
+					`Skipped ${skipped} unreadable file(s) during ownership tracking (see debug logs for details)`,
+				);
+			}
+
 			for (const { relativePath, checksum, ownership } of checksumResults) {
+				if (checksum === null) continue; // file unreadable — exclude from ownership manifest
 				trackedFiles.push({
 					path: relativePath,
 					checksum,
