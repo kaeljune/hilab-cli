@@ -1,6 +1,6 @@
 {
-	"version": "0.1.4",
-	"generatedAt": "2026-05-11T09:05:11.884Z",
+	"version": "0.1.5",
+	"generatedAt": "2026-05-12T04:47:47.639Z",
 	"commands": {
 		"agents": {
 			"name": "agents",
