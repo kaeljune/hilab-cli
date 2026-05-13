@@ -813,6 +813,8 @@ describe("HiLabChecker - Enhanced Checks", () => {
 	});
 
 	describe("ClaudekitChecker.run", () => {
+		// 30s timeout: ClaudekitChecker.run() aggregates many file-scanning checks and can be
+		// slow under load (CI runners, parallel test execution). Default 5s is too tight.
 		test("includes hook-command-path findings from settings.local.json in the aggregate run", async () => {
 			const projectClaudeDir = join(mockProjectDir, ".claude");
 			mkdirSync(projectClaudeDir, { recursive: true });
@@ -839,7 +841,7 @@ describe("HiLabChecker - Enhanced Checks", () => {
 			expect(hookCommandPaths).toBeDefined();
 			expect(hookCommandPaths?.status).toBe("fail");
 			expect(hookCommandPaths?.details).toContain("project settings.local.json");
-		});
+		}, 30000);
 	});
 
 	describe("Edge Cases", () => {

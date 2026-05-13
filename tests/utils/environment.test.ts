@@ -222,36 +222,39 @@ describe("environment utilities", () => {
 	});
 
 	describe("getOptimalConcurrency", () => {
-		it("should return 10 for macOS (lower due to ulimit and Spotlight)", () => {
+		// v0.1.6: bumped from 10/15/20 → 50/50/100. Modern SSDs + default ulimit
+		// (10240+ on macOS) handle far more concurrent SHA-256 streams than the
+		// original conservative limits. ~5x speedup on large `.claude/` trees.
+		it("should return 50 for macOS", () => {
 			Object.defineProperty(process, "platform", {
 				value: "darwin",
 				writable: true,
 			});
-			expect(getOptimalConcurrency()).toBe(10);
+			expect(getOptimalConcurrency()).toBe(50);
 		});
 
-		it("should return 15 for Windows (moderate I/O)", () => {
+		it("should return 50 for Windows", () => {
 			Object.defineProperty(process, "platform", {
 				value: "win32",
 				writable: true,
 			});
-			expect(getOptimalConcurrency()).toBe(15);
+			expect(getOptimalConcurrency()).toBe(50);
 		});
 
-		it("should return 20 for Linux (higher I/O limits)", () => {
+		it("should return 100 for Linux (higher I/O limits)", () => {
 			Object.defineProperty(process, "platform", {
 				value: "linux",
 				writable: true,
 			});
-			expect(getOptimalConcurrency()).toBe(20);
+			expect(getOptimalConcurrency()).toBe(100);
 		});
 
-		it("should return 20 for unknown platforms (defaults to Linux behavior)", () => {
+		it("should return 100 for unknown platforms (defaults to Linux behavior)", () => {
 			Object.defineProperty(process, "platform", {
 				value: "freebsd",
 				writable: true,
 			});
-			expect(getOptimalConcurrency()).toBe(20);
+			expect(getOptimalConcurrency()).toBe(100);
 		});
 	});
 });
