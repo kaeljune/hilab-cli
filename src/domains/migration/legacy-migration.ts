@@ -277,19 +277,34 @@ export class LegacyMigration {
 			}
 		}
 
-		// Calculate checksums in parallel for modified and user files
-		const filesToChecksum = [
-			...preview.ckModified.map((p) => ({ relativePath: p, ownership: "hi-modified" as const })),
-			...preview.userCreated.map((p) => ({ relativePath: p, ownership: "user" as const })),
-		];
+		// User-owned files: ownership-only tracking, no checksum needed.
+		// `sync-engine.createSyncPlan` short-circuits on `ownership === "user"`
+		// (sync-engine.ts:168) before any checksum comparison, so an empty
+		// checksum here is safe and never read. Skipping these saves the bulk
+		// of migration time on installs with many user files (4000+ is common
+		// after a few months of use on macOS, including Finder duplicates like
+		// `.env 2.example`).
+		for (const relativePath of preview.userCreated) {
+			trackedFiles.push({
+				path: relativePath,
+				checksum: "",
+				ownership: "user",
+				installedVersion: kitVersion,
+			});
+		}
 
-		// Calculate checksums with concurrency limit to avoid EMFILE.
-		// Show a spinner + progress: legacy installs on macOS can have 1500+
-		// user files which take several seconds; without progress the CLI
-		// appears frozen and users kill it before it finishes.
+		// Only CK-modified files need fresh checksums — these are kit-owned
+		// files the user has edited, and sync-engine compares their checksum
+		// against the manifest to decide auto-update vs needs-review on the
+		// next `hi init`.
+		const filesToChecksum = preview.ckModified.map((p) => ({
+			relativePath: p,
+			ownership: "hi-modified" as const,
+		}));
+
 		if (filesToChecksum.length > 0) {
 			const total = filesToChecksum.length;
-			const spinner = createSpinner(`Tracking ${total} files...`).start();
+			const spinner = createSpinner(`Tracking ${total} modified file(s)...`).start();
 			let completed = 0;
 			let skipped = 0;
 
@@ -300,15 +315,15 @@ export class LegacyMigration {
 					const checksum = await safeChecksum(fullPath, relativePath);
 					completed++;
 					if (checksum === null) skipped++;
-					if (completed % 100 === 0 || completed === total) {
-						spinner.text = `Tracking files... ${completed}/${total}${skipped > 0 ? ` (${skipped} skipped)` : ""}`;
+					if (completed % 50 === 0 || completed === total) {
+						spinner.text = `Tracking modified files... ${completed}/${total}${skipped > 0 ? ` (${skipped} skipped)` : ""}`;
 					}
 					return { relativePath, checksum, ownership };
 				},
 				getOptimalConcurrency(),
 			);
 
-			spinner.succeed(`Tracked ${total - skipped}/${total} files`);
+			spinner.succeed(`Tracked ${total - skipped}/${total} modified file(s)`);
 			if (skipped > 0) {
 				logger.warning(
 					`Skipped ${skipped} unreadable file(s) during ownership tracking (see debug logs for details)`,

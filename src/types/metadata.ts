@@ -20,7 +20,15 @@ export interface TrackedFile {
 
 export const TrackedFileSchema = z.object({
 	path: z.string(),
-	checksum: z.string().regex(/^[a-f0-9]{64}$/, "Invalid SHA-256 checksum"),
+	// Empty string allowed for user-owned files (sync-engine skips them before any
+	// checksum comparison — computing SHA-256 for thousands of user files during
+	// legacy migration is the dominant cost and contributes nothing functional).
+	checksum: z
+		.string()
+		.refine(
+			(v) => v === "" || /^[a-f0-9]{64}$/.test(v),
+			"Must be empty or a valid SHA-256 checksum",
+		),
 	ownership: z.enum(["hi", "user", "hi-modified"]),
 	installedVersion: z.string(),
 	baseChecksum: z
