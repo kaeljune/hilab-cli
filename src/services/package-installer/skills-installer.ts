@@ -1,4 +1,5 @@
-import { join } from "node:path";
+import { homedir } from "node:os";
+import { join, resolve } from "node:path";
 import { isCIEnvironment, isNonInteractive } from "@/shared/environment.js";
 import { logger } from "@/shared/logger.js";
 import {
@@ -240,11 +241,29 @@ export async function installSkillsDependencies(
 
 		// Run the installation script with real-time output streaming
 		// Using spawn with stdio: 'inherit' instead of execFile to show progress
-		// Set NON_INTERACTIVE=1 as secondary safety to skip all prompts
-		const scriptEnv = {
+		// Set NON_INTERACTIVE=1 as secondary safety to skip all prompts.
+		//
+		// Compute PROJECT_ROOT from skillsDir so install.sh writes the
+		// ELEVENLABS_API_KEY to the user's PROJECT root `.env` instead of
+		// `.claude/skills/.env` (which was the previous fallback because
+		// install.sh resolves `${PROJECT_ROOT:-$PWD}/.env` and we set
+		// `cwd: skillsDir`).
+		//
+		// `skillsDir` is `<projectRoot>/.claude/skills` for local installs and
+		// `~/.claude/skills` for global installs. Walking up two levels gives
+		// us the right answer for local installs. For global installs we
+		// deliberately do NOT set PROJECT_ROOT so install.sh falls back to its
+		// own $PWD / $HOME logic — writing a stray `.env` to the user's home
+		// directory would be surprising.
+		const candidateProjectRoot = resolve(skillsDir, "..", "..");
+		const isGlobalInstall = candidateProjectRoot === homedir();
+		const scriptEnv: NodeJS.ProcessEnv = {
 			...process.env,
 			NON_INTERACTIVE: "1",
 		};
+		if (!isGlobalInstall) {
+			scriptEnv.PROJECT_ROOT = candidateProjectRoot;
+		}
 
 		if (platform === "win32") {
 			// Use executeInteractiveScript for real-time output streaming
